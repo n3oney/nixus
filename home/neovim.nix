@@ -13,6 +13,25 @@
             editing_text = "Editing %s";
           };
         };
+        maps.terminal = {
+          "<S-BS>" = {action = "<BS>";};
+          "<C-BS>" = {action = "<BS>";};
+          "<M-S-BS>" = {action = "<BS>";};
+          "<M-C-BS>" = {action = "<BS>";};
+          "<C-S-BS>" = {action = "<BS>";};
+          "<M-C-S-BS>" = {action = "<BS>";};
+          "<S-Space>" = {action = "<Space>";};
+          "<M-S-Space>" = {action = "<Space>";};
+          "<M-C-Space>" = {action = "<Space>";};
+          "<C-S-Space>" = {action = "<Space>";};
+          "<M-C-S-Space>" = {action = "<Space>";};
+          "<S-CR>" = {action = "<CR>";};
+          "<C-CR>" = {action = "<CR>";};
+          "<M-S-CR>" = {action = "<CR>";};
+          "<M-C-CR>" = {action = "<CR>";};
+          "<C-S-CR>" = {action = "<CR>";};
+          "<M-C-S-CR>" = {action = "<CR>";};
+        };
         git.enable = true;
         wordWrap = false;
         theme = {
