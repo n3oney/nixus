@@ -231,7 +231,7 @@ in
 
         ${
           if vars ? area_screenshot_keybind
-          then "bind = ${area_screenshot_keybind}, exec, grimblast save area - | wl-copy -t image/png && notify-send 'Screenshot taken' --expire-time 1000"
+          then "bind = ${area_screenshot_keybind}, exec, pauseshot | wl-copy -t image/png && notify-send 'Screenshot taken' --expire-time 1000"
           else ""
         }
 
