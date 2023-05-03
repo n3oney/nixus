@@ -19,7 +19,7 @@
     telegram-desktop
 
     lazygit
-    
+
     xdg-utils
   ];
 
@@ -33,7 +33,7 @@
     inputs.hyprland.homeManagerModules.default
     inputs.neovim-flake.homeManagerModules.default
     ./hyprland
-    ./neovim
+    ./neovim.nix
     ./foot
     ./fish
     ./starship

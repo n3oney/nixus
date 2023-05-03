@@ -89,6 +89,11 @@
         visuals = {
           enable = true;
           nvimWebDevicons.enable = true;
+          indentBlankline = {
+            enable = true;
+            fillChar = null;
+            eolChar = null;
+          };
         };
         treesitter = {
           enable = true;
@@ -105,6 +110,7 @@
           direction = "vertical";
           lazygit.enable = true;
         };
+        ui.noice.enable = true;
         binds.whichKey.enable = true;
         utility.motion.leap.enable = true;
         assistant.copilot = {

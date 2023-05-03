@@ -1070,8 +1070,11 @@
         "zig": "zig"
       },
       "locked": {
-        "lastModified": 1683066381,
-        "narHash": "sha256-M50mpfa8qs+KXQsnOIqRLYEPR/jdOOT3L7MFRWSCmDM=",
+        "lastModified": 1683119136,
+        "narHash": "sha256-1bcW8MNR0BnYGFN3jbe3h5sNMwNqVk2apJkrslLL13g=",
+        "ref": "refs/heads/feature/custom-keybinds",
+        "rev": "84b48ced2672ae715b763ae479965bb8ec4dbdb3",
+        "revCount": 460,
         "type": "git",
         "url": "file:///home/neoney/code/neovim-flake"
       },
@@ -1626,7 +1629,7 @@
       },
       "locked": {
         "lastModified": 0,
-        "narHash": "sha256-siKF5zOCF023VOP4DWkYWOBAAS/34WEyaOr5S+jX7Tc=",
+        "narHash": "sha256-e42MTVvMZk32Op3+yrT9CHmeGvfUXSkBTmSOxYTAbtY=",
         "type": "git",
         "url": "file:///home/neoney/code/poweroff"
       },
