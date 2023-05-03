@@ -32,11 +32,11 @@
   imports = [
     inputs.hyprland.homeManagerModules.default
     inputs.neovim-flake.homeManagerModules.default
-    ./hyprland
+    ./hyprland.nix
     ./neovim.nix
-    ./foot
-    ./fish
-    ./starship
+    ./foot.nix
+    ./fish.nix
+    ./starship.nix
     ./anyrun.nix
     ./discord
     ./firefox.nix
