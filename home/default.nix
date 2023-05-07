@@ -43,6 +43,7 @@
     ./eww
     ./gpg.nix
     ./gtk.nix
+    ./keyring.nix
   ];
 
   home.sessionVariables = {
