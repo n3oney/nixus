@@ -128,7 +128,7 @@
     inherit inputs vars;
   };
 
-  security.pam.services.swaylock = {};
+  security.pam.services.gtklock = {};
   services.physlock = {
     enable = true;
     allowAnyUser = true;
@@ -144,7 +144,7 @@
     remotePlay.openFirewall = true;
   };
 
-programs.gamemode.enable = true;
+  programs.gamemode.enable = true;
 
   system.stateVersion = "22.11";
 }
