@@ -45,6 +45,7 @@
     ./gtk.nix
     ./keyring.nix
     ./nheko.nix
+    ./notifications.nix
   ];
 
   home.sessionVariables = {
