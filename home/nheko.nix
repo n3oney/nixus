@@ -2,10 +2,10 @@
   programs.nheko = {
     enable = true;
 
-    settings = {
-      user = {
-        theme = "dark";
-      };
-    };
+    # settings = {
+      # user = {
+        # theme = "dark";
+      # };
+    # };
   };
 }
