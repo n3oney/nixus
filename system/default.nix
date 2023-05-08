@@ -128,6 +128,8 @@
     inherit inputs vars;
   };
 
+  services.gnome.gnome-keyring.enable = true;
+
   security.pam.services.gtklock = {};
   services.physlock = {
     enable = true;

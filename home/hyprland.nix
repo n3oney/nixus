@@ -92,20 +92,20 @@ in
           else ""
         }
 
-        workspace=2,${main_monitor}
+        workspace=2,monitor:${main_monitor}, default:true
         ${
           if vars ? secondary_monitor
-          then "workspace=19,${secondary_monitor}"
+          then "workspace=19,monitor:${secondary_monitor}, default:true"
           else ""
         }
 
         ${
-          lib.concatMapStringsSep "\n" (n: "wsbind=${toString n},${main_monitor}") (lib.range 1 10)
+          lib.concatMapStringsSep "\n" (n: "workspace=${toString n},monitor:${main_monitor}") (lib.range 1 10)
         }
 
         ${
           if vars ? secondary_monitor
-          then lib.concatMapStringsSep "\n" (n: "wsbind=${toString n},${secondary_monitor}") (lib.range 11 20)
+          then lib.concatMapStringsSep "\n" (n: "workspace=${toString n},monitor:${secondary_monitor}") (lib.range 11 20)
           else ""
         }
 
@@ -339,8 +339,6 @@ in
         layerrule = ignorezero,gtk-layer-shell
 
         layerrule = noanim, ^(selection)$
-
-        exec-once = hyprctl dispatch moveworkspacetomonitor 2 ${main_monitor}
 
         exec-once = firefox &
         exec-once = webcord &
