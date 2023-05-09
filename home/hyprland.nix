@@ -327,6 +327,7 @@ in
           then "19"
           else "9"
         },class:nheko
+
         windowrulev2 = workspace ${
           if vars ? secondary_monitor
           then "19"
@@ -339,8 +340,11 @@ in
         windowrulev2 = fullscreen,title:^(PAUSESHOT)$
 
         layerrule = blur,gtk-layer-shell
-        layerrule = blur,anyrun
         layerrule = ignorezero,gtk-layer-shell
+        layerrule = blur,anyrun
+        layerrule = ignorezero,anyrun
+        layerrule = blur,notifications
+        layerrule = ignorezero,notifications
 
         layerrule = noanim, ^(selection)$
 
