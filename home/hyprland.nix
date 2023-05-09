@@ -109,7 +109,7 @@ in
 
         exec-once=hyprctl setcursor ${cursor.name} ${toString cursor.size}
 
-        exec-once=${lib.getExe pkgs.hyprpaper} & playerctld & mako
+        exec-once=${lib.getExe pkgs.hyprpaper} & ${pkgs.playerctl}/bin/playerctld & mako
         exec-once=eww daemon && eww open bar
 
         # https://wiki.hyprland.org/Configuring/Variables/
@@ -259,9 +259,9 @@ in
 
         # Music controls
 
-        bind = , XF86AudioPlay, exec, playerctl play-pause
-        bind = , XF86AudioNext, exec, playerctl next
-        bind = , XF86AudioPrev, exec, playerctl previous
+        bind = , XF86AudioPlay, exec, ${lib.getExe pkgs.playerctl} play-pause
+        bind = , XF86AudioNext, exec, ${lib.getExe pkgs.playerctl} next
+        bind = , XF86AudioPrev, exec, ${lib.getExe pkgs.playerctl} previous
 
         # Brightness
 
