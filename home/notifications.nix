@@ -14,7 +14,6 @@
         notification_limit = 20;
 
         frame_width = 2;
-        frame_color = "#a6e3a1";
         gap_size = 10;
 
         idle_threshold = 32;
@@ -29,15 +28,17 @@
       urgency_low = {
         background = "#18182580";
         foreground = "#cdd6f4";
+        frame_color = "#9399b2";
       };
 
       urgency_normal = {
-        background = "#181825";
+        background = "#18182580";
         foreground = "#cdd6f4";
+        frame_color = "#a6e3a1";
       };
 
       urgency_critical = {
-        background = "#181825";
+        background = "#18182580";
         foreground = "#cdd6f4";
         frame_color = "#f38ba8";
       };
