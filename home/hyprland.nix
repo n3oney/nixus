@@ -20,8 +20,6 @@ in
 
       hyprpaper
 
-      ydotool
-
       wlsunset
 
       hyprpicker
@@ -314,7 +312,7 @@ in
 
 
         # Text keybindings because why not
-        bind = $mainMod , z, exec, sleep 1 && echo "+:hesrightyouknow:" | ydotool type -d 0 -H 2 -f -
+        bind = $mainMod , z, exec, sleep 1 && ${lib.getExe pkgs.wtype} " +:hesrightyouknow:" -P Return -p Return
 
         windowrulev2 = workspace 2,class:firefox
 
@@ -346,8 +344,6 @@ in
         exec-once=${lib.getExe inputs.arrpc.packages.${pkgs.system}.arrpc} &
 
         exec-once=wlsunset -l 52.2 -L 21 &
-
-        exec-once=ydotoold &
 
         exec-once=swayidle timeout 300 'physlock -ldms && gtklock && physlock -Ld' timeout 360 'hyprctl dispatch dpms off' resume 'hyprctl dispatch dpms on' timeout 420 'test $(mpstat -o JSON 1 3 | jqq -r ".sysstat.hosts[0].statistics[0]["cpu-load"][0].usr | floor") -lt 80 && systemctl suspend'
       '';
