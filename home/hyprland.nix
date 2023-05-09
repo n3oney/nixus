@@ -93,8 +93,8 @@ in
         workspace=2,monitor:${main_monitor}, default:true
         ${
           if vars ? secondary_monitor
-          then "workspace=19,monitor:${secondary_monitor}, default:true"
-          else ""
+          then "workspace=19,monitor:${secondary_monitor}, default:true, gapsin:0, gapsout:0, bordersize:0, rounding:false"
+          else "workspace=9,monitor:${primary_monitor}, gapsin:0, gapsout:0, bordersize:0, rounding:false"
         }
 
         ${
@@ -321,6 +321,12 @@ in
           then "18"
           else "8"
         },class:caprine
+
+        windowrulev2 = workspace ${
+          if vars ? secondary_monitor
+          then "19"
+          else "9"
+        },class:nheko
         windowrulev2 = workspace ${
           if vars ? secondary_monitor
           then "19"
@@ -339,7 +345,7 @@ in
         layerrule = noanim, ^(selection)$
 
         exec-once = firefox &
-        exec-once = webcord &
+        exec-once = nheko & webcord &
 
         exec-once=${lib.getExe inputs.arrpc.packages.${pkgs.system}.arrpc} &
 
