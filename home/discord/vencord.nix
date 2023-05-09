@@ -56,7 +56,7 @@
     HideAttachments.enabled = false;
     iLoveSpam.enabled = false;
     IgnoreActivities.enabled = false;
-    ImageZoom.enabled = false;
+    ImageZoom.enabled = true;
     InvisibleChat.enabled = false;
     KeepCurrentChannel.enabled = false;
     LastFMRichPresence.enabled = false;
@@ -73,8 +73,8 @@
     MuteNewGuild.enabled = false;
     NoBlockedMessages.enabled = false;
     NoCanaryMessageLinks.enabled = false;
-    NoDevtoolsWarning.enabled = false;
-    NoF1.enabled = false;
+    NoDevtoolsWarning.enabled = true;
+    NoF1.enabled = true;
     NoReplyMention = {
       # Example of the config for a plugin. You need to look in Vencord's source code.
       # For example for this, it's in https://github.com/Vendicated/Vencord/blob/bf795c49dfe988f3013cda35cfe18e124456f23f/src/plugins/noReplyMention.tsx#L25
@@ -93,12 +93,12 @@
     PronounDB.enabled = false;
     QuickMention.enabled = false;
     QuickReply.enabled = true;
-    ReadAllNotificationsButton.enabled = false;
-    RelationshipNotifier.enabled = false;
+    ReadAllNotificationsButton.enabled = true;
+    RelationshipNotifier.enabled = true;
     RevealAllSpoilers.enabled = false;
     ReverseImageSearch.enabled = false;
     ReviewDB.enabled = false;
-    RoleColorEverywhere.enabled = false;
+    RoleColorEverywhere.enabled = true;
     SearchReply.enabled = false;
     SendTimestamps.enabled = false;
     ServerListIndicators.enabled = false;
@@ -106,11 +106,11 @@
       enabled = true;
       settingsLocation = "aboveActivity";
     };
-    ShikiCodeblocks.enabled = false;
+    ShikiCodeblocks.enabled = true;
     ShowHiddenChannels.enabled = false;
     ShowMeYourName.enabled = false;
     SilentMessageToggle.enabled = false;
-    SilentTyping.enabled = false;
+    SilentTyping.enabled = true;
     SortFriendRequests.enabled = false;
     SpotifyControls.enabled = false;
     SpotifyCrack.enabled = false;
@@ -118,15 +118,15 @@
     StartupTimings.enabled = false;
     SupportHelper.enabled = true;
     TimeBarAllActivities.enabled = false;
-    TypingIndicator.enabled = false;
-    TypingTweaks.enabled = false;
-    Unindent.enabled = false;
+    TypingIndicator.enabled = true;
+    TypingTweaks.enabled = true;
+    Unindent.enabled = true;
     ReactErrorDecoder.enabled = false;
     UrbanDictionary.enabled = false;
     UserVoiceShow.enabled = false;
     USRBG.enabled = false;
-    UwUifier.enabled = false;
-    VoiceChatDoubleClick.enabled = false;
+    UwUifier.enabled = true;
+    VoiceChatDoubleClick.enabled = true;
     VcNarrator.enabled = false;
     ViewIcons.enabled = false;
     ViewRaw.enabled = false;
