@@ -42,6 +42,7 @@
     };
 
     poweroff.url = "/home/neoney/code/poweroff";
+    shadower.url = "github:n3oney/shadower";
   };
 
   outputs = inputs @ {

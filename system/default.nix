@@ -14,6 +14,7 @@
     inputs.eww.overlays.default
     inputs.rust-overlay.overlays.default
     inputs.anyrun.overlay
+    inputs.shadower.overlay
     (import ../pkgs/overlays)
   ];
 

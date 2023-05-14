@@ -32,6 +32,7 @@ in
       sysstat
 
       jaq
+      shadower
 
       (writeShellScriptBin
         "pauseshot"
@@ -223,13 +224,13 @@ in
         # Screenshots
         ${
           if vars ? active_screenshot_keybind
-          then "bind = ${active_screenshot_keybind}, exec, grimblast save active - | wl-copy -t image/png && notify-send 'Screenshot taken' --expire-time 1000"
+          then "bind = ${active_screenshot_keybind}, exec, grimblast save active - | shadower | wl-copy -t image/png && notify-send 'Screenshot taken' --expire-time 1000"
           else ""
         }
 
         ${
           if vars ? area_screenshot_keybind
-          then "bind = ${area_screenshot_keybind}, exec, pauseshot | wl-copy -t image/png && notify-send 'Screenshot taken' --expire-time 1000"
+          then "bind = ${area_screenshot_keybind}, exec, pauseshot | shadower | wl-copy -t image/png && notify-send 'Screenshot taken' --expire-time 1000"
           else ""
         }
 
