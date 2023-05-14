@@ -147,6 +147,10 @@
     remotePlay.openFirewall = true;
   };
 
+  environment.variables = {
+    STEAM_EXTRA_COMPAT_TOOLS_PATHS = "${pkgs.proton-ge-custom}";
+  };
+
   programs.gamemode.enable = true;
 
   system.stateVersion = "22.11";
