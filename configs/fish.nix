@@ -46,5 +46,12 @@
       enable = true;
       nix-direnv.enable = true;
     };
+
+    programs.exa = {
+      enable = true;
+      enableAliases = true;
+      icons = true;
+      git = true;
+    };
   };
 }
