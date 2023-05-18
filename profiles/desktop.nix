@@ -11,6 +11,7 @@ in
         fish
         anyrun
         discord
+        eww
         firefox
         fonts
         foot

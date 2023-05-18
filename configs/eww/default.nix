@@ -1,13 +1,10 @@
 {
   inputs = {
+    rust-overlay.url = "github:oxalica/rust-overlay";
     eww = {
       url = "github:elkowar/eww";
       inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    rust-overlay = {
-      url = "github:oxalica/rust-overlay";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.rust-overlay.follows = "rust-overlay";
     };
   };
 
@@ -21,6 +18,7 @@
     programs.eww.configDir = ./config;
 
     home.packages = with pkgs; [
+      gcc-unwrapped
       socat
       pulseaudio
       jaq
