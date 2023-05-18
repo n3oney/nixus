@@ -1,6 +1,8 @@
 {
-  system = _: {
+  system = {pkgs, ...}: {
     programs.fish.enable = true;
+
+    users.users.neoney.shell = pkgs.fish;
   };
 
   home = {
@@ -21,11 +23,11 @@
         # neovim wrapper to automatically disable transparency in foot
         # and re-enable it after closing it
         nvim = ''
-          for a in 2 6 a d f ; printf "\033]11;rgba:1f/1f/28/ff\007" ; end
+          printf "\033]11;rgba:1f/1f/28/ff\007"
 
           /usr/bin/env nvim $argv
 
-          for a in 2 6 a d f ; printf "\033]11;rgba:1f/1f/28/b2\007" ; end
+          printf "\033]11;rgba:1f/1f/28/b2\007"
         '';
         hd = ''
           sudo nix system apply ~/nixus $argv
