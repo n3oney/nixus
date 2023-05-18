@@ -9,7 +9,15 @@
     };
   };
 
-  outputs = inputs @ {nixpkgs, ...}: {
+  outputs = inputs @ {nixpkgs, ...}: let
+    forAllSystems = nixpkgs.lib.genAttrs [
+      "aarch64-linux"
+      "i686-linux"
+      "x86_64-linux"
+      "aarch64-darwin"
+      "x86_64-darwin"
+    ];
+  in {
     nixosConfigurations = {
       nixuspc = nixpkgs.lib.nixosSystem (
         import ./profiles/desktop.nix (import ./utils/mk-system.nix) {
@@ -18,5 +26,12 @@
         }
       );
     };
+
+    formatter = forAllSystems (
+      system: let
+        pkgs = nixpkgs.legacyPackages.${system};
+      in
+        pkgs.alejandra
+    );
   };
 }
