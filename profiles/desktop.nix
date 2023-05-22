@@ -55,7 +55,9 @@ in
           inactiveBorder = "2B2937";
           secondarySink = "raop_sink.raspberrypi.local.ipv4";
         })
-        youtube-tv
+        (youtube-tv {
+          secondarySink = "raop_sink.raspberrypi.local.ipv4";
+        })
       ];
 
     system = {pkgs, ...}: {
