@@ -46,8 +46,8 @@
         pname = "catppuccin";
         version = "2.0";
         addonId = "{f4363cd3-9ba9-453d-b2b2-66e6e1bafe73}";
-        url = "https://github.com/catppuccin/firefox/releases/download/old/catppuccin_mocha_green.xpi";
-        sha256 = "mKTr2yab/BOFnRBRrgqiVFoFxGms2nvjcOXKmYL54ww=";
+        url = "https://github.com/catppuccin/firefox/releases/download/old/catppuccin_macchiato_pink.xpi";
+        sha256 = "4qyNw3VLEMnEQq1MYaFljHxJfYwzKXRdLQxqkLO8Iqk=";
       };
     };
   in {

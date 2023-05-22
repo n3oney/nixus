@@ -7,7 +7,11 @@
     homeModules = [neovim-flake.homeManagerModules.default];
   };
 
-  home = {inputs, ...}: {
+  home = {
+    inputs,
+    pkgs,
+    ...
+  }: {
     programs.neovim-flake = {
       enable = true;
       settings = {
@@ -22,6 +26,7 @@
               editing_text = "Editing %s";
             };
           };
+
           maps = {
             terminal = {
               "<S-BS>" = {action = "<BS>";};
@@ -60,7 +65,7 @@
           theme = {
             enable = true;
             name = "catppuccin";
-            style = "mocha";
+            style = "macchiato";
           };
           comments.comment-nvim = {
             enable = true;

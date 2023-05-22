@@ -48,8 +48,8 @@
     windowSwitchBind = bind: direction: "bind = $mainMod, ${bind}, exec, hyprctl activewindow -j | $(jaq -r \"if .fullscreen then \\\"hyprctl dispatch focusmonitor ${direction}\\\" else \\\"hyprctl dispatch movefocus ${direction}\\\" end\")";
 
     cursor = {
-      package = pkgs.catppuccin-cursors.mochaGreen;
-      name = "Catppuccin-Mocha-Green-Cursors";
+      package = pkgs.catppuccin-cursors.macchiatoPink;
+      name = "Catppuccin-Macchiato-Pink-Cursors";
       size = 24;
     };
 

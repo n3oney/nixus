@@ -10,11 +10,11 @@
 
       theme = {
         package = pkgs.catppuccin-gtk.override {
-          accents = ["green"];
+          accents = ["pink"];
           tweaks = ["rimless"];
-          variant = "mocha";
+          variant = "macchiato";
         };
-        name = "Catppuccin-Mocha-Standard-Green-Dark";
+        name = "Catppuccin-Macchiato-Standard-Pink-Dark";
       };
     };
 

@@ -9,7 +9,7 @@
       input "type:touchpad" {
         tap enabled
       }
-      seat seat0 xcursor_theme Catppuccin-Mocha-Green-Cursors 24
+      seat seat0 xcursor_theme Catppuccin-Macchiato-Pink-Cursors 24
 
       xwayland disable
 
