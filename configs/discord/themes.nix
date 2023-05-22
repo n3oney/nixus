@@ -1,4 +1,10 @@
 {
+  config,
+  lib,
+  ...
+}:
+with lib;
+with builtins; {
   xdg.configFile."WebCord/Themes/transparency".text = ''
     body{
         background-color: transparent;
@@ -14,7 +20,7 @@
     }
 
     .members-3WRCEx, .container-1NXEtd, .guilds-2JjMmN, .chatContent-3KubbW  {
-        background: rgba(31, 31, 40, 0.7) !important
+        background: #${config.programs.foot.settings.colors.background}${toHexString (floor (config.programs.foot.settings.colors.alpha * 255))} !important;
     }
 
     .container-1NXEtd {

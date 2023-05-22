@@ -8,6 +8,7 @@
   home = {
     pkgs,
     lib,
+    config,
     ...
   }: {
     programs.fish = {
@@ -22,12 +23,15 @@
       functions = {
         # neovim wrapper to automatically disable transparency in foot
         # and re-enable it after closing it
-        nvim = ''
-          printf "\033]11;rgba:1f/1f/28/ff\007"
+        nvim = with builtins;
+        with lib; ''
+          printf "\033]11;rgba:24/27/3a/ff\007"
 
-          /usr/bin/env nvim $argv
+          command nvim $argv
 
-          printf "\033]11;rgba:1f/1f/28/b2\007"
+          printf "\033]11;rgba:${
+            concatStringsSep "/" (match "([0-9a-fA-F]{2})([0-9a-fA-F]{2})([0-9a-fA-F]{2})" config.programs.foot.settings.colors.background)
+          }/${toHexString (floor (config.programs.foot.settings.colors.alpha * 255))}\007"
         '';
         hd = ''
           sudo nix system apply ~/nixus $argv
