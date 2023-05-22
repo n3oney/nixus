@@ -1,5 +1,5 @@
 {
-  home = _: {
+  home = {config, ...}: {
     programs.foot = {
       enable = true;
       settings = {
@@ -8,30 +8,29 @@
           pad = "8x8 center";
         };
 
-        colors = {
+        colors = let
+          colors = config.colorScheme.colors;
+        in {
           alpha = 0.7;
-          background = "1f1f28";
-          foreground = "dcd7ba";
+          foreground = colors.base05;
+          background = colors.base00;
 
-          ## Normal/regular colors (color palette 0-7)
-          regular0 = "090618"; # black
-          regular1 = "c34043"; # red
-          regular2 = "76946a"; # green
-          regular3 = "c0a36e"; # yellow
-          regular4 = "7e9cd8"; # blue
-          regular5 = "957fb8"; # magenta
-          regular6 = "6a9589"; # cyan
-          regular7 = "dcd7ba"; # white
-
-          ## Bright colors (color palette 8-15)
-          bright0 = "727169"; # bright black
-          bright1 = "e82424"; # bright red
-          bright2 = "98bb6c"; # bright green
-          bright3 = "e6c384"; # bright yellow
-          bright4 = "7fb4ca"; # bright blue
-          bright5 = "938aa9"; # bright magenta
-          bright6 = "7aa89f"; # bright cyan
-          bright7 = "c8c093"; # bright white
+          regular0 = "090618";
+          regular1 = config.colorScheme.colors.base08;
+          regular2 = "76946a";
+          regular3 = "c0a36e";
+          regular4 = config.colorScheme.colors.base0D;
+          regular5 = config.colorScheme.colors.base0E;
+          regular6 = "6a9589";
+          regular7 = config.colorScheme.colors.base04;
+          bright0 = config.colorScheme.colors.base03;
+          bright1 = "e82424";
+          bright2 = config.colorScheme.colors.base0B;
+          bright3 = "e6c384";
+          bright4 = config.colorScheme.colors.base0C;
+          bright5 = config.colorScheme.colors.base06;
+          bright6 = "7aa89f";
+          bright7 = config.colorScheme.colors.base05;
         };
       };
     };

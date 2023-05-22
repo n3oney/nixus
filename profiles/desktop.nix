@@ -10,6 +10,7 @@ in
         nix
         fish
         anyrun
+        colors
         discord
         eww
         firefox
