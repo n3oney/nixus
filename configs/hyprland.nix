@@ -133,21 +133,22 @@
           else ""
         }
 
-        workspace=2,monitor:${mainMonitor}, default:true
-        ${
-          if secondaryMonitor != null
-          then "workspace=19,monitor:${secondaryMonitor}, default:true, gapsin:0, gapsout:0, bordersize:0, rounding:false"
-          else "workspace=9,monitor:${mainMonitor}, gapsin:0, gapsout:0, bordersize:0, rounding:false"
-        }
-
         ${
           lib.concatMapStringsSep "\n" (n: "workspace=${toString n},monitor:${mainMonitor}") (lib.range 1 10)
         }
+
+        workspace=2,monitor:${mainMonitor}, default:true
 
         ${
           if secondaryMonitor != null
           then lib.concatMapStringsSep "\n" (n: "workspace=${toString n},monitor:${secondaryMonitor}") (lib.range 11 20)
           else ""
+        }
+
+        ${
+          if secondaryMonitor != null
+          then "workspace=19,monitor:${secondaryMonitor}, default:true, gapsin:0, gapsout:0, bordersize:0, rounding:false"
+          else "workspace=9,monitor:${mainMonitor}, gapsin:0, gapsout:0, bordersize:0, rounding:false"
         }
 
         exec-once=hyprctl setcursor ${cursor.name} ${toString cursor.size}
