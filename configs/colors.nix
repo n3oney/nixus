@@ -7,14 +7,8 @@
     homeModules = [nix-colors.homeManagerModules.default];
   };
 
-  home = {
-    inputs,
-    pkgs,
-    ...
-  }: let
-    nc-lib = inputs.nix-colors.lib.contrib {inherit pkgs;};
-  in {
-    colorScheme = inputs.nix-colors.colorSchemes.catppuccin-macchiato;
+  home = {inputs, ...}: {
+    colorScheme = inputs.nix-colors.colorSchemes.catppuccin-macchiato // {colors = inputs.nix-colors.colorSchemes.catppuccin-macchiato.colors // {accent = "f5bde6";};};
 
     # colorScheme = nc-lib.colorSchemeFromPicture {
     #   path = ../wallpapers/cherry/cherry.png;
