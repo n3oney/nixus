@@ -25,6 +25,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    xdph = {
+      url = "github:hyprwm/xdg-desktop-portal-hyprland";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     arrpc = {
       url = "github:notashelf/arrpc-flake";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -53,6 +58,14 @@
     };
 
     mod = a: b: a - (b * builtins.floor (a / b));
+
+    start-xdph = pkgs.writeShellScript "start-xdph" ''
+      pkill -f xdg-desktop-portal-hyprland
+      pkill -f xdg-desktop-portal
+      ${inputs.xdph.packages.${pkgs.system}.xdg-desktop-portal-hyprland}/libexec/xdg-desktop-portal-hyprland &
+      sleep 1
+      ${pkgs.xdg-desktop-portal}/libexec/xdg-desktop-portal &
+    '';
   in {
     home.packages = with pkgs;
     with inputs.hyprcontrib.packages.${pkgs.system};
@@ -123,6 +136,7 @@
 
       extraConfig = ''
         exec-once=systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
+        exec-once=${start-xdph}
 
         monitor=${mainMonitor},${toString mainWidth}x${toString mainHeight}@144,0x0,1
         monitor=${mainMonitor},addreserved,40,0,0,0
