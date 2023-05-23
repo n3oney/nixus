@@ -132,8 +132,6 @@
     wayland.windowManager.hyprland = {
       enable = true;
 
-      disableAutoreload = true;
-
       extraConfig = ''
         exec-once=systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
         exec-once=${start-xdph}
