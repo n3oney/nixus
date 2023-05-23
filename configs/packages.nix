@@ -20,10 +20,10 @@
         exec foot
       '')
 
-      (factorio.override {
-        releaseType = "alpha";
-        experimental = true;
-      })
+      # (factorio.override {
+      #   releaseType = "alpha";
+      #   experimental = true;
+      # })
     ];
   };
 }
