@@ -98,6 +98,17 @@
 
           kill $picker_proc
         '')
+
+      (
+        writeShellScriptBin
+        "history-copy"
+        ''
+          for file in ~/.mozilla/firefox/*.dev-edition-default/places.sqlite
+          do
+               ${pkgs.sqlite}/bin/sqlite3 $file "SELECT rev_host FROM moz_places;" 2>/dev/null | rev | cut -c 2-
+          done | sort | uniq -c | sort -nr | awk '{print "https://"$2"/"}' | anyrun -o libstdin.so | wl-copy
+        ''
+      )
     ];
 
     home.pointerCursor = {
@@ -329,6 +340,7 @@
         binde = , XF86MonBrightnessUp, exec, xbacklight -ctrl "intel_backlight" -inc 5
         binde = , XF86MonBrightnessDown, exec, xbacklight -ctrl "intel_backlight" -dec 5
 
+        bind = $mainMod, h, exec, history-copy
 
         # Move focus with mainMod + arrow keys
         ${windowSwitchBind "left" "l"}
