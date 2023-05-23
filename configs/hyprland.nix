@@ -25,11 +25,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    xdph = {
-      url = "github:hyprwm/xdg-desktop-portal-hyprland";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     arrpc = {
       url = "github:notashelf/arrpc-flake";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -39,7 +34,14 @@
   };
 
   add = {hyprland, ...}: {
+    modules = [hyprland.nixosModules.default];
     homeModules = [hyprland.homeManagerModules.default];
+  };
+
+  system = {lib, ...}: {
+    programs.hyprland.enable = true;
+
+    xdg.portal.wlr.enable = lib.mkForce false;
   };
 
   home = {
@@ -58,14 +60,6 @@
     };
 
     mod = a: b: a - (b * builtins.floor (a / b));
-
-    start-xdph = pkgs.writeShellScript "start-xdph" ''
-      pkill -f xdg-desktop-portal-hyprland
-      pkill -f xdg-desktop-portal
-      ${inputs.xdph.packages.${pkgs.system}.xdg-desktop-portal-hyprland}/libexec/xdg-desktop-portal-hyprland &
-      sleep 1
-      ${pkgs.xdg-desktop-portal}/libexec/xdg-desktop-portal &
-    '';
   in {
     home.packages = with pkgs;
     with inputs.hyprcontrib.packages.${pkgs.system};
@@ -144,8 +138,7 @@
       enable = true;
 
       extraConfig = ''
-        exec-once=systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
-        exec-once=${start-xdph}
+        exec-once=dbus-update-activation-environment --systemd --all
 
         monitor=${mainMonitor},${toString mainWidth}x${toString mainHeight}@144,0x0,1
         monitor=${mainMonitor},addreserved,40,0,0,0
@@ -267,6 +260,7 @@
         windowrulev2 = float,class:^(ssh-askpass)$
 
         windowrulev2 = idleinhibit focus,title:^(YouTube on TV.*)$
+        windowrulev2 = idleinhibit fullscreen,class:^(.*)$
 
 
 
@@ -430,6 +424,8 @@
         exec-once=wlsunset -l 52.2 -L 21 &
 
         exec-once=swayidle timeout 300 'physlock -ldms && gtklock && physlock -Ld' timeout 360 'hyprctl dispatch dpms off' resume 'hyprctl dispatch dpms on' timeout 420 'test $(mpstat -o JSON 1 3 | jqq -r ".sysstat.hosts[0].statistics[0]["cpu-load"][0].usr | floor") -lt 80 && systemctl suspend'
+
+        exec-once=systemctl --user restart xdg-desktop-portal xdg-desktop-portal-hyprland
       '';
     };
   };
