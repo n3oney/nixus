@@ -7,8 +7,6 @@
   mainWidth ? null,
   mouseSensitivity ? null,
   keyboards ? [],
-  activeBorder ? null,
-  inactiveBorder ? null,
   activeScreenshotKeybind ? null,
   areaScreenshotKeybind ? null,
   allScreenshotKeybind ? null,
@@ -43,6 +41,7 @@
     pkgs,
     lib,
     inputs,
+    config,
     ...
   }: let
     windowSwitchBind = bind: direction: "bind = $mainMod, ${bind}, exec, hyprctl activewindow -j | $(jaq -r \"if .fullscreen then \\\"hyprctl dispatch focusmonitor ${direction}\\\" else \\\"hyprctl dispatch movefocus ${direction}\\\" end\")";
@@ -206,8 +205,8 @@
             gaps_in = 8
             gaps_out = 14
             border_size = 2
-            col.active_border = rgb(${activeBorder})
-            col.inactive_border = rgb(${inactiveBorder})
+            col.active_border = rgb(${config.colorScheme.colors.accent})
+            col.inactive_border = rgb(2B2937)
 
             layout = dwindle
         }
@@ -218,6 +217,10 @@
             blur_size = 2
             blur_passes = 4
             blur_new_optimizations = on
+            drop_shadow = on
+            shadow_range = 8
+            shadow_render_power = 2
+            col.shadow = rgba(1a1a1aff)
         }
 
         animations {

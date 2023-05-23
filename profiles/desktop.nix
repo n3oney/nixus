@@ -48,12 +48,6 @@ in
           areaScreenshotKeybind = "SHIFT, Print";
           allScreenshotKeybind = "ALT, Print";
           termFontSize = 7;
-          serifFont = "New York";
-          monoFont = "Cozette";
-          sansFont = "gg sans";
-          windows = true;
-          activeBorder = "F5F4F9";
-          inactiveBorder = "2B2937";
           secondarySink = "raop_sink.raspberrypi.local.ipv4";
         })
         (youtube-tv {

@@ -9,6 +9,7 @@
   home = {
     inputs,
     pkgs,
+    config,
     ...
   }: {
     home.packages = [inputs.anyrun.packages.${pkgs.system}.anyrun];
@@ -72,7 +73,7 @@
       }
 
       #match.activatable:selected {
-        background: #A6E3A1;
+        background: #${config.colorScheme.colors.accent};
         color: black;
       }
 
@@ -84,11 +85,11 @@
         color: white;
         box-shadow: none;
         border-radius: 12px;
-        border: 2px solid #A6E3A1;
+        border: 2px solid #${config.colorScheme.colors.accent};
       }
 
       box#main {
-        background: rgba(30, 30, 46, 0.9);
+        background: rgba(36, 39, 58, 0.7);
         border-radius: 16px;
         padding: 8px;
       }
