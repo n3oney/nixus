@@ -1,9 +1,18 @@
 {
-  home = {pkgs, ...}: {
+  home = {
+    pkgs,
+    config,
+    lib,
+    ...
+  }: {
     services.dunst = {
       enable = true;
 
-      settings = {
+      settings = with lib;
+      with builtins; let
+        background = "#${config.programs.foot.settings.colors.background}${toHexString (floor (config.programs.foot.settings.colors.alpha * 255))}";
+        foreground = "#${config.programs.foot.settings.colors.foreground}";
+      in {
         global = {
           monitor = 1;
           follow = "none";
@@ -27,21 +36,18 @@
         };
 
         urgency_low = {
-          background = "#18182580";
-          foreground = "#cdd6f4";
-          frame_color = "#9399b2";
+          inherit background foreground;
+          frame_color = "#${config.colorScheme.colors.base03}";
         };
 
         urgency_normal = {
-          background = "#18182580";
-          foreground = "#cdd6f4";
-          frame_color = "#a6e3a1";
+          inherit background foreground;
+          frame_color = "#${config.colorScheme.colors.accent}";
         };
 
         urgency_critical = {
-          background = "#18182580";
-          foreground = "#cdd6f4";
-          frame_color = "#f38ba8";
+          inherit background foreground;
+          frame_color = "#${config.colorScheme.colors.base08}";
         };
       };
     };
