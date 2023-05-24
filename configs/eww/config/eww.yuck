@@ -21,14 +21,6 @@
     :space-evenly false
     :spacing 12
   
-    (circular-progress 
-      :class "prog"
-      :value 2
-      :thickness 6
-      :clockwise true
-
-      (label :text "hi" :style "padding: 1rem;")
-    )
     (power)
     (listeners)
   )
