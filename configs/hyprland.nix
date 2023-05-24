@@ -336,6 +336,8 @@
 
         bind = $mainMod, h, exec, history-copy
 
+        bind = $mainMod, r, exec, ${lib.getExe pkgs.kooha}
+
         # Move focus with mainMod + arrow keys
         ${windowSwitchBind "left" "l"}
         ${windowSwitchBind "right" "r"}
