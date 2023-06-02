@@ -70,7 +70,14 @@
 
       hyprpaper
 
-      wlsunset
+      (wlsunset.overrideAttrs (old: {
+        src = fetchFromSourcehut {
+          owner = "~kennylevinsen";
+          repo = old.pname;
+          rev = "81cfb0b4f8e44db9e5ecb36222a24d53a953e6aa";
+          sha256 = "sha256-Lxuhsk4/5EHuKPkBbaRtCCQ/LFvIxyc+VQYEoaVT484=";
+        };
+      }))
 
       hyprpicker
       grimblast

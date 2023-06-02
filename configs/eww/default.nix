@@ -37,7 +37,7 @@
       }
 
       .ewwbar {
-        font-family: sans;
+        font-family: 'gg sans', 'Font Awesome 6 Free Solid';
         margin: 0 14px;
         padding: 0 12px;
         background: rgba(#${footColors.background}, ${toString (footColors.alpha * 100)}%);
@@ -102,6 +102,19 @@
 
         .reboot:hover {
           color: #91b6e6;
+        }
+
+        .wlsunset {
+          margin-right: 6px;
+          transition: color 0.3s ease;
+
+          &.force_high {
+            color: #ff7c1f;
+          }
+
+          &.force_low {
+            color: #4d5d91;
+          }
         }
 
         .volume {

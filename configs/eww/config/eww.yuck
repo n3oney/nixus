@@ -102,6 +102,8 @@
 
 (defvar show_power false)
 
+(defvar wlsunset_state "auto")
+
 (defwidget poweroff []
   (button :class "poweroff" :onclick "poweroff" "")
 )
@@ -146,6 +148,12 @@
         :reveal {iphone_battery.percentage != ""}
 
         (label :class "iphone ${iphone_battery.connected ? "connected" : "disconnected"}" :text "${iphone_battery["percentage"]}")
+      )
+      (button
+        :class "wlsunset ${wlsunset_state}"
+        :onclick "pkill -SIGUSR1 wlsunset && eww update wlsunset_state=${wlsunset_state == "auto" ? "force_high" : wlsunset_state == "force_high" ? "force_low" : "auto"}"
+
+        "${wlsunset_state == "auto" ? "" : wlsunset_state == "force_high" ? "" : ""}"
       )
       (label :class volume-class :text volume)
       (label :class volume-speakers-class :text volume-speakers)
