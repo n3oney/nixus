@@ -29,6 +29,7 @@ in
         nur
         packages
         pkgs
+        podman
         poweroff
         ssh
         starship
@@ -50,6 +51,7 @@ in
           termFontSize = 7;
           secondarySink = "raop_sink.raspberrypi.local.ipv4";
         })
+        kde_connect
         (youtube-tv {
           secondarySink = "raop_sink.raspberrypi.local.ipv4";
         })
