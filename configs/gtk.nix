@@ -5,7 +5,7 @@
 
       iconTheme = {
         package = pkgs.papirus-icon-theme;
-        name = "Papirus Dark";
+        name = "Papirus-Dark";
       };
 
       theme = {
