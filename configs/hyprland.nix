@@ -157,6 +157,7 @@
           lib.concatMapStringsSep "\n" (n: "workspace=${toString n},monitor:${mainMonitor}") (lib.range 1 10)
         }
 
+        workspace=1,monitor:${mainMonitor}, default:true, gapsin:0, gapsout:0, bordersize:1, rounding:false
         workspace=2,monitor:${mainMonitor}, default:true
 
         ${

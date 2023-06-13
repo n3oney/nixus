@@ -8,25 +8,32 @@ function handle
 
       set lastws $ws
 
-      set wincount $(hyprctl clients -j | jaq -r ". | map(select (.workspace.id == $ws and .floating == false and .mapped == true)) | length")
-
-      if test $wincount -eq 1
-          echo "nogaps"
+      if test $ws -eq 1
+        echo "nogaps"
       else
-          echo ""
+        set wincount $(hyprctl clients -j | jaq -r ". | map(select (.workspace.id == $ws and .floating == false and .mapped == true)) | length")
+
+        if test $wincount -eq 1
+            echo "nogaps"
+        else
+            echo ""
+        end
       end
   end
   if string match -q "fullscreen>>?" $argv[1]
 
-      set wincount $(hyprctl clients -j | jaq -r ". | map(select (.workspace.id == $lastws and .floating == false and .mapped == true)) | length")
-      set fswincount $(hyprctl clients -j | jaq -r ". | map(select (.workspace.id == $lastws and .fullscreen == true and .mapped == true)) | length")
+      if test $lastws -ne 1
 
-      if test $wincount -eq 1
-        or test $fswincount -ne 0
-
-        echo "nogaps"
-      else
-        echo ""
+        set wincount $(hyprctl clients -j | jaq -r ". | map(select (.workspace.id == $lastws and .floating == false and .mapped == true)) | length")
+        set fswincount $(hyprctl clients -j | jaq -r ". | map(select (.workspace.id == $lastws and .fullscreen == true and .mapped == true)) | length")
+  
+        if test $wincount -eq 1
+          or test $fswincount -ne 0
+  
+          echo "nogaps"
+        else
+          echo ""
+        end
       end
   end
   if test -n $lastws
@@ -35,13 +42,15 @@ function handle
       or string match -q "movewindow>>*" $argv[1]
       or string match -q "openwindow>>*" $argv[1]
       or string match -q "closewindow>>*" $argv[1]
-  
-        set wincount $(hyprctl clients -j | jaq -r ". | map(select (.workspace.id == $lastws and .floating == false and .mapped == true)) | length")
 
-        if test $wincount -eq 1
-            echo "nogaps"
-        else
-            echo ""
+        if test $lastws -ne 1
+          set wincount $(hyprctl clients -j | jaq -r ". | map(select (.workspace.id == $lastws and .floating == false and .mapped == true)) | length")
+
+          if test $wincount -eq 1
+              echo "nogaps"
+          else
+              echo ""
+          end
         end
     end
   end
