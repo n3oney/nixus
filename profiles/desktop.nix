@@ -49,7 +49,7 @@ in
           areaScreenshotKeybind = "SHIFT, Print";
           allScreenshotKeybind = "ALT, Print";
           termFontSize = 7;
-          secondarySink = "raop_sink.raspberrypi.local.ipv4";
+          secondarySink = "raop_sink.raspberrypi.local.192.168.1.4.5000";
         })
         kde_connect
         (youtube-tv {
