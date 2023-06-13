@@ -7,32 +7,24 @@ in
   } {
     configs = cfgs:
       with cfgs; [
-        nix
-        fish
-        anyrun
-        colors
         discord
         eww
+        (youtube-tv {
+          secondarySink = "raop_sink.raspberrypi.local.192.168.1.4.5000";
+        })
+
+        anyrun
+        # archive-team-warrior   Disabled, because the service takes 2 minutes to stop :(
+        colors
         firefox
+        fish
         fonts
         foot
         gaming
         git
         gpg
         gtk
-        keyring
-        lockscreen
-        login
-        neovim
-        nheko
-        notifications
-        nur
-        packages
-        pkgs
-        podman
-        poweroff
-        ssh
-        starship
+        helix
         (hyprland {
           mainMonitor = "DP-1";
           mainWidth = 2560;
@@ -52,9 +44,21 @@ in
           secondarySink = "raop_sink.raspberrypi.local.192.168.1.4.5000";
         })
         kde_connect
-        (youtube-tv {
-          secondarySink = "raop_sink.raspberrypi.local.ipv4";
-        })
+        keyring
+        lockscreen
+        login
+        neovim
+        nheko
+        nix
+        notifications
+        nur
+        packages
+        pkgs
+        podman
+        poweroff
+        secrets
+        ssh
+        starship
       ];
 
     system = {pkgs, ...}: {
