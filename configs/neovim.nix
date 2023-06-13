@@ -12,7 +12,6 @@
     pkgs,
     ...
   }: {
-    home.sessionVariables.EDITOR = "nvim";
     programs.neovim-flake = {
       enable = true;
       settings = {
