@@ -238,7 +238,7 @@
             blur_size = 2
             blur_passes = 4
             blur_new_optimizations = on
-            drop_shadow = on
+            drop_shadow = off
             shadow_range = 8
             shadow_render_power = 2
             col.shadow = rgba(1a1a1aff)
