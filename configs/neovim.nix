@@ -88,6 +88,7 @@
             };
           };
           filetree.nvimTreeLua = {
+            openOnSetup = false;
             enable = true;
             view.width = 25;
             mappings = {
