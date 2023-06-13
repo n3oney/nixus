@@ -1,6 +1,7 @@
 {
   inputs = {
     anyrun.url = "github:notashelf/anyrun";
+    anyrun-ha-assist.url = "github:n3oney/anyrun-ha-assist";
   };
 
   system = _: {
@@ -35,10 +36,12 @@
         plugins = [
           "libapplications.so"
           "librink.so"
+          inputs.anyrun-ha-assist.packages.${pkgs.system}.default
           "libtranslate.so"
         ];
       };
 
+      extraConfigFiles."ha-assist.ron".source = config.lib.file.mkOutOfStoreSymlink "/run/user/1000/agenix.d/1/ha_assist_config";
 
       extraCss = ''
         window {
