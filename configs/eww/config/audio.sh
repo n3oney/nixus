@@ -13,7 +13,7 @@ run() {
 
     ;;
   "volume-speakers")
-    speakers=$(pamixer --list-sinks | grep -e 'raop_sink.raspberrypi.local.ipv4' | awk '{print $1}')
+    speakers=$(pamixer --list-sinks | grep -e 'raop_sink.raspberrypi.local.192.168.1.4.5000' | awk '{print $1}')
 
     pamixer --get-volume --sink $speakers
 
@@ -42,7 +42,7 @@ run() {
     done
     ;;
   "speaker-muted")
-    speakers=$(pamixer --list-sinks | grep -e 'raop_sink.raspberrypi.local.ipv4' | awk '{print $1}')
+    speakers=$(pamixer --list-sinks | grep -e 'raop_sink.raspberrypi.local.192.168.1.4.5000' | awk '{print $1}')
 
       if [[ $(pamixer --get-mute --sink $speakers) == "true" ]]; then
           echo "volume muted"
