@@ -36,6 +36,7 @@
       in {
         nvim = opaquewrap "command nvim";
         hx = opaquewrap "command hx";
+        btop = opaquewrap "command btop";
         hd = ''
           sudo nix system apply ~/nixus $argv
         '';

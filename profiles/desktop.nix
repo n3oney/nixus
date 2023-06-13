@@ -15,6 +15,7 @@ in
 
         anyrun
         # archive-team-warrior   Disabled, because the service takes 2 minutes to stop :(
+        btop
         colors
         firefox
         fish
