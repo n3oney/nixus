@@ -33,5 +33,16 @@
       in
         pkgs.alejandra
     );
+
+    devShell = forAllSystems (
+      system: let
+        pkgs = nixpkgs.legacyPackages.${system};
+      in
+        pkgs.mkShell {
+          buildInputs = with pkgs; [
+            alejandra
+          ];
+        }
+    );
   };
 }
