@@ -45,9 +45,16 @@
       catppuccin = buildFirefoxXpiAddon {
         pname = "catppuccin";
         version = "2.0";
-        addonId = "{f4363cd3-9ba9-453d-b2b2-66e6e1bafe73}";
+        addonId = "{e554e180-24a4-40a2-911d-bf48d5b1629c}";
         url = "https://github.com/catppuccin/firefox/releases/download/old/catppuccin_macchiato_pink.xpi";
         sha256 = "4qyNw3VLEMnEQq1MYaFljHxJfYwzKXRdLQxqkLO8Iqk=";
+      };
+      jiffy-reader = buildFirefoxXpiAddon {
+        pname = "jiffy-reader";
+        version = "1.0.10.2";
+        addonId = "{93f81583-1fd4-45cc-bff4-abba952167bb}";
+        url = "https://addons.mozilla.org/firefox/downloads/file/4123246/jiffy_reader-1.0.10.2.xpi";
+        sha256 = "sha256-LLjbDnX8307yK1i3PSIxKTPcOB8DOzXOgOBllIeAD/w=";
       };
     };
   in {
@@ -68,6 +75,8 @@
           sponsorblock
           catppuccin
           youtube-shorts-block
+          jiffy-reader
+          react-devtools
         ];
       };
     };
