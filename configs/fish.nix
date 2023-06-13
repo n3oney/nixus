@@ -20,19 +20,22 @@
 
         enable_transience
       '';
-      functions = {
-        # neovim wrapper to automatically disable transparency in foot
-        # and re-enable it after closing it
-        nvim = with builtins;
-        with lib; ''
-          printf "\033]11;rgba:24/27/3a/ff\007"
+      functions = let
+        # make terminal opaque while the command is running, and transparent after it stops
+        opaquewrap = binary:
+          with builtins;
+          with lib; ''
+            printf "\033]11;rgba:24/27/3a/ff\007"
 
-          command nvim $argv
+            ${binary} $argv
 
-          printf "\033]11;rgba:${
-            concatStringsSep "/" (match "([0-9a-fA-F]{2})([0-9a-fA-F]{2})([0-9a-fA-F]{2})" config.programs.foot.settings.colors.background)
-          }/${toHexString (floor (config.programs.foot.settings.colors.alpha * 255))}\007"
-        '';
+            printf "\033]11;rgba:${
+              concatStringsSep "/" (match "([0-9a-fA-F]{2})([0-9a-fA-F]{2})([0-9a-fA-F]{2})" config.programs.foot.settings.colors.background)
+            }/${toHexString (floor (config.programs.foot.settings.colors.alpha * 255))}\007"
+          '';
+      in {
+        nvim = opaquewrap "command nvim";
+        hx = opaquewrap "command hx";
         hd = ''
           sudo nix system apply ~/nixus $argv
         '';
