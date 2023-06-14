@@ -13,6 +13,7 @@
         theme = "catppuccin_macchiato";
 
         editor = {
+          true-color = true;
           lsp = {
             display-inlay-hints = true;
           };

@@ -22,6 +22,13 @@
           system = import ./systems/desktop;
         }
       );
+
+      cryn = nixpkgs.lib.nixosSystem (
+        import ./profiles/cryn.nix (import ./utils/mk-system.nix) {
+          inherit inputs;
+          system = import ./systems/cryn;
+        }
+      );
     };
 
     formatter = forAllSystems (
@@ -31,7 +38,7 @@
         pkgs.alejandra
     );
 
-    packages = forAllSystems (system: import ./pkgs { pkgs = nixpkgs.legacyPackages.${system}; });
+    packages = forAllSystems (system: import ./pkgs {pkgs = nixpkgs.legacyPackages.${system};});
 
     devShell = forAllSystems (
       system: let
