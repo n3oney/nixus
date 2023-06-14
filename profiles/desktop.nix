@@ -53,6 +53,7 @@ in
         nix
         notifications
         nur
+        (openrgb {motherboard = "amd";})
         packages
         pkgs
         podman
