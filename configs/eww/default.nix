@@ -165,6 +165,35 @@
         .volume.muted {
           opacity: 0.6;
         }
+
+        /* GitHub Notifs Bell */
+        .bell {
+          padding-right: 0px;
+          opacity: 0.3;
+          transition: 0.3s ease all;
+        }
+
+        .unread .bell {
+          opacity: 1;
+          padding-right: 5px;
+        }
+
+        .count {
+          background: #F5BDE6;
+          border-radius: 9999px;
+          color: #1E2030;
+          font-weight: 700;
+          margin-bottom: 15px;
+          margin-left: 5px;
+          font-size: 8px;
+
+          opacity: 0;
+          transition: 0.3s ease opacity;
+        }
+
+        .unread .count {
+          opacity: 1;
+        }
       }
     '';
   };

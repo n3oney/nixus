@@ -4,6 +4,7 @@
       neofetch
       wl-clipboard
       cider
+      gh
       pavucontrol
       xdragon
 

@@ -104,6 +104,8 @@
 
 (defvar wlsunset_state "auto")
 
+(defpoll gh_notifs :interval "30s" "./github_notifs.sh")
+
 (defwidget poweroff []
   (button :class "poweroff" :onclick "poweroff" "")
 )
@@ -149,6 +151,17 @@
 
         (label :class "iphone ${iphone_battery.connected ? "connected" : "disconnected"}" :text "${iphone_battery["percentage"]}")
       )
+
+      (button
+        :class "github_notifications ${gh_notifs != "0" ? "unread" : ""}"
+        :onclick "xdg-open https://github.com/notifications"
+
+        (overlay
+          (label :class "bell" :text "")
+          (label :class "count" :text "${gh_notifs}" :valign "center")
+        )
+      )
+      
       (button
         :class "wlsunset ${wlsunset_state}"
         :onclick "pkill -SIGUSR1 wlsunset && eww update wlsunset_state=${wlsunset_state == "auto" ? "force_high" : wlsunset_state == "force_high" ? "force_low" : "auto"}"
