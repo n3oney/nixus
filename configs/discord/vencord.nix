@@ -135,7 +135,7 @@
       addBack = false;
     };
     GreetStickerPicker.enabled = false;
-    WhoReacted.enabled = false;
+    WhoReacted.enabled = true;
     Wikisearch.enabled = false;
   };
   notifications = {
