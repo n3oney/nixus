@@ -31,6 +31,8 @@
       };
     };
 
+    security.pam.services.greetd.enableGnomeKeyring = true;
+
     environment.etc."greetd/environments".text = ''
       Hyprland
     '';
