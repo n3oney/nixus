@@ -1,6 +1,8 @@
 {
   home = {pkgs, ...}: {
     home.packages = with pkgs; [
+      horizontallyspinningrat
+
       neofetch
       wl-clipboard
       cider
