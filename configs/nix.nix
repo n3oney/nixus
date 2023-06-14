@@ -1,6 +1,10 @@
 {
   inputs = {
     nix-super.url = "github:privatevoid-net/nix-super";
+    unfreepkgs = {
+      url = "github:n3oney/unfreepkgs";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   add = {nix-super, ...}: {
@@ -28,7 +32,11 @@
       nix = let
         mappedRegistry = mapAttrs (_: v: {flake = v;}) inputs;
       in {
-        registry = mappedRegistry // {default = mappedRegistry.nixpkgs;};
+        registry =
+          mappedRegistry
+          // {
+            default = mappedRegistry.unfreepkgs;
+          };
 
         nixPath = lib.mapAttrsToList (key: _: "${key}=flake:${key}") config.nix.registry;
 
