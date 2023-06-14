@@ -1,6 +1,6 @@
 {
   inputs = {
-    neovim-flake.url = "/home/neoney/code/neovim-flake";
+    neovim-flake.url = "github:notashelf/neovim-flake/release/v0.4";
   };
 
   add = {neovim-flake, ...}: {

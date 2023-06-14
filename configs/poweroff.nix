@@ -1,6 +1,6 @@
 {
   inputs = {
-    poweroff.url = "/home/neoney/code/poweroff";
+    poweroff.url = "github:n3oney/ha-poweroff";
   };
 
   system = {
@@ -9,7 +9,7 @@
     pkgs,
     ...
   }: {
-    systemd.services.poweroff = {
+    systemd.services.ha-poweroff = {
       enable = true;
       description = "Power off my PC remotely.";
       unitConfig = {
@@ -19,7 +19,7 @@
 
       serviceConfig = {
         User = "root";
-        ExecStart = lib.getExe inputs.poweroff.packages.${pkgs.system}.poweroff;
+        ExecStart = lib.getExe inputs.poweroff.packages.${pkgs.system}.default;
       };
 
       wantedBy = ["multi-user.target"];
