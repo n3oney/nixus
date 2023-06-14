@@ -106,7 +106,7 @@
       enabled = true;
       settingsLocation = "aboveActivity";
     };
-    ShikiCodeblocks.enabled = true;
+    ShikiCodeblocks.enabled = false;
     ShowHiddenChannels.enabled = false;
     ShowMeYourName.enabled = false;
     SilentMessageToggle.enabled = false;
