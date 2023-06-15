@@ -12,6 +12,7 @@ in
         fish
         git
         helix
+        lemmy
         nix
         terminfo
         pkgs
