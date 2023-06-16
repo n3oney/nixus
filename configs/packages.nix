@@ -3,6 +3,8 @@
     home.packages = with pkgs; [
       horizontallyspinningrat
 
+      obs-studio
+
       neofetch
       wl-clipboard
       cider
