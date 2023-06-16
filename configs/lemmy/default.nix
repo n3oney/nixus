@@ -18,9 +18,13 @@
       "${inputs.nixpkgs-lemmy}/nixos/modules/services/web-apps/lemmy.nix"
     ];
 
+    systemd.services.lemmy-ui.environment.LEMMY_UI_EXTRA_THEMES_FOLDER = ./custom-themes;
+
     services.lemmy = {
       server.package = inputs.nixpkgs-lemmy-update.outputs.legacyPackages.${pkgs.system}.lemmy-server;
-      ui.package = inputs.nixpkgs-lemmy-update.outputs.legacyPackages.${pkgs.system}.lemmy-ui;
+      ui.package = inputs.nixpkgs-lemmy-update.outputs.legacyPackages.${pkgs.system}.lemmy-ui.overrideAttrs (old: {
+        patches = [./patches/0001-fix-custom-themes.patch];
+      });
       database.createLocally = true;
       database.uri = "postgres:///lemmy?host=/run/postgresql&user=lemmy";
       enable = true;

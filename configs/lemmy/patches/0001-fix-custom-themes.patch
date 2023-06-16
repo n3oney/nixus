@@ -1,0 +1,13 @@
+diff --git a/src/server/index.tsx b/src/server/index.tsx
+index 52b0ca4..3b6cd8f 100644
+--- a/src/server/index.tsx
++++ b/src/server/index.tsx
+@@ -66,7 +66,7 @@ server.get("/css/themes/:name", async (req, res) => {
+     res.send("Theme must be a css file");
+   }
+ 
+-  const customTheme = path.resolve(`./${extraThemesFolder}/${theme}`);
++  const customTheme = path.resolve(`${extraThemesFolder}/${theme}`);
+   if (fs.existsSync(customTheme)) {
+     res.sendFile(customTheme);
+   } else {
