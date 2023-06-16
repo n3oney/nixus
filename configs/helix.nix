@@ -41,9 +41,34 @@
             formatter = {command = "alejandra";};
             language-server = {command = lib.getExe pkgs.nil;};
           }
-          (mkPrettier "typescript" "typescript")
-          (mkPrettier "tsx" "typescript")
-          (mkPrettier "javascript" "typescript")
+          ((mkPrettier "typescript" "typescript")
+            // {
+              language-server = {
+                command = lib.getExe pkgs.nodePackages.typescript-language-server;
+                args = ["--stdio"];
+              };
+            })
+          ((mkPrettier "tsx" "typescript")
+            // {
+              language-server = {
+                command = lib.getExe pkgs.nodePackages.typescript-language-server;
+                args = ["--stdio"];
+              };
+            })
+          ((mkPrettier "javascript" "typescript")
+            // {
+              language-server = {
+                command = lib.getExe pkgs.nodePackages.typescript-language-server;
+                args = ["--stdio"];
+              };
+            })
+          ((mkPrettier "jsx" "typescript")
+            // {
+              language-server = {
+                command = lib.getExe pkgs.nodePackages.typescript-language-server;
+                args = ["--stdio"];
+              };
+            })
         ];
       };
     };
