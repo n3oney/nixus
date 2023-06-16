@@ -54,6 +54,12 @@
       driSupport32Bit = true;
     };
 
+    fileSystems."/data" = {
+      device = "/dev/sdb1";
+      fsType = "ntfs3";
+      options = ["uid=${toString config.users.users.neoney.uid}" "gid=${toString config.users.users.neoney.uid}"];
+    };
+
     system.stateVersion = "22.11";
   };
 
