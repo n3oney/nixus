@@ -18,14 +18,18 @@
   boot.kernelModules = ["kvm-amd" "amdgpu"];
   boot.extraModulePackages = [];
 
+  boot.tmp.useTmpfs = true;
+
   fileSystems."/" = {
     device = "/dev/disk/by-label/NIXROOT";
     fsType = "ext4";
+    options = ["noatime" "discard"];
   };
 
   fileSystems."/boot" = {
     device = "/dev/disk/by-label/NIXBOOT";
     fsType = "vfat";
+    options = ["noatime" "discard"];
   };
 
   swapDevices = [
