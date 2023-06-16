@@ -66,6 +66,8 @@
     with inputs.shadower.packages.${pkgs.system}; [
       pulseaudio
 
+      caprine-bin
+
       wl-clipboard
 
       hyprpaper
@@ -393,7 +395,7 @@
           if secondaryMonitor != null
           then "18"
           else "8"
-        },class:caprine
+        },class:Caprine
 
         windowrulev2 = workspace ${
           if secondaryMonitor != null
@@ -426,6 +428,7 @@
 
         exec-once = firefox &
         exec-once = nheko & webcord &
+        exec-once = ${lib.getExe pkgs.caprine-bin} &
 
         exec-once=${lib.getExe inputs.arrpc.packages.${pkgs.system}.arrpc} &
 
