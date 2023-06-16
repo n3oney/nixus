@@ -1,9 +1,4 @@
 {
-  inputs = {
-    nixpkgs-lemmy.url = "github:CobaltCause/nixpkgs/lemmy-module-improvements";
-    nixpkgs-lemmy-update.url = "github:adisbladis/nixpkgs/lemmy-0_17_4";
-  };
-
   system = {
     lib,
     inputs,
@@ -12,17 +7,10 @@
   }: {
     networking.firewall.interfaces.eth0.allowedTCPPorts = [443 80];
 
-    disabledModules = ["services/web-apps/lemmy.nix"];
-
-    imports = [
-      "${inputs.nixpkgs-lemmy}/nixos/modules/services/web-apps/lemmy.nix"
-    ];
-
     systemd.services.lemmy-ui.environment.LEMMY_UI_EXTRA_THEMES_FOLDER = ./custom-themes;
 
     services.lemmy = {
-      server.package = inputs.nixpkgs-lemmy-update.outputs.legacyPackages.${pkgs.system}.lemmy-server;
-      ui.package = inputs.nixpkgs-lemmy-update.outputs.legacyPackages.${pkgs.system}.lemmy-ui.overrideAttrs (old: {
+      ui.package = pkgs.lemmy-ui.overrideAttrs (old: {
         patches = [./patches/0001-fix-custom-themes.patch];
       });
       database.createLocally = true;
