@@ -69,6 +69,20 @@
                 args = ["--stdio"];
               };
             })
+          ((mkPrettier "css" "css")
+            // {
+              language-server = {
+                command = lib.getExe pkgs.nodePackages.vscode-css-languageserver-bin;
+                args = ["--stdio"];
+              };
+            })
+          ((mkPrettier "scss" "scss")
+            // {
+              language-server = {
+                command = lib.getExe pkgs.nodePackages.vscode-css-languageserver-bin;
+                args = ["--stdio"];
+              };
+            })
         ];
       };
     };
