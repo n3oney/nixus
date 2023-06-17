@@ -424,6 +424,9 @@
         layerrule = blur,notifications
         layerrule = ignorezero,notifications
 
+        layerrule = blur,yubikey-state
+        layerrule = ignorealpha 0.6,yubikey-state
+
         layerrule = noanim, ^(selection)$
 
         exec-once = firefox &

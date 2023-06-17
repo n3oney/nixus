@@ -195,6 +195,25 @@
           opacity: 1;
         }
       }
+
+
+      .yubikey-state-box {
+        background: rgba(#${footColors.background}, ${toString (footColors.alpha * 100)}%);
+        padding: 16px;
+        border-radius: 12px;
+
+        border: 2px solid #${colorScheme.accent};
+
+        .header {
+          font-size: 2rem;
+          font-weight: 700;
+        }
+
+        .label {
+          font-size: 1.2rem;
+          font-weight: 500;
+        }
+      }
     '';
   };
 }

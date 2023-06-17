@@ -1,3 +1,5 @@
+(include "./yubikey.yuck")
+
 (defwidget bar []
   (centerbox :orientation "h"
     :class "ewwbar ${bar-class}"

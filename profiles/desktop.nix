@@ -61,6 +61,7 @@ in
         secrets
         ssh
         starship
+        yubikey-touch-detector
       ];
 
     system = {pkgs, ...}: {
