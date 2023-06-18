@@ -29,6 +29,13 @@
           system = import ./systems/cryn;
         }
       );
+
+      zia = nixpkgs.lib.nixosSystem (
+        import ./profiles/zia.nix (import ./utils/mk-system.nix) {
+          inherit inputs;
+          system = import ./systems/zia;
+        }
+      );
     };
 
     formatter = forAllSystems (
