@@ -82,6 +82,7 @@
           background: rgba(36, 39, 58, 0.7);
           border-radius: 16px;
           padding: 8px;
+          box-shadow: 0px 2px 33px -5px rgba(0, 0, 0, 0.5);
         }
 
         row:first-child {

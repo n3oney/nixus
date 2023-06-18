@@ -1,9 +1,10 @@
 (deflisten yubikey-state :initial "{\"u2f\": 0, \"gpg\": 0}" `./yubikey.sh`)
+; (defvar yubikey-state "{\"u2f\": 1, \"gpg\": 1}")
 
 (defwidget info-box [visible type]
-  (revealer :reveal visible :transition "slidedown" :duration "300ms"
+  (revealer :class "yk-box-revealer" :reveal visible :transition "slidedown" :duration "300ms" :hexpand true :vexpand true
     (box :space-evenly false :spacing 4  :orientation "v" :class "yubikey-state-box"
-      (label :halign "start" :class "header" :text "Your YubiKey needs touch!")
+      (label :halign "start" :class "header" :text "Your YubiKey needs a tap!")
       (label :halign "start" :class "label" :text "The YubiKey is asking for confirmation for ${type}.")
     )
   )
@@ -14,11 +15,11 @@
   :monitor 0
   :exclusive false
   :focusable false
-  :geometry (geometry :width "500px" :height "0px" :x "64px" :y "64px")
+  :geometry (geometry :width "500px" :height "0px" :x "0px" :y "36px")
   :anchor "top left"
   :namespace "yubikey-state"
 
-  (box :orientation "v" :space-evenly false :spacing 10
+  (box :class "yubikey-state-wrapper" :orientation "v" :space-evenly false :spacing 0
     (info-box :visible { yubikey-state.u2f == 1 ? true : false } :type "U2F")
     (info-box :visible { yubikey-state.gpg == 1 ? true : false } :type "GPG")
   )

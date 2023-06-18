@@ -177,7 +177,7 @@
         exec-once=hyprctl setcursor ${cursor.name} ${toString cursor.size}
 
         exec-once=${lib.getExe pkgs.hyprpaper} & ${pkgs.playerctl}/bin/playerctld & mako
-        exec-once=eww daemon && eww open bar
+        exec-once=eww daemon && eww open bar && eww open yubikey-state
 
         # https://wiki.hyprland.org/Configuring/Variables/
         input {
@@ -420,7 +420,7 @@
         layerrule = blur,gtk-layer-shell
         layerrule = ignorezero,gtk-layer-shell
         layerrule = blur,anyrun
-        layerrule = ignorezero,anyrun
+        layerrule = ignorealpha 0.6,anyrun
         layerrule = blur,notifications
         layerrule = ignorezero,notifications
 

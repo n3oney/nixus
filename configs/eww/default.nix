@@ -197,21 +197,27 @@
       }
 
 
-      .yubikey-state-box {
-        background: rgba(#${footColors.background}, ${toString (footColors.alpha * 100)}%);
-        padding: 16px;
-        border-radius: 12px;
+      .yubikey-state-wrapper {
+        .yubikey-state-box {
+          background: rgba(#${footColors.background}, ${toString (footColors.alpha * 100)}%);
+          padding: 16px;
+          border-radius: 12px;
 
-        border: 2px solid #${colorScheme.accent};
+          margin: 32px 64px 64px 64px;
 
-        .header {
-          font-size: 2rem;
-          font-weight: 700;
-        }
+          box-shadow: 0px 2px 33px -5px rgba(0, 0, 0, 0.5);
 
-        .label {
-          font-size: 1.2rem;
-          font-weight: 500;
+          border: 2px solid #${colorScheme.accent};
+
+          .header {
+            font-size: 2rem;
+            font-weight: 700;
+          }
+
+          .label {
+            font-size: 1.2rem;
+            font-weight: 500;
+          }
         }
       }
     '';
