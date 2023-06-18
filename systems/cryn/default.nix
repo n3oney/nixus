@@ -38,10 +38,10 @@
 
     services.openssh.enable = true;
 
-    system.stateVersion = "23.11";
+    system.stateVersion = "23.05";
   };
 
   home = _: {
-    home.stateVersion = "23.11";
+    home.stateVersion = "23.05";
   };
 }
