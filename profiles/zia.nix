@@ -24,30 +24,25 @@ in
         gtk
         helix
         (hyprland {
-          mainMonitor = "DP-1";
+          mainMonitor = "eDP-1";
           mainWidth = 1440;
           mainHeight = 900;
-          # secondaryMonitor = "DP-3";
           mainWallpaper = ../wallpapers/cherry/laptop.png;
-          # secondaryWallpaper = ../wallpapers/cherry/secondary.png;
+          mouseSensitivity = 0;
 
-          mouseSensitivity = -0.76;
-
-          # TODO: Add builtin keyboard
           keyboards = [
+            "apple-inc.-apple-internal-keyboard-/-trackpad"
             "logitech-g915-tkl-lightspeed-wireless-rgb-mechanical-gaming-keyboard"
             "logitech-usb-receiver-keyboard"
           ];
 
-          # TODO: Use media keys
-          activeScreenshotKeybind = ", Print";
-          areaScreenshotKeybind = "SHIFT, Print";
-          allScreenshotKeybind = "ALT, Print";
+          activeScreenshotKeybind = ", XF86LaunchA";
+          areaScreenshotKeybind = "SHIFT, XF86LaunchA";
+          allScreenshotKeybind = ", XF86LaunchB";
 
           termFontSize = 7;
-          # secondarySink = "raop_sink.raspberrypi.local.192.168.1.4.5000";
         })
-        # kde_connect
+        kde_connect
         keyring
         lockscreen
         login
@@ -64,6 +59,7 @@ in
         secrets
         ssh
         starship
+        swappy
         thunderbird
         yubikey-touch-detector
       ];
