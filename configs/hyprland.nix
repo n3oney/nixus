@@ -86,8 +86,6 @@
 
       swayidle
 
-      sysstat
-
       jaq
       shadower
 
@@ -337,10 +335,10 @@
 
         # Brightness
 
-        binde = , XF86KbdBrightnessUp, exec, xbacklight -ctrl "smc::kbd_backlight" -inc 5
-        binde = , XF86KbdBrightnessDown, exec, xbacklight -ctrl "smc::kbd_backlight" -dec 5
-        binde = , XF86MonBrightnessUp, exec, xbacklight -ctrl "intel_backlight" -inc 5
-        binde = , XF86MonBrightnessDown, exec, xbacklight -ctrl "intel_backlight" -dec 5
+        binde = , XF86KbdBrightnessUp, exec, ${lib.getExe pkgs.xorg.xbacklight} -ctrl "smc::kbd_backlight" -inc 5
+        binde = , XF86KbdBrightnessDown, exec, ${lib.getExe pkgs.xorg.xbacklight} -ctrl "smc::kbd_backlight" -dec 5
+        binde = , XF86MonBrightnessUp, exec, ${lib.getExe pkgs.xorg.xbacklight} -ctrl "intel_backlight" -inc 5
+        binde = , XF86MonBrightnessDown, exec, ${lib.getExe pkgs.xorg.xbacklight} -ctrl "intel_backlight" -dec 5
 
         bind = $mainMod, h, exec, history-copy
 
@@ -376,15 +374,9 @@
           else ""
         }
 
-        bind = ,F7,pass,^(com\.obsproject\.Studio)$
-
-        # workspace=DP-1,2
-        # workspace=DP-3,19
-
         # Move/resize windows with mainMod + LMB/RMB and dragging
         bindm = $mainMod, mouse:272, movewindow
         bindm = $mainMod, mouse:273, resizewindow
-
 
         # Text keybindings because why not
         bind = $mainMod , z, exec, sleep 1 && ${lib.getExe pkgs.wtype} " +:hesrightyouknow:" -P Return -p Return
@@ -437,7 +429,7 @@
 
         exec-once=wlsunset -l 52.2 -L 21 &
 
-        exec-once=swayidle timeout 300 'physlock -ldms && gtklock && physlock -Ld' timeout 360 'hyprctl dispatch dpms off' resume 'hyprctl dispatch dpms on' timeout 420 'test $(mpstat -o JSON 1 3 | jqq -r ".sysstat.hosts[0].statistics[0]["cpu-load"][0].usr | floor") -lt 80 && systemctl suspend'
+        exec-once=swayidle timeout 300 'physlock -ldms && gtklock && physlock -Ld' timeout 360 'hyprctl dispatch dpms off' resume 'hyprctl dispatch dpms on' timeout 420 'test $(${pkgs.sysstat}/bin/mpstat -o JSON 1 1 | ${lib.getExe pkgs.jaq} -r ".sysstat.hosts[0].statistics[0]["cpu-load"][0].usr | floor") -lt 80 && systemctl suspend'
 
         exec-once=systemctl --user restart xdg-desktop-portal xdg-desktop-portal-hyprland
       '';
