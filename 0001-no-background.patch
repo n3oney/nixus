@@ -1,0 +1,13 @@
+diff --git a/src/render.c b/src/render.c
+index 5015856..29585a9 100644
+--- a/src/render.c
++++ b/src/render.c
+@@ -510,7 +510,7 @@ void render_state(struct swappy_state *state) {
+   cairo_surface_t *surface = state->rendering_surface;
+   cairo_t *cr = cairo_create(surface);
+ 
+-  render_background(cr, state);
++  // render_background(cr, state);
+   render_image(cr, state);
+   render_paints(cr, state);
+ 
