@@ -171,7 +171,7 @@
         ${
           if secondaryMonitor != null
           then "workspace=19,monitor:${secondaryMonitor}, default:true, gapsin:0, gapsout:0, bordersize:0, rounding:false"
-          else "workspace=9,monitor:${mainMonitor}, gapsin:0, gapsout:0, bordersize:0, rounding:false"
+          else ""
         }
 
         exec-once=hyprctl setcursor ${cursor.name} ${toString cursor.size}
