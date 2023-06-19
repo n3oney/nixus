@@ -14,7 +14,20 @@
   boot.kernelPackages = pkgs.linuxPackages_xanmod_latest;
 
   boot.initrd.availableKernelModules = ["xhci_pci" "ahci" "usbhid" "usb_storage" "sd_mod"];
-  boot.initrd.kernelModules = [];
+  boot.initrd.kernelModules = ["vfat" "nls_cp437" "nls_iso8859-1" "usbhid"];
+  boot.initrd.luks.yubikeySupport = true;
+
+  boot.initrd.luks.devices = {
+    nixos-enc = {
+      device = "/dev/sda2";
+      preLVM = true;
+      yubikey = {
+        slot = 2;
+        twoFactor = true;
+        storage.device = "/dev/disk/by-label/NIXBOOT";
+      };
+    };
+  };
 
   boot.tmp.useTmpfs = true;
 
@@ -32,8 +45,7 @@
 
   swapDevices = [
     {
-      device = "/var/swapfile";
-      size = 8192;
+      device = "/dev/disk/by-label/swap";
     }
   ];
 
