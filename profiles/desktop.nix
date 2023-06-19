@@ -61,6 +61,7 @@ in
         secrets
         ssh
         starship
+        swappy
         thunderbird
         yubikey-touch-detector
       ];
