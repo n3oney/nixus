@@ -33,11 +33,11 @@
         closeOnClick = true;
         hidePluginInfo = true;
         showResultsImmediately = true;
-        plugins = [
-          "libapplications.so"
-          "librink.so"
+        plugins = with inputs.anyrun.packages.${pkgs.system}; [
+          applications
+          rink
           inputs.anyrun-ha-assist.packages.${pkgs.system}.default
-          "libtranslate.so"
+          translate
         ];
       };
 
