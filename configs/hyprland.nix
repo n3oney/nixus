@@ -335,10 +335,10 @@
 
         # Brightness
 
-        binde = , XF86KbdBrightnessUp, exec, ${lib.getExe pkgs.xorg.xbacklight} -ctrl "smc::kbd_backlight" -inc 5
-        binde = , XF86KbdBrightnessDown, exec, ${lib.getExe pkgs.xorg.xbacklight} -ctrl "smc::kbd_backlight" -dec 5
-        binde = , XF86MonBrightnessUp, exec, ${lib.getExe pkgs.xorg.xbacklight} -ctrl "intel_backlight" -inc 5
-        binde = , XF86MonBrightnessDown, exec, ${lib.getExe pkgs.xorg.xbacklight} -ctrl "intel_backlight" -dec 5
+        binde = , XF86KbdBrightnessUp, exec, ${lib.getExe pkgs.brightnessctl} --device "smc::kbd_backlight" set +5%
+        binde = , XF86KbdBrightnessDown, exec, ${lib.getExe pkgs.brightnessctl} --device "smc::kbd_backlight" set 5%-
+        binde = , XF86MonBrightnessUp, exec, ${lib.getExe pkgs.brightnessctl} --device "acpi_video0" set +5%
+        binde = , XF86MonBrightnessDown, exec, ${lib.getExe pkgs.brightnessctl} --device "acpi_video0" set 5%-
 
         bind = $mainMod, h, exec, history-copy
 
