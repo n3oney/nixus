@@ -31,7 +31,7 @@
             auto-format = true;
             formatter = {
               command = "prettier";
-              args = ["--parser ${parser}"];
+              args = ["--parser" parser];
             };
           };
         in [
