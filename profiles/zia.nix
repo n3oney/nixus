@@ -12,6 +12,7 @@ in
         (youtube-tv {})
 
         anyrun
+        bluetooth
         btop
         colors
         firefox
