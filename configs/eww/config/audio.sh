@@ -15,6 +15,10 @@ run() {
   "volume-speakers")
     speakers=$(pamixer --list-sinks | grep -e 'raop_sink.raspberrypi.local.192.168.1.4.5000' | awk '{print $1}')
 
+    while [ -z $speakers ]; do
+      speakers=$(pamixer --list-sinks | grep -e 'raop_sink.raspberrypi.local.192.168.1.4.5000' | awk '{print $1}')
+    done
+
     pamixer --get-volume --sink $speakers
 
     pactl subscribe \
@@ -44,11 +48,16 @@ run() {
   "speaker-muted")
     speakers=$(pamixer --list-sinks | grep -e 'raop_sink.raspberrypi.local.192.168.1.4.5000' | awk '{print $1}')
 
-      if [[ $(pamixer --get-mute --sink $speakers) == "true" ]]; then
-          echo "volume muted"
-      else
-          echo "volume"
-      fi
+    while [ -z $speakers ]; do
+      speakers=$(pamixer --list-sinks | grep -e 'raop_sink.raspberrypi.local.192.168.1.4.5000' | awk '{print $1}')
+    done
+
+    if [[ $(pamixer --get-mute --sink $speakers) == "true" ]]; then
+        echo "volume muted"
+    else
+        echo "volume"
+    fi
+        
     pactl subscribe \
       | grep --line-buffered "Event 'change' on sink #$speakers" \
       | while read -r evt; 
