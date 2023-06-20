@@ -2,7 +2,7 @@
   inputs.impermanence.url = "github:nix-community/impermanence";
 
   add = {impermanence, ...}: {
-    modules = [impermanence.nixosModules.default];
+    modules = [impermanence.nixosModule];
     homeModules = [impermanence.nixosModules.home-manager.impermanence];
   };
 
@@ -12,10 +12,20 @@
       files = ["/etc/machine-id"];
     };
 
+    users = {
+      mutableUsers = false;
+      users.neoney.initialHashedPassword = "$6$hAv60khFN/SnCt6r$LkoM5y7xGJPBGLr8DoNZB.mKJudpctUVZ75meQ6gTHBdp8q.dOmXgfTzZOw1.igi1gBc451Hc69TrUmqtFFqB.";
+      users.root.passwordFile = "/persist/passwords/root";
+      users.neoney.passwordFile = "/persist/passwords/neoney";
+    };
+
     programs.fuse.userAllowOther = true;
   };
 
   home = _: {
+    home.homeDirectory = "/home/neoney";
+    home.username = "neoney";
+
     home.persistence."/persist/home/neoney" = {
       directories = [
         "nixus"
@@ -26,16 +36,24 @@
         "Music"
         ".ssh"
         ".local/share/direnv"
+        ".mozilla"
         {
           directory = ".local/share/Steam";
           method = "symlink";
         }
         ".steam"
         ".gnupg"
+        ".config/Caprine"
         ".config/WebCord"
+        ".cache/starship"
+        ".local/share/nheko"
+        ".config/nheko"
+        ".local/share/keyrings"
+        ".cache/nix-index"
       ];
       files = [
         ".cache/anyrun-ha-assist.sqlite3"
+        ".local/share/fish/fish_history"
       ];
       allowOther = true;
     };

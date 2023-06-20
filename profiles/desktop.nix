@@ -44,6 +44,7 @@ in
           termFontSize = 7;
           secondarySink = "raop_sink.raspberrypi.local.192.168.1.4.5000";
         })
+        impermanence
         kde_connect
         keyring
         lockscreen
