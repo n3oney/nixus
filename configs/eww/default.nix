@@ -2,7 +2,8 @@
   inputs = {
     rust-overlay.url = "github:oxalica/rust-overlay";
     eww = {
-      url = "github:elkowar/eww";
+      url = "github:ralismark/eww/tray-3";
+      # url = "github:elkowar/eww";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.rust-overlay.follows = "rust-overlay";
     };
@@ -15,7 +16,9 @@
     ...
   }: {
     home.packages = with pkgs; [
-      inputs.eww.packages.${pkgs.system}.eww-wayland
+      (inputs.eww.packages.${pkgs.system}.eww-wayland.overrideAttrs (old: {
+        buildInputs = old.buildInputs ++ (with pkgs; [glib librsvg libdbusmenu-gtk3]);
+      }))
       gcc-unwrapped
       socat
       pulseaudio
