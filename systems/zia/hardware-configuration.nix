@@ -2,13 +2,8 @@
   config,
   lib,
   pkgs,
-  modulesPath,
   ...
 }: {
-  imports = [
-    (modulesPath + "/installer/scan/not-detected.nix")
-  ];
-
   boot.extraModulePackages = [config.boot.kernelPackages.broadcom_sta];
   boot.kernelModules = ["kvm-intel" "wl"];
   boot.kernelPackages = pkgs.linuxPackages_xanmod_latest;
@@ -16,6 +11,8 @@
   boot.initrd.availableKernelModules = ["xhci_pci" "ahci" "usbhid" "usb_storage" "sd_mod"];
   boot.initrd.kernelModules = ["vfat" "nls_cp437" "nls_iso8859-1" "usbhid"];
   boot.initrd.luks.yubikeySupport = true;
+
+  hardware.facetimehd.enable = true;
 
   boot.initrd.luks.devices = {
     nixos-enc = {
