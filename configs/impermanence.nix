@@ -8,7 +8,7 @@
 
   system = _: {
     environment.persistence."/persist" = {
-      directories = ["/etc/nixos" "/etc/NetworkManager" "/var/log" "/var/lib" "/etc/nix" "/etc/ssh"];
+      directories = ["/etc/nixos" "/etc/NetworkManager" "/var/log" "/var/lib" "/etc/nix" "/etc/ssh" "/var/db/sudo"];
       files = ["/etc/machine-id"];
     };
 
@@ -37,6 +37,7 @@
         ".ssh"
         ".local/share/direnv"
         ".mozilla"
+        ".thunderbird"
         {
           directory = ".local/share/Steam";
           method = "symlink";
@@ -50,10 +51,12 @@
         ".config/nheko"
         ".local/share/keyrings"
         ".cache/nix-index"
+        ".config/obs-studio"
       ];
       files = [
         ".cache/anyrun-ha-assist.sqlite3"
         ".local/share/fish/fish_history"
+        ".local/share/zoxide/db.zo"
       ];
       allowOther = true;
     };
