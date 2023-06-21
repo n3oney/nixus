@@ -39,6 +39,38 @@
         all: unset;
       }
 
+      menu {
+        background: #${footColors.background};
+        border-bottom-left-radius: 12px;
+        border-bottom-right-radius: 12px;
+        border: 2px solid #${colorScheme.accent};
+        padding: 1rem 0;
+      }
+
+      menu menu {
+        border-top-left-radius: 12px;
+        border-top-right-radius: 12px;
+      }
+
+      menu>menuitem {
+        padding: 0.4em 1.5rem;
+        background: transparent;
+        transition: 0.2s ease background;
+      }
+
+      menu>menuitem:hover {
+        background: rgba(255, 255, 255, 0.1);
+      }
+
+      menu>menuitem check:checked ~ label {
+        color: #${colorScheme.accent};
+        font-weight: 600;
+      }
+
+      menubar>menuitem {
+        margin-left: 0.6rem;
+      }
+
       .ewwbar {
         font-family: 'gg sans', 'Font Awesome 6 Free Solid';
         margin: 0 14px;

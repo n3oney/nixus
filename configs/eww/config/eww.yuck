@@ -133,6 +133,8 @@
       :hexpand true
       :halign "start"
 
+      (systray :pack-direction "rtl" :icon-size 16)
+
       (revealer
         :transition "slideup"
         :duration "300ms"
