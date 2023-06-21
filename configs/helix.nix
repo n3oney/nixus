@@ -30,7 +30,7 @@
             inherit name;
             auto-format = true;
             formatter = {
-              command = "prettier";
+              command = lib.getExe pkgs.nodePackages.prettier;
               args = ["--parser" parser];
             };
           };
@@ -38,7 +38,7 @@
           {
             name = "nix";
             auto-format = true;
-            formatter = {command = "alejandra";};
+            formatter = {command = lib.getExe pkgs.alejandra;};
             language-server = {command = lib.getExe pkgs.nil;};
           }
           ((mkPrettier "typescript" "typescript")
@@ -83,6 +83,7 @@
                 args = ["--stdio"];
               };
             })
+          (mkPrettier "markdown" "markdown")
         ];
       };
     };
