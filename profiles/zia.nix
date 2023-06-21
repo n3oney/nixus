@@ -62,6 +62,7 @@ in
         starship
         swappy
         thunderbird
+        tlp
         yubikey-touch-detector
       ];
 
