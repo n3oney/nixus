@@ -60,5 +60,7 @@
     ripgrep
   ];
 
+  os.programs.nm-applet.enable = true;
+
   os.environment.systemPackages = [pkgs.wget];
 }
