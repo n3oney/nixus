@@ -17,6 +17,7 @@
   }: {
     home.packages = with pkgs; [
       (inputs.eww.packages.${pkgs.system}.eww-wayland.overrideAttrs (old: {
+        nativeBuildInputs = old.nativeBuildInputs ++ [pkgs.wrapGAppsHook];
         buildInputs = old.buildInputs ++ (with pkgs; [glib librsvg libdbusmenu-gtk3]);
       }))
       gcc-unwrapped
