@@ -20,7 +20,7 @@
         colors = let
           colors = config.colorScheme.colors;
         in {
-          alpha = config.colorScheme.alpha;
+          alpha = colors.alpha;
           foreground = colors.base05;
           background = colors.base00;
 

@@ -12,8 +12,8 @@
         inputs.nix-colors.colorSchemes.catppuccin-macchiato.colors
         // {
           accent = "f5bde6";
+          alpha = 0.7;
         };
-      alpha = 0.7;
     };
 
   # colorScheme = nc-lib.colorSchemeFromPicture {
