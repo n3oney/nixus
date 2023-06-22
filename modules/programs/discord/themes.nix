@@ -5,9 +5,9 @@
 }:
 with lib;
 with builtins; let
-  background = "#${config.programs.foot.settings.colors.background}${toHexString (floor (config.programs.foot.settings.colors.alpha * 255))}";
+  background = "#${config.colors.colorScheme.colors.base00}${toHexString (floor (config.colors.backgroundAlpha * 255))}";
 in {
-  xdg.configFile."WebCord/Themes/transparency".text = ''
+  hm.xdg.configFile."WebCord/Themes/transparency".text = ''
     @import url("https://catppuccin.github.io/discord/dist/catppuccin-macchiato-pink.theme.css");
 
     #app-mount{

@@ -1,6 +1,5 @@
 {
   inputs,
-  hmConfig,
   pkgs,
   config,
   lib,
@@ -40,8 +39,7 @@
         };
 
         xdg.configFile."eww/eww.scss".text = let
-          footColors = hmConfig.programs.foot.settings.colors;
-          colorScheme = hmConfig.colorScheme.colors;
+          colorScheme = config.colors.colorScheme.colors;
         in ''
           * {
             all: unset;
@@ -62,7 +60,7 @@
           }
 
           menu {
-            background: #${footColors.background};
+            background: #${colorScheme.base00};
             border-bottom-left-radius: 12px;
             border-bottom-right-radius: 12px;
             border: 2px solid #${colorScheme.accent};
@@ -97,7 +95,7 @@
             font-family: 'gg sans', 'Font Awesome 6 Free Solid';
             margin: 0 14px;
             padding: 0 12px;
-            background: rgba(#${footColors.background}, ${toString (footColors.alpha * 100)}%);
+            background: rgba(#${colorScheme.base00}, ${toString (config.colors.backgroundAlpha * 100)}%);
             border-bottom-left-radius: 12px;
             border-bottom-right-radius: 12px;
             border-bottom: 2px solid #${colorScheme.accent};
@@ -256,7 +254,7 @@
 
           .yubikey-state-wrapper {
             .yubikey-state-box {
-              background: rgba(#${footColors.background}, ${toString (footColors.alpha * 100)}%);
+              background: rgba(#${colorScheme.base00}, ${toString (config.colors.backgroundAlpha * 100)}%);
               padding: 16px;
               border-radius: 12px;
 

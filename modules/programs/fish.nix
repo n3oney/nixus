@@ -1,7 +1,7 @@
 {
   pkgs,
   lib,
-  # config,
+  config,
   hmConfig,
   ...
 }: {
@@ -21,43 +21,34 @@
 
         enable_transience
       '';
-      functions =
-        (
-          if hmConfig.programs.foot.enable
-          then let
-            # make terminal opaque while the command is running, and transparent after it stops
-            opaquewrap = binary:
-              with builtins;
-              with lib; ''
-                printf "\033]11;rgba:24/27/3a/ff\007"
+      functions = let
+        # make terminal opaque while the command is running, and transparent after it stops
+        opaquewrap = binary:
+          with builtins;
+          with lib; ''
+            printf "\033]11;rgba:${
+              concatStringsSep "/" (match "([0-9a-fA-F]{2})([0-9a-fA-F]{2})([0-9a-fA-F]{2})" config.colors.colorScheme.colors.base00)
+            }/ff\007"
 
-                ${binary} $argv
+            ${binary} $argv
 
-                printf "\033]11;rgba:${
-                  concatStringsSep "/" (match "([0-9a-fA-F]{2})([0-9a-fA-F]{2})([0-9a-fA-F]{2})" hmConfig.programs.foot.settings.colors.background)
-                }/${toHexString (floor (hmConfig.programs.foot.settings.colors.alpha * 255))}\007"
-              '';
-          in {
-            nvim =
-              if hmConfig.programs.neovim-flake.enable
-              then opaquewrap "command nvim"
-              else null;
-            hx =
-              if hmConfig.programs.helix.enable
-              then opaquewrap "command hx"
-              else null;
-            btop =
-              if hmConfig.programs.btop.enable
-              then opaquewrap "command btop"
-              else null;
-          }
-          else {}
-        )
-        // {
-          hd = ''
-            sudo nix system apply ~/nixus $argv
+            printf "\033]11;rgba:${
+              concatStringsSep "/" (match "([0-9a-fA-F]{2})([0-9a-fA-F]{2})([0-9a-fA-F]{2})" config.colors.colorScheme.colors.base00)
+            }/${toHexString (floor (config.colors.backgroundAlpha * 255))}\007"
           '';
-        };
+        inherit (lib) mkIf;
+      in {
+        nvim =
+          mkIf (hmConfig.programs.neovim-flake or {enable = false;}).enable (opaquewrap "command nvim");
+        hx =
+          mkIf (hmConfig.programs.helix or {enable = false;}).enable (opaquewrap "command hx");
+        btop =
+          mkIf (hmConfig.programs.btop or {enable = false;}).enable (opaquewrap "command btop");
+
+        hd = ''
+          sudo nix system apply ~/nixus $argv
+        '';
+      };
       shellAbbrs = {
         npm = "pnpm";
         cd = "z";

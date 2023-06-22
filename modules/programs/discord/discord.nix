@@ -7,14 +7,10 @@
   cfg = config.programs.discord;
   inherit (lib) mkEnableOption mkIf;
 in {
-  options.programs.discord = {
-    enable = mkEnableOption "discord";
-  };
-
-  config.hmModules = mkIf cfg.enable [./themes.nix];
+  options.programs.discord.enable = mkEnableOption "discord";
 
   config.hm = mkIf cfg.enable (let
-    vencordConfig = import ./vencord.nix;
+    vencordConfig = cfg.vencordSettings;
   in {
     home.packages = with pkgs; [
       (runCommand "webcord-vencord-repro" {} ''

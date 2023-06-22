@@ -2,19 +2,16 @@
   pkgs,
   config,
   lib,
-  hmConfig,
   ...
 }: {
-  config.hm = lib.mkIf config.display.enable (let
-    config = hmConfig;
-  in {
+  config.hm = lib.mkIf config.display.enable {
     services.dunst = {
       enable = true;
 
       settings = with lib;
       with builtins; let
-        background = "#${config.programs.foot.settings.colors.background}${toHexString (floor (config.programs.foot.settings.colors.alpha * 255))}";
-        foreground = "#${config.programs.foot.settings.colors.foreground}";
+        background = "#${config.colors.colorScheme.colors.base00}${toHexString (floor (config.colors.backgroundAlpha * 255))}";
+        foreground = "#${config.colors.colorScheme.colors.base05}";
       in {
         global = {
           monitor = 1;
@@ -40,19 +37,19 @@
 
         urgency_low = {
           inherit background foreground;
-          frame_color = "#${config.colorScheme.colors.base03}";
+          frame_color = "#${config.colors.colorScheme.colors.base03}";
         };
 
         urgency_normal = {
           inherit background foreground;
-          frame_color = "#${config.colorScheme.colors.accent}";
+          frame_color = "#${config.colors.colorScheme.colors.accent}";
         };
 
         urgency_critical = {
           inherit background foreground;
-          frame_color = "#${config.colorScheme.colors.base08}";
+          frame_color = "#${config.colors.colorScheme.colors.base08}";
         };
       };
     };
-  });
+  };
 }
