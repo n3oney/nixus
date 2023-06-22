@@ -9,4 +9,5 @@ let
   systems = [nixus_pc zia];
 in {
   "ha_assist_config.age".publicKeys = users ++ systems;
+  "gh_notifications_key.age".publicKeys = users ++ systems;
 }
