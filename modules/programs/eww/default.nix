@@ -59,6 +59,21 @@
             box-shadow: inset 0px 4px 4px -3px rgba(0,0,0,0.5);
           }
 
+          arrow.right {
+            border-top: 7px solid transparent;
+            border-bottom: 7px solid transparent;
+
+            border-left: 7px solid #${colorScheme.base05};
+          }
+
+
+          arrow.left {
+            border-top: 7px solid transparent;
+            border-bottom: 7px solid transparent;
+
+            border-right: 7px solid #${colorScheme.base05};
+          }
+
           menu {
             background: #${colorScheme.base00};
             border-bottom-left-radius: 12px;
@@ -126,7 +141,7 @@
           .bar {
             .time {
               font-weight: 700;
-              color: #c2c0ce;
+              color: #${colorScheme.base05};
               font-size: 16px;
             }
 
