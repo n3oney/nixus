@@ -39,6 +39,20 @@
         all: unset;
       }
 
+      check {
+        border-radius: 9999px;
+        min-width: 13px;
+        min-height: 13px;
+        background: rgba(255, 255, 255, 0.2);
+        margin-right: 0.5rem;
+        box-shadow: 0px 4px 4px -3px rgba(0,0,0,0.5);
+      }
+
+      check:checked {
+        background: #${colorScheme.accent};
+        box-shadow: inset 0px 4px 4px -3px rgba(0,0,0,0.5);
+      }
+
       menu {
         background: #${footColors.background};
         border-bottom-left-radius: 12px;
