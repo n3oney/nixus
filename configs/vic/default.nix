@@ -18,7 +18,7 @@
       "logitech-g915-tkl-lightspeed-wireless-rgb-mechanical-gaming-keyboard"
       "logitech-usb-receiver-keyboard"
     ];
-    mouseSensitivity = 0;
+    mouseSensitivity = 0.00;
 
     screenshotKeybinds = {
       active = ", XF86LaunchA";
