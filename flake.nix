@@ -1,41 +1,78 @@
 {
   description = "neoney's NixOS config flake";
-  inputs = import ./utils/mk-system-inputs-init.nix {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
-    home-manager = {
-      url = "github:nix-community/home-manager";
-      inputs.nixpkgs.follows = "nixpkgs";
+  inputs = let
+    combinedManager = import (builtins.fetchTarball {
+      url = "https://github.com/flafydev/combined-manager/archive/9474a2432b47c0e6fa0435eb612a32e28cbd99ea.tar.gz";
+      sha256 = "sha256:04rzv1ajxrcmjybk1agpv4rpwivy7g8mwfms8j3lhn09bqjqrxxf";
+    });
+  in
+    combinedManager.evaluateInputs {
+      lockFile = ./flake.lock;
+      initialInputs = {
+        nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+
+        home-manager = {
+          url = "github:nix-community/home-manager";
+          inputs.nixpkgs.follows = "nixpkgs";
+        };
+      };
+
+      modules = [
+        ./modules
+        ./hosts/miko
+        ./configs/miko
+        ./hosts/vic
+        ./configs/vic
+        ./configs/maya
+        ./hosts/maya
+      ];
     };
-  };
 
   outputs = inputs @ {nixpkgs, ...}: let
     forAllSystems = nixpkgs.lib.genAttrs [
       "aarch64-linux"
       "x86_64-linux"
     ];
+
+    combinedManager = import (builtins.fetchTarball {
+      url = "https://github.com/flafydev/combined-manager/archive/9474a2432b47c0e6fa0435eb612a32e28cbd99ea.tar.gz";
+      sha256 = "sha256:04rzv1ajxrcmjybk1agpv4rpwivy7g8mwfms8j3lhn09bqjqrxxf";
+    });
   in {
     nixosConfigurations = {
-      nixuspc = nixpkgs.lib.nixosSystem (
-        import ./profiles/desktop.nix (import ./utils/mk-system.nix) {
-          inherit inputs;
-          system = import ./systems/desktop;
-        }
-      );
+      # Desktop
+      miko = combinedManager.nixosSystem {
+        system = "x86_64-linux";
+        inherit inputs;
+        modules = [
+          ./modules
+          ./hosts/miko
+          ./configs/miko
+        ];
+      };
 
-      cryn = nixpkgs.lib.nixosSystem (
-        import ./profiles/cryn.nix (import ./utils/mk-system.nix) {
-          inherit inputs;
-          system = import ./systems/cryn;
-        }
-      );
+      # Laptop
+      vic = combinedManager.nixosSystem {
+        system = "x86_64-linux";
+        inherit inputs;
+        modules = [
+          ./modules
+          ./hosts/vic
+          ./configs/vic
+        ];
+      };
 
-      zia = nixpkgs.lib.nixosSystem (
-        import ./profiles/zia.nix (import ./utils/mk-system.nix) {
-          inherit inputs;
-          system = import ./systems/zia;
-        }
-      );
+      # # VPS
+      maya = combinedManager.nixosSystem {
+        system = "aarch64-linux";
+        inherit inputs;
+        modules = [
+          ./modules
+          ./hosts/maya
+          ./configs/maya
+        ];
+      };
     };
 
     formatter = forAllSystems (
@@ -44,8 +81,6 @@
       in
         pkgs.alejandra
     );
-
-    packages = forAllSystems (system: import ./pkgs {pkgs = nixpkgs.legacyPackages.${system};});
 
     devShell = forAllSystems (
       system: let
