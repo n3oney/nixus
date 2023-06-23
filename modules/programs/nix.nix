@@ -14,6 +14,11 @@
   };
 
   os = with lib; {
+    nixpkgs.overlays = [
+      (final: prev: {
+        nix = inputs.nix-super.packages.${pkgs.system}.default;
+      })
+    ];
     programs.command-not-found.enable = false;
 
     documentation = {
@@ -26,7 +31,6 @@
     nix = let
       mappedRegistry = mapAttrs (_: v: {flake = v;}) inputs;
     in {
-      package = inputs.nix-super.packages.${pkgs.system}.default;
       registry =
         mappedRegistry
         // {
