@@ -45,6 +45,8 @@
   nur.enable = true;
   agenix.enable = true;
 
+  impermanence.enable = true;
+
   hm.home.packages = with pkgs; [
     horizontallyspinningrat
 
