@@ -54,6 +54,7 @@ in {
   };
 
   services = {
+    kde_connect.enable = true;
     ha-poweroff.enable = true;
     podman.enable = true;
     openrgb = {
