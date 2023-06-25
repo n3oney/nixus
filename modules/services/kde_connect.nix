@@ -10,7 +10,12 @@
     allowedUDPPorts = lib.range 1714 1764;
   };
 
-  config.hm.home.persistence."/persist/home/neoney".directories = lib.mkIf (config.services.kde_connect.enable && config.impermanence.enable) [".config/kdeconnect"];
+  config.hm.home =
+    if (config.services.kde_connect.enable && config.impermanence.enable)
+    then {
+      persistence."/persist/home/neoney".directories = [".config/kdeconnect"];
+    }
+    else {};
 
   config.hm.services.kdeconnect.enable = config.services.kde_connect.enable;
 }
