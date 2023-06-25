@@ -36,6 +36,12 @@
     foot.enable = true;
     swappy.enable = true;
     thunderbird.enable = true;
+    gaming = {
+      steam = {
+        enable = true;
+        proton-ge.enable = true;
+      };
+    };
   };
 
   services.yubikey-touch-detector.enable = true;
