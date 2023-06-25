@@ -54,6 +54,7 @@
               directory = ".steam";
               method = "symlink";
             }
+            ".local/share/TelegramDesktop"
             ".gnupg"
             ".config/Caprine"
             ".config/WebCord"
