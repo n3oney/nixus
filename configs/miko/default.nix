@@ -50,6 +50,7 @@ in {
       enable = true;
       audioSink = secondarySink;
     };
+    xonotic.enable = true;
   };
 
   services = {
