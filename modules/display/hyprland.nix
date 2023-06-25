@@ -3,7 +3,6 @@
   lib,
   inputs,
   config,
-  hmConfig,
   ...
 }: let
   cfg = config.display;
@@ -102,7 +101,6 @@ in {
 
       hm = let
         windowSwitchBind = bind: direction: "bind = $mainMod, ${bind}, exec, hyprctl activewindow -j | $(jaq -r \"if .fullscreen then \\\"hyprctl dispatch focusmonitor ${direction}\\\" else \\\"hyprctl dispatch movefocus ${direction}\\\" end\")";
-        config = hmConfig;
 
         cursor = {
           package = pkgs.catppuccin-cursors.macchiatoPink;
@@ -226,7 +224,11 @@ in {
             exec-once=hyprctl setcursor ${cursor.name} ${toString cursor.size}
 
             exec-once=${lib.getExe pkgs.hyprpaper} & ${pkgs.playerctl}/bin/playerctld & mako
-            exec-once=eww daemon && eww open bar && eww open yubikey-state
+            exec-once=${
+              if config.programs.eww.enable
+              then "eww daemon && eww open bar && eww open yubikey-state"
+              else ""
+            }
 
             # https://wiki.hyprland.org/Configuring/Variables/
             input {
@@ -278,7 +280,7 @@ in {
                 gaps_in = 8
                 gaps_out = 14
                 border_size = 2
-                col.active_border = rgb(${config.colorScheme.colors.accent})
+                col.active_border = rgb(${config.colors.colorScheme.colors.accent})
                 col.inactive_border = rgb(2B2937)
 
                 layout = dwindle
