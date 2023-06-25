@@ -129,7 +129,7 @@
     (box
       :orientation "h"
       :space-evenly false
-      :spacing 4
+      :spacing 6
       :hexpand true
       :halign "start"
 
@@ -146,14 +146,6 @@
           :spacing 5
           (label :class "battery ${EWW_BATTERY != "" ? EWW_BATTERY["BAT0"].status : ""}" :text "${EWW_BATTERY != "" ? EWW_BATTERY["BAT0"].capacity : ""}")
         )
-      )
-
-      (revealer
-        :transition "slideup"
-        :duration "300ms"
-        :reveal {iphone_battery.percentage != ""}
-
-        (label :class "iphone ${iphone_battery.connected ? "connected" : "disconnected"}" :text "${iphone_battery["percentage"]}")
       )
 
       (button
@@ -183,8 +175,6 @@
 
 (deflisten volume-speakers-class :initial "volume" "./audio.sh speaker-muted")
 (deflisten volume-speakers :initial "0" "./audio.sh volume-speakers")
-
-(deflisten iphone_battery :initial "{\"percentage\": \"\", \"connected\": false}" "./iphone.sh")
 
 (defwindow bar
   :stacking "fg"

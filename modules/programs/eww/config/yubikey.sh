@@ -19,4 +19,4 @@ function handle
 end
 
 echo "{\"u2f\":$u2f,\"gpg\":$gpg}"
-socat -U - UNIX-CONNECT:"$XDG_RUNTIME_DIR/yubikey-touch-detector.socket" | while read -n5 line; handle $line; end
+@socat@ -U - UNIX-CONNECT:"$XDG_RUNTIME_DIR/yubikey-touch-detector.socket" | while read -n5 line; handle $line; end

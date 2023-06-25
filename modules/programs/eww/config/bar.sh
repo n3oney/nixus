@@ -11,7 +11,7 @@ function handle
       if test $ws -eq 1
         echo "nogaps"
       else
-        set wincount $(hyprctl clients -j | jaq -r ". | map(select (.workspace.id == $ws and .floating == false and .mapped == true)) | length")
+        set wincount $(hyprctl clients -j | @jaq@ -r ". | map(select (.workspace.id == $ws and .floating == false and .mapped == true)) | length")
 
         if test $wincount -eq 1
             echo "nogaps"
@@ -24,8 +24,8 @@ function handle
 
       if test $lastws -ne 1
 
-        set wincount $(hyprctl clients -j | jaq -r ". | map(select (.workspace.id == $lastws and .floating == false and .mapped == true)) | length")
-        set fswincount $(hyprctl clients -j | jaq -r ". | map(select (.workspace.id == $lastws and .fullscreen == true and .mapped == true)) | length")
+        set wincount $(hyprctl clients -j | @jaq@ -r ". | map(select (.workspace.id == $lastws and .floating == false and .mapped == true)) | length")
+        set fswincount $(hyprctl clients -j | @jaq@ -r ". | map(select (.workspace.id == $lastws and .fullscreen == true and .mapped == true)) | length")
   
         if test $wincount -eq 1
           or test $fswincount -ne 0
@@ -44,7 +44,7 @@ function handle
       or string match -q "closewindow>>*" $argv[1]
 
         if test $lastws -ne 1
-          set wincount $(hyprctl clients -j | jaq -r ". | map(select (.workspace.id == $lastws and .floating == false and .mapped == true)) | length")
+          set wincount $(hyprctl clients -j | @jaq@ -r ". | map(select (.workspace.id == $lastws and .floating == false and .mapped == true)) | length")
 
           if test $wincount -eq 1
               echo "nogaps"
@@ -56,4 +56,4 @@ function handle
   end
 end
 
-socat -U - UNIX-CONNECT:/tmp/hypr/$HYPRLAND_INSTANCE_SIGNATURE/.socket2.sock | while read line; handle $line; end
+@socat@ -U - UNIX-CONNECT:/tmp/hypr/$HYPRLAND_INSTANCE_SIGNATURE/.socket2.sock | while read line; handle $line; end
