@@ -50,7 +50,10 @@
               directory = ".local/share/Steam";
               method = "symlink";
             }
-            ".steam"
+            {
+              directory = ".steam";
+              method = "symlink";
+            }
             ".gnupg"
             ".config/Caprine"
             ".config/WebCord"

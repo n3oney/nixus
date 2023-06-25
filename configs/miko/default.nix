@@ -42,7 +42,14 @@ in {
     eww.enable = true;
     firefox.enable = true;
     foot.enable = true;
-    gaming.enable = true;
+    gaming = {
+      steam = {
+        enable = true;
+        proton-ge.enable = true;
+      };
+      steeringWheel.enable = true;
+      xonotic.enable = true;
+    };
     neovim.enable = true;
     swappy.enable = true;
     thunderbird.enable = true;
@@ -50,7 +57,6 @@ in {
       enable = true;
       audioSink = secondarySink;
     };
-    xonotic.enable = true;
   };
 
   services = {
