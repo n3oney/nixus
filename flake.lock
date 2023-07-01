@@ -2276,8 +2276,7 @@
         "nur": "nur",
         "poweroff": "poweroff",
         "rust-overlay": "rust-overlay_2",
-        "shadower": "shadower",
-        "unfreepkgs": "unfreepkgs"
+        "shadower": "shadower"
       }
     },
     "rust-overlay": {
@@ -2635,26 +2634,6 @@
       "original": {
         "owner": "folke",
         "repo": "trouble.nvim",
-        "type": "github"
-      }
-    },
-    "unfreepkgs": {
-      "inputs": {
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1686685504,
-        "narHash": "sha256-lIq4Vud8ONysjT1cENjKq3U5afHXyE9+l6w+Z7rUdDU=",
-        "owner": "n3oney",
-        "repo": "unfreepkgs",
-        "rev": "3aa8d14abb68e95337fddced053ff60d5eb07305",
-        "type": "github"
-      },
-      "original": {
-        "owner": "n3oney",
-        "repo": "unfreepkgs",
         "type": "github"
       }
     },
