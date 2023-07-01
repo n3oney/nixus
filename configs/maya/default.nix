@@ -5,6 +5,8 @@
 
   services.lemmy.enable = true;
 
+  services.arr.enable = true;
+
   hm.home.packages = with pkgs; [
     ripgrep
     lazygit
