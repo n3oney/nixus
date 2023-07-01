@@ -31,7 +31,10 @@
     anyrun.enable = true;
     btop.enable = true;
     discord.enable = true;
-    eww.enable = true;
+    eww = {
+      enable = true;
+      micName = "Built-in Audio Analog Stereo";
+    };
     firefox.enable = true;
     foot.enable = true;
     swappy.enable = true;

@@ -189,6 +189,11 @@ menubar > menuitem {
     transition: opacity 0.3s ease;
   }
 
+  .volume.missing {
+    font-size: 0;
+    opacity: 0;
+  }
+
   .battery {
     // color: #c2c0ce;
     font-weight: 600;

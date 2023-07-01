@@ -39,7 +39,10 @@ in {
     anyrun.enable = true;
     btop.enable = true;
     discord.enable = true;
-    eww.enable = true;
+    eww = {
+      enable = true;
+      micName = "Blue Snowball Mono";
+    };
     firefox.enable = true;
     foot.enable = true;
     gaming = {

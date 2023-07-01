@@ -170,11 +170,11 @@
   )
 )
 
-(deflisten volume-class :initial "volume" "./audio.sh muted")
-(deflisten volume :initial "0" "./audio.sh volume")
+(deflisten volume-class :initial "volume" "./audio.fish muted")
+(deflisten volume :initial "0" "./audio.fish volume")
 
-(deflisten volume-speakers-class :initial "volume" "./audio.sh speaker-muted")
-(deflisten volume-speakers :initial "0" "./audio.sh volume-speakers")
+(deflisten volume-speakers-class :initial "volume" "./audio.fish speaker-muted")
+(deflisten volume-speakers :initial "0" "./audio.fish volume-speakers")
 
 (defwindow bar
   :stacking "fg"

@@ -5,7 +5,16 @@
   lib,
   ...
 }: {
-  options.programs.eww.enable = lib.mkEnableOption "eww";
+  options.programs.eww = {
+    enable = lib.mkEnableOption "eww";
+    speakerSink = lib.mkOption {
+      type = lib.types.str;
+      default = "";
+    };
+    micName = lib.mkOption {
+      type = lib.types.str;
+    };
+  };
 
   config = lib.mkMerge [
     {
@@ -42,6 +51,9 @@
                   jaq = lib.getExe pkgs.jaq;
                   socat = lib.getExe pkgs.socat;
                   curl = lib.getExe pkgs.curl;
+                  speakerSink = builtins.toJSON config.programs.eww.speakerSink;
+                  micName = builtins.toJSON config.programs.eww.micName;
+                  fish = lib.getExe pkgs.fish;
                 }
                 // colorScheme);
               executable = true;

@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-MIC_NAME="Blue Snowball Mono"
+MIC_NAME=@micName@
 
 run() {
   source_index=$(@pactl@ -f json list sources | @jaq@ -r ".[] | select( .description == \"$MIC_NAME\" ).index")
