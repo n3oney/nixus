@@ -191,7 +191,9 @@ in {
         wayland.windowManager.hyprland = {
           enable = true;
 
-          extraConfig = ''
+          extraConfig = let
+            lockSequence = "physlock -ldms && gtklock && physlock -Ld";
+          in ''
             exec-once=dbus-update-activation-environment --systemd --all
 
             monitor=${cfg.monitors.main.name},${toString cfg.monitors.main.width}x${toString cfg.monitors.main.height}@144,0x0,1
@@ -482,7 +484,8 @@ in {
 
             exec-once=wlsunset -l 52.2 -L 21 &
 
-            exec-once=swayidle timeout 300 'physlock -ldms && gtklock && physlock -Ld' timeout 360 'hyprctl dispatch dpms off' resume 'hyprctl dispatch dpms on' timeout 420 'test $(${pkgs.sysstat}/bin/mpstat -o JSON 1 1 | ${lib.getExe pkgs.jaq} -r ".sysstat.hosts[0].statistics[0]["cpu-load"][0].usr | floor") -lt 80 && systemctl suspend'
+            bindl=,switch:off:Lid Switch, exec, ${lockSequence}
+            exec-once=swayidle timeout 300 '${lockSequence}' timeout 360 'hyprctl dispatch dpms off' resume 'hyprctl dispatch dpms on' timeout 420 'test $(${pkgs.sysstat}/bin/mpstat -o JSON 1 1 | ${lib.getExe pkgs.jaq} -r ".sysstat.hosts[0].statistics[0]["cpu-load"][0].usr | floor") -lt 80 && systemctl suspend'
 
             exec-once=systemctl --user restart xdg-desktop-portal xdg-desktop-portal-hyprland
           '';
