@@ -22,6 +22,14 @@
         enable = true;
         remotePlay.openFirewall = true;
       };
+
+      nixpkgs.overlays = lib.mkIf config.programs.gaming.steam.proton-ge.enable [
+        (_: prev: {
+          steam = prev.steam.override {
+            extraProfile = "export STEAM_EXTRA_COMPAT_TOOLS_PATHS='${inputs.nix-gaming.packages.${pkgs.system}.proton-ge}'";
+          };
+        })
+      ];
     })
 
     {
@@ -45,10 +53,4 @@
       services.udev.packages = with pkgs; [usb-modeswitch-data];
     })
   ];
-
-  config.hm = lib.mkIf (config.programs.gaming.steam.enable && config.programs.gaming.steam.proton-ge.enable) {
-    home.sessionVariables = {
-      STEAM_EXTRA_COMPAT_TOOLS_PATHS = "${inputs.nix-gaming.packages.${pkgs.system}.proton-ge}";
-    };
-  };
 }
