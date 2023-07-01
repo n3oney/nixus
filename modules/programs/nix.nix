@@ -1,7 +1,6 @@
 {
   inputs,
   lib,
-  pkgs,
   osConfig,
   ...
 }: {
@@ -11,8 +10,8 @@
 
   os = with lib; {
     nixpkgs.overlays = [
-      (final: prev: {
-        nix = inputs.nix-super.packages.${pkgs.system}.default;
+      (_: prev: {
+        nix = inputs.nix-super.packages.${prev.system}.default;
       })
     ];
     programs.command-not-found.enable = false;

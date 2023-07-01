@@ -3,6 +3,18 @@
   pkgs,
   ...
 }: {
+  os.nixpkgs.overlays = [
+    (_: prev: {
+      nil = prev.nil.overrideAttrs (old: {
+        patches =
+          (old.patches or [])
+          ++ [
+            ../../0001-nix.patch
+          ];
+      });
+    })
+  ];
+
   hm = {
     home.sessionVariables.EDITOR = "hx";
 

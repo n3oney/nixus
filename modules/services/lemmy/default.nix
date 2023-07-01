@@ -13,9 +13,7 @@
     backendPort = 8536;
     frontendPort = 1234;
     hostname = "lemmy.neoney.dev";
-    uiPackage = pkgs.lemmy-ui.overrideAttrs (old: {
-      patches = [./patches/0001-fix-custom-themes.patch];
-    });
+    uiPackage = pkgs.lemmy-ui;
     containerAddress = "10.0.0.254";
   in {
     networking.nat = {
