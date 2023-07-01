@@ -45,6 +45,7 @@
         proton-ge.enable = true;
       };
     };
+    jellyfinPlayer.enable = true;
   };
 
   services.yubikey-touch-detector.enable = true;

@@ -35,40 +35,42 @@
         home.username = "neoney";
 
         home.persistence."/persist/home/neoney" = {
-          directories = [
-            "nixus"
-            "Downloads"
-            "code"
-            "Documents"
-            "Kooha"
-            "Music"
-            ".ssh"
-            ".local/share/direnv"
-            ".mozilla"
-            ".thunderbird"
-            {
-              directory = ".local/share/Steam";
-              method = "symlink";
-            }
-            {
-              directory = ".steam";
-              method = "symlink";
-            }
-            ".local/share/TelegramDesktop"
-            ".gnupg"
-            ".config/Caprine"
-            ".config/WebCord"
-            ".cache/starship"
-            ".local/share/nheko"
-            ".config/nheko"
-            ".local/share/keyrings"
-            ".cache/nix-index"
-            ".config/obs-studio"
-            {
-              directory = ".local/share/zoxide";
-              method = "symlink";
-            }
-          ];
+          directories =
+            [
+              "nixus"
+              "Downloads"
+              "code"
+              "Documents"
+              "Kooha"
+              "Music"
+              ".ssh"
+              ".local/share/direnv"
+              ".mozilla"
+              ".thunderbird"
+              {
+                directory = ".local/share/Steam";
+                method = "symlink";
+              }
+              {
+                directory = ".steam";
+                method = "symlink";
+              }
+              ".local/share/TelegramDesktop"
+              ".gnupg"
+              ".config/Caprine"
+              ".config/WebCord"
+              ".cache/starship"
+              ".local/share/nheko"
+              ".config/nheko"
+              ".local/share/keyrings"
+              ".cache/nix-index"
+              ".config/obs-studio"
+              {
+                directory = ".local/share/zoxide";
+                method = "symlink";
+              }
+            ]
+            ++ (lib.optionals config.programs.jellyfinPlayer.enable [".config/jellyfin.org" ".local/share/jellyfinmediaplayer"]);
           files = [
             ".cache/anyrun-ha-assist.sqlite3"
             ".local/share/fish/fish_history"
