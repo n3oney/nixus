@@ -7,10 +7,6 @@
 }: {
   inputs = {
     nix-super.url = "github:privatevoid-net/nix-super";
-    unfreepkgs = {
-      url = "github:n3oney/unfreepkgs";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
   };
 
   os = with lib; {
@@ -34,7 +30,7 @@
       registry =
         mappedRegistry
         // {
-          default = mappedRegistry.unfreepkgs;
+          default = mappedRegistry.nixpkgs;
         };
 
       nixPath = lib.mapAttrsToList (key: _: "${key}=flake:${key}") osConfig.nix.registry;
