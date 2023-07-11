@@ -32,17 +32,19 @@
           cursor-shape = {
             insert = "bar";
           };
+
+          indent-guides.render = true;
         };
       };
 
       languages = {
         language = let
-          mkPrettier = name: parser: {
+          mkPrettier = name: ext: {
             inherit name;
             auto-format = true;
             formatter = {
-              command = lib.getExe pkgs.nodePackages.prettier;
-              args = ["--parser" parser];
+              command = "${pkgs.prettierd}/bin/prettierd";
+              args = ["file.${ext}"];
             };
           };
         in [
@@ -52,28 +54,28 @@
             formatter = {command = lib.getExe pkgs.alejandra;};
             language-server = {command = lib.getExe pkgs.nil;};
           }
-          ((mkPrettier "typescript" "typescript")
+          ((mkPrettier "typescript" "ts")
             // {
               language-server = {
                 command = lib.getExe pkgs.nodePackages.typescript-language-server;
                 args = ["--stdio"];
               };
             })
-          ((mkPrettier "tsx" "typescript")
+          ((mkPrettier "tsx" "tsx")
             // {
               language-server = {
                 command = lib.getExe pkgs.nodePackages.typescript-language-server;
                 args = ["--stdio"];
               };
             })
-          ((mkPrettier "javascript" "typescript")
+          ((mkPrettier "javascript" "js")
             // {
               language-server = {
                 command = lib.getExe pkgs.nodePackages.typescript-language-server;
                 args = ["--stdio"];
               };
             })
-          ((mkPrettier "jsx" "typescript")
+          ((mkPrettier "jsx" "js")
             // {
               language-server = {
                 command = lib.getExe pkgs.nodePackages.typescript-language-server;
@@ -94,7 +96,7 @@
                 args = ["--stdio"];
               };
             })
-          (mkPrettier "markdown" "markdown")
+          (mkPrettier "markdown" "md")
         ];
       };
     };
