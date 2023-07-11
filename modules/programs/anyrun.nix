@@ -30,7 +30,7 @@
         enable = true;
 
         config = {
-          verticalOffset.fraction = 0.3;
+          y.fraction = 0.3;
           closeOnClick = true;
           hidePluginInfo = true;
           showResultsImmediately = true;
