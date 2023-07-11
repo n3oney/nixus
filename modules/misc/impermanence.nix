@@ -62,6 +62,7 @@
               ".cache/starship"
               ".local/share/nheko"
               ".config/nheko"
+              ".config/SchildiChat"
               ".local/share/keyrings"
               ".cache/nix-index"
               ".config/obs-studio"

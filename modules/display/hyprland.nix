@@ -113,6 +113,7 @@ in {
         home.packages = with pkgs;
         with inputs.hyprcontrib.packages.${pkgs.system};
         with inputs.shadower.packages.${pkgs.system}; [
+          schildichat-desktop
           pulseaudio
 
           caprine-bin
@@ -297,6 +298,7 @@ in {
                 drop_shadow = off
                 shadow_range = 8
                 shadow_render_power = 2
+                dim_special = 0.6
                 col.shadow = rgba(1a1a1aff)
             }
 
@@ -337,6 +339,7 @@ in {
             bind = $mainMod, T, togglesplit, # dwindle
 
             bind = $mainMod, Q, togglespecialworkspace,
+            bind = $mainMod, C, movetoworkspace, special
 
             bind = $mainMod, F, fullscreen,
 
@@ -448,7 +451,7 @@ in {
               if cfg.monitors.secondary.name != null
               then "19"
               else "9"
-            },class:nheko
+            },class:SchildiChat
 
             windowrulev2 = workspace ${
               if cfg.monitors.secondary.name != null
@@ -477,7 +480,7 @@ in {
             layerrule = noanim, ^(selection)$
 
             exec-once = firefox &
-            exec-once = nheko & webcord &
+            exec-once = schildichat-desktop & webcord &
             exec-once = ${lib.getExe pkgs.caprine-bin} &
 
             exec-once=${lib.getExe inputs.arrpc.packages.${pkgs.system}.arrpc} &
