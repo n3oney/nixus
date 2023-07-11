@@ -46,7 +46,7 @@
         EmoteCloner.enabled = false;
         Experiments.enabled = true;
         F8Break.enabled = false;
-        FakeNitro.enabled = false;
+        FakeNitro.enabled = true;
         FakeProfileThemes.enabled = false;
         Fart2.enabled = false;
         FixInbox.enabled = false;
