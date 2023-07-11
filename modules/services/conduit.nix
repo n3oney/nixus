@@ -2,23 +2,32 @@
   config,
   lib,
   osConfig,
+  inputs,
+  pkgs,
   ...
 }: {
   options.services.conduit.enable = lib.mkEnableOption "conduit";
 
-  config.os.services.matrix-conduit = lib.mkIf config.services.conduit.enable {
-    enable = true;
-    settings.global = {
-      server_name = "neoney.dev";
-      # allow_registration = true;
-      database_backend = "rocksdb";
-    };
-  };
+  config.inputs.conduit.url = "/home/neoney/conduit";
 
-  config.os.services.caddy = lib.mkIf config.services.conduit.enable {
-    enable = true;
-    virtualHosts."matrix.neoney.dev".extraConfig = ''
-      reverse_proxy /_matrix/* localhost:${toString osConfig.services.matrix-conduit.settings.global.port}
-    '';
+  config.os = lib.mkIf config.services.conduit.enable {
+    services.matrix-conduit = {
+      package = inputs.conduit.packages.${pkgs.system}.default;
+      enable = true;
+      settings.global = {
+        server_name = "neoney.dev";
+        # allow_registration = true;
+        database_backend = "rocksdb";
+      };
+    };
+
+    networking.firewall.allowedTCPPorts = [80 443 8448];
+
+    services.caddy = {
+      enable = true;
+      virtualHosts."matrix.neoney.dev".extraConfig = ''
+        reverse_proxy /_matrix/* localhost:${toString osConfig.services.matrix-conduit.settings.global.port}
+      '';
+    };
   };
 }
