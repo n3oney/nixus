@@ -96,4 +96,5 @@ in {
   ];
 
   os.environment.systemPackages = [pkgs.wget];
+  os.security.rtkit.enable = true;
 }
