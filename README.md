@@ -1,4 +1,5 @@
 # nixus
+
 my NixOS system configuration.
 
 This config is daily-driven by me on my PC.
