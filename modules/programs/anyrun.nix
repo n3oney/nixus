@@ -11,7 +11,7 @@
   config = lib.mkMerge [
     {
       inputs = {
-        anyrun.url = "github:notashelf/anyrun";
+        anyrun.url = "github:kirottu/anyrun";
         anyrun-ha-assist.url = "github:n3oney/anyrun-ha-assist";
       };
     }
