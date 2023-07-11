@@ -8,7 +8,7 @@
 }: {
   options.services.conduit.enable = lib.mkEnableOption "conduit";
 
-  config.inputs.conduit.url = "/home/neoney/conduit";
+  config.inputs.conduit.url = "gitlab:famedly/conduit/next";
 
   config.os = lib.mkIf config.services.conduit.enable {
     services.matrix-conduit = {

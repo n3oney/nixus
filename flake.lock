@@ -361,16 +361,18 @@
         "nixpkgs": "nixpkgs_5"
       },
       "locked": {
-        "dirtyRev": "ad06d475debc9657d36414bebb5a28f1ba3efcc7-dirty",
-        "dirtyShortRev": "ad06d47-dirty",
-        "lastModified": 1688999735,
-        "narHash": "sha256-UiXqfvPkGe0jMrpgYWKhEFH8KeQ4Omb8xSPlAV34LYw=",
-        "type": "git",
-        "url": "file:///home/neoney/conduit"
+        "lastModified": 1689084705,
+        "narHash": "sha256-FKIqKmXml0vNy8BcS95OdVnIFwGbGF3pgu+raj51cv4=",
+        "owner": "famedly",
+        "repo": "conduit",
+        "rev": "3c6ffd88bf298d61df244c17c14557b646a14e6c",
+        "type": "gitlab"
       },
       "original": {
-        "type": "git",
-        "url": "file:///home/neoney/conduit"
+        "owner": "famedly",
+        "ref": "next",
+        "repo": "conduit",
+        "type": "gitlab"
       }
     },
     "copilot-lua": {
