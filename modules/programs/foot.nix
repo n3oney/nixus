@@ -1,6 +1,7 @@
 {
   config,
   lib,
+  pkgs,
   ...
 }: {
   options.programs.foot.enable = lib.mkEnableOption "foot";
@@ -39,6 +40,18 @@
           bright7 = colors.base05;
         };
       };
+    };
+
+    xdg.desktopEntries.Helix = lib.mkForce {
+      type = "Application";
+      name = "Helix";
+      mimeType = ["text/plain"];
+      exec = "${pkgs.writeShellScript "foot-helix.sh" ''
+        filename="$(readlink -f "$1")"
+        dirname="$(dirname "$filename")"
+
+        ${lib.getExe pkgs.foot} -D "$dirname" ${lib.getExe pkgs.fish} -C "${lib.getExe pkgs.direnv} exec . ${lib.getExe pkgs.helix} '$filename'"
+      ''} %f";
     };
   };
 }
