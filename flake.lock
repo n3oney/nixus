@@ -42,15 +42,15 @@
         "nixpkgs": "nixpkgs_2"
       },
       "locked": {
-        "lastModified": 1687364222,
-        "narHash": "sha256-AZYDPBPfKmF7GxahCTyl7PM8zJBKM50f/mCFRPCwycI=",
-        "owner": "notashelf",
+        "lastModified": 1688716072,
+        "narHash": "sha256-FP3QTbGZN23SemynwphrCDhMCXcQEAl209owaSMStyU=",
+        "owner": "kirottu",
         "repo": "anyrun",
-        "rev": "e068d69e0d7228b0ace18088c5f25b210b5fbd8a",
+        "rev": "509cb95b68fd64191a78b30672d3d556d4a7d86f",
         "type": "github"
       },
       "original": {
-        "owner": "notashelf",
+        "owner": "kirottu",
         "repo": "anyrun",
         "type": "github"
       }
