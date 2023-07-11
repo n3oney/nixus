@@ -11,10 +11,12 @@ _: {
     networking = {
       hostName = "maya";
       networkmanager.enable = true;
+      enableIPv6 = true;
       firewall.allowedTCPPorts = [21];
       nameservers = ["1.1.1.1" "1.0.0.1"];
       defaultGateway = "10.0.0.1";
       interfaces.eth0 = {
+        useDHCP = true;
         ipv4.addresses = [
           {
             address = "10.0.0.14";
