@@ -1,13 +1,17 @@
 let
-  nixus_pc_user = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHRyeXj99ydcyzJtpZoZ5nMz0oOU97tIZMsygWecUtOk";
-  zia_user = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILEbP6w13AG23+e8GFD8fXH6c/VgIYKgoJ3D1xEZgNwF";
+  miko_user = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHRyeXj99ydcyzJtpZoZ5nMz0oOU97tIZMsygWecUtOk";
+  vic_user = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILEbP6w13AG23+e8GFD8fXH6c/VgIYKgoJ3D1xEZgNwF";
+  maya_user = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJJByA+ZlxOI6VEG+QXqYQu80PtfdNMXRwbERqiC4vUR";
 
-  nixus_pc = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICO6PmYOYdJT8IDzgbWp8oHo3h4KCfg9AGjty8fRn/QK";
-  zia = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAAkd9xLNVJa3F4EoQiZICAgDKbjSYwLdzsupsDhUcJm";
+  miko_host = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICO6PmYOYdJT8IDzgbWp8oHo3h4KCfg9AGjty8fRn/QK";
+  vic_host = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAAkd9xLNVJa3F4EoQiZICAgDKbjSYwLdzsupsDhUcJm";
+  maya_host = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJuP7PM81YCMmifSPC/tBHEJ4jKI9HAGxAUDqP5PQIiB";
 
-  users = [nixus_pc_user zia_user];
-  systems = [nixus_pc zia];
+  miko = [miko_user miko_host];
+  vic = [vic_user vic_host];
+  maya = [maya_user maya_host];
 in {
-  "ha_assist_config.age".publicKeys = users ++ systems;
-  "gh_notifications_key.age".publicKeys = users ++ systems;
+  "ha_assist_config.age".publicKeys = miko ++ vic;
+  "gh_notifications_key.age".publicKeys = miko ++ vic;
+  "sliding_sync_secret.age".publicKeys = maya;
 }
