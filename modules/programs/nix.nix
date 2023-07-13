@@ -67,6 +67,8 @@
         keep-derivations = true;
         keep-outputs = true;
 
+        accept-flake-config = true;
+
         extra-experimental-features = ["flakes" "nix-command" "recursive-nix" "ca-derivations"];
 
         substituters = [
