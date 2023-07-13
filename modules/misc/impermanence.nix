@@ -66,6 +66,7 @@
               ".local/share/keyrings"
               ".cache/nix-index"
               ".config/obs-studio"
+              ".local/share/pnpm/store"
               {
                 directory = ".local/share/zoxide";
                 method = "symlink";
