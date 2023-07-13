@@ -1,6 +1,7 @@
 {
   lib,
   pkgs,
+  hmConfig,
   ...
 }: {
   os.nixpkgs.overlays = [
@@ -9,7 +10,7 @@
         patches =
           (old.patches or [])
           ++ [
-            ../../0001-nix.patch
+            ../../../0001-nix.patch
           ];
       });
     })
@@ -20,6 +21,13 @@
 
     programs.helix = {
       enable = true;
+      package = pkgs.helix.overrideAttrs (old: {
+        patches =
+          (old.patches or [])
+          ++ [
+            ./format-filename.patch
+          ];
+      });
       settings = {
         theme = "catppuccin_macchiato";
 
@@ -38,13 +46,31 @@
       };
 
       languages = {
+        # future-proofing
+        language-server = {
+          typescript-language-server = {
+            command = lib.getExe pkgs.nodePackages.typescript-language-server;
+            args = ["--stdio"];
+            config.hostInfo = "helix";
+          };
+          vscode-css-language-server = {
+            command = lib.getExe pkgs.nodePackages.vscode-css-languageserver-bin;
+            args = ["--stdio"];
+            config.provideFormatter = true;
+          };
+          nil.command = lib.getExe pkgs.nil;
+        };
         language = let
           mkPrettier = name: ext: {
             inherit name;
             auto-format = true;
             formatter = {
-              command = "${pkgs.prettierd}/bin/prettierd";
-              args = ["file.${ext}"];
+              command = pkgs.writeShellScript "prettierd.sh" ''
+                ${pkgs.prettierd}/bin/prettierd "$1" 2>/dev/null
+
+                ${pkgs.wakatime}/bin/wakatime-cli --entity "$1" --plugin "Helix/${hmConfig.programs.helix.package.version} Helix/${hmConfig.programs.helix.package.version}" --write --key $(cat "${hmConfig.age.secrets.wakatime.path}") https://wakapi.dev/api 2>&1 >/dev/null &
+              '';
+              args = ["{}"];
             };
           };
         in [

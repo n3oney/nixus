@@ -34,6 +34,7 @@ in {
         age.secrets = lib.mkMerge [
           (secretForHostnames ["miko" "vic"] ../../secrets/ha_assist_config.age "ha_assist_config")
           (secretForHostnames ["miko" "vic"] ../../secrets/gh_notifications_key.age "gh_notifications_key")
+          (secretForHostnames ["miko" "vic" "maya"] ../../secrets/wakatime.age "wakatime")
         ];
         age.identityPaths = ["/home/neoney/.ssh/id_ed25519_agenix"];
       };

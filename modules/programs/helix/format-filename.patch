@@ -1,0 +1,30 @@
+diff --git a/helix-view/src/document.rs b/helix-view/src/document.rs
+index b08370f9..bcfdafa1 100644
+--- a/helix-view/src/document.rs
++++ b/helix-view/src/document.rs
+@@ -735,11 +735,23 @@ pub fn format(&self) -> Option<BoxFuture<'static, Result<Transaction, FormatterE
+             .and_then(|c| c.formatter.clone())
+             .filter(|formatter| which::which(&formatter.command).is_ok())
+         {
++            let file_path = self.path()?.to_str().unwrap_or("");
++
++            let mut args = formatter.args.clone();
++
++            for i in 0..args.len() {
++                if let Some(arg) = args.get_mut(i) {
++                    if arg.contains("{}") {
++                        *arg = arg.replace("{}", file_path);
++                    }
++                }
++            }
++
+             use std::process::Stdio;
+             let text = self.text().clone();
+             let mut process = tokio::process::Command::new(&formatter.command);
+             process
+-                .args(&formatter.args)
++                .args(&args)
+                 .stdin(Stdio::piped())
+                 .stdout(Stdio::piped())
+                 .stderr(Stdio::piped());
+
