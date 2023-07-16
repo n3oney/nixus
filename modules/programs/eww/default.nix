@@ -54,6 +54,9 @@
                   speakerSink = builtins.toJSON config.programs.eww.speakerSink;
                   micName = builtins.toJSON config.programs.eww.micName;
                   fish = lib.getExe pkgs.fish;
+                  pidof = "${pkgs.procps}/bin/pidof";
+                  xargs = "${pkgs.findutils}/bin/xargs";
+                  idleInhibit = "${pkgs.wlroots.examples}/bin/wlroots-idle-inhibit";
                 }
                 // colorScheme);
               executable = true;
