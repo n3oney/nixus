@@ -46,7 +46,7 @@
           mkIf (hmConfig.programs.btop or {enable = false;}).enable (opaquewrap "command btop");
 
         hd = ''
-          sudo nix system apply ~/nixus $argv
+          nix system apply ~/nixus $argv
         '';
       };
       shellAbbrs = {
