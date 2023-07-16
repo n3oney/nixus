@@ -68,7 +68,7 @@
               command = pkgs.writeShellScript "prettierd.sh" ''
                 ${pkgs.prettierd}/bin/prettierd "$1" 2>/dev/null
 
-                ${pkgs.wakatime}/bin/wakatime-cli --entity "$1" --plugin "Helix/${hmConfig.programs.helix.package.version} Helix/${hmConfig.programs.helix.package.version}" --write --key $(cat "${hmConfig.age.secrets.wakatime.path}") https://wakapi.dev/api 2>&1 >/dev/null &
+                ${pkgs.wakatime}/bin/wakatime-cli --entity "$1" --plugin "Helix/${hmConfig.programs.helix.package.version} Helix/${hmConfig.programs.helix.package.version}" --write --key $(cat "${hmConfig.age.secrets.wakatime.path}") --api-url https://wakapi.dev/api 2>&1 >/dev/null &
               '';
               args = ["{}"];
             };
