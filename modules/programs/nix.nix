@@ -8,10 +8,11 @@
     nix-super.url = "github:privatevoid-net/nix-super";
   };
 
-  os = with lib; {
+  os = {
     nixpkgs.overlays = [
       (_: prev: {
         nix = inputs.nix-super.packages.${prev.system}.default;
+        nixos-option = prev.nixos-option.override {nix = prev.nixVersions.nix_2_15;};
       })
     ];
     programs.command-not-found.enable = false;
@@ -24,7 +25,7 @@
     };
 
     nix = let
-      mappedRegistry = mapAttrs (_: v: {flake = v;}) inputs;
+      mappedRegistry = lib.mapAttrs (_: v: {flake = v;}) inputs;
     in {
       registry =
         mappedRegistry
