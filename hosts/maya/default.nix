@@ -33,6 +33,8 @@ _: {
     services.openssh.enable = true;
 
     system.stateVersion = "23.05";
+
+    boot.kernel.sysctl."net.core.wmem_max" = 2097152;
   };
 
   hm.home.stateVersion = "23.05";
