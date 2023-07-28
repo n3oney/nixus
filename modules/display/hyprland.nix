@@ -229,13 +229,12 @@ in {
                     ++ (lib.optionals (cfg.monitors.secondary.name != null) ["monitor=${cfg.monitors.secondary.name},${toString cfg.monitors.secondary.width}x${toString cfg.monitors.secondary.height}@60,2560x0,1"]);
 
                   workspace =
-                    [
+                    (builtins.map (n: "${toString n},monitor:${cfg.monitors.main.name}") (lib.range 1 10))
+                    ++ (lib.optionals (cfg.monitors.secondary.name != null) ((builtins.map (n: "${toString n},monitor:${cfg.monitors.secondary.name}") (lib.range 11 20)) ++ ["19,monitor:${cfg.monitors.secondary.name}, default:true, gapsin:0, gapsout:0, bordersize:0, rounding:false"]))
+                    ++ [
                       "1,monitor:${cfg.monitors.main.name}, default:true, gapsin:0, gapsout:0, bordersize:1, rounding:false"
                       "2,monitor:${cfg.monitors.main.name}, default:true"
-                    ]
-                    ++ (builtins.map (n: "${toString n},monitor:${cfg.monitors.main.name}") (lib.range 1 10))
-                    ++ (lib.optionals (cfg.monitors.secondary.name != null) ((builtins.map (n: "${toString n},monitor:${cfg.monitors.secondary.name}") (lib.range 11 20)) ++ ["19,monitor:${cfg.monitors.secondary.name}, default:true, gapsin:0, gapsout:0, bordersize:0, rounding:false"]));
-
+                    ];
                   input = {
                     kb_options = "caps:backspace";
 
