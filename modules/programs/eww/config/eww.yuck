@@ -1,5 +1,6 @@
 (include "./yubikey.yuck")
 (include "./idle-inhibit.yuck")
+(include "./which-key.yuck")
 
 (defwidget bar []
   (centerbox :orientation "h"

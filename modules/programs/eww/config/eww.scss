@@ -288,3 +288,20 @@ menubar > menuitem {
     }
   }
 }
+
+.which-key-box {
+  background: rgba($base00, $backgroundAlpha);
+  border-top: 2px solid $accent;
+  padding: 4rem;
+
+  .keybind,
+  .label {
+    // font-family: "monospace";
+    font-weight: 600;
+  }
+
+  .arrow {
+    color: $accent;
+    font-size: 0.8rem;
+  }
+}

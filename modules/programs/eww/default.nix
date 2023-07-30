@@ -3,6 +3,7 @@
   pkgs,
   config,
   lib,
+  hmConfig,
   ...
 }: {
   options.programs.eww = {
@@ -40,6 +41,17 @@
         xdg.configFile = let
           colorScheme = config.colors.colorScheme.colors;
           files = builtins.readDir ./config;
+          splitList = let
+            splitList = n: list:
+              if lib.length list == 0
+              then []
+              else let
+                chunk = lib.sublist 0 n list;
+                rest = splitList n (lib.drop n list);
+              in
+                [chunk] ++ rest;
+          in
+            splitList;
         in
           lib.concatMapAttrs (name: _: {
             "eww/${name}" = {
@@ -57,6 +69,15 @@
                   pidof = "${pkgs.procps}/bin/pidof";
                   xargs = "${pkgs.findutils}/bin/xargs";
                   idleInhibit = "${pkgs.wlroots.examples}/bin/wlroots-idle-inhibit";
+                  # done twice so that it's a string
+                  hyprbinds = builtins.toJSON (builtins.toJSON (splitList 5 (builtins.map (b: {
+                    bind =
+                      if (lib.hasPrefix ", " b.bind)
+                      then (builtins.substring 2 ((builtins.stringLength b.bind) - 2) b.bind)
+                      else b.bind;
+                    keybind = builtins.replaceStrings [", "] [" + "] b.bind;
+                    label = b.comment;
+                  }) (builtins.filter (b: b.comment != null) config.display.binds))));
                 }
                 // colorScheme);
               executable = true;

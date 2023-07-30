@@ -1,0 +1,39 @@
+(defvar binds @hyprbinds@)
+; (defvar binds "[[{\"keybind\": \"SUPER+W\", \"label\": \"exec, kill\"}], [], []]")
+(defvar show-which-key false)
+
+(defwidget wk-bind [keybind label]
+  (box :class "bind" :space-evenly false :orientation "h" :spacing 8
+    (label :text {keybind} :class "keybind")
+    (label :text "" :class "arrow")
+    (label :text {label} :class "label")
+  )
+)
+
+(defwidget wk-column [keybinds]
+  (box :class "column" :orientation "v" :spacing 12 :space-evenly false :halign "center" :valign "center" :hexpand true
+    (for bind in keybinds
+      (wk-bind :keybind {bind.keybind} :label {bind.label})
+    )
+  )
+)
+
+(defwidget which-key []
+  (revealer :reveal {show-which-key} :transition "slideup"
+    (box :height 200 :class "which-key-box" :space-evenly false :spacing 20
+      (for column in binds
+        (wk-column :keybinds {column})
+      )
+    )
+  )
+)
+
+(defwindow which-key
+  :stacking "fg"
+  :monitor 0
+  :exclusive false
+  :windowtype "dock"
+  :wm-ignore false
+  :geometry (geometry :width "100%" :anchor "bottom left")
+  (which-key)
+)

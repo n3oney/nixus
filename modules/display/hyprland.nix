@@ -24,6 +24,10 @@
     type = types.nullOr types.int;
     default = null;
   };
+
+  mainMod = "SUPER";
+  mkBind = bind: action: comment: {inherit bind action comment;};
+  windowSwitchBind = bind: direction: comment: mkBind "${mainMod}, ${bind}" "exec, hyprctl activewindow -j | $(jaq -r \"if .fullscreen then \\\"hyprctl dispatch focusmonitor ${direction}\\\" else \\\"hyprctl dispatch movefocus ${direction}\\\" end\")" comment;
 in {
   options.display = {
     enable = mkEnableOption "Display";
@@ -51,6 +55,57 @@ in {
         width = nullIntOption;
         height = nullIntOption;
       };
+    };
+
+    binds = mkOption {
+      default =
+        [
+          (mkBind "${mainMod}, Return" "exec, foot" "Launch terminal")
+          (mkBind "${mainMod}, W" "killactive," "Close focused window")
+          (mkBind "${mainMod}, M" "exit," "Close Hyprland")
+          (mkBind "${mainMod}, P" "exec, hyprpicker -a" "Open color picker")
+          (mkBind "${mainMod}, S" "togglefloating," "Toggle floating")
+          (mkBind "${mainMod}, space" "exec, anyrun" "Open application launcher")
+          (mkBind "${mainMod}, T" "togglesplit," "Toggle split direction")
+          (mkBind "${mainMod}, Q" "togglespecialworkspace," "Toggle special workspace")
+          (mkBind "${mainMod}, C" "movetoworkspace, special" "Move window to special workspace")
+
+          (mkBind "${mainMod}, F" "fullscreen," "Toggle fullscreen")
+
+          (mkBind "${mainMod}, e" "exec, wl-paste | swappy -f - -o - | wl-copy -t image/png && notify-send 'Copied!' --expire-time 1000" "Edit copied image")
+
+          (mkBind "${mainMod}, r" "exec, ${lib.getExe pkgs.kooha}" "Start screen recording")
+
+          # keyboard layouts
+          (mkBind "${mainMod}, F1" "exec, ${lib.concatMapStringsSep "; " (n: "hyprctl keyword device:${n}:kb_variant \"basic\"") cfg.keyboards}" "Switch to QWERTY")
+          (mkBind "${mainMod}, F2" "exec, ${lib.concatMapStringsSep "; " (n: "hyprctl keyword device:${n}:kb_variant \"colemak_dh_ansi\"") cfg.keyboards}" "Switch to Colemak DH")
+
+          # volume (mute only)
+          (mkBind ", XF86AudioMute" "exec, pactl set-sink-mute @DEFAULT_SINK@ toggle" null)
+
+          # music
+          (mkBind ", XF86AudioPlay" "exec, ${lib.getExe pkgs.playerctl} play-pause" null)
+          (mkBind ", XF86AudioNext" "exec, ${lib.getExe pkgs.playerctl} next" null)
+          (mkBind ", XF86AudioPrev" "exec, ${lib.getExe pkgs.playerctl} previous" null)
+
+          (mkBind "${mainMod} , z" ''exec, sleep 1 && ${lib.getExe pkgs.wtype} " +:hesrightyouknow:" -P Return -p Return'' "He's right you know.")
+
+          # move focus
+          (windowSwitchBind "left" "l" "Move to window on the left")
+          (windowSwitchBind "right" "r" "Move to window on the right")
+          (windowSwitchBind "up" "u" "Move to window above")
+          (windowSwitchBind "down" "d" "Move to window below")
+        ] # switch workspaces 1-10
+        ++ (builtins.map (n: mkBind "${mainMod}, ${toString (lib.mod n 10)}" "workspace, ${toString n}" null) (lib.range 1 10))
+        ++ (builtins.map (n: mkBind "${mainMod} SHIFT, ${toString (lib.mod n 10)}" "movetoworkspace, ${toString n}" null) (lib.range 1 10))
+        # switch workspaces 11 - 20
+        ++ (lib.optionals (cfg.monitors.secondary.name != null) (builtins.map (n: mkBind "${mainMod} ALT, ${toString (lib.mod (n - 10) 10)}" "workspace, ${toString n}" null) (lib.range 11 20)) ++ (builtins.map (n: mkBind "${mainMod} ALT SHIFT, ${toString (lib.mod (n - 10) 10)}" "movetoworkspace, ${toString n}" null) (lib.range 11 20)))
+        # Screenshots
+        ++ (lib.optionals (cfg.screenshotKeybinds.active != null) [(mkBind cfg.screenshotKeybinds.active "exec, grimblast save active - | shadower | wl-copy -t image/png && notify-send 'Screenshot taken' --expire-time 1000" "Take screenshot of active window")])
+        ++ (lib.optionals (cfg.screenshotKeybinds.area != null) [(mkBind cfg.screenshotKeybinds.area "exec, pauseshot | shadower | wl-copy -t image/png && notify-send 'Screenshot taken' --expire-time 1000" "Take screenshot of an area")])
+        ++ (lib.optionals (cfg.screenshotKeybinds.all != null) [(mkBind cfg.screenshotKeybinds.all "exec, grimblast copy && notify-send 'Screenshot taken' --expire-time 1000" "Take screenshot of everything")])
+        # mute for secondary
+        ++ (lib.optionals (cfg.secondarySink != null) [(mkBind "ALT, XF86AudioMute" "exec, pactl set-sink-mute ${cfg.secondarySink} toggle" null)]);
     };
 
     secondarySink = nullStrOption;
@@ -149,17 +204,6 @@ in {
 
               kill $picker_proc
             '')
-
-          (
-            writeShellScriptBin
-            "history-copy"
-            ''
-              for file in ~/.mozilla/firefox/*.dev-edition-default/places.sqlite
-              do
-                   ${pkgs.sqlite}/bin/sqlite3 $file "SELECT rev_host FROM moz_places;" 2>/dev/null | rev | cut -c 2-
-              done | sort | uniq -c | sort -nr | awk '{print "https://"$2"/"}' | anyrun -o libstdin.so | wl-copy
-            ''
-          )
         ];
 
         home.pointerCursor = {
@@ -196,8 +240,6 @@ in {
 
           settings = let
             lockSequence = "physlock -ldms && gtklock && physlock -Ld";
-            mainMod = "SUPER";
-            windowSwitchBind = bind: direction: "${mainMod}, ${bind}, exec, hyprctl activewindow -j | $(jaq -r \"if .fullscreen then \\\"hyprctl dispatch focusmonitor ${direction}\\\" else \\\"hyprctl dispatch movefocus ${direction}\\\" end\")";
           in
             lib.mkMerge ([
                 {
@@ -345,57 +387,11 @@ in {
                   ];
 
                   # See https://wiki.hyprland.org/Configuring/Keywords/ for more
+                  bindr = [
+                    "${mainMod}, Super_L, exec, eww update show-which-key=$([ $(eww get show-which-key) == 'true' ] && echo 'false' || echo 'true')"
+                  ];
 
-                  bind =
-                    [
-                      "${mainMod}, Return, exec, foot"
-                      "${mainMod}, W, killactive,"
-                      "${mainMod}, M, exit,"
-                      "${mainMod}, P, exec, hyprpicker -a"
-                      "${mainMod}, S, togglefloating,"
-                      "${mainMod}, space, exec, anyrun"
-                      "${mainMod}, T, togglesplit,"
-
-                      "${mainMod}, Q, togglespecialworkspace,"
-                      "${mainMod}, C, movetoworkspace, special"
-
-                      "${mainMod}, F, fullscreen,"
-
-                      "${mainMod}, e, exec, wl-paste | swappy -f - -o - | wl-copy -t image/png && notify-send 'Copied!' --expire-time 1000"
-
-                      "${mainMod}, h, exec, history-copy"
-                      "${mainMod}, r, exec, ${lib.getExe pkgs.kooha}"
-
-                      # keyboard layouts
-                      "${mainMod}, F1, exec, ${lib.concatMapStringsSep "; " (n: "hyprctl keyword device:${n}:kb_variant \"basic\"") cfg.keyboards}"
-                      "${mainMod}, F2, exec, ${lib.concatMapStringsSep "; " (n: "hyprctl keyword device:${n}:kb_variant \"colemak_dh_ansi\"") cfg.keyboards}"
-
-                      # volume (mute only)
-                      ", XF86AudioMute, exec, pactl set-sink-mute @DEFAULT_SINK@ toggle"
-
-                      # music
-                      ", XF86AudioPlay, exec, ${lib.getExe pkgs.playerctl} play-pause"
-                      ", XF86AudioNext, exec, ${lib.getExe pkgs.playerctl} next"
-                      ", XF86AudioPrev, exec, ${lib.getExe pkgs.playerctl} previous"
-
-                      ''${mainMod} , z, exec, sleep 1 && ${lib.getExe pkgs.wtype} " +:hesrightyouknow:" -P Return -p Return''
-
-                      # move focus
-                      (windowSwitchBind "left" "l")
-                      (windowSwitchBind "right" "r")
-                      (windowSwitchBind "up" "u")
-                      (windowSwitchBind "down" "d")
-                    ] # switch workspaces 1-10
-                    ++ (builtins.map (n: "${mainMod}, ${toString (lib.mod n 10)}, workspace, ${toString n}") (lib.range 1 10))
-                    ++ (builtins.map (n: "bind = ${mainMod} SHIFT, ${toString (lib.mod n 10)}, movetoworkspace, ${toString n}") (lib.range 1 10))
-                    # switch workspaces 11 - 20
-                    ++ (lib.optionals (cfg.monitors.secondary.name != null) (builtins.map (n: "${mainMod} ALT, ${toString (lib.mod (n - 10) 10)}, workspace, ${toString n}") (lib.range 11 20)) ++ (builtins.map (n: "${mainMod} ALT SHIFT, ${toString (lib.mod (n - 10) 10)}, movetoworkspace, ${toString n}") (lib.range 11 20)))
-                    # Screenshots
-                    ++ (lib.optionals (cfg.screenshotKeybinds.active != null) ["${cfg.screenshotKeybinds.active}, exec, grimblast save active - | shadower | wl-copy -t image/png && notify-send 'Screenshot taken' --expire-time 1000"])
-                    ++ (lib.optionals (cfg.screenshotKeybinds.area != null) ["${cfg.screenshotKeybinds.area}, exec, pauseshot | shadower | wl-copy -t image/png && notify-send 'Screenshot taken' --expire-time 1000"])
-                    ++ (lib.optionals (cfg.screenshotKeybinds.all != null) ["${cfg.screenshotKeybinds.all}, exec, grimblast copy && notify-send 'Screenshot taken' --expire-time 1000"])
-                    # mute for secondary
-                    ++ (lib.optionals (cfg.secondarySink != null) ["ALT, XF86AudioMute, exec, pactl set-sink-mute ${cfg.secondarySink} toggle"]);
+                  bind = builtins.map (b: b.bind + "," + b.action) cfg.binds;
 
                   binde =
                     [
