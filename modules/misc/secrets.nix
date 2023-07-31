@@ -24,9 +24,9 @@ in {
       hmModules = [inputs.agenix.homeManagerModules.default];
 
       os = {
-        age.secrets = lib.mkMerge [
-          (secretForHostnames ["maya"] ../../secrets/sliding_sync_secret.age "sliding_sync_secret")
-        ];
+        age.secrets =
+          lib.mkMerge [
+          ];
         environment.systemPackages = [inputs.agenix.packages.${pkgs.system}.default];
       };
 
@@ -34,7 +34,7 @@ in {
         age.secrets = lib.mkMerge [
           (secretForHostnames ["miko" "vic"] ../../secrets/ha_assist_config.age "ha_assist_config")
           (secretForHostnames ["miko" "vic"] ../../secrets/gh_notifications_key.age "gh_notifications_key")
-          (secretForHostnames ["miko" "vic" "maya"] ../../secrets/wakatime.age "wakatime")
+          (secretForHostnames ["miko" "vic" "maya" "max"] ../../secrets/wakatime.age "wakatime")
         ];
         age.identityPaths = ["/home/neoney/.ssh/id_ed25519_agenix"];
       };

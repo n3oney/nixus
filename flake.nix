@@ -26,6 +26,8 @@
         ./configs/vic
         ./configs/maya
         ./hosts/maya
+        ./configs/max
+        ./hosts/max
       ];
     };
 
@@ -71,6 +73,16 @@
           ./modules
           ./hosts/maya
           ./configs/maya
+        ];
+      };
+
+      max = combinedManager.nixosSystem {
+        system = "x86_64-linux";
+        inherit inputs;
+        modules = [
+          ./modules
+          ./hosts/max
+          ./configs/max
         ];
       };
     };
