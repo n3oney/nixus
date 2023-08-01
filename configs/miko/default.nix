@@ -1,5 +1,5 @@
 {pkgs, ...}: let
-  secondarySink = "raop_sink.raspberrypi.local.192.168.1.4.5000";
+  secondarySink = "tunnel.max.local.alsa_output.usb-Logitech_PRO_X_000000000000-00.analog-stereo";
 in {
   users.main = "neoney";
 
