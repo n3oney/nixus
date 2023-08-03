@@ -2,6 +2,7 @@
   inputs,
   pkgs,
   hmConfig,
+  osConfig,
   config,
   lib,
   ...
@@ -13,6 +14,7 @@
       inputs = {
         anyrun.url = "github:kirottu/anyrun";
         anyrun-ha-assist.url = "github:n3oney/anyrun-ha-assist";
+        anyrun-nixos-options.url = "github:n3oney/anyrun-nixos-options";
       };
     }
     (lib.mkIf config.programs.anyrun.enable {
@@ -30,19 +32,27 @@
         enable = true;
 
         config = {
-          y.fraction = 0.3;
+          y.fraction = 0.2;
           closeOnClick = true;
           hidePluginInfo = true;
           showResultsImmediately = true;
+          maxEntries = 10;
           plugins = with inputs.anyrun.packages.${pkgs.system}; [
             applications
             rink
             inputs.anyrun-ha-assist.packages.${pkgs.system}.default
+            inputs.anyrun-nixos-options.packages.${pkgs.system}.default
             translate
           ];
         };
 
         extraConfigFiles."ha-assist.ron".source = hmConfig.lib.file.mkOutOfStoreSymlink "/run/user/1000/agenix.d/1/ha_assist_config";
+
+        extraConfigFiles."nixos-options.ron".text = ''
+          Config(
+            options_path: "${osConfig.system.build.manual.optionsJSON}/share/doc/nixos/options.json"
+          )
+        '';
 
         extraCss = ''
           window {
@@ -61,11 +71,12 @@
             border-radius: 12px;
             color: white;
             margin-top: 4px;
+            border: 2px solid transparent;
+            transition: border 0.2s ease;
           }
 
           #match.activatable:selected {
-            background: #${hmConfig.colorScheme.colors.accent};
-            color: black;
+            border: 2px solid #${hmConfig.colorScheme.colors.accent};
           }
 
           #match-title, #match-desc {
