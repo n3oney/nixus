@@ -17,5 +17,5 @@ in {
   "ha_assist_config.age".publicKeys = miko ++ vic;
   "gh_notifications_key.age".publicKeys = miko ++ vic;
   "wakatime.age".publicKeys = miko ++ vic ++ maya ++ max;
-  "sliding_sync_secret.age".publicKeys = maya;
+  "cloudflared.age".publicKeys = max;
 }

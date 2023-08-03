@@ -9,7 +9,25 @@
 
   # services.conduit.enable = true;
 
-  # services.arr.enable = true;
+  services.arr = {
+    enable = true;
+    bazarr.enable = false;
+    jackett = {
+      enable = true;
+      caddy = false;
+    };
+    jellyfin.enable = false;
+    plex.enable = false;
+    radarr.enable = false;
+    sonarr.enable = false;
+    transmission.enable = false;
+  };
+
+  services.smarthome.enable = true;
+
+  services.shairport-sync.enable = true;
+
+  services.mopidy.enable = true;
 
   hm.home.packages = with pkgs; [
     ripgrep

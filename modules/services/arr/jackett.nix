@@ -3,7 +3,10 @@
   lib,
   ...
 }: {
-  options.services.arr.jackett.enable = lib.mkEnableOption "jackett" // {default = config.services.arr.enable;};
+  options.services.arr.jackett = {
+    enable = lib.mkEnableOption "jackett" // {default = config.services.arr.enable;};
+    caddy = lib.mkEnableOption "caddy" // {default = true;};
+  };
 
   config.os = lib.mkIf (config.services.arr.enable && config.services.arr.jackett.enable) {
     services.jackett = {
@@ -11,7 +14,7 @@
       group = config.services.arr.group.name;
     };
 
-    services.caddy = {
+    services.caddy = lib.mkIf config.services.arr.jackett.caddy {
       enable = true;
 
       virtualHosts."jackett.neoney.dev".extraConfig = ''

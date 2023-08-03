@@ -25,6 +25,7 @@ in {
           "video"
           "networkmanager"
           "lp"
+          "pulse-access"
         ];
       };
       users.mutableUsers = false;
