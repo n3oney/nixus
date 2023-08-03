@@ -66,11 +66,11 @@ in {
       };
 
       config = {pkgs, ...}: {
-        networking.firewall.allowedUDPPorts = [53];
-        networking.firewall.allowedTCPPorts = [9091];
+        networking.firewall.allowedUDPPorts = [53 51370];
+        networking.firewall.allowedTCPPorts = [9091 51370];
 
         services.openvpn.servers = {
-          mullvad.config = "config /root/nixos/openvpn/mullvad.conf";
+          airvpn.config = "config /root/nixos/openvpn/airvpn.ovpn";
         };
 
         users.groups."${config.services.arr.group.name}" = {
@@ -89,11 +89,12 @@ in {
             script-torrent-done-seeding-filename = pkgs.writeShellScript "done-seeding.sh" ''
               ${pkgs.transmission}/bin/transmission-remote --torrent $TR_TORRENT_ID --remove-and-delete
             '';
+            peer-port = 51370;
           };
         };
 
-        systemd.services.transmission.after = ["openvpn-mullvad.service"];
-        systemd.services.transmission.requires = ["openvpn-mullvad.service"];
+        systemd.services.transmission.after = ["openvpn-airvpn.service"];
+        systemd.services.transmission.requires = ["openvpn-airvpn.service"];
 
         system.stateVersion = "23.11";
       };
