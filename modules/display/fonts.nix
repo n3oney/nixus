@@ -10,7 +10,7 @@
     fonts = {
       fonts = with pkgs; [
         cozette
-        (nerdfonts.override {fonts = ["FiraCode"];})
+        (nerdfonts.override {fonts = ["JetBrainsMono"];})
         roboto
         roboto-serif
         gg-sans
@@ -29,7 +29,7 @@
         defaultFonts = {
           sansSerif = ["gg sans"];
           serif = ["Roboto Serif"];
-          monospace = ["Cozette"];
+          monospace = ["JetBrains Mono Nerd Font"];
           emoji = ["JoyPixels"];
         };
       };
