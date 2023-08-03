@@ -9,7 +9,10 @@
 
   services.conduit.enable = true;
 
-  services.arr.enable = true;
+  services.arr = {
+    enable = true;
+    jackett.enable = false;
+  };
 
   hm.home.packages = with pkgs; [
     ripgrep
