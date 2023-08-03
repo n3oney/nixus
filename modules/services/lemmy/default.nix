@@ -60,7 +60,7 @@
 
         systemd.services.lemmy-ui.environment = {
           LEMMY_UI_HOST = lib.mkForce "0.0.0.0:${toString frontendPort}";
-          LEMMY_INTERNAL_HOST = lib.mkForce "0.0.0.0:${toString backendPort}";
+          LEMMY_UI_LEMMY_INTERNAL_HOST = lib.mkForce "127.0.0.1:${toString backendPort}";
           LEMMY_UI_EXTRA_THEMES_FOLDER = inputs.catppuccin-lemmy.packages.${pkgs.system}.default;
         };
 
