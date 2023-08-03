@@ -9,6 +9,8 @@
   ];
 
   os = {
+    boot.binfmt.emulatedSystems = ["aarch64-linux"];
+
     nixpkgs.config.allowUnfree = true;
 
     boot.loader = {
@@ -47,6 +49,7 @@
         ]
       '';
     };
+    services.avahi.enable = true;
 
     hardware.opengl = {
       driSupport = true;
