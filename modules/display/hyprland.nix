@@ -324,15 +324,19 @@ in {
 
                   decoration = {
                     rounding = 12;
-                    blur = true;
-                    blur_size = 2;
-                    blur_passes = 4;
-                    blur_new_optimizations = true;
                     drop_shadow = false;
                     shadow_range = 8;
                     shadow_render_power = 2;
                     dim_special = 0.6;
                     "col.shadow" = "rgba(1a1a1aff)";
+                    blur = {
+                      enabled = true;
+                      size = 6;
+                      passes = 4;
+                      contrast = 1.4;
+                      brightness = 1;
+                      noise = 0.1;
+                    };
                   };
 
                   animations = {
