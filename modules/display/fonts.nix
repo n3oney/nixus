@@ -8,7 +8,7 @@
     nixpkgs.config.joypixels.acceptLicense = true;
 
     fonts = {
-      fonts = with pkgs; [
+      packages = with pkgs; [
         cozette
         (nerdfonts.override {fonts = ["JetBrainsMono"];})
         roboto
@@ -22,7 +22,7 @@
         noto-fonts-cjk
       ];
 
-      enableDefaultFonts = false;
+      enableDefaultPackages = false;
 
       fontconfig = {
         enable = true;
