@@ -32,6 +32,7 @@ in {
       active = ", Print";
       area = "SHIFT, Print";
       all = "ALT, Print";
+      monitor = "CTRL, Print";
     };
   };
 
