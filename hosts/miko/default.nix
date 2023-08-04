@@ -29,6 +29,8 @@
       ];
     };
 
+    services.journald.extraConfig = "Storage=volatile";
+
     systemd.services.NetworkManager-wait-online.enable = false;
 
     services.pipewire = {
