@@ -23,6 +23,8 @@
     transmission.enable = false;
   };
 
+  services.adguard.enable = true;
+
   services.smarthome.enable = true;
 
   services.shairport-sync.enable = true;
