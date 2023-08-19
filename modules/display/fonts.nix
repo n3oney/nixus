@@ -13,7 +13,7 @@
         (nerdfonts.override {fonts = ["JetBrainsMono"];})
         roboto
         roboto-serif
-        gg-sans
+        inter
         font-awesome
         font-awesome_5
         font-awesome_4
@@ -27,7 +27,7 @@
       fontconfig = {
         enable = true;
         defaultFonts = {
-          sansSerif = ["gg sans"];
+          sansSerif = ["Inter"];
           serif = ["Roboto Serif"];
           monospace = ["JetBrains Mono Nerd Font"];
           emoji = ["JoyPixels"];
