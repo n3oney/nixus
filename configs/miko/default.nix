@@ -95,6 +95,8 @@ in {
     ripgrep
   ];
 
+  os.programs.nix-ld.enable = true;
+
   os.environment.systemPackages = [pkgs.wget];
   os.security.rtkit.enable = true;
 }
