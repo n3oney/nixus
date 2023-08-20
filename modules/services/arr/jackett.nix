@@ -5,7 +5,10 @@
 }: {
   options.services.arr.jackett = {
     enable = lib.mkEnableOption "jackett" // {default = config.services.arr.enable;};
-    caddy = lib.mkEnableOption "caddy" // {default = true;};
+    host = lib.mkOption {
+      type = lib.types.str;
+      default = "jackett.neoney.dev";
+    };
   };
 
   config.os = lib.mkIf (config.services.arr.enable && config.services.arr.jackett.enable) {
@@ -14,10 +17,12 @@
       group = config.services.arr.group.name;
     };
 
-    services.caddy = lib.mkIf config.services.arr.jackett.caddy {
+    networking.firewall.allowedTCPPorts = [80];
+
+    services.caddy = {
       enable = true;
 
-      virtualHosts."jackett.neoney.dev".extraConfig = ''
+      virtualHosts.${config.services.arr.jackett.host}.extraConfig = ''
         reverse_proxy 127.0.0.1:9117
       '';
     };

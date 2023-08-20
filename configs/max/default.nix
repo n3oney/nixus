@@ -14,7 +14,7 @@
     bazarr.enable = false;
     jackett = {
       enable = true;
-      caddy = false;
+      host = "jackett.max.local:80";
     };
     jellyfin.enable = false;
     plex.enable = false;
@@ -23,9 +23,15 @@
     transmission.enable = false;
   };
 
-  services.adguard.enable = true;
+  services.adguard = {
+    enable = true;
+    host = "adguard.max.local:80";
+  };
 
-  services.smarthome.enable = true;
+  services.smarthome = {
+    enable = true;
+    home-assistant.host = "hass.max.local:80";
+  };
 
   services.shairport-sync.enable = true;
 

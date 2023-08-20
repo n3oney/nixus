@@ -4,10 +4,17 @@
   ...
 }: {
   options.services.smarthome.enable = lib.mkEnableOption "Smart Home";
-  options.services.smarthome.home-assistant.enable = lib.mkEnableOption "home-assistant" // {default = config.services.smarthome.enable;};
+  options.services.smarthome.home-assistant = {
+    enable = lib.mkEnableOption "home-assistant" // {default = config.services.smarthome.enable;};
+    host = lib.mkOption {
+      type = lib.types.str;
+      default = "home-assistant.neoney.dev";
+    };
+  };
 
   config.os = lib.mkIf config.services.smarthome.home-assistant.enable {
     networking.firewall.allowedTCPPorts = [
+      80
       8123
       21064
       21065 # for homekit
@@ -23,6 +30,14 @@
           "--network=host"
         ];
       };
+    };
+
+    services.caddy = {
+      enable = true;
+
+      virtualHosts.${config.services.smarthome.home-assistant.host}.extraConfig = ''
+        reverse_proxy 127.0.0.1:8123
+      '';
     };
   };
 }
