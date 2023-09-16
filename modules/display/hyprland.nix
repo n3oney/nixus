@@ -157,7 +157,12 @@ in {
           enable = true;
           package = cfg.package;
         };
-        xdg.portal.wlr.enable = lib.mkForce false;
+        xdg.portal = {
+          enable = true;
+          wlr.enable = lib.mkForce false;
+          extraPortals = [pkgs.xdg-desktop-portal-gtk];
+          xdgOpenUsePortal = true;
+        };
       };
 
       hm = let
@@ -268,7 +273,7 @@ in {
                   monitor =
                     [
                       "${cfg.monitors.main.name},${toString cfg.monitors.main.width}x${toString cfg.monitors.main.height}@144,0x0,1"
-                      "${cfg.monitors.main.name},addreserved,40,0,0,0"
+                      "${cfg.monitors.main.name},addreserved,36,0,0,0"
                     ]
                     ++ (lib.optionals (cfg.monitors.secondary.name != null) ["monitor=${cfg.monitors.secondary.name},${toString cfg.monitors.secondary.width}x${toString cfg.monitors.secondary.height}@60,2560x0,1"]);
 

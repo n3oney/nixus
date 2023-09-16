@@ -20,8 +20,8 @@ in {
         mkdir $out/bin
         for bin in ${webcord-vencord}/bin/*; do
          wrapped_bin=$out/bin/$(basename $bin)
-         echo "
-           DBPATH=\"\''${XDG_CONFIG_HOME:-\$HOME/.config}/WebCord/Local Storage/leveldb\" ${leveldb-cli}/bin/leveldb-cli put \"_https://discord.com\0\x01VencordSettings\" \"\$(printf '\\001${lib.escape ["\""] (builtins.toJSON vencordConfig)}')\"
+         echo "#!${pkgs.bash}/bin/bash
+           # DBPATH=\"\''${XDG_CONFIG_HOME:-\$HOME/.config}/WebCord/Local Storage/leveldb\" ${leveldb-cli}/bin/leveldb-cli put \"_https://discord.com\0\x01VencordSettings\" \"\$(printf '\\001${lib.escape ["\""] (builtins.toJSON vencordConfig)}')\"
            exec $bin \$@
          " > $wrapped_bin
          chmod +x $wrapped_bin

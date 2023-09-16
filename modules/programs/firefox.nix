@@ -2,6 +2,7 @@
   pkgs,
   lib,
   config,
+  hmConfig,
   ...
 }: {
   options.programs.firefox.enable = lib.mkEnableOption "firefox";
@@ -62,7 +63,18 @@
   in {
     programs.firefox = {
       enable = true;
-      package = pkgs.firefox-devedition;
+      package = pkgs.wrapFirefox pkgs.firefox-devedition-unwrapped {
+        extraPolicies = {
+          DisableFirefoxStudies = true;
+          DisablePocket = true;
+          DisableTelemetry = true;
+          DisableFirefoxAccounts = true;
+
+          PasswordManagerEnabled = false;
+
+          PromptForDownloadLocation = true;
+        };
+      };
       profiles."nixus.dev-edition-default" = {
         id = 0;
         name = "dev-edition-default";
