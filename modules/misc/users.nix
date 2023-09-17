@@ -14,11 +14,11 @@ in {
 
   config = {
     os = {
-      users.users.root.passwordFile = "/persist/passwords/root";
+      users.users.root.hashedPasswordFile = "/persist/passwords/root";
       users.users.${cfg.main} = {
         uid = 1000;
         initialHashedPassword = "$6$hAv60khFN/SnCt6r$LkoM5y7xGJPBGLr8DoNZB.mKJudpctUVZ75meQ6gTHBdp8q.dOmXgfTzZOw1.igi1gBc451Hc69TrUmqtFFqB.";
-        passwordFile = "/persist/passwords/${cfg.main}";
+        hashedPasswordFile = "/persist/passwords/${cfg.main}";
         isNormalUser = true;
         extraGroups = [
           "wheel"

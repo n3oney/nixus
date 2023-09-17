@@ -23,8 +23,8 @@
         users = {
           mutableUsers = false;
           users.neoney.initialHashedPassword = "$6$hAv60khFN/SnCt6r$LkoM5y7xGJPBGLr8DoNZB.mKJudpctUVZ75meQ6gTHBdp8q.dOmXgfTzZOw1.igi1gBc451Hc69TrUmqtFFqB.";
-          users.root.passwordFile = "/persist/passwords/root";
-          users.neoney.passwordFile = "/persist/passwords/neoney";
+          users.root.hashedPasswordFile = "/persist/passwords/root";
+          users.neoney.hashedPasswordFile = "/persist/passwords/neoney";
         };
 
         programs.fuse.userAllowOther = true;
