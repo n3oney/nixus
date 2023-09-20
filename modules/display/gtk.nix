@@ -22,11 +22,11 @@
         name = "Catppuccin-Macchiato-Standard-Pink-dark";
       };
     };
+  };
 
-    qt = {
-      enable = true;
-      platformTheme = "gtk";
-      style.name = "Adwaita Dark";
-    };
+  config.os.qt = lib.mkIf config.display.enable {
+    enable = true;
+    platformTheme = "gtk2";
+    style = "gtk2";
   };
 }
