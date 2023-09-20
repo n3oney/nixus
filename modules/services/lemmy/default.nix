@@ -5,7 +5,9 @@
   config,
   ...
 }: {
-  config.inputs.catppuccin-lemmy.url = "github:n3oney/catppuccin-lemmy";
+  config.inputs = {
+    catppuccin-lemmy.url = "github:n3oney/catppuccin-lemmy";
+  };
 
   options.services.lemmy.enable = lib.mkEnableOption "lemmy";
 
@@ -16,6 +18,8 @@
     uiPackage = pkgs.lemmy-ui;
     containerAddress = "10.0.0.254";
   in {
+    disabledModules = ["services/web-apps/lemmy.nix"];
+
     networking.nat = {
       enable = true;
       internalInterfaces = ["ve-lemmy"];
@@ -60,8 +64,10 @@
 
         systemd.services.lemmy-ui.environment = {
           LEMMY_UI_HOST = lib.mkForce "0.0.0.0:${toString frontendPort}";
-          LEMMY_UI_LEMMY_INTERNAL_HOST = lib.mkForce "127.0.0.1:${toString backendPort}";
-          LEMMY_UI_EXTRA_THEMES_FOLDER = inputs.catppuccin-lemmy.packages.${pkgs.system}.default;
+          LEMMY_UI_LEMMY_INTERNAL_HOST = lib.mkForce "0.0.0.0:${toString backendPort}";
+          # COMMIT_HASH = "undefined";
+          # LEMMY_UI_LEMMY_EXTERNAL_HOST = hostname;
+          # LEMMY_UI_EXTRA_THEMES_FOLDER = inputs.catppuccin-lemmy.packages.${pkgs.system}.default;
         };
 
         services.lemmy = {
@@ -91,7 +97,11 @@
       enable = true;
       virtualHosts.${hostname} = {
         extraConfig = ''
-          handle_path /static/* {
+          # handle_path /static/* {
+          #   root * ${uiPackage}/dist
+          #   file_server
+          # }
+          handle_path /static/${uiPackage.passthru.commit_sha}/* {
             root * ${uiPackage}/dist
             file_server
           }
