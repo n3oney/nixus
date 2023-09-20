@@ -57,6 +57,7 @@
               }
               ".local/share/TelegramDesktop"
               ".gnupg"
+              ".config/.wrangler"
               ".config/Caprine"
               ".config/WebCord"
               ".cache/starship"
