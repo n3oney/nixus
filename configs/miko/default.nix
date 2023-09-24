@@ -72,6 +72,7 @@ in {
       motherboard = "amd";
     };
     yubikey-touch-detector.enable = true;
+    uxplay.enable = true;
   };
 
   impermanence.enable = true;

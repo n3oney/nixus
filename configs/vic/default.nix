@@ -48,7 +48,10 @@
     jellyfinPlayer.enable = true;
   };
 
-  services.yubikey-touch-detector.enable = true;
+  services = {
+    yubikey-touch-detector.enable = true;
+    uxplay.enable = true;
+  };
 
   gpg.enable = true;
   keyring.enable = true;
