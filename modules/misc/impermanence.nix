@@ -39,6 +39,7 @@
             [
               "nixus"
               "Downloads"
+              "Games"
               "code"
               "Documents"
               "Kooha"
