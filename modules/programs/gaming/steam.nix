@@ -23,6 +23,8 @@
         remotePlay.openFirewall = true;
       };
 
+      programs.gamescope.enable = true;
+
       nixpkgs.overlays = lib.mkIf config.programs.gaming.steam.proton-ge.enable [
         (_: prev: {
           steam = prev.steam.override {
