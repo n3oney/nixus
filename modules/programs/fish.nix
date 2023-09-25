@@ -46,7 +46,7 @@
           mkIf (hmConfig.programs.btop or {enable = false;}).enable (opaquewrap "command btop");
 
         hd = ''
-          nix system apply ~/nixus $argv
+          nh os switch
         '';
       };
       shellAbbrs = {
