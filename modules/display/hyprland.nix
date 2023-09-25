@@ -279,9 +279,26 @@ in {
 
                   workspace =
                     (builtins.map (n: "${toString n},monitor:${cfg.monitors.main.name}") (lib.range 1 10))
-                    ++ (lib.optionals (cfg.monitors.secondary.name != null) ((builtins.map (n: "${toString n},monitor:${cfg.monitors.secondary.name}") (lib.range 11 20)) ++ ["19,monitor:${cfg.monitors.secondary.name}, default:true, gapsin:0, gapsout:0, bordersize:0, rounding:false"]))
+                    ++ (lib.optionals (cfg.monitors.secondary.name != null) (builtins.map (n: "${toString n},monitor:${cfg.monitors.secondary.name}") (lib.range 11 20)))
                     ++ [
-                      "1,monitor:${cfg.monitors.main.name}, default:true, gapsin:0, gapsout:0, bordersize:1, rounding:false"
+                      "${
+                        toString (
+                          if cfg.monitors.secondary.name != null
+                          then 19
+                          else 9
+                        )
+                      },monitor:${
+                        if cfg.monitors.secondary.name != null
+                        then cfg.monitors.secondary.name
+                        else cfg.monitors.main.name
+                      }, ${
+                        if cfg.monitors.secondary.name != null
+                        then "default:true, "
+                        else ""
+                      }gapsin:0, gapsout:0, bordersize:0, rounding:false"
+                    ]
+                    ++ [
+                      "1,monitor:${cfg.monitors.main.name}, gapsin:0, gapsout:0, bordersize:1, rounding:false"
                       "2,monitor:${cfg.monitors.main.name}, default:true"
                     ];
                   input = {
