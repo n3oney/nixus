@@ -24,7 +24,7 @@
     };
 
     systemd.user.services.uxplay = {
-      after = ["graphical-session.target" "network-online.target"];
+      after = ["graphical-session.target"];
       serviceConfig = {
         Restart = "on-failure";
         RestartSec = 5;
