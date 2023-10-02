@@ -61,6 +61,7 @@
               ".config/.wrangler"
               ".config/Caprine"
               ".config/WebCord"
+              ".config/YouTube Music"
               ".cache/starship"
               ".local/share/nheko"
               ".config/nheko"
