@@ -3,4 +3,5 @@ _: prev: {
   gg-sans = prev.callPackage ./gg-sans {};
   proton-ge-custom = prev.callPackage ./proton-ge-custom {};
   horizontallyspinningrat = prev.callPackage ./horizontallyspinningrat {};
+  mxw = prev.callPackage ./mxw.nix {};
 }

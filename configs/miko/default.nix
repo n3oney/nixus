@@ -94,6 +94,7 @@ in {
     xdg-utils
 
     ripgrep
+    mxw
   ];
 
   os.programs.nix-ld.enable = true;
