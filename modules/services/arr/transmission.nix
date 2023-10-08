@@ -83,12 +83,12 @@ in {
           settings = {
             rpc-whitelist-enabled = false;
             rpc-bind-address = "0.0.0.0";
-            ratio-limit = 1.1;
-            ratio-limit-enabled = true;
-            script-torrent-done-seeding-enabled = true;
-            script-torrent-done-seeding-filename = pkgs.writeShellScript "done-seeding.sh" ''
-              ${pkgs.transmission}/bin/transmission-remote --torrent $TR_TORRENT_ID --remove-and-delete
-            '';
+            # ratio-limit = 1.1;
+            # ratio-limit-enabled = true;
+            # script-torrent-done-seeding-enabled = true;
+            # script-torrent-done-seeding-filename = pkgs.writeShellScript "done-seeding.sh" ''
+            # ${pkgs.transmission}/bin/transmission-remote --torrent $TR_TORRENT_ID --remove-and-delete
+            # '';
             peer-port = 51370;
           };
         };
