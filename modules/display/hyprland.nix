@@ -404,7 +404,7 @@ in {
                       if cfg.monitors.secondary.name != null
                       then "19"
                       else "9"
-                    },class:WebCord"
+                    },class:ArmCord"
 
                     "workspace ${
                       if cfg.monitors.secondary.name != null
