@@ -50,7 +50,6 @@
         '';
       };
       shellAbbrs = {
-        npm = "bun";
         cd = "z";
       };
 
