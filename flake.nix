@@ -42,6 +42,13 @@
       sha256 = "sha256:04rzv1ajxrcmjybk1agpv4rpwivy7g8mwfms8j3lhn09bqjqrxxf";
     });
   in {
+    packages = forAllSystems (
+      system: let
+        pkgs = nixpkgs.legacyPackages.${system};
+      in
+        import ./pkgs {inherit pkgs;}
+    );
+
     nixosConfigurations = {
       # Desktop
       miko = combinedManager.nixosSystem {
