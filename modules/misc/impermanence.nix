@@ -60,7 +60,7 @@
               ".gnupg"
               ".config/.wrangler"
               ".config/Caprine"
-              ".config/WebCord"
+              ".config/ArmCord"
               ".config/YouTube Music"
               ".cache/starship"
               ".local/share/nheko"

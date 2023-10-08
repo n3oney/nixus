@@ -31,13 +31,13 @@
         "WebRichPresence (arRPC)".enabled = true;
         BANger.enabled = false;
         BetterFolders.enabled = false;
-        BetterGifAltText.enabled = false;
+        BetterGifAltText.enabled = true;
         BetterNotesBox.enabled = false;
         BetterRoleDot.enabled = false;
-        BetterUploadButton.enabled = false;
+        BetterUploadButton.enabled = true;
         BlurNSFW.enabled = false;
-        CallTimer.enabled = false;
-        ClearURLs.enabled = false;
+        CallTimer.enabled = true;
+        ClearURLs.enabled = true;
         ColorSighted.enabled = false;
         ConsoleShortcuts.enabled = false;
         CrashHandler.enabled = true;
@@ -50,10 +50,10 @@
         FakeProfileThemes.enabled = false;
         Fart2.enabled = false;
         FixInbox.enabled = false;
-        ForceOwnerCrown.enabled = false;
+        ForceOwnerCrown.enabled = true;
         FriendInvites.enabled = false;
         FxTwitter.enabled = false;
-        GameActivityToggle.enabled = false;
+        GameActivityToggle.enabled = true;
         GifPaste.enabled = false;
         HideAttachments.enabled = false;
         iLoveSpam.enabled = false;
@@ -63,9 +63,9 @@
         KeepCurrentChannel.enabled = false;
         LastFMRichPresence.enabled = false;
         LoadingQuotes.enabled = false;
-        MemberCount.enabled = false;
+        MemberCount.enabled = true;
         MessageClickActions.enabled = false;
-        MessageLinkEmbeds.enabled = false;
+        MessageLinkEmbeds.enabled = true;
         MessageLogger.enabled = true;
         MessageTags.enabled = false;
         MoreCommands.enabled = false;
@@ -76,22 +76,24 @@
         NoBlockedMessages.enabled = false;
         NoCanaryMessageLinks.enabled = false;
         NoDevtoolsWarning.enabled = true;
+        NormalizeMessageLinks.enabled = true;
         NoF1.enabled = true;
         NoReplyMention = {
           # Example of the config for a plugin. You need to look in Vencord's source code.
           # For example for this, it's in https://github.com/Vendicated/Vencord/blob/bf795c49dfe988f3013cda35cfe18e124456f23f/src/plugins/noReplyMention.tsx#L25
-          exemptList = "123456789";
+          userList = "372809091208445953";
           enabled = true;
+          shouldPingListed = false;
         };
         NoScreensharePreview.enabled = false;
         NoTrack.enabled = true;
-        NoUnblockToJump.enabled = false;
+        NoUnblockToJump.enabled = true;
         NSFWGateBypass.enabled = false;
         oneko.enabled = false;
         petpet.enabled = false;
         PinDMs.enabled = false;
         PlainFolderIcon.enabled = false;
-        PlatformIndicators.enabled = false;
+        PlatformIndicators.enabled = true;
         PronounDB.enabled = false;
         QuickMention.enabled = false;
         QuickReply.enabled = true;
@@ -99,7 +101,7 @@
         RelationshipNotifier.enabled = true;
         RevealAllSpoilers.enabled = false;
         ReverseImageSearch.enabled = false;
-        ReviewDB.enabled = false;
+        ReviewDB.enabled = true;
         RoleColorEverywhere.enabled = true;
         SearchReply.enabled = false;
         SendTimestamps.enabled = false;
@@ -121,7 +123,7 @@
         SupportHelper.enabled = true;
         TimeBarAllActivities.enabled = false;
         TypingIndicator.enabled = true;
-        TypingTweaks.enabled = false;
+        TypingTweaks.enabled = true;
         Unindent.enabled = true;
         ReactErrorDecoder.enabled = false;
         UrbanDictionary.enabled = false;
