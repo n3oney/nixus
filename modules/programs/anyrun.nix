@@ -14,7 +14,7 @@
       inputs = {
         anyrun.url = "github:kirottu/anyrun";
         anyrun-ha-assist.url = "github:n3oney/anyrun-ha-assist";
-        anyrun-nixos-options.url = "github:n3oney/anyrun-nixos-options";
+        anyrun-nixos-options.url = "github:n3oney/anyrun-nixos-options/v1.0.1";
       };
     }
     (lib.mkIf config.programs.anyrun.enable {
@@ -50,7 +50,7 @@
 
         extraConfigFiles."nixos-options.ron".text = ''
           Config(
-            options_path: "${osConfig.system.build.manual.optionsJSON}/share/doc/nixos/options.json"
+            options_paths: ${builtins.toJSON ["${osConfig.system.build.manual.optionsJSON}/share/doc/nixos/options.json"]}
           )
         '';
 
