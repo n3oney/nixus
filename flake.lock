@@ -64,15 +64,16 @@
         "nixpkgs": "nixpkgs_4"
       },
       "locked": {
-        "lastModified": 1691142041,
-        "narHash": "sha256-ik4CHY1xck8je6IKPB3w8rGq1uO9TYDFczTyMXdbB4k=",
+        "lastModified": 1696952434,
+        "narHash": "sha256-RWW0ta/vYlQBNwmrw/9tnNg9VkuYsWr/zHNxLukdqpQ=",
         "owner": "n3oney",
         "repo": "anyrun-nixos-options",
-        "rev": "a4ba8f84f6b5c5771bc0f30dc0f4241d39b43208",
+        "rev": "df0abf0fe764bf8c1ed5e8f67982417de0c84bc4",
         "type": "github"
       },
       "original": {
         "owner": "n3oney",
+        "ref": "v1.0.1",
         "repo": "anyrun-nixos-options",
         "type": "github"
       }
