@@ -381,6 +381,7 @@ in {
                   };
 
                   windowrulev2 = [
+                    "noblur,class:^(Xdg-desktop-portal-gtk)$"
                     "pin,class:^(ssh-askpass)$"
                     "float,class:^(ssh-askpass)$"
                     "idleinhibit focus,title:^(YouTube on TV.*)$"
