@@ -64,11 +64,11 @@
         "nixpkgs": "nixpkgs_4"
       },
       "locked": {
-        "lastModified": 1696952434,
-        "narHash": "sha256-RWW0ta/vYlQBNwmrw/9tnNg9VkuYsWr/zHNxLukdqpQ=",
+        "lastModified": 1696957299,
+        "narHash": "sha256-SGhfEkJBSYhfW9ISdy2RyfrvDqmQXKUIrzSXC9yyRx0=",
         "owner": "n3oney",
         "repo": "anyrun-nixos-options",
-        "rev": "df0abf0fe764bf8c1ed5e8f67982417de0c84bc4",
+        "rev": "54fbb674d9cc8f014ad624a76132931b72bf5fd3",
         "type": "github"
       },
       "original": {
@@ -76,6 +76,24 @@
         "ref": "v1.0.1",
         "repo": "anyrun-nixos-options",
         "type": "github"
+      }
+    },
+    "armcord-hm": {
+      "inputs": {
+        "flake-parts": "flake-parts_3",
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 0,
+        "narHash": "sha256-yFdRIsows58u3LLqiq9g1Lv3AiQYGbYOOH+UuJ4oVG8=",
+        "type": "git",
+        "url": "file:///home/neoney/code/armcord-hm"
+      },
+      "original": {
+        "type": "git",
+        "url": "file:///home/neoney/code/armcord-hm"
       }
     },
     "arrpc": {
@@ -402,6 +420,27 @@
     },
     "flake-parts_3": {
       "inputs": {
+        "nixpkgs-lib": [
+          "armcord-hm",
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1696343447,
+        "narHash": "sha256-B2xAZKLkkeRFG5XcHHSXXcP7To9Xzr59KXeZiRf4vdQ=",
+        "owner": "hercules-ci",
+        "repo": "flake-parts",
+        "rev": "c9afaba3dfa4085dbd2ccb38dfade5141e33d9d4",
+        "type": "github"
+      },
+      "original": {
+        "owner": "hercules-ci",
+        "repo": "flake-parts",
+        "type": "github"
+      }
+    },
+    "flake-parts_4": {
+      "inputs": {
         "nixpkgs-lib": "nixpkgs-lib_2"
       },
       "locked": {
@@ -418,7 +457,7 @@
         "type": "github"
       }
     },
-    "flake-parts_4": {
+    "flake-parts_5": {
       "inputs": {
         "nixpkgs-lib": "nixpkgs-lib_4"
       },
@@ -436,7 +475,7 @@
         "type": "github"
       }
     },
-    "flake-parts_5": {
+    "flake-parts_6": {
       "inputs": {
         "nixpkgs-lib": [
           "nixpak",
@@ -457,7 +496,7 @@
         "type": "github"
       }
     },
-    "flake-parts_6": {
+    "flake-parts_7": {
       "inputs": {
         "nixpkgs-lib": [
           "nixpak",
@@ -627,7 +666,7 @@
     },
     "hercules-ci-agent": {
       "inputs": {
-        "flake-parts": "flake-parts_6",
+        "flake-parts": "flake-parts_7",
         "haskell-flake": "haskell-flake",
         "nixpkgs": "nixpkgs_12"
       },
@@ -870,7 +909,7 @@
     },
     "nh": {
       "inputs": {
-        "flake-parts": "flake-parts_3",
+        "flake-parts": "flake-parts_4",
         "nix-filter": "nix-filter",
         "nixpkgs": [
           "nixpkgs"
@@ -926,7 +965,7 @@
     },
     "nix-gaming": {
       "inputs": {
-        "flake-parts": "flake-parts_4",
+        "flake-parts": "flake-parts_5",
         "nixpkgs": "nixpkgs_10"
       },
       "locked": {
@@ -966,7 +1005,7 @@
     },
     "nixpak": {
       "inputs": {
-        "flake-parts": "flake-parts_5",
+        "flake-parts": "flake-parts_6",
         "hercules-ci-effects": "hercules-ci-effects",
         "nixpkgs": [
           "nixpkgs"
@@ -1356,6 +1395,7 @@
         "anyrun": "anyrun",
         "anyrun-ha-assist": "anyrun-ha-assist",
         "anyrun-nixos-options": "anyrun-nixos-options",
+        "armcord-hm": "armcord-hm",
         "arrpc": "arrpc",
         "btop": "btop",
         "catppuccin-lemmy": "catppuccin-lemmy",
