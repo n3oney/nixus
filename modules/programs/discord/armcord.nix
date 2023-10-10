@@ -1,6 +1,6 @@
 {
   lib,
-  pkgs,
+  config,
   ...
 }: {
   options.programs.discord.armcordSettings = lib.mkOption {
@@ -29,7 +29,7 @@
       trayIcon = "default";
       doneSetup = true;
       clientName = "ArmCord";
-      customIcon = "${pkgs.armcord}/opt/ArmCord/resources/app.asar/assets/desktop.png";
+      customIcon = "${config.programs.discord.package}/opt/ArmCord/resources/app.asar/assets/desktop.png";
     };
   };
 }

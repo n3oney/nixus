@@ -8,6 +8,9 @@
   inherit (lib) mkEnableOption mkIf;
 in {
   options.programs.discord.enable = mkEnableOption "discord";
+  options.programs.discord.package = lib.mkOption {
+    default = pkgs.armcord;
+  };
 
   config.os.nixpkgs.config.permittedInsecurePackages = mkIf cfg.enable [
     "armcord-3.2.4"
@@ -19,10 +22,10 @@ in {
     home.packages = with pkgs; [
       (runCommand "armcord-repro" {} ''
         mkdir $out
-        ln -s ${armcord}/* $out
+        ln -s ${cfg.package}/* $out
         rm $out/bin
         mkdir $out/bin
-        for bin in ${armcord}/bin/*; do
+        for bin in ${cfg.package}/bin/*; do
          wrapped_bin=$out/bin/$(basename $bin)
          echo "#!${pkgs.bash}/bin/bash
            DBPATH=\"\''${XDG_CONFIG_HOME:-\$HOME/.config}/ArmCord/Local Storage/leveldb\" ${leveldb-cli}/bin/leveldb-cli put \"_https://canary.discord.com\0\x01VencordSettings\" \"\$(printf '\\001${lib.escape ["\""] (builtins.toJSON vencordConfig)}')\"
