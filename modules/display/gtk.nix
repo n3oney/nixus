@@ -19,7 +19,7 @@
           tweaks = ["rimless"];
           variant = "macchiato";
         };
-        name = "Catppuccin-Macchiato-Standard-Pink-dark";
+        name = "Catppuccin-Macchiato-Standard-Pink-Dark";
       };
     };
   };
