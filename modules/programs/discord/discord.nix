@@ -16,10 +16,6 @@ in {
 
   options.programs.discord.enable = mkEnableOption "discord";
 
-  config.os.nixpkgs.config.permittedInsecurePackages = mkIf cfg.enable [
-    "armcord-3.2.4"
-  ];
-
   config.hm = mkIf cfg.enable {
     programs.armcord = {
       enable = true;
