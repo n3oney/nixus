@@ -46,7 +46,7 @@
           mkIf (hmConfig.programs.btop or {enable = false;}).enable (opaquewrap "command btop");
 
         hd = ''
-          nh os switch
+          nh os switch $argv
         '';
       };
       shellAbbrs = {
