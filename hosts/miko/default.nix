@@ -11,6 +11,11 @@
   os = {
     boot.binfmt.emulatedSystems = ["aarch64-linux"];
 
+    environment.etc."libinput/local-overrides.quirks".text = ''
+      [Never Debounce]
+      MatchUdevType=mouse
+      ModelBouncingKeys=1
+    '';
     nixpkgs.config.allowUnfree = true;
 
     boot.loader = {
