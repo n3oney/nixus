@@ -46,6 +46,7 @@
       };
     };
     jellyfinPlayer.enable = true;
+    youtube-music.enable = true;
   };
 
   services = {

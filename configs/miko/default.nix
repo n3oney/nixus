@@ -62,6 +62,7 @@ in {
       enable = true;
       audioSink = secondarySink;
     };
+    youtube-music.enable = true;
   };
 
   services = {
