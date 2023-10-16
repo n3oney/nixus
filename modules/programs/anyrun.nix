@@ -14,7 +14,7 @@
       inputs = {
         anyrun.url = "github:kirottu/anyrun";
         anyrun-ha-assist.url = "github:n3oney/anyrun-ha-assist";
-        anyrun-nixos-options.url = "github:n3oney/anyrun-nixos-options/v1.0.1";
+        anyrun-nixos-options.url = "github:n3oney/anyrun-nixos-options/v2.0.0";
       };
     }
     (lib.mkIf config.programs.anyrun.enable {
@@ -48,9 +48,16 @@
 
         extraConfigFiles."ha-assist.ron".source = hmConfig.lib.file.mkOutOfStoreSymlink "/run/user/1000/agenix.d/1/ha_assist_config";
 
-        extraConfigFiles."nixos-options.ron".text = ''
+        extraConfigFiles."nixos-options.ron".text = let
+          nixos-options = osConfig.system.build.manual.optionsJSON + "/share/doc/nixos/options.json";
+          hm-options = inputs.home-manager.packages.${pkgs.system}.docs-json + "/share/doc/home-manager/options.json";
+          options = builtins.toJSON {
+            ":nix" = [nixos-options];
+            ":hm" = [hm-options];
+          };
+        in ''
           Config(
-            options_paths: ${builtins.toJSON ["${osConfig.system.build.manual.optionsJSON}/share/doc/nixos/options.json"]}
+            options: ${options},
           )
         '';
 
