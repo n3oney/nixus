@@ -39,6 +39,7 @@ in {
         trayIcon = "default";
         useLegacyCapturer = false;
         windowStyle = "transparent";
+        inviteWebsocket = true;
       };
 
       vencordSettings = {
