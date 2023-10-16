@@ -387,6 +387,7 @@ in {
                     "immediate,class:^(cs2)$"
                     "nofullscreenrequest,class:^(cs2)$"
                     "nomaximizerequest,class:^(cs2)$"
+                    "immediate,class:^(Minecraft.*)$"
                     "noblur,class:^(Xdg-desktop-portal-gtk)$"
                     "pin,class:^(ssh-askpass)$"
                     "float,class:^(ssh-askpass)$"

@@ -70,6 +70,7 @@
               ".cache/nix-index"
               ".config/obs-studio"
               ".local/share/pnpm/store"
+              ".local/share/PrismLauncher"
               ".bun"
               {
                 directory = ".local/share/zoxide";
