@@ -334,7 +334,10 @@ in {
                     sensitivity = 0;
                   };
 
+                  env = ["WLR_DRM_NO_ATOMIC,1"];
+
                   general = {
+                    allow_tearing = true;
                     gaps_in = 8;
                     gaps_out = 14;
                     border_size = 2;
@@ -381,6 +384,9 @@ in {
                   };
 
                   windowrulev2 = [
+                    "immediate,class:^(cs2)$"
+                    "nofullscreenrequest,class:^(cs2)$"
+                    "nomaximizerequest,class:^(cs2)$"
                     "noblur,class:^(Xdg-desktop-portal-gtk)$"
                     "pin,class:^(ssh-askpass)$"
                     "float,class:^(ssh-askpass)$"
