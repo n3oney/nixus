@@ -17,7 +17,7 @@ in {
 
     users.users.transmission = {
       isSystemUser = true;
-      group = "transmission";
+      group = config.services.arr.group.name;
     };
 
     systemd.tmpfiles.rules = [
@@ -91,6 +91,11 @@ in {
             # '';
             peer-port = 51370;
           };
+        };
+
+        systemd.services.transmission.serviceConfig = {
+          RootDirectoryStartOnly = lib.mkForce false;
+          RootDirectory = lib.mkForce "";
         };
 
         systemd.services.transmission.after = ["openvpn-airvpn.service"];
