@@ -17,7 +17,6 @@
       host = "jackett.max.local:80";
     };
     jellyfin.enable = false;
-    plex.enable = false;
     radarr.enable = false;
     sonarr.enable = false;
     transmission.enable = false;
