@@ -36,7 +36,9 @@
       hyprlandCfg = hmConfig.wayland.windowManager.hyprland.settings;
 
       greetdHyprlandConfig = pkgs.writeText "greetd-hyprland-config" (toHyprconf {
-          inherit (hyprlandCfg) monitor input general decoration animations dwindle misc;
+          inherit (hyprlandCfg) input general decoration animations dwindle misc;
+
+          monitor = builtins.filter (v: !(lib.hasInfix "addreserved" v)) hyprlandCfg.monitor;
 
           # Use GTK theme from ./gtk.nix
           env =
