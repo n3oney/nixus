@@ -51,6 +51,7 @@
 
   services = {
     yubikey-touch-detector.enable = true;
+    podman.enable = true;
     uxplay.enable = true;
   };
 
