@@ -2,6 +2,7 @@
   config,
   pkgs,
   lib,
+  hmConfig,
   ...
 }: {
   config.hm = lib.mkIf config.display.enable {
@@ -23,6 +24,9 @@
       };
     };
   };
+
+  # Make the theme available for other users
+  config.os.environment.systemPackages = lib.mkIf config.display.enable [hmConfig.gtk.theme.package];
 
   config.os.qt = lib.mkIf config.display.enable {
     enable = true;
