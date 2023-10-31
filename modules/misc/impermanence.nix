@@ -16,7 +16,7 @@
 
       os = {
         environment.persistence."/persist" = {
-          directories = ["/etc/nixos" "/etc/NetworkManager" "/var/log" "/var/lib" "/etc/nix" "/etc/ssh" "/var/db/sudo"];
+          directories = ["/etc/nixos" "/etc/NetworkManager" "/var/log" "/var/lib" "/etc/nix" "/etc/ssh" "/var/db/sudo" "/var/lib/minecraft"];
           files = ["/etc/machine-id"];
         };
 

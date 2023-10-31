@@ -9,6 +9,8 @@
 
   services.conduit.enable = true;
 
+  services.minecraft-server.enable = true;
+
   services.arr = {
     enable = true;
     jackett.enable = false;
