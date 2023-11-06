@@ -175,7 +175,7 @@ in {
         home.packages = with pkgs;
         with inputs.hyprcontrib.packages.${pkgs.system};
         with inputs.shadower.packages.${pkgs.system}; [
-          schildichat-desktop
+          # schildichat-desktop
           pulseaudio
 
           caprine-bin
@@ -257,7 +257,7 @@ in {
                       "${lib.getExe pkgs.hyprpaper} & ${pkgs.playerctl}/bin/playerctld & mako"
 
                       "firefox &"
-                      "schildichat-desktop & armcord &"
+                      "armcord & schildichat &"
                       "${lib.getExe pkgs.caprine-bin} &"
 
                       "${lib.getExe inputs.arrpc.packages.${pkgs.system}.arrpc} &"
