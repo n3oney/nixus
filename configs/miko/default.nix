@@ -86,7 +86,11 @@ in {
   hm.home.packages = with pkgs; [
     horizontallyspinningrat
 
-    obs-studio
+    (wrapOBS {
+      plugins = with obs-studio-plugins; [
+        droidcam-obs
+      ];
+    })
     neofetch
     wl-clipboard
     cider
