@@ -68,7 +68,6 @@
     obs-studio
     neofetch
     wl-clipboard
-    cider
     pavucontrol
     telegram-desktop
     lazygit
