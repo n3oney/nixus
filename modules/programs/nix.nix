@@ -2,6 +2,7 @@
   inputs,
   lib,
   osConfig,
+  pkgs,
   ...
 }: let
   nixSettings = {
@@ -61,8 +62,8 @@ in {
   os = {
     nixpkgs.overlays = [
       (_: prev: {
-        nix = inputs.nix-super.packages.${prev.system}.default;
-        nixos-option = prev.nixos-option.override {nix = prev.nixVersions.nix_2_15;};
+        nix-super = inputs.nix-super.packages.${prev.system}.default;
+        # nixos-option = prev.nixos-option.override {nix = prev.nixVersions.nix_2_15;};
       })
     ];
     programs.command-not-found.enable = false;
@@ -77,6 +78,7 @@ in {
     nix = let
       mappedRegistry = lib.mapAttrs (_: v: {flake = v;}) inputs;
     in {
+      package = pkgs.nix-super;
       registry =
         mappedRegistry
         // {
