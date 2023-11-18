@@ -11,6 +11,7 @@
       packages = with pkgs; [
         cozette
         (nerdfonts.override {fonts = ["JetBrainsMono"];})
+        twilio-sans-mono-nerd-font
         roboto
         roboto-serif
         inter
@@ -29,7 +30,7 @@
         defaultFonts = {
           sansSerif = ["Inter"];
           serif = ["Roboto Serif"];
-          monospace = ["JetBrains Mono Nerd Font"];
+          monospace = ["TwilioSansM Nerd Font"];
           emoji = ["JoyPixels"];
         };
       };
