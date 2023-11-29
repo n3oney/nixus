@@ -17,6 +17,7 @@
       };
 
       security.pam.services.gtklock = {};
+      security.pam.services.swaylock = {};
     };
 
     hm.home.packages = with pkgs; [gtklock physlock];

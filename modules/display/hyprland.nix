@@ -246,7 +246,7 @@ in {
           package = cfg.package;
 
           settings = let
-            lockSequence = "physlock -ldms && gtklock && physlock -Ld";
+            lockSequence = "physlock -ldms && ${lib.getExe pkgs.swaylock} && physlock -Ld";
           in
             lib.mkMerge ([
                 {
