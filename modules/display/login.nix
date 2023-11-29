@@ -51,7 +51,7 @@
             "dbus-update-activation-environment --systemd --all"
             "hyprctl setcursor ${hmConfig.home.pointerCursor.name} ${toString hmConfig.home.pointerCursor.size}"
             # No --layer-shell, because Hyprland doesn't focus it by default.
-            "${lib.getExe pkgs.greetd.gtkgreet}; hyprctl dispatch exit"
+            "${lib.getExe pkgs.greetd.regreet}; hyprctl dispatch exit"
             "systemctl --user restart xdg-desktop-portal xdg-desktop-portal-hyprland"
           ];
         }
