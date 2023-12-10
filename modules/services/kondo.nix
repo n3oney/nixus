@@ -9,6 +9,7 @@
   config.os = lib.mkIf config.services.kondo.enable {
     systemd.timers.kondo = {
       wantedBy = ["timers.target"];
+      partOf = ["kondo.service"];
       timerConfig = {
         Persistent = true;
         OnCalendar = "daily";
