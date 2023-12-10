@@ -175,12 +175,12 @@ in {
         home.packages = with pkgs;
         with inputs.hyprcontrib.packages.${pkgs.system};
         with inputs.shadower.packages.${pkgs.system}; [
-          schildichat-desktop
           pulseaudio
 
           caprine-bin
 
           wl-clipboard
+          element-desktop-wayland
 
           hyprpaper
 
@@ -257,7 +257,7 @@ in {
                       "${lib.getExe pkgs.hyprpaper} & ${pkgs.playerctl}/bin/playerctld & mako"
 
                       "firefox &"
-                      "schildichat-desktop & armcord &"
+                      "element-desktop & armcord &"
                       "${lib.getExe pkgs.caprine-bin} &"
 
                       "${lib.getExe inputs.arrpc.packages.${pkgs.system}.arrpc} &"
@@ -406,7 +406,7 @@ in {
                       if cfg.monitors.secondary.name != null
                       then "19"
                       else "9"
-                    },class:SchildiChat"
+                    },class:Element"
 
                     "workspace ${
                       if cfg.monitors.secondary.name != null
