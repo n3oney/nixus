@@ -7,6 +7,6 @@
   options.programs.youtube-music.enable = lib.mkEnableOption "YouTube Music";
 
   config.hm = lib.mkIf config.programs.youtube-music.enable {
-    home.packages = [pkgs.youtube-music];
+    home.packages = [pkgs.ytmdesktop];
   };
 }
