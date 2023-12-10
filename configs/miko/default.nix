@@ -73,6 +73,7 @@ in {
       enable = true;
       motherboard = "amd";
     };
+    kondo.enable = true;
     yubikey-touch-detector.enable = true;
     uxplay.enable = true;
   };
