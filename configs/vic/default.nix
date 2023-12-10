@@ -52,7 +52,7 @@
   services = {
     yubikey-touch-detector.enable = true;
     podman.enable = true;
-    uxplay.enable = true;
+    # uxplay.enable = true;
     kondo.enable = true;
   };
 

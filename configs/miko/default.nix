@@ -66,7 +66,7 @@ in {
   };
 
   services = {
-    kde_connect.enable = true;
+    # kde_connect.enable = true;
     ha-poweroff.enable = true;
     podman.enable = true;
     openrgb = {
@@ -75,7 +75,7 @@ in {
     };
     kondo.enable = true;
     yubikey-touch-detector.enable = true;
-    uxplay.enable = true;
+    # uxplay.enable = true;
   };
 
   impermanence.enable = true;
