@@ -58,6 +58,7 @@
               }
               ".local/share/TelegramDesktop"
               ".gnupg"
+              ".config/ags"
               ".config/.wrangler"
               ".config/Caprine"
               ".config/ArmCord"

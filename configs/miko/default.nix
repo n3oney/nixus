@@ -40,6 +40,7 @@ in {
     anyrun.enable = true;
     btop.enable = true;
     discord.enable = true;
+    ags.enable = true;
     eww = {
       enable = true;
       micName = "Blue Snowball Mono";

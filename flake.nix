@@ -108,6 +108,12 @@
         pkgs.mkShell {
           buildInputs = with pkgs; [
             alejandra
+
+            # AGS configuring stuff
+            nodejs
+            nodePackages.typescript-language-server
+            nodePackages.prettier
+            nodePackages.eslint
           ];
         }
     );
