@@ -18,4 +18,6 @@ in {
   "gh_notifications_key.age".publicKeys = miko ++ vic;
   "wakatime.age".publicKeys = miko ++ vic ++ maya ++ max;
   "cloudflared.age".publicKeys = max;
+
+  "wg.age".publicKeys = miko ++ vic;
 }

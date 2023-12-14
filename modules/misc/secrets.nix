@@ -32,6 +32,8 @@ in {
           (secretForHostnames ["max"] ../../secrets/cloudflared.age "cloudflared" {
             owner = "cloudflared";
           })
+          (secretForHostnames ["miko" "vic"] ../../secrets/wg.age "wg" {
+            })
         ];
         environment.systemPackages = [inputs.agenix.packages.${pkgs.system}.default];
       };
