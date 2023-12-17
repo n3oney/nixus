@@ -7,16 +7,7 @@ with lib;
 with builtins; let
   background = "#${config.colors.colorScheme.colors.base00}${toHexString (floor (config.colors.backgroundAlpha * 255))}";
 in {
-  hm.xdg.configFile."ArmCord/themes/transparency/manifest.json".text = builtins.toJSON {
-    theme = "src.css";
-    name = "Transparency";
-    author = "neoney";
-    authorId = "745954115078586369";
-    version = "0.0.1";
-    description = "Catppuccin with transparency.";
-  };
-
-  hm.xdg.configFile."ArmCord/themes/transparency/src.css".text = ''
+  hm.xdg.configFile."VencordDesktop/VencordDesktop/settings/quickCss.css".text = lib.mkIf config.programs.discord.enable ''
     @import url("https://catppuccin.github.io/discord/dist/catppuccin-macchiato-pink.theme.css");
 
     #app-mount{

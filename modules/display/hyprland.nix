@@ -257,7 +257,7 @@ in {
                       "${lib.getExe pkgs.hyprpaper} & ${pkgs.playerctl}/bin/playerctld & mako"
 
                       "firefox &"
-                      "element-desktop & armcord &"
+                      "element-desktop & vencorddesktop &"
                       "${lib.getExe pkgs.caprine-bin} &"
 
                       "${lib.getExe inputs.arrpc.packages.${pkgs.system}.arrpc} &"
