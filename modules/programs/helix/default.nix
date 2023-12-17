@@ -44,7 +44,8 @@
 
       languages = {
         language-server = {
-          typst-lsp.command = "${pkgs.typst-lsp}/bin/typst-lsp";
+          # TODO: Uncomment after https://github.com/NixOS/nixpkgs/issues/273835 closed
+          # typst-lsp.command = "${pkgs.typst-lsp}/bin/typst-lsp";
           typescript-language-server = {
             command = lib.getExe pkgs.nodePackages.typescript-language-server;
             args = ["--stdio"];
