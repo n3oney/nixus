@@ -37,6 +37,7 @@ in {
       autoUpdateNotification = false;
       useQuickCss = true;
       themeLinks = [];
+      enabledThemes = ["Catppuccin.theme.css"];
       enableReactDevtools = true;
       frameless = false;
       transparent = true;
