@@ -141,13 +141,13 @@
       (revealer
         :transition "slideup"
         :duration "300ms"
-        :reveal {EWW_BATTERY != "" && EWW_BATTERY["BAT0"].capacity >= 0}
+        :reveal {EWW_BATTERY != "" && EWW_BATTERY["macsmc-battery"].capacity >= 0}
   
         (box
           :orientation "h"
           :space-evenly false
           :spacing 5
-          (label :class "battery ${EWW_BATTERY != "" ? EWW_BATTERY["BAT0"].status : ""}" :text "${EWW_BATTERY != "" ? EWW_BATTERY["BAT0"].capacity : ""}")
+          (label :class "battery ${EWW_BATTERY != "" ? EWW_BATTERY["macsmc-battery"].status : ""}" :text "${EWW_BATTERY != "" ? EWW_BATTERY["macsmc-battery"].capacity : ""}")
         )
       )
 
