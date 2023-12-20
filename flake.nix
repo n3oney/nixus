@@ -10,7 +10,8 @@
     combinedManager.evaluateInputs {
       lockFile = ./flake.lock;
       initialInputs = {
-        nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+        # NOTE: change to unstable once https://nixpk.gs/pr-tracker.html?pr=272969 lands in it
+        nixpkgs.url = "github:nixos/nixpkgs/nixos-23.11";
 
         home-manager = {
           url = "github:nix-community/home-manager";
@@ -63,7 +64,7 @@
 
       # Laptop
       vic = combinedManager.nixosSystem {
-        system = "x86_64-linux";
+        system = "aarch64-linux";
         inherit inputs;
         modules = [
           ./modules

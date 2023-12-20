@@ -1,10 +1,15 @@
 {
   # osConfig,
-  # pkgs,
-  # lib,
+  pkgs,
+  lib,
+  inputs,
   ...
 }: {
-  osModules = [./hardware-configuration.nix];
+  inputs.apple-silicon-support.url = "github:tpwrules/nixos-apple-silicon";
+
+  # hardware.asahi.pkgs = lib.mkForce (inputs.nixpkgs-stable.legacyPackages.${pkgs.system});
+
+  osModules = [inputs.apple-silicon-support.nixosModules.apple-silicon-support ./hardware-configuration.nix];
 
   os = {
     nixpkgs.config.allowUnfree = true;
@@ -19,6 +24,7 @@
       wireless = {
         enable = false;
         iwd.enable = true;
+        # settings.General.EnableNetworkConfiguration = true;
       };
       networkmanager = {
         enable = true;
@@ -54,7 +60,7 @@
 
     hardware.opengl = {
       driSupport = true;
-      driSupport32Bit = true;
+      driSupport32Bit = lib.mkForce false;
     };
 
     users.users = let

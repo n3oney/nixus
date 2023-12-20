@@ -1,31 +1,27 @@
 {
-  config,
+  # config,
   lib,
-  pkgs,
+  # pkgs,
   ...
 }: {
-  boot.extraModulePackages = [config.boot.kernelPackages.broadcom_sta];
-  boot.kernelModules = ["kvm-intel" "wl"];
-  boot.kernelPackages = pkgs.linuxPackages_xanmod_latest;
-
-  boot.initrd.availableKernelModules = ["xhci_pci" "ahci" "usbhid" "usb_storage" "sd_mod"];
-  boot.initrd.kernelModules = ["vfat" "nls_cp437" "nls_iso8859-1" "usbhid"];
-  boot.initrd.luks.yubikeySupport = true;
-
-  hardware.facetimehd.enable = true;
+  boot.initrd.availableKernelModules = ["usbhid" "usb_storage" "sd_mod"];
+  boot.initrd.kernelModules = ["usbhid" "dm-snapshot"];
 
   boot.initrd.luks.devices = {
     nixos-enc = {
-      device = "/dev/sda2";
+      device = "/dev/nvme0n1p6";
       preLVM = true;
+      /*
       yubikey = {
         slot = 2;
         twoFactor = true;
         storage.device = "/dev/disk/by-label/NIXBOOT";
       };
+      */
     };
   };
 
+  /*
   boot.tmp.useTmpfs = true;
 
   fileSystems."/" = {
@@ -33,8 +29,9 @@
     fsType = "tmpfs";
     options = ["size=8G" "mode=755"];
   };
+  */
 
-  fileSystems."/persist" = {
+  fileSystems."/" = {
     neededForBoot = true;
     device = "/dev/disk/by-label/NIXROOT";
     fsType = "btrfs";
@@ -49,7 +46,7 @@
   };
 
   fileSystems."/boot" = {
-    device = "/dev/disk/by-label/NIXBOOT";
+    device = "/dev/disk/by-uuid/4BD8-1D05";
     fsType = "vfat";
     options = ["noatime" "discard"];
   };
@@ -60,8 +57,14 @@
     }
   ];
 
+  hardware.asahi = {
+    extractPeripheralFirmware = true;
+    peripheralFirmwareDirectory = ./firmware;
+    useExperimentalGPUDriver = true;
+    addEdgeKernelConfig = true;
+  };
+
   networking.useDHCP = lib.mkDefault true;
 
-  nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
-  hardware.cpu.intel.updateMicrocode = true;
+  nixpkgs.hostPlatform = lib.mkDefault "aarch64-linux";
 }

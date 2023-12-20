@@ -12,6 +12,7 @@ in {
         wallpaper = ../../wallpapers/cherry/primary.png;
         width = 2560;
         height = 1440;
+        refreshRate = 144;
       };
       secondary = {
         name = "DP-3";

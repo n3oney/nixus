@@ -8,13 +8,15 @@
       main = {
         name = "eDP-1";
         wallpaper = ../../wallpapers/cherry/laptop.png;
-        width = 1440;
-        height = 900;
+        width = 2560;
+        height = 1600;
+        refreshRate = 60;
+        scale = 1.5;
       };
     };
 
     keyboards = [
-      "apple-inc.-apple-internal-keyboard-/-trackpad"
+      "apple-internal-keyboard-/-trackpad-1"
       "logitech-g915-tkl-lightspeed-wireless-rgb-mechanical-gaming-keyboard"
       "logitech-usb-receiver-keyboard"
     ];
@@ -23,7 +25,7 @@
     screenshotKeybinds = {
       active = ", XF86LaunchA";
       area = "SHIFT, XF86LaunchA";
-      all = ", XF86LaunchB";
+      # all = ", XF86LaunchB";
     };
   };
 
@@ -39,14 +41,18 @@
     foot.enable = true;
     swappy.enable = true;
     thunderbird.enable = true;
+    /*
     gaming = {
       steam = {
-        enable = true;
-        proton-ge.enable = true;
+      enable = true;
+      proton-ge.enable = true;
       };
     };
-    jellyfinPlayer.enable = true;
-    youtube-music.enable = true;
+    */
+
+    # Won't be watching stuff until speakers work...
+    # jellyfinPlayer.enable = true;
+    # youtube-music.enable = true;
   };
 
   services = {
@@ -62,7 +68,7 @@
   nur.enable = true;
   agenix.enable = true;
 
-  impermanence.enable = true;
+  # impermanence.enable = true;
 
   hm.home.packages = with pkgs; [
     horizontallyspinningrat

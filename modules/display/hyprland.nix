@@ -19,6 +19,9 @@
   intOption = mkOption {
     type = types.int;
   };
+  floatOption = mkOption {
+    type = types.float;
+  };
 
   nullIntOption = mkOption {
     type = types.nullOr types.int;
@@ -45,6 +48,8 @@ in {
         };
         width = intOption;
         height = intOption;
+        scale = floatOption // {default = 1;};
+        refreshRate = intOption // {default = 60;};
       };
       secondary = {
         name = nullStrOption;
@@ -132,7 +137,7 @@ in {
   config = lib.mkMerge [
     {
       inputs = {
-        hyprland.url = "github:hyprwm/hyprland";
+        hyprland.url = "github:hyprwm/hyprland/2997022";
         hyprland.inputs.nixpkgs.follows = "nixpkgs";
 
         hyprpaper.url = "github:hyprwm/hyprpaper";
@@ -177,7 +182,7 @@ in {
         with inputs.shadower.packages.${pkgs.system}; [
           pulseaudio
 
-          caprine-bin
+          # caprine-bin
 
           wl-clipboard
           element-desktop-wayland
@@ -258,7 +263,7 @@ in {
 
                       "firefox &"
                       "element-desktop & vencorddesktop &"
-                      "${lib.getExe pkgs.caprine-bin} &"
+                      # "${lib.getExe pkgs.caprine-bin} &"
 
                       "${lib.getExe inputs.arrpc.packages.${pkgs.system}.arrpc} &"
 
@@ -272,7 +277,7 @@ in {
 
                   monitor =
                     [
-                      "${cfg.monitors.main.name},${toString cfg.monitors.main.width}x${toString cfg.monitors.main.height}@144,0x0,1"
+                      "${cfg.monitors.main.name},${toString cfg.monitors.main.width}x${toString cfg.monitors.main.height}@${toString cfg.monitors.main.refreshRate},0x0,${toString cfg.monitors.main.scale}"
                       "${cfg.monitors.main.name},addreserved,36,0,0,0"
                     ]
                     ++ (lib.optionals (cfg.monitors.secondary.name != null) ["monitor=${cfg.monitors.secondary.name},${toString cfg.monitors.secondary.width}x${toString cfg.monitors.secondary.height}@60,2560x0,1"]);
@@ -327,7 +332,7 @@ in {
                   misc = {
                     disable_hyprland_logo = true;
                     vfr = true;
-                    vrr = true;
+                    vrr = false;
                   };
 
                   "device:ydotoold-virtual-device-1" = {
@@ -443,10 +448,10 @@ in {
 
                       # Brightness
 
-                      ", XF86KbdBrightnessUp, exec, ${lib.getExe pkgs.brightnessctl} --device \"smc::kbd_backlight\" set +5%"
-                      ", XF86KbdBrightnessDown, exec, ${lib.getExe pkgs.brightnessctl} --device \"smc::kbd_backlight\" set 5%-"
-                      ", XF86MonBrightnessUp, exec, ${lib.getExe pkgs.brightnessctl} --device \"acpi_video0\" set +5%"
-                      ", XF86MonBrightnessDown, exec, ${lib.getExe pkgs.brightnessctl} --device \"acpi_video0\" set 5%-"
+                      "ALT, XF86MonBrightnessUp, exec, ${lib.getExe pkgs.brightnessctl} -c leds --device \"kbd_backlight\" set +5%"
+                      "ALT, XF86MonBrightnessDown, exec, ${lib.getExe pkgs.brightnessctl} -c leds --device \"kbd_backlight\" set 5%-"
+                      ", XF86MonBrightnessUp, exec, ${lib.getExe pkgs.brightnessctl} --device \"apple-panel-bl\" set +5%"
+                      ", XF86MonBrightnessDown, exec, ${lib.getExe pkgs.brightnessctl} --device \"apple-panel-bl\" set 5%-"
                     ]
                     ++ (lib.optionals (cfg.secondarySink != null) ["ALT, XF86AudioRaiseVolume, exec, pactl set-sink-volume ${cfg.secondarySink} +5%" "ALT, XF86AudioLowerVolume, exec, pactl set-sink-volume ${cfg.secondarySink} -5%"]);
 
