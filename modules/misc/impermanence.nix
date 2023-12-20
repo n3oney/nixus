@@ -61,7 +61,7 @@
               ".config/ags"
               ".config/.wrangler"
               ".config/Caprine"
-              ".config/ArmCord"
+              ".config/VencordDesktop"
               ".config/youtube-music-desktop-app"
               ".cache/starship"
               ".local/share/nheko"
