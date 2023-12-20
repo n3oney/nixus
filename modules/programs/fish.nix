@@ -5,79 +5,86 @@
   hmConfig,
   ...
 }: {
-  os = {
-    programs.fish.enable = true;
-
-    users.defaultUserShell = pkgs.fish;
+  options.rebuildCommand = lib.mkOption {
+    default = "nh os switch";
+    type = lib.types.str;
   };
 
-  hm = {
-    programs.fish = {
-      enable = true;
-      interactiveShellInit = ''
-        if test "$TERM" != "dumb"  -a \( -z "$INSIDE_EMACS"  -o "$INSIDE_EMACS" = "vterm" \)
-          eval (${lib.getExe pkgs.starship} init fish)
-        end
+  config = {
+    os = {
+      programs.fish.enable = true;
 
-        enable_transience
-      '';
-      functions = let
-        # make terminal opaque while the command is running, and transparent after it stops
-        opaquewrap = binary:
-          with builtins;
-          with lib; ''
-            printf "\033]11;rgba:${
-              concatStringsSep "/" (match "([0-9a-fA-F]{2})([0-9a-fA-F]{2})([0-9a-fA-F]{2})" config.colors.colorScheme.colors.base00)
-            }/ff\007"
-
-            ${binary} $argv
-
-            printf "\033]11;rgba:${
-              concatStringsSep "/" (match "([0-9a-fA-F]{2})([0-9a-fA-F]{2})([0-9a-fA-F]{2})" config.colors.colorScheme.colors.base00)
-            }/${toHexString (floor (config.colors.backgroundAlpha * 255))}\007"
-          '';
-        inherit (lib) mkIf;
-      in {
-        nvim =
-          mkIf (hmConfig.programs.neovim-flake or {enable = false;}).enable (opaquewrap "command nvim");
-        hx =
-          mkIf (hmConfig.programs.helix or {enable = false;}).enable (opaquewrap "command hx");
-        btop =
-          mkIf (hmConfig.programs.btop or {enable = false;}).enable (opaquewrap "command btop");
-
-        hd = ''
-          nh os switch $argv
-        '';
-      };
-      shellAbbrs = {
-        cd = "z";
-      };
-
-      shellAliases = {
-        cat = "${pkgs.bat}/bin/bat";
-      };
+      users.defaultUserShell = pkgs.fish;
     };
 
-    programs.zoxide = {
-      enable = true;
-      enableFishIntegration = true;
-    };
-
-    programs.direnv = {
-      enable = true;
-      nix-direnv = {
+    hm = {
+      programs.fish = {
         enable = true;
-        package = pkgs.nix-direnv.override {
-          nix = pkgs.nix-super;
+        interactiveShellInit = ''
+          if test "$TERM" != "dumb"  -a \( -z "$INSIDE_EMACS"  -o "$INSIDE_EMACS" = "vterm" \)
+            eval (${lib.getExe pkgs.starship} init fish)
+          end
+
+          enable_transience
+        '';
+        functions = let
+          # make terminal opaque while the command is running, and transparent after it stops
+          opaquewrap = binary:
+            with builtins;
+            with lib; ''
+              printf "\033]11;rgba:${
+                concatStringsSep "/" (match "([0-9a-fA-F]{2})([0-9a-fA-F]{2})([0-9a-fA-F]{2})" config.colors.colorScheme.colors.base00)
+              }/ff\007"
+
+              ${binary} $argv
+
+              printf "\033]11;rgba:${
+                concatStringsSep "/" (match "([0-9a-fA-F]{2})([0-9a-fA-F]{2})([0-9a-fA-F]{2})" config.colors.colorScheme.colors.base00)
+              }/${toHexString (floor (config.colors.backgroundAlpha * 255))}\007"
+            '';
+          inherit (lib) mkIf;
+        in {
+          nvim =
+            mkIf (hmConfig.programs.neovim-flake or {enable = false;}).enable (opaquewrap "command nvim");
+          hx =
+            mkIf (hmConfig.programs.helix or {enable = false;}).enable (opaquewrap "command hx");
+          btop =
+            mkIf (hmConfig.programs.btop or {enable = false;}).enable (opaquewrap "command btop");
+
+          hd = ''
+            ${config.rebuildCommand} $argv
+          '';
+        };
+        shellAbbrs = {
+          cd = "z";
+        };
+
+        shellAliases = {
+          cat = "${pkgs.bat}/bin/bat";
         };
       };
-    };
 
-    programs.eza = {
-      enable = true;
-      enableAliases = true;
-      icons = true;
-      git = true;
+      programs.zoxide = {
+        enable = true;
+        enableFishIntegration = true;
+      };
+
+      programs.direnv = {
+        enable = true;
+        nix-direnv = {
+          enable = true;
+          package = pkgs.nix-direnv.override {
+            nix = pkgs.nix-super;
+          };
+        };
+      };
+
+      programs.eza = {
+        enable = true;
+        enableAliases = true;
+        icons = true;
+        git = true;
+      };
     };
   };
 }

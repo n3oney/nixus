@@ -1,6 +1,8 @@
 {pkgs, ...}: {
   users.main = "neoney";
 
+  rebuildCommand = "nh os switch -- --impure";
+
   display = {
     enable = true;
 
