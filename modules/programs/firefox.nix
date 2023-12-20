@@ -79,6 +79,9 @@
         id = 0;
         name = "dev-edition-default";
         isDefault = true;
+        settings = {
+          "middlemouse.paste" = false;
+        };
         extensions = with pkgs.nur.repos.rycee.firefox-addons;
         with extra-addons; [
           bitwarden
