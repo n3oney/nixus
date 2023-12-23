@@ -10,8 +10,7 @@
     combinedManager.evaluateInputs {
       lockFile = ./flake.lock;
       initialInputs = {
-        # NOTE: change to unstable once https://nixpk.gs/pr-tracker.html?pr=272969 lands in it
-        nixpkgs.url = "github:nixos/nixpkgs/nixos-23.11";
+        nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
         home-manager = {
           url = "github:nix-community/home-manager";
