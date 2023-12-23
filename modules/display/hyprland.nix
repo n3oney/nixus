@@ -137,7 +137,7 @@ in {
   config = lib.mkMerge [
     {
       inputs = {
-        hyprland.url = "github:hyprwm/hyprland/2997022";
+        hyprland.url = "github:hyprwm/hyprland";
         hyprland.inputs.nixpkgs.follows = "nixpkgs";
 
         hyprpaper.url = "github:hyprwm/hyprpaper";
@@ -158,6 +158,7 @@ in {
     }
     (mkIf cfg.enable {
       os = {
+        programs.sway.enable = true;
         programs.hyprland = {
           enable = true;
           package = cfg.package;
@@ -315,7 +316,7 @@ in {
                     follow_mouse = true;
 
                     touchpad = {
-                      disable_while_typing = false;
+                      disable_while_typing = true;
                       drag_lock = true;
                       clickfinger_behavior = true;
                     };
@@ -332,7 +333,7 @@ in {
                   misc = {
                     disable_hyprland_logo = true;
                     vfr = true;
-                    vrr = false;
+                    vrr = true;
                   };
 
                   "device:ydotoold-virtual-device-1" = {
@@ -475,7 +476,7 @@ in {
                     "noanim, ^(selection)$"
                   ];
 
-                  bindl = [",switch:off:Lid Switch, exec, ${lockSequence}"];
+                  bindl = [",switch:off:Apple SMC power/lid events, exec, ${lockSequence}"];
                 }
               ]
               ++ (builtins.map (keyboard: {
