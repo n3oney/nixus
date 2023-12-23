@@ -46,7 +46,7 @@ in {
       disableMinSize = false;
       winNativeTitleBar = false;
       plugins = {
-        AlwaysAnimate.enabled = false;
+        AlwaysAnimate.enabled = true;
         AlwaysTrust.enabled = false;
         AnonymiseFileNames.enabled = false;
         BadgeAPI.enabled = true;
@@ -59,6 +59,7 @@ in {
         MessagePopoverAPI.enabled = false;
         NoticesAPI.enabled = true;
         ServerListAPI.enabled = false;
+        ShowTimeouts.enabled = true;
         SettingsStoreAPI.enabled = false;
         "WebRichPresence (arRPC)".enabled = true;
         BANger.enabled = false;
@@ -79,7 +80,8 @@ in {
         Experiments.enabled = true;
         F8Break.enabled = false;
         FakeNitro.enabled = true;
-        FakeProfileThemes.enabled = false;
+        FakeProfileThemes.enabled = true;
+        FavoriteEmojiFirst.enabled = true;
         Fart2.enabled = false;
         FixInbox.enabled = false;
         ForceOwnerCrown.enabled = true;
@@ -91,8 +93,11 @@ in {
         iLoveSpam.enabled = false;
         IgnoreActivities.enabled = false;
         ImageZoom.enabled = true;
-        InvisibleChat.enabled = false;
-        KeepCurrentChannel.enabled = false;
+        InvisibleChat = {
+          enabled = true;
+          savedPasswords = "password";
+        };
+        KeepCurrentChannel.enabled = true;
         LastFMRichPresence.enabled = false;
         LoadingQuotes.enabled = false;
         MemberCount.enabled = true;
@@ -100,16 +105,17 @@ in {
         MessageLinkEmbeds.enabled = true;
         MessageLogger.enabled = true;
         MessageTags.enabled = false;
-        MoreCommands.enabled = false;
+        MoreCommands.enabled = true;
         MoreKaomoji.enabled = false;
         MoreUserTags.enabled = false;
         Moyai.enabled = false;
         MuteNewGuild.enabled = false;
-        NoBlockedMessages.enabled = false;
+        NoBlockedMessages.enabled = true;
         NoCanaryMessageLinks.enabled = false;
         NoDevtoolsWarning.enabled = true;
         NormalizeMessageLinks.enabled = true;
         NoF1.enabled = true;
+        NoMosaic.enabled = true;
         NoReplyMention = {
           # don't ping vaxry pls
           userList = "372809091208445953";
@@ -118,6 +124,7 @@ in {
         };
         NoScreensharePreview.enabled = false;
         NoTrack.enabled = true;
+        NoTypingAnimation.enabled = true;
         NoUnblockToJump.enabled = true;
         NSFWGateBypass.enabled = false;
         oneko.enabled = false;
@@ -135,7 +142,7 @@ in {
         ReviewDB.enabled = true;
         RoleColorEverywhere.enabled = true;
         SearchReply.enabled = false;
-        SendTimestamps.enabled = false;
+        SendTimestamps.enabled = true;
         ServerListIndicators.enabled = false;
         Settings = {
           enabled = true;
@@ -172,6 +179,7 @@ in {
         GreetStickerPicker.enabled = false;
         WhoReacted.enabled = true;
         Wikisearch.enabled = false;
+        WebKeybinds.enabled = true;
       };
       notifications = {
         timeout = 5000;
