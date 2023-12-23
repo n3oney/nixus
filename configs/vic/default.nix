@@ -3,6 +3,8 @@
 
   rebuildCommand = "nh os switch -- --impure";
 
+  bluetooth.enable = true;
+
   display = {
     enable = true;
 
@@ -13,12 +15,12 @@
         width = 2560;
         height = 1600;
         refreshRate = 60;
-        scale = 1.5;
+        scale = 1.422222;
       };
     };
 
     keyboards = [
-      "apple-internal-keyboard-/-trackpad-1"
+      "apple-internal-keyboard-/-trackpad"
       "logitech-g915-tkl-lightspeed-wireless-rgb-mechanical-gaming-keyboard"
       "logitech-usb-receiver-keyboard"
     ];
