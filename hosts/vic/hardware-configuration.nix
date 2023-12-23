@@ -61,7 +61,6 @@
     extractPeripheralFirmware = true;
     peripheralFirmwareDirectory = ./firmware;
     useExperimentalGPUDriver = true;
-    addEdgeKernelConfig = true;
   };
 
   networking.useDHCP = lib.mkDefault true;
