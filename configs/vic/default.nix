@@ -39,24 +39,18 @@
     discord.enable = true;
     eww = {
       enable = true;
-      micName = "Built-in Audio Analog Stereo";
+      micName = "Built-in Audio Headset Microphone";
     };
     firefox.enable = true;
     foot.enable = true;
     swappy.enable = true;
     thunderbird.enable = true;
-    /*
-    gaming = {
-      steam = {
-      enable = true;
-      proton-ge.enable = true;
-      };
-    };
-    */
+    gaming.minecraft.enable = true;
 
-    # Won't be watching stuff until speakers work...
+    # Won't be watching stuff until HW accel...
     # jellyfinPlayer.enable = true;
-    # youtube-music.enable = true;
+
+    youtube-music.enable = true;
   };
 
   services = {
