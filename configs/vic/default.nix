@@ -54,6 +54,7 @@
   };
 
   services = {
+    tlp.enable = true;
     wg.enable = true;
     yubikey-touch-detector.enable = true;
     podman.enable = true;
