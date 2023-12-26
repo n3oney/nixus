@@ -10,7 +10,7 @@
       enable = lib.mkEnableOption "gaming";
       proton-ge.enable = lib.mkEnableOption "proton-ge";
     };
-    gamemode.enable = lib.mkEnableOption "gamemode" // {default = config.programs.gaming.steam.enable || config.programs.gaming.xonotic.enable;};
+    gamemode.enable = lib.mkEnableOption "gamemode" // {default = config.programs.gaming.steam.enable || config.programs.gaming.xonotic.enable || config.programs.gaming.minecraft.enable;};
     steeringWheel.enable = lib.mkEnableOption "steering wheel";
   };
 
