@@ -6,7 +6,7 @@
   ...
 }: {
   options.rebuildCommand = lib.mkOption {
-    default = "nh os switch";
+    default = "nh os switch $argv";
     type = lib.types.str;
   };
 
@@ -51,9 +51,7 @@
           btop =
             mkIf (hmConfig.programs.btop or {enable = false;}).enable (opaquewrap "command btop");
 
-          hd = ''
-            ${config.rebuildCommand} $argv
-          '';
+          hd = config.rebuildCommand;
         };
         shellAbbrs = {
           cd = "z";
