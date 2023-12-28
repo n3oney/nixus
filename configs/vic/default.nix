@@ -41,6 +41,7 @@
       enable = true;
       micName = "Built-in Audio Headset Microphone";
     };
+    ags.enable = true;
     firefox.enable = true;
     foot.enable = true;
     swappy.enable = true;
