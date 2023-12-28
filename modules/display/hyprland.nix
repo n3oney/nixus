@@ -169,6 +169,13 @@ in {
           extraPortals = [pkgs.xdg-desktop-portal-gtk];
           xdgOpenUsePortal = true;
         };
+
+        # locker on sleep
+        systemd.services.locker = {
+          before = ["sleep.target"];
+          wantedBy = ["sleep.target"];
+          script = "${pkgs.systemd}/bin/loginctl lock-sessions";
+        };
       };
 
       hm = let
@@ -269,6 +276,8 @@ in {
                       "${lib.getExe inputs.arrpc.packages.${pkgs.system}.arrpc} &"
 
                       "wlsunset -l 52.2 -L 21 &"
+
+                      ''${lib.getExe pkgs.xss-lock} --ignore-sleep -- ${lib.getExe pkgs.bash} -c ${builtins.toJSON lockSequence}''
 
                       ''swayidle timeout 300 '${lockSequence}' timeout 360 'hyprctl dispatch dpms off' resume 'hyprctl dispatch dpms on' timeout 420 'test $(${pkgs.sysstat}/bin/mpstat -o JSON 1 1 | ${lib.getExe pkgs.jaq} -r ".sysstat.hosts[0].statistics[0]["cpu-load"][0].usr | floor") -lt 80 && systemctl suspend' ''
 
@@ -475,8 +484,6 @@ in {
 
                     "noanim, ^(selection)$"
                   ];
-
-                  bindl = [",switch:off:Apple SMC power/lid events, exec, ${lockSequence}"];
                 }
               ]
               ++ (builtins.map (keyboard: {
