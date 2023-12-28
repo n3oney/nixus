@@ -57,6 +57,11 @@
             args = ["--stdio"];
             config.provideFormatter = true;
           };
+          prisma-language-server = {
+            command = lib.getExe pkgs.nodePackages."@prisma/language-server";
+            args = ["--stdio"];
+            config.provideFormatter = true;
+          };
           nil.command = lib.getExe pkgs.nil;
           eslint = {
             command = "${pkgs.vscode-langservers-extracted}/bin/vscode-eslint-language-server";
