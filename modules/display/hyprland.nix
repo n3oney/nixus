@@ -472,6 +472,8 @@ in {
                   ];
 
                   layerrule = [
+                    "blur,bar-0"
+                    "ignorezero,bar-0"
                     "blur,gtk-layer-shell"
                     "ignorezero,gtk-layer-shell"
                     "blur,anyrun"
