@@ -48,7 +48,7 @@ in {
         };
         width = intOption;
         height = intOption;
-        scale = floatOption // {default = 1;};
+        scale = floatOption // {default = 1.0;};
         refreshRate = intOption // {default = 60;};
       };
       secondary = {
