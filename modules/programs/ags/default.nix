@@ -15,7 +15,7 @@
 
   config.hm = lib.mkIf config.programs.ags.enable {
     programs.ags = let
-      agsPathPackages = [pkgs.sassc pkgs.wlroots.examples pkgs.bash pkgs.procps pkgs.findutils];
+      agsPathPackages = [pkgs.sassc pkgs.wlroots.examples pkgs.bash pkgs.procps pkgs.findutils pkgs.xdg-utils];
     in {
       enable = true;
 
@@ -26,7 +26,7 @@
         '';
       });
 
-      # configDir = ./config;
+      configDir = ./config;
 
       extraPackages = [pkgs.libsoup_3];
     };

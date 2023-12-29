@@ -283,12 +283,11 @@ in {
 
                       "systemctl --user restart xdg-desktop-portal xdg-desktop-portal-hyprland"
                     ]
-                    ++ (lib.optionals config.programs.eww.enable ["eww daemon && eww open bar && eww open yubikey-state"]);
+                    ++ (lib.optionals config.programs.ags.enable ["ags"]);
 
                   monitor =
                     [
                       "${cfg.monitors.main.name},${toString cfg.monitors.main.width}x${toString cfg.monitors.main.height}@${toString cfg.monitors.main.refreshRate},0x0,${toString cfg.monitors.main.scale}"
-                      "${cfg.monitors.main.name},addreserved,36,0,0,0"
                     ]
                     ++ (lib.optionals (cfg.monitors.secondary.name != null) ["monitor=${cfg.monitors.secondary.name},${toString cfg.monitors.secondary.width}x${toString cfg.monitors.secondary.height}@60,2560x0,1"]);
 
@@ -441,11 +440,6 @@ in {
                     "fullscreen,title:^(PAUSESHOT)$"
 
                     "nomaxsize,class:^(.*)$"
-                  ];
-
-                  # See https://wiki.hyprland.org/Configuring/Keywords/ for more
-                  bindr = [
-                    "${mainMod}, Super_L, exec, eww update show-which-key=$([ $(eww get show-which-key) == 'true' ] && echo 'false' || echo 'true')"
                   ];
 
                   bind = builtins.map (b: b.bind + "," + b.action) cfg.binds;
