@@ -7,6 +7,26 @@
   boot.initrd.availableKernelModules = ["usbhid" "usb_storage" "sd_mod"];
   boot.initrd.kernelModules = ["usbhid" "dm-snapshot"];
 
+  services.upower.enable = true;
+
+  boot.kernelPatches = [
+    {
+      name = "waydroid";
+      patch = null;
+      extraConfig = ''
+        ANDROID_BINDER_IPC y
+        ANDROID_BINDERFS y
+        ASHMEM y
+        MEMFD_CREATE y
+        CONFIG_MEMFD_CREATE y
+        CONFIG_ASHMEM y
+        CONFIG_ANDROID_BINDERFS y
+        CONFIG_ANDROID_BINDER_IPC y
+        ANDROID_BINDER_DEVICES binder,hwbinder,vndbinder
+      '';
+    }
+  ];
+
   boot.initrd.luks.devices = {
     nixos-enc = {
       device = "/dev/nvme0n1p6";
