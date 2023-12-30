@@ -1,5 +1,6 @@
 import Widget from "resource:///com/github/Aylur/ags/widget.js";
 import Variable from "resource:///com/github/Aylur/ags/variable.js";
+import { execAsync } from "resource:///com/github/Aylur/ags/utils.js";
 
 const powerMenuHovered = Variable(false);
 

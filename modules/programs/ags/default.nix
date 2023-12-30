@@ -26,9 +26,14 @@
         '';
       });
 
-      configDir = ./config;
+      # configDir = ./config;
 
       extraPackages = [pkgs.libsoup_3];
+    };
+
+    xdg.configFile."ags" = {
+      source = ./config;
+      recursive = true;
     };
   };
 }

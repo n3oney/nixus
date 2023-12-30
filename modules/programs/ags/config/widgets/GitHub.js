@@ -69,6 +69,11 @@ export const GitHub = () =>
     }),
 
     onPrimaryClick: async () => {
-      await execAsync(["xdg-open", "https://github.com/notifications"]);
+      const v = await execAsync([
+        "bash",
+        "-c",
+        "xdg-open 'https://github.com/notifications' &",
+      ]);
+      print(v);
     },
   });
