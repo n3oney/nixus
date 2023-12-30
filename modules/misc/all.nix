@@ -1,5 +1,16 @@
 {lib, ...}: {
-  os.boot.swraid.enable = lib.mkForce false;
+  os = {
+    boot.swraid.enable = lib.mkForce false;
 
-  os.environment.etc.currentConfig.source = ../../.;
+    environment.etc.currentConfig.source = ../../.;
+
+    security.pam.loginLimits = [
+      {
+        domain = "@users";
+        item = "rtprio";
+        type = "-";
+        value = 1;
+      }
+    ];
+  };
 }
