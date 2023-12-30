@@ -138,7 +138,6 @@ in {
     {
       inputs = {
         hyprland.url = "github:hyprwm/hyprland";
-        hyprland.inputs.nixpkgs.follows = "nixpkgs";
 
         hyprpaper.url = "github:hyprwm/hyprpaper";
         hyprpicker.url = "github:hyprwm/hyprpicker";
@@ -158,7 +157,6 @@ in {
     }
     (mkIf cfg.enable {
       os = {
-        programs.sway.enable = true;
         programs.hyprland = {
           enable = true;
           package = cfg.package;

@@ -7,6 +7,7 @@
 
   display = {
     enable = true;
+    sway.enable = true;
 
     monitors = {
       main = {
@@ -15,7 +16,7 @@
         width = 2560;
         height = 1600;
         refreshRate = 60;
-        scale = 1.422222;
+        scale = 1.333333;
       };
     };
 
