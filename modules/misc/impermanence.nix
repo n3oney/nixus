@@ -11,13 +11,48 @@
       inputs.impermanence.url = "github:nix-community/impermanence";
     }
     (lib.mkIf config.impermanence.enable {
-      hmModules = [inputs.impermanence.nixosModules.home-manager.impermanence];
       osModules = [inputs.impermanence.nixosModule];
 
       os = {
         environment.persistence."/persist" = {
-          directories = ["/etc/nixos" "/etc/NetworkManager" "/var/log" "/var/lib" "/etc/nix" "/etc/ssh" "/var/db/sudo" "/var/lib/minecraft"];
-          files = ["/etc/machine-id"];
+          directories =
+            builtins.map (v: "/home/neoney/${v}") ([
+                ".local/share/waydroid"
+                "nixus"
+                "Downloads"
+                "Games"
+                "code"
+                "Documents"
+                "Kooha"
+                "Music"
+                ".ssh"
+                ".local/share/direnv"
+                ".mozilla"
+                ".thunderbird"
+                ".local/share/Steam"
+                ".steam"
+                ".local/share/TelegramDesktop"
+                ".gnupg"
+                ".config/.wrangler"
+                ".config/Caprine"
+                ".config/VencordDesktop"
+                ".config/youtube-music-desktop-app"
+                ".cache/starship"
+                ".local/share/nheko"
+                ".config/nheko"
+                ".config/Element"
+                ".local/share/keyrings"
+                ".cache/nix-index"
+                ".config/obs-studio"
+                ".local/share/pnpm/store"
+                ".local/share/PrismLauncher"
+                ".bun"
+                ".local/share/zoxide"
+                ".xonotic"
+              ]
+              ++ (lib.optionals config.programs.jellyfinPlayer.enable [".config/jellyfin.org" ".local/share/jellyfinmediaplayer" ".local/share/Jellyfin Media Player" ".cache/Jellyfin Media Player"]))
+            ++ ["/var/lib/waydroid" "/etc/nixos" "/etc/NetworkManager" "/var/log" "/var/lib" "/etc/nix" "/etc/ssh" "/var/db/sudo" "/var/lib/minecraft"];
+          files = ["/etc/machine-id" "/home/neoney/.cache/anyrun-ha-assist.sqlite3" "/home/neoney/.local/share/fish/fish_history" "/home/neoney/.xonotic/data/config.cfg"];
         };
 
         users = {
@@ -28,63 +63,6 @@
         };
 
         programs.fuse.userAllowOther = true;
-      };
-
-      hm = {
-        home.homeDirectory = "/home/neoney";
-        home.username = "neoney";
-
-        home.persistence."/persist/home/neoney" = {
-          directories =
-            [
-              "nixus"
-              "Downloads"
-              "Games"
-              "code"
-              "Documents"
-              "Kooha"
-              "Music"
-              ".ssh"
-              ".local/share/direnv"
-              ".mozilla"
-              ".thunderbird"
-              {
-                directory = ".local/share/Steam";
-                method = "symlink";
-              }
-              {
-                directory = ".steam";
-                method = "symlink";
-              }
-              ".local/share/TelegramDesktop"
-              ".gnupg"
-              ".config/ags"
-              ".config/.wrangler"
-              ".config/Caprine"
-              ".config/VencordDesktop"
-              ".config/youtube-music-desktop-app"
-              ".cache/starship"
-              ".local/share/nheko"
-              ".config/nheko"
-              ".config/Element"
-              ".local/share/keyrings"
-              ".cache/nix-index"
-              ".config/obs-studio"
-              ".local/share/pnpm/store"
-              ".local/share/PrismLauncher"
-              ".bun"
-              {
-                directory = ".local/share/zoxide";
-                method = "symlink";
-              }
-            ]
-            ++ (lib.optionals config.programs.jellyfinPlayer.enable [".config/jellyfin.org" ".local/share/jellyfinmediaplayer" ".local/share/Jellyfin Media Player" ".cache/Jellyfin Media Player"]);
-          files = [
-            ".cache/anyrun-ha-assist.sqlite3"
-            ".local/share/fish/fish_history"
-          ];
-          allowOther = true;
-        };
       };
     })
   ];
