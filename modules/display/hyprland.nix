@@ -405,6 +405,7 @@ in {
                     "float,class:^(ssh-askpass)$"
                     "idleinhibit focus,title:^(YouTube on TV.*)$"
                     "idleinhibit fullscreen,class:^(.*)$"
+                    "float,class:^([Ww]aydroid.*)$"
 
                     "workspace 2,class:firefox"
 
