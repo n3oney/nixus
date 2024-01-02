@@ -38,6 +38,7 @@ in {
   };
 
   programs = {
+    waydroid.enable = true;
     anyrun.enable = true;
     btop.enable = true;
     discord.enable = true;
