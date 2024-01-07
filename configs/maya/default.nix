@@ -11,6 +11,8 @@
 
   services.minecraft-server.enable = true;
 
+  services.uonetplan.enable = true;
+
   services.arr = {
     enable = true;
     jackett.enable = false;
