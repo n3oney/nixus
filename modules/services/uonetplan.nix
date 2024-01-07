@@ -25,7 +25,7 @@
     };
 
     systemd.tmpfiles.rules = [
-      "d /etc/uonetplan 1600 uonetplan uonetplan"
+      "d /etc/uonetplan 1770 uonetplan uonetplan"
     ];
 
     services.caddy = {
