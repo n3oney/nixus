@@ -1574,11 +1574,11 @@
         "utils": "utils"
       },
       "locked": {
-        "lastModified": 1701902297,
-        "narHash": "sha256-QmCFrc48Q9uc3UXmOcdzlw7qk5xJmHvK8I6/Y7k0oBk=",
+        "lastModified": 1704670199,
+        "narHash": "sha256-369aR1q96plQHqorR4nxd7FDoB63UFQ4IGr2IWUShQE=",
         "ref": "refs/heads/main",
-        "rev": "bcf97d8f8ba572ed716179021239f3c28f1e2896",
-        "revCount": 33,
+        "rev": "3b4cef30be205ac6bdcce5ddad29ac3ac6ab3aa4",
+        "revCount": 34,
         "type": "git",
         "url": "ssh://git@github.com/n3oney/uonetplan"
       },
