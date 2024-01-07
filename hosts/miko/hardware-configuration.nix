@@ -24,6 +24,11 @@
     options = ["size=14G" "mode=755"];
   };
 
+  fileSystems."/etc/ssh" = {
+    depends = ["/persist"];
+    neededForBoot = true;
+  };
+
   fileSystems."/nix" = {
     neededForBoot = true;
     device = "/dev/disk/by-label/NIXROOT";
