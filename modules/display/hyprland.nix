@@ -477,15 +477,15 @@ in {
                     "blur,yubikey-state"
                     "ignorealpha 0.6,yubikey-state"
 
-                    "noanim, ^(selection)$"
+                    "noanim,selection"
                   ];
                 }
               ]
               ++ (builtins.map (keyboard: {
                   "device:${keyboard}" = {
                     kb_layout = "pl";
-                    kb_model = "";
-                    kb_rules = "";
+                    # kb_model = "";
+                    # kb_rules = "";
                   };
                 })
                 cfg.keyboards));
