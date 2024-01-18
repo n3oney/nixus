@@ -4,7 +4,7 @@
   inputs,
   ...
 }: {
-  inputs.helix.url = "github:helix-editor/helix";
+  # inputs.helix.url = "github:helix-editor/helix";
 
   hm = {
     home.sessionVariables.EDITOR = "hx";
@@ -12,19 +12,9 @@
     programs.helix = {
       enable = true;
       package = let
-        packages = inputs.helix.packages.${pkgs.system};
+        # packages = inputs.helix.packages.${pkgs.system};
       in
-        packages.helix.passthru.wrapper (packages.helix-unwrapped.overrideAttrs (old: {
-          patches =
-            (old.patches or [])
-            ++ [
-              # doesnt apply for no reason idk y
-              # (pkgs.fetchpatch {
-              # url = "https://github.com/helix-editor/helix/pull/7474.diff";
-              # hash = "sha256-iK9vfYFd6NiMjuhvUyyYA5sb+9bytdF+hTqurwnFk2Y=";
-              # })
-            ];
-        }));
+        pkgs.helix;
       settings = {
         theme = "catppuccin_macchiato";
 
@@ -44,8 +34,11 @@
 
       languages = {
         language-server = {
-          # TODO: Uncomment after https://github.com/NixOS/nixpkgs/issues/273835 closed
-          # typst-lsp.command = "${pkgs.typst-lsp}/bin/typst-lsp";
+          emmet-ls = {
+            command = lib.getExe pkgs.emmet-language-server;
+            args = ["--stdio"];
+          };
+          typst-lsp.command = "${pkgs.typst-lsp}/bin/typst-lsp";
           typescript-language-server = {
             command = lib.getExe pkgs.nodePackages.typescript-language-server;
             args = ["--stdio"];
@@ -61,6 +54,12 @@
             command = lib.getExe pkgs.nodePackages."@prisma/language-server";
             args = ["--stdio"];
             config.provideFormatter = true;
+          };
+          tailwindcss-ls = {
+            command =
+              lib.getExe pkgs.nodejs;
+            args = ["${pkgs.vimPlugins.coc-tailwindcss}/lsp/tailwindcss-language-server/dist/index.js" "--stdio"];
+            config = {};
           };
           nil.command = lib.getExe pkgs.nil;
           eslint = {
@@ -107,10 +106,10 @@
             auto-format = true;
             formatter = {command = lib.getExe pkgs.alejandra;};
           }
-          (withLangServers (mkPrettier "typescript" "ts") ["typescript-language-server" "eslint"])
-          (withLangServers (mkPrettier "tsx" "tsx") ["typescript-language-server" "eslint"])
-          (withLangServers (mkPrettier "javascript" "js") ["typescript-language-server" "eslint"])
-          (withLangServers (mkPrettier "jsx" "js") ["typescript-language-server" "eslint"])
+          (withLangServers (mkPrettier "typescript" "ts") ["typescript-language-server" "eslint" "emmet-ls"])
+          (withLangServers (mkPrettier "tsx" "tsx") ["typescript-language-server" "eslint" "emmet-ls"])
+          (withLangServers (mkPrettier "javascript" "js") ["typescript-language-server" "eslint" "emmet-ls"])
+          (withLangServers (mkPrettier "jsx" "js") ["typescript-language-server" "eslint" "emmet-ls"])
           (mkPrettier "css" "css")
           (mkPrettier "scss" "scss")
           (mkPrettier "markdown" "md")
