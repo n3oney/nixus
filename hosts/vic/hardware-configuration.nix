@@ -80,7 +80,10 @@
   hardware.asahi = {
     extractPeripheralFirmware = true;
     peripheralFirmwareDirectory = ./firmware;
+    withRust = true;
+    addEdgeKernelConfig = true;
     useExperimentalGPUDriver = true;
+    # experimentalGPUInstallMode = "overlay";
   };
 
   networking.useDHCP = lib.mkDefault true;
