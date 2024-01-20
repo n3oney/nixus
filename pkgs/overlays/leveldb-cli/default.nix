@@ -15,7 +15,7 @@ buildGoModule {
     sha256 = "Hg8QUx2Du/ye3/gEDtx2QoOgahJy/VunEwmlKhVdNgA=";
   };
 
-  vendorSha256 = "zJc7bzd/NeMuouLqhoOWG0ZuFxpUiPnAZRvWc/OKllU=";
+  vendorHash = "zJc7bzd/NeMuouLqhoOWG0ZuFxpUiPnAZRvWc/OKllU=";
 
   postInstall = ''
     mv $out/bin/leveldb $out/bin/leveldb-cli
