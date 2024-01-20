@@ -26,7 +26,7 @@
     services.caddy = {
       enable = true;
       virtualHosts."matrix.neoney.dev".extraConfig = ''
-        reverse_proxy /_matrix/* localhost:${toString osConfig.services.matrix-conduit.settings.global.port}
+        reverse_proxy /_matrix/* [${osConfig.services.matrix-conduit.settings.global.address}]:${toString osConfig.services.matrix-conduit.settings.global.port}
       '';
     };
   };
