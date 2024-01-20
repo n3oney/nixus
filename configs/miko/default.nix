@@ -6,6 +6,8 @@ in {
   display = {
     enable = true;
 
+    enableTearing = true;
+
     monitors = {
       main = {
         name = "DP-1";

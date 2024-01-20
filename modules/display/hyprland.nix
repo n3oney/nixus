@@ -35,6 +35,8 @@ in {
   options.display = {
     enable = mkEnableOption "Display";
 
+    enableTearing = mkEnableOption "Tearing";
+
     package = mkOption {
       type = types.package;
       default = inputs.hyprland.packages.${pkgs.system}.hyprland;
@@ -346,10 +348,10 @@ in {
                     sensitivity = 0;
                   };
 
-                  env = ["WLR_DRM_NO_ATOMIC,1"];
+                  env = lib.mkIf cfg.enableTearing ["WLR_DRM_NO_ATOMIC,1"];
 
                   general = {
-                    allow_tearing = true;
+                    allow_tearing = cfg.enableTearing;
                     gaps_in = 8;
                     gaps_out = 14;
                     border_size = 2;
