@@ -7,7 +7,6 @@
 
   display = {
     enable = true;
-    sway.enable = true;
 
     monitors = {
       main = {
