@@ -8,9 +8,12 @@
   };
 
   hm = {
-    programs.ssh.extraConfig = ''
-      Include hosts
-    '';
+    programs.ssh = {
+      enable = true;
+      extraConfig = ''
+        Include hosts
+      '';
+    };
 
     home.file.".ssh/hosts".source = hmConfig.lib.file.mkOutOfStoreSymlink "/run/user/1000/agenix/ssh_hosts";
   };
