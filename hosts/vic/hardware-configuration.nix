@@ -51,7 +51,20 @@
   };
   */
 
+  boot.tmp.useTmpfs = true;
+
   fileSystems."/" = {
+    device = "none";
+    fsType = "tmpfs";
+    options = ["size=14G" "mode=755"];
+  };
+
+  fileSystems."/etc/ssh" = {
+    depends = ["/persist"];
+    neededForBoot = true;
+  };
+
+  fileSystems."/persist" = {
     neededForBoot = true;
     device = "/dev/disk/by-label/NIXROOT";
     fsType = "btrfs";

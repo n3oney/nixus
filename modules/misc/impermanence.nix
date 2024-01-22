@@ -16,7 +16,11 @@
       os = {
         environment.persistence."/persist" = {
           directories =
-            builtins.map (v: "/home/neoney/${v}") ([
+            builtins.map (v: {
+              directory = "/home/neoney/${v}";
+              user = "neoney";
+              group = "users";
+            }) ([
                 ".local/share/waydroid"
                 "nixus"
                 "Downloads"
