@@ -49,8 +49,8 @@ in {
     };
   in {
     programs.firefox.profiles.youtubeTV = {
-      id = 1;
       name = "YouTube TV";
+      id = 2;
       extensions = with pkgs.nur.repos.rycee.firefox-addons;
       with extra-addons; [
         ublock-origin

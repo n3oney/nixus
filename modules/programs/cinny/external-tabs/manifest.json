@@ -1,0 +1,17 @@
+{
+  "manifest_version": 2,
+  "name": "External Tabs",
+  "version": "1.0",
+  "description": "Open Firefox tabs in an external app.",
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "external-tabs@neoney.dev"
+    }
+  },
+  "permissions": ["tabs", "<all_urls>", "nativeMessaging"],
+  "background": {
+    "scripts": ["main.js"],
+    "persistent": false,
+    "type": "module"
+  }
+}

@@ -193,7 +193,6 @@ in {
           # caprine-bin
 
           wl-clipboard
-          element-desktop-wayland
 
           hyprpaper
 
@@ -270,7 +269,8 @@ in {
                       "${lib.getExe pkgs.hyprpaper} & ${pkgs.playerctl}/bin/playerctld & mako"
 
                       "firefox &"
-                      "element-desktop & vencorddesktop &"
+                      "vencorddesktop &"
+                      "cinny &"
                       # "${lib.getExe pkgs.caprine-bin} &"
 
                       "${lib.getExe inputs.arrpc.packages.${pkgs.system}.arrpc} &"
@@ -362,33 +362,64 @@ in {
                   };
 
                   decoration = {
-                    rounding = 12;
-                    drop_shadow = false;
-                    shadow_range = 8;
+                    rounding = 20;
+
+                    drop_shadow = true;
+                    shadow_ignore_window = true;
+                    shadow_range = 20;
                     shadow_render_power = 2;
+                    shadow_offset = "0 2";
+                    "col.shadow" = "rgba(0000001A)";
+
                     dim_special = 0.6;
-                    "col.shadow" = "rgba(1a1a1aff)";
+
                     blur = {
                       enabled = true;
-                      size = 6;
+                      size = 5;
                       passes = 4;
-                      contrast = 1.4;
+                      contrast = 1;
                       brightness = 1;
-                      noise = 0.1;
+                      noise = 0.01;
                     };
                   };
 
                   animations = {
                     enabled = true;
 
-                    # https://wiki.hyprland.org/Configuring/Animations/
-                    animation = [
-                      "windows, 1, 3, default"
-                      "windowsOut, 1, 3, default, popin 80%"
-                      "border, 1, 3, default"
-                      "fade, 1, 4, default"
-                      "workspaces, 1, 4, default, slide"
+                    bezier = [
+                      "linear, 0, 0, 1, 1"
+                      "md3_standard, 0.2, 0, 0, 1"
+                      "md3_decel, 0.05, 0.7, 0.1, 1"
+                      "md3_accel, 0.3, 0, 0.8, 0.15"
+                      "overshot, 0.05, 0.9, 0.1, 1.1"
+                      "crazyshot, 0.1, 1.5, 0.76, 0.92"
+                      "hyprnostretch, 0.05, 0.9, 0.1, 1.0"
+                      "fluent_decel, 0.1, 1, 0, 1"
+                      "easeInOutCirc, 0.85, 0, 0.15, 1"
+                      "easeOutCirc, 0, 0.55, 0.45, 1"
+                      "easeOutExpo, 0.16, 1, 0.3, 1"
                     ];
+
+                    # Animation configs
+                    animation = [
+                      "windows, 1, 3, md3_decel, popin 60%"
+                      "border, 1, 10, default"
+                      "fade, 1, 2.5, md3_decel"
+                      # animation = workspaces, 1, 3.5, md3_decel, slide
+                      "workspaces, 1, 7, fluent_decel, slide"
+                      # animation = workspaces, 1, 7, fluent_decel, slidefade 15%
+                      # animation = specialWorkspace, 1, 3, md3_decel, slidefadevert 15%
+                      "specialWorkspace, 1, 3, md3_decel, slidevert"
+                    ];
+
+                    # https://wiki.hyprland.org/Configuring/Animations/
+                    # animation = [
+                    # "windows, 1, 3, default"
+                    # "windowsOut, 1, 3, default, popin 80%"
+                    # "border, 1, 3, default"
+                    # "fade, 1, 4, default"
+                    # "workspaces, 1, 4, default, slide"
+                    # ];
                   };
 
                   dwindle = {
@@ -421,7 +452,7 @@ in {
                       if cfg.monitors.secondary.name != null
                       then "19"
                       else "9"
-                    },class:Element"
+                    },class:cinny"
 
                     "workspace ${
                       if cfg.monitors.secondary.name != null
