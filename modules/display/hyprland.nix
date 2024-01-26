@@ -269,7 +269,7 @@ in {
                       "${lib.getExe pkgs.hyprpaper} & ${pkgs.playerctl}/bin/playerctld & mako"
 
                       "firefox &"
-                      "vencorddesktop &"
+                      "${lib.getExe config.programs.discord.finalPackage} &"
                       "cinny &"
                       # "${lib.getExe pkgs.caprine-bin} &"
 

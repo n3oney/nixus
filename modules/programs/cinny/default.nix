@@ -53,37 +53,43 @@ in {
   };
 
   config.hm = lib.mkIf config.programs.cinny.enable {
-    home.file.".mozilla/native-messaging-hosts/external_tabs.json".text = builtins.toJSON {
-      name = "external_tabs";
-      description = "Host to open tabs with xdg-open";
-      path = pkgs.writeScript "external_tabs" ''
-        #!${lib.getExe pkgs.python3}
-        
-        import sys
-        import struct
-        import subprocess
-        import json
+    programs.firefox.nativeMessagingHosts = [
+      (pkgs.writeTextFile {
+        destination = "/lib/mozilla/native-messaging-hosts/external_tabs.json";
+        name = "external_tabs.json";
+        text = builtins.toJSON {
+          name = "external_tabs";
+          description = "Host to open tabs with xdg-open";
+          path = pkgs.writeScript "external_tabs" ''
+            #!${lib.getExe pkgs.python3}
+                      
+            import sys
+            import struct
+            import subprocess
+            import json
 
-        # Read a message from stdin and decode it.
-        def getMessage():
-            rawLength = sys.stdin.buffer.read(4)
-            if len(rawLength) == 0:
-                sys.exit(0)
-            messageLength = struct.unpack('@I', rawLength)[0]
-            message = sys.stdin.buffer.read(messageLength).decode('utf-8')
-            return json.loads(message)
+            # Read a message from stdin and decode it.
+            def getMessage():
+                rawLength = sys.stdin.buffer.read(4)
+                if len(rawLength) == 0:
+                    sys.exit(0)
+                messageLength = struct.unpack('@I', rawLength)[0]
+                message = sys.stdin.buffer.read(messageLength).decode('utf-8')
+                return json.loads(message)
 
-        while True:
-            receivedMessage = getMessage()
-            if receivedMessage:
-                f = open("/tmp/output.txt", "a")
-                f.write(receivedMessage + "\n")
-                f.close()
+            while True:
+                receivedMessage = getMessage()
+                if receivedMessage:
+                    f = open("/tmp/output.txt", "a")
+                    f.write(receivedMessage + "\n")
+                    f.close()
 
-                subprocess.run(["xdg-open", receivedMessage])      '';
-      type = "stdio";
-      allowed_extensions = ["external-tabs@neoney.dev"];
-    };
+                    subprocess.run(["xdg-open", receivedMessage])'';
+          type = "stdio";
+          allowed_extensions = ["external-tabs@neoney.dev"];
+        };
+      })
+    ];
 
     programs.firefox.profiles."nixus.cinny" = {
       name = "cinny";
