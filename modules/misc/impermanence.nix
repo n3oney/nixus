@@ -56,7 +56,7 @@
               ]
               ++ (lib.optionals config.programs.jellyfinPlayer.enable [".config/jellyfin.org" ".local/share/jellyfinmediaplayer" ".local/share/Jellyfin Media Player" ".cache/Jellyfin Media Player"]))
             ++ ["/var/lib/waydroid" "/etc/nixos" "/etc/NetworkManager" "/var/log" "/var/lib" "/etc/nix" "/etc/ssh" "/var/db/sudo" "/var/lib/minecraft"];
-          files = ["/etc/machine-id" "/home/neoney/.cache/anyrun-ha-assist.sqlite3" "/home/neoney/.local/share/fish/fish_history" "/home/neoney/.xonotic/data/config.cfg"];
+          files = ["/etc/machine-id" "/home/neoney/.cache/anyrun-ha-assist.sqlite3" "/home/neoney/.local/share/fish/fish_history"];
         };
 
         users = {
