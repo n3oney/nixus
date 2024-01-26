@@ -2,8 +2,15 @@
   os = {
     boot.swraid.enable = lib.mkForce false;
     documentation = {
+      enable = true;
+      doc.enable = false;
       info.enable = false;
-      man.generateCaches = false;
+      dev.enable = lib.mkForce true;
+      man = {
+        generateCaches = false;
+        man-db.enable = false;
+        mandoc.enable = true;
+      };
     };
 
     environment.etc.currentConfig.source = ../../.;
