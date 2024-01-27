@@ -12,7 +12,6 @@
         [audio]
         output = pulsesink server=127.0.0.1
       '';
-      depends = [];
     };
 
     systemd.services.mopidy = {
