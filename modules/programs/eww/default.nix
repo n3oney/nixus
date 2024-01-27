@@ -3,7 +3,7 @@
   pkgs,
   config,
   lib,
-  hmConfig,
+  # hmConfig,
   ...
 }: {
   options.programs.eww = {
@@ -18,17 +18,6 @@
   };
 
   config = lib.mkMerge [
-    {
-      inputs = {
-        rust-overlay.url = "github:oxalica/rust-overlay";
-        eww = {
-          url = "github:ralismark/eww/tray-3";
-          # url = "github:elkowar/eww";
-          inputs.nixpkgs.follows = "nixpkgs";
-          inputs.rust-overlay.follows = "rust-overlay";
-        };
-      };
-    }
     (lib.mkIf config.programs.eww.enable {
       hm = {
         home.packages = with pkgs; [

@@ -1,14 +1,10 @@
 {
   # osConfig,
-  pkgs,
+  # pkgs,
   lib,
   inputs,
   ...
 }: {
-  inputs.apple-silicon-support.url = "github:tpwrules/nixos-apple-silicon";
-
-  # hardware.asahi.pkgs = lib.mkForce (inputs.nixpkgs-stable.legacyPackages.${pkgs.system});
-
   osModules = [inputs.apple-silicon-support.nixosModules.apple-silicon-support ./hardware-configuration.nix];
 
   os = {

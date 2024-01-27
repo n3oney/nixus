@@ -53,10 +53,6 @@
     ];
   };
 in {
-  inputs = {
-    nix-super.url = "github:privatevoid-net/nix-super/ba035e1ea339a97e6ba6a1dd79e0c0e334240234";
-  };
-
   hm.nix.settings = nixSettings;
 
   os = {

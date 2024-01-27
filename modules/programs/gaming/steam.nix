@@ -14,8 +14,6 @@
     steeringWheel.enable = lib.mkEnableOption "steering wheel";
   };
 
-  config.inputs.nix-gaming.url = "github:fufexan/nix-gaming";
-
   config.os = lib.mkMerge [
     (lib.mkIf config.programs.gaming.steam.enable {
       programs.steam = {

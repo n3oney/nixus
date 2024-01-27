@@ -5,10 +5,6 @@
   config,
   ...
 }: {
-  config.inputs = {
-    catppuccin-lemmy.url = "github:n3oney/catppuccin-lemmy";
-  };
-
   options.services.lemmy.enable = lib.mkEnableOption "lemmy";
 
   config.os = lib.mkIf config.services.lemmy.enable (let

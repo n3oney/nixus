@@ -4,11 +4,6 @@
   pkgs,
   ...
 }: {
-  inputs.nh = {
-    url = "github:viperML/nh";
-    inputs.nixpkgs.follows = "nixpkgs";
-  };
-
   os.environment = {
     systemPackages = [inputs.nh.packages.${pkgs.system}.default];
     sessionVariables.FLAKE = "/home/neoney/nixus";

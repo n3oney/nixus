@@ -5,8 +5,6 @@
   pkgs,
   ...
 }: {
-  config.inputs.uonetplan.url = "git+ssh://git@github.com/n3oney/uonetplan";
-
   options.services.uonetplan.enable = lib.mkEnableOption "UonetPlan";
 
   config.os = lib.mkIf config.services.uonetplan.enable {

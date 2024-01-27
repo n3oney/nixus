@@ -22,10 +22,6 @@
     };
   };
 
-  config.inputs = {
-    nix-colors.url = "github:Misterio77/nix-colors";
-  };
-
   config.hmModules = [inputs.nix-colors.homeManagerModules.default];
 
   config.hm.colorScheme = config.colors.colorScheme;

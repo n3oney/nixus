@@ -18,11 +18,6 @@ in {
   options.agenix.enable = lib.mkEnableOption "agenix";
 
   config = lib.mkMerge [
-    {
-      inputs = {
-        agenix.url = "github:ryantm/agenix";
-      };
-    }
     (lib.mkIf config.agenix.enable {
       osModules = [inputs.agenix.nixosModules.default];
       hmModules = [inputs.agenix.homeManagerModules.default];

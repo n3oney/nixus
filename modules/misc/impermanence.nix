@@ -7,9 +7,6 @@
   options.impermanence.enable = lib.mkEnableOption "impermanence";
 
   config = lib.mkMerge [
-    {
-      inputs.impermanence.url = "github:nix-community/impermanence";
-    }
     (lib.mkIf config.impermanence.enable {
       osModules = [inputs.impermanence.nixosModule];
 

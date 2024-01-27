@@ -137,26 +137,6 @@ in {
   };
 
   config = lib.mkMerge [
-    {
-      inputs = {
-        hyprland.url = "github:hyprwm/hyprland";
-
-        hyprpaper.url = "github:hyprwm/hyprpaper";
-        hyprpicker.url = "github:hyprwm/hyprpicker";
-
-        hyprcontrib = {
-          url = "github:hyprwm/contrib";
-          inputs.nixpkgs.follows = "nixpkgs";
-        };
-
-        arrpc = {
-          url = "github:notashelf/arrpc-flake";
-          inputs.nixpkgs.follows = "nixpkgs";
-        };
-
-        shadower.url = "github:n3oney/shadower";
-      };
-    }
     (mkIf cfg.enable {
       os = {
         programs.hyprland = {
