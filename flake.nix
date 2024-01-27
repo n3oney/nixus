@@ -49,7 +49,7 @@
     poweroff = {url = "github:n3oney/ha-poweroff";};
     rust-overlay = {url = "github:oxalica/rust-overlay";};
     shadower = {url = "github:n3oney/shadower";};
-    uonetplan = {url = "git+ssh://git@github.com/n3oney/uonetplan";};
+    uonetplan.url = "github:n3oney/uonetplan";
   };
 
   outputs = inputs @ {nixpkgs, ...}: let
