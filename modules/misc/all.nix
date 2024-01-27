@@ -5,7 +5,7 @@
       enable = true;
       doc.enable = false;
       info.enable = false;
-      dev.enable = lib.mkForce true;
+      # dev.enable = lib.mkForce true;
       man = {
         generateCaches = false;
         man-db.enable = false;
