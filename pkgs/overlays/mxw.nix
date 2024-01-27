@@ -12,11 +12,11 @@ rustPlatform.buildRustPackage rec {
   src = fetchFromGitHub {
     owner = "dxbednarczyk";
     repo = pname;
-    rev = "dacf27f4f57f5f04f08afeb26186c350ddf5f79f";
-    hash = "sha256-hVJiKa4ODnglR6lG8NXxaEjCqsKXxrHNv7i8XsZd+T8=";
+    rev = "2e493b5abccb8ed22f4b814ca1bf59bfe16c9c78";
+    hash = "sha256-IBDxn64XQsvg+C+9rfn71zzlOpgfcl/7PPFNnRyazP8=";
   };
 
-  cargoHash = "sha256-2cE8E26LOeqiLEh/SEKKDJRni/5e0HG2yqrKOC3s2mg=";
+  cargoHash = "sha256-EcDRtGgnVTJXnmcYG99orxchxGkv1QDVIPbWJv+2PAQ=";
 
   buildInputs = [libusb];
   nativeBuildInputs = [pkg-config];
@@ -30,7 +30,7 @@ rustPlatform.buildRustPackage rec {
       Windows program (Glorious Core).
     '';
     homepage = "https://github.com/${src.owner}/${src.repo}";
-    license = licenses.unfree;
+    license = [licenses.mit licenses.gpl3];
     maintainers = [];
   };
 }
