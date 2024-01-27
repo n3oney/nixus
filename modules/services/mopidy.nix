@@ -12,11 +12,12 @@
         [audio]
         output = pulsesink server=127.0.0.1
       '';
+      depends = [];
     };
 
     systemd.services.mopidy = {
       after = ["pulseaudio.service"];
-      requires = ["pulseaudio.service"];
+      requires = ["pulseaudio.service" "network-online.target"];
       serviceConfig = {
         Restart = "on-failure";
         RestartSec = 5;
