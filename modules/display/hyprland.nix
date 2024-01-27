@@ -458,7 +458,7 @@ in {
                       if cfg.monitors.secondary.name != null
                       then "19"
                       else "9"
-                    },class:VencordDesktop"
+                    },class:vesktop"
 
                     "workspace ${
                       if cfg.monitors.secondary.name != null

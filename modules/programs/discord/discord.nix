@@ -29,7 +29,7 @@ in {
       cfg.finalPackage
     ];
 
-    xdg.configFile."VencordDesktop/VencordDesktop/settings.json".text = builtins.toJSON {
+    xdg.configFile."vesktop/settings.json".text = builtins.toJSON {
       discordBranch = "canary";
       firstLaunch = false;
       arRPC = "on";
@@ -40,7 +40,7 @@ in {
       transparencyOption = "I love NixOS";
     };
 
-    xdg.configFile."VencordDesktop/VencordDesktop/settings/settings.json".text = builtins.toJSON {
+    xdg.configFile."vesktop/settings/settings.json".text = builtins.toJSON {
       notifyAboutUpdates = false;
       autoUpdate = false;
       autoUpdateNotification = false;
