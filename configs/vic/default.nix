@@ -40,7 +40,7 @@
     cinny.enable = true;
     discord.enable = true;
     eww = {
-      enable = true;
+      # enable = true;
       micName = "Built-in Audio Headset Microphone";
     };
     ags.enable = true;
