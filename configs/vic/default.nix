@@ -34,7 +34,7 @@
   };
 
   programs = {
-    waydroid.enable = true;
+    # waydroid.enable = true;
     anyrun.enable = true;
     btop.enable = true;
     cinny.enable = true;
