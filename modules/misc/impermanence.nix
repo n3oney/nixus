@@ -36,7 +36,7 @@
                 ".gnupg"
                 ".config/.wrangler"
                 ".config/Caprine"
-                ".config/VencordDesktop"
+                ".config/vesktop"
                 ".config/youtube-music-desktop-app"
                 ".cache/starship"
                 ".local/share/nheko"
