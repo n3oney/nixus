@@ -439,6 +439,7 @@ in {
                       then "19"
                       else "9"
                     },class:vesktop"
+                    "opacity 0.999,class:vesktop"
 
                     "workspace ${
                       if cfg.monitors.secondary.name != null
