@@ -23,14 +23,49 @@
         name = "Catppuccin-Macchiato-Standard-Pink-Dark";
       };
     };
+
+    home.file.".icons/default/index.theme".text = ''
+      [Icon Theme]
+      inherits=breeze_cursors
+    '';
+
+    xdg.configFile = {
+      kdeglobals.source = "${pkgs.breeze-qt5}/share/color-schemes/BreezeDark.colors";
+
+      "qt5ct/qt5ct.conf".text = ''
+        [Appearance]
+        style=Lightly
+        icon_theme=Papirus-Dark
+        custom_palette=true
+        color_scheme_path=${pkgs.catppuccin-qt5ct}/share/qt5ct/colors/Catppuccin-Macchiato.conf
+
+        [Fonts]
+        fixed="Monospace,9,-1,5,50,0,0,0,0,0"
+        general="Sans Serif,9,-1,5,50,0,0,0,0,0"
+      '';
+    };
   };
 
-  # Make the theme available for other users
-  config.os.environment.systemPackages = lib.mkIf config.display.enable [hmConfig.gtk.theme.package];
+  config.os = lib.mkIf config.display.enable {
+    environment.systemPackages =
+      [
+        # Make the GTK theme available for other users
+        hmConfig.gtk.theme.package
+      ]
+      ++ (with pkgs; [
+        qt5ct
+        lightly-qt
+      ]);
 
-  config.os.qt = lib.mkIf config.display.enable {
-    enable = true;
-    platformTheme = "gtk2";
-    style = "gtk2";
+    environment.variables = let
+      qmlPackages = with pkgs; [
+        plasma5Packages.qqc2-desktop-style
+        plasma5Packages.kirigami2
+      ];
+      qtVersion = pkgs.qt515.qtbase.version;
+    in {
+      QT_QPA_PLATFORMTHEME = "qt5ct";
+      QML2_IMPORT_PATH = lib.concatStringsSep ":" (builtins.map (p: "${p}/lib/qt-${qtVersion}/qml") qmlPackages);
+    };
   };
 }
