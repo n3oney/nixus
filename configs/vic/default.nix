@@ -48,7 +48,12 @@
     foot.enable = true;
     swappy.enable = true;
     thunderbird.enable = true;
-    gaming.minecraft.enable = true;
+    gaming = {
+      # no steam build for aarch64 :(
+      # steam.enable = true;
+      minecraft.enable = true;
+      gamemode.enable = true;
+    };
 
     # Won't be watching stuff until HW accel...
     # jellyfinPlayer.enable = true;
