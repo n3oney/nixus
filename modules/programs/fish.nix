@@ -14,7 +14,7 @@
     os = {
       programs.fish.enable = true;
 
-      users.defaultUserShell = pkgs.fish;
+      # users.defaultUserShell = pkgs.fish;
     };
 
     hm = {
@@ -79,7 +79,7 @@
 
       programs.eza = {
         enable = true;
-        enableAliases = true;
+        enableAliases = false;
         icons = true;
         git = true;
       };
