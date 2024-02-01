@@ -3,17 +3,44 @@
   # pkgs,
   lib,
   inputs,
+  pkgs,
   ...
 }: {
   osModules = [inputs.apple-silicon-support.nixosModules.apple-silicon-support ./hardware-configuration.nix];
 
-  os = {
+  os = let
+    box64 = pkgs.box64.overrideAttrs (old: {
+      version = "unstable-2024-01-29";
+      src = pkgs.fetchFromGitHub {
+        owner = "ptitSeb";
+        repo = "box64";
+        rev = "9793c3b142c325d9405b1baa5959547a3f49fcaf";
+        hash = "sha256-zvkSeZcDWj+3XJSo3c5MRk3e0FJhVe7FuEyEVwkCzPE=";
+      };
+      cmakeFlags = (old.cmakeFlags or []) ++ ["-D M1=1"];
+    });
+  in {
     nixpkgs.config.allowUnfree = true;
 
     boot.loader = {
       systemd-boot.enable = true;
       efi.canTouchEfiVariables = false;
     };
+
+    # boot.binfmt.emulatedSystems = ["x86_64-linux"];
+
+    boot.binfmt.registrations.x86_64-linux = {
+      interpreter = "${lib.getExe box64}";
+      preserveArgvZero = true;
+      recognitionType = "magic";
+      magicOrExtension = ''\x7fELF\x02\x01\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x02\x00\x3e\x00'';
+      mask = ''\xff\xff\xff\xff\xff\xfe\xfe\x00\xff\xff\xff\xff\xff\xff\xff\xff\xfe\xff\xff\xff'';
+    };
+
+    environment.systemPackages = [
+      box64
+      pkgs.pkgsCross.gnu64.gcc7
+    ];
 
     networking = {
       hostName = "vic";
