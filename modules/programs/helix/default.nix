@@ -61,7 +61,12 @@
             args = ["${pkgs.vimPlugins.coc-tailwindcss}/lsp/tailwindcss-language-server/dist/index.js" "--stdio"];
             config = {};
           };
-          nil.command = lib.getExe pkgs.nil;
+          nil = {
+            command = lib.getExe pkgs.nil;
+            config = {
+              nix.flake.nixpkgsInputName = "nixpkgs";
+            };
+          };
           eslint = {
             command = "${pkgs.vscode-langservers-extracted}/bin/vscode-eslint-language-server";
             args = ["--stdio"];
@@ -105,6 +110,7 @@
             name = "nix";
             auto-format = true;
             formatter = {command = lib.getExe pkgs.alejandra;};
+            roots = ["flake.nix"];
           }
           (withLangServers (mkPrettier "typescript" "ts") ["typescript-language-server" "eslint" "emmet-ls"])
           (withLangServers (mkPrettier "tsx" "tsx") ["typescript-language-server" "eslint" "emmet-ls"])
