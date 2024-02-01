@@ -88,7 +88,7 @@ in {
         EmoteCloner.enabled = false;
         Experiments.enabled = true;
         F8Break.enabled = false;
-        FakeNitro.enabled = true;
+        FakeNitro.enabled = false;
         FakeProfileThemes.enabled = true;
         FavoriteEmojiFirst.enabled = true;
         Fart2.enabled = false;

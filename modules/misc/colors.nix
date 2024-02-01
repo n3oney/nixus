@@ -10,7 +10,7 @@
         inputs.nix-colors.colorSchemes.catppuccin-macchiato
         // {
           colors =
-            inputs.nix-colors.colorSchemes.catppuccin-macchiato.colors
+            inputs.nix-colors.colorSchemes.catppuccin-macchiato.palette
             // {
               accent = "f5bde6";
             };
