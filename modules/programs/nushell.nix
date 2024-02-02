@@ -38,9 +38,14 @@
         in ''
           $env.LS_COLORS = (${lib.getExe pkgs.vivid} generate catppuccin-macchiato | str trim)
 
-          def hd [--nh_args: list<string> = [], --nix_args: list<string> = []] {
-            let params = ["nh" "os" "switch" ...$nh_args "--" "--impure" ...$nix_args];
-            $params | run-external $params.0 ...($params | skip 1)
+          def --wrapped hd [...args] {
+            mut params = $args | split list '--';
+
+            if ($args | length) == 0 or $args.0 == '--' { $params = ($params | prepend [[]]) };
+
+            if ($params | length) == 1 { $params = [$params.0, []]; };
+
+            nh os switch ...$params.0 -- --impure ...$params.1
           }
 
           def hx [...args] {
@@ -111,9 +116,24 @@
             }
 
             match $spans.0 {
-              nu => $fish_completer,${/*carapace incorrectly completes nu*/""}
-              git => $fish_completer,${/*fish completes commits and branch names nicely*/""}
-              ssh => $fish_completer,${/*fish completes hosts from ssh config*/""}
+              nu => $fish_completer,${
+            /*
+            carapace incorrectly completes nu
+            */
+            ""
+          }
+              git => $fish_completer,${
+            /*
+            fish completes commits and branch names nicely
+            */
+            ""
+          }
+              ssh => $fish_completer,${
+            /*
+            fish completes hosts from ssh config
+            */
+            ""
+          }
 
               z => $zoxide_completer,
 
