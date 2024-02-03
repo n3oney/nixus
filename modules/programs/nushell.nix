@@ -103,7 +103,7 @@
           }
 
           let zoxide_completer = {|spans|
-              $spans | skip 1 | ${lib.getExe hmConfig.programs.zoxide.package} query -l $in | lines | where {|x| $x != $env.PWD}
+              $spans | skip 1 | ${lib.getExe hmConfig.programs.zoxide.package} query -l ...$in | lines | where {|x| $x != $env.PWD}
           }
 
           let multiple_completers = {|spans|
