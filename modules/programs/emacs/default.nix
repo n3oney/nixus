@@ -33,27 +33,11 @@
         ;
     };
 
-  emacs =
+  emacsWithoutPath =
     (pkgs.emacsPackagesFor
-      (
-        (pkgs.emacs29-pgtk.override {
-          withNativeCompilation = true;
-        })
-        .overrideAttrs (old: {
-          postFixup =
-            (old.postFixup or "")
-            + ''
-              for program in $out/bin/*; do
-                 if [ -x "$program" ]; then  # Check if the file is executable
-                   wrapProgram $program \
-                     --prefix PATH : "${lib.makeBinPath (builtins.attrValues {
-                inherit (pkgs) nil alejandra rust-analyzer;
-              })}"
-                 fi
-               done
-            '';
-        })
-      ))
+      (pkgs.emacs29-pgtk.override {
+        withNativeCompilation = true;
+      }))
     .emacsWithPackages
     (
       epkgs:
@@ -101,6 +85,32 @@
             epkgs.treesit-grammars.with-grammars ts-parsers;
         }
     );
+
+  emacs = let
+    packages = builtins.attrValues {
+      inherit (pkgs) nil alejandra rust-analyzer;
+    };
+  in
+    pkgs.stdenv.mkDerivation {
+      name = emacsWithoutPath.name;
+      src = emacsWithoutPath;
+
+      buildInputs = [pkgs.makeWrapper];
+
+      installPhase = ''
+        mkdir $out
+        cp -R $src/* $out
+
+        chmod -R 777 $out/bin
+
+        for program in $out/bin/*; do
+          wrapProgram $program \
+            --prefix PATH : "${lib.makeBinPath packages}"
+         done
+
+        chmod -R 555 $out/bin
+      '';
+    };
 in {
   options.programs.emacs.enable = lib.mkEnableOption "emacs";
 
