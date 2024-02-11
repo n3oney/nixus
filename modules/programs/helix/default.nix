@@ -45,6 +45,7 @@
             config.hostInfo = "helix";
             config.documentFormatting = false;
           };
+          rust-analyzer.command = lib.getExe pkgs.rust-analyzer;
           vscode-css-language-server = {
             command = lib.getExe pkgs.nodePackages.vscode-css-languageserver-bin;
             args = ["--stdio"];
