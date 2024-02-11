@@ -5,8 +5,6 @@
 
   programs.btop.enable = true;
 
-  services.lemmy.enable = false;
-
   services.conduit.enable = true;
 
   services.minecraft-server.enable = true;
