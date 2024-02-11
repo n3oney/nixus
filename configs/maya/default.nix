@@ -5,7 +5,7 @@
 
   programs.btop.enable = true;
 
-  services.lemmy.enable = true;
+  services.lemmy.enable = false;
 
   services.conduit.enable = true;
 
