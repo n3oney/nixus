@@ -81,6 +81,17 @@ in {
         mappedRegistry
         // {
           default = mappedRegistry.nixpkgs;
+          nixus = {
+            exact = true;
+            from = {
+              id = "nixus";
+              type = "indirect";
+            };
+            to = {
+              path = "/home/neoney/nixus";
+              type = "path";
+            };
+          };
         };
 
       nixPath = lib.mapAttrsToList (key: _: "${key}=flake:${key}") osConfig.nix.registry;
