@@ -25,6 +25,12 @@
       };
       url = "github:ralismark/eww/tray-3";
     };
+
+    emacs-overlay = {
+      url = "github:nix-community/emacs-overlay";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     home-manager = {
       inputs = {nixpkgs = {follows = "nixpkgs";};};
       url = "github:nix-community/home-manager";
