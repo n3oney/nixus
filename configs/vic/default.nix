@@ -1,4 +1,8 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  inputs,
+  ...
+}: {
   users.main = "neoney";
 
   rebuildCommand = "nh os switch $argv -- --impure";
@@ -39,6 +43,7 @@
     btop.enable = true;
     cinny.enable = true;
     discord.enable = true;
+    emacs.enable = true;
     eww = {
       # enable = true;
       micName = "Built-in Audio Headset Microphone";
@@ -54,6 +59,8 @@
       minecraft.enable = true;
       gamemode.enable = true;
     };
+
+    ngrok.enable = true;
 
     # Won't be watching stuff until HW accel...
     # jellyfinPlayer.enable = true;
