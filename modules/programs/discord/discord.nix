@@ -55,7 +55,7 @@ in {
       disableMinSize = false;
       winNativeTitleBar = false;
       plugins = {
-        AlwaysAnimate.enabled = true;
+        AlwaysAnimate.enabled = false;
         AlwaysTrust.enabled = false;
         AnonymiseFileNames.enabled = false;
         BadgeAPI.enabled = true;
