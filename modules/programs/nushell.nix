@@ -38,6 +38,10 @@
         in ''
           $env.LS_COLORS = (${lib.getExe pkgs.vivid} generate catppuccin-macchiato | str trim)
 
+          def --wrapped bs [...args] {
+            bash -c ...$args
+          }
+
           def --wrapped hd [...args] {
             mut params = $args | split list '--';
 
@@ -48,11 +52,11 @@
             nh os switch ...$params.0 -- --impure ...$params.1
           }
 
-          def hx [...args] {
+          def --wrapped hx [...args] {
             ${opaquewrap "hx"}
           }
 
-          def btop [...args] {
+          def --wrapped btop [...args] {
             ${opaquewrap "btop"}
           }
 
