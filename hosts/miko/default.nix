@@ -68,11 +68,11 @@
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILy82EObnwVhhehQApdzF/rXGWnkts8+yWcKyVcaWUGp root@max"
     ];
 
-    fileSystems."/data" = {
+    /*fileSystems."/data" = {
       device = "/dev/sdb1";
       fsType = "ntfs3";
       options = ["uid=${toString osConfig.users.users.neoney.uid}" "gid=${toString osConfig.users.users.neoney.uid}"];
-    };
+    };*/
 
     time.timeZone = "Europe/Warsaw";
   };
