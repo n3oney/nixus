@@ -24,4 +24,5 @@ in {
   "ssh_hosts.age".publicKeys = miko ++ vic ++ maya ++ max;
 
   "ngrok.age".publicKeys = miko ++ vic ++ maya ++ max;
+  "uonetplan.age".publicKeys = miko ++ vic ++ maya;
 }

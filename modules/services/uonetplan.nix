@@ -1,6 +1,7 @@
 {
   inputs,
   config,
+  osConfig,
   lib,
   pkgs,
   ...
@@ -13,6 +14,7 @@
       requires = ["network-online.target"];
 
       serviceConfig = {
+        EnvironmentFile = osConfig.agenix.secrets.uonetplan.path;
         Type = "simple";
         Restart = "on-failure";
         User = "uonetplan";
