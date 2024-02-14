@@ -14,7 +14,7 @@
       requires = ["network-online.target"];
 
       serviceConfig = {
-        EnvironmentFile = osConfig.agenix.secrets.uonetplan.path;
+        EnvironmentFile = osConfig.age.secrets.uonetplan.path;
         Type = "simple";
         Restart = "on-failure";
         User = "uonetplan";
