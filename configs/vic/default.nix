@@ -99,6 +99,7 @@
   ];
 
   os.programs.nm-applet.enable = true;
+  os.programs.nix-ld.enable = true;
 
   os.environment.systemPackages = [pkgs.wget];
 }

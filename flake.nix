@@ -47,6 +47,7 @@
       inputs = {nixpkgs = {follows = "nixpkgs";};};
       url = "github:viperML/nh";
     };
+    impurity.url = "github:outfoxxed/impurity.nix";
     nix-colors = {url = "github:Misterio77/nix-colors";};
     nix-gaming = {url = "github:fufexan/nix-gaming";};
     nix-super = {url = "github:privatevoid-net/nix-super/ba035e1ea339a97e6ba6a1dd79e0c0e334240234";};
@@ -65,8 +66,8 @@
     ];
 
     combinedManager = import (builtins.fetchTarball {
-      url = "https://github.com/flafydev/combined-manager/archive/9474a2432b47c0e6fa0435eb612a32e28cbd99ea.tar.gz";
-      sha256 = "sha256:04rzv1ajxrcmjybk1agpv4rpwivy7g8mwfms8j3lhn09bqjqrxxf";
+      url = "https://github.com/flafydev/combined-manager/archive/e7ba6d6b57ee03352022660fcd572c973b6b26db.tar.gz";
+      sha256 = "sha256:11raq3s4d7b0crihx8pilhfp74xp58syc36xrsx6hdscyiild1z7";
     });
   in {
     packages = forAllSystems (
@@ -79,45 +80,65 @@
     nixosConfigurations = {
       # Desktop
       miko = combinedManager.nixosSystem {
-        system = "x86_64-linux";
         inherit inputs;
-        modules = [
-          ./modules
-          ./hosts/miko
-          ./configs/miko
-        ];
+        configuration = {
+          system = "x86_64-linux";
+          modules = [
+            ./modules
+            ./hosts/miko
+            ./configs/miko
+          ];
+        };
       };
 
       # Laptop
       vic = combinedManager.nixosSystem {
-        system = "aarch64-linux";
         inherit inputs;
-        modules = [
-          ./modules
-          ./hosts/vic
-          ./configs/vic
-        ];
+        configuration = {
+          system = "aarch64-linux";
+          modules = [
+            ./modules
+            ./hosts/vic
+            ./configs/vic
+          ];
+        };
+      };
+      vic-impure = combinedManager.nixosSystem {
+        inherit inputs;
+        configuration = {
+          system = "aarch64-linux";
+          modules = [
+            ./modules
+            ./hosts/vic
+            ./configs/vic
+            {os.impurity.enable = true;}
+          ];
+        };
       };
 
       # # VPS
       maya = combinedManager.nixosSystem {
-        system = "aarch64-linux";
         inherit inputs;
-        modules = [
-          ./modules
-          ./hosts/maya
-          ./configs/maya
-        ];
+        configuration = {
+          system = "aarch64-linux";
+          modules = [
+            ./modules
+            ./hosts/maya
+            ./configs/maya
+          ];
+        };
       };
 
       max = combinedManager.nixosSystem {
-        system = "x86_64-linux";
         inherit inputs;
-        modules = [
-          ./modules
-          ./hosts/max
-          ./configs/max
-        ];
+        configuration = {
+          system = "x86_64-linux";
+          modules = [
+            ./modules
+            ./hosts/max
+            ./configs/max
+          ];
+        };
       };
     };
 

@@ -29,6 +29,18 @@ in {
           })
           (secretForHostnames ["miko" "vic"] ../../secrets/wg.age "wg" {
             })
+          (
+            secretForHostnames [
+              "miko"
+              "vic"
+              "maya"
+            ]
+            ../../secrets/uonetplan.age
+            "uonetplan"
+            {
+              owner = "uonetplan";
+            }
+          )
         ];
         environment.systemPackages = [inputs.agenix.packages.${pkgs.system}.default];
       };

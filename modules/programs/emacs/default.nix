@@ -1,13 +1,12 @@
 {
-  inputs,
+  impurity,
   config,
   pkgs,
   lib,
   hmConfig,
   ...
 }: let
-  emacsPkgs = inputs.emacs-overlay.packages.${pkgs.system};
-
+  # emacsPkgs = inputs.emacs-overlay.packages.${pkgs.system};
   ts-parsers = grammars:
     builtins.attrValues {
       inherit
@@ -68,6 +67,7 @@
             markdown-mode
             nix-mode
             reformatter
+            rust-mode
             projectile
             rainbow-mode
             string-inflection
@@ -88,7 +88,7 @@
 
   emacs = let
     packages = builtins.attrValues {
-      inherit (pkgs) nil alejandra rust-analyzer;
+      inherit (pkgs) nil alejandra rust-analyzer rustfmt;
     };
   in
     pkgs.stdenv.mkDerivation {
@@ -121,5 +121,8 @@ in {
       enable = true;
       package = emacs;
     };
+
+    xdg.configFile."emacs/early-init.el".source = impurity.link ./config/early-init.el;
+    xdg.configFile."emacs/init.el".source = impurity.link ./config/init.el;
   };
 }

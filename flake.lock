@@ -813,6 +813,21 @@
         "type": "github"
       }
     },
+    "impurity": {
+      "locked": {
+        "lastModified": 1689836741,
+        "narHash": "sha256-82KeRg2sAqDXCdzVs8P8GoqVaPsZjkWgrfsj6kgOLTY=",
+        "owner": "outfoxxed",
+        "repo": "impurity.nix",
+        "rev": "bbc41b69ab5485cd55aa315d08cff865781d3913",
+        "type": "github"
+      },
+      "original": {
+        "owner": "outfoxxed",
+        "repo": "impurity.nix",
+        "type": "github"
+      }
+    },
     "lowdown-src": {
       "flake": false,
       "locked": {
@@ -1439,6 +1454,7 @@
         "hyprpaper": "hyprpaper",
         "hyprpicker": "hyprpicker",
         "impermanence": "impermanence",
+        "impurity": "impurity",
         "nh": "nh",
         "nix-colors": "nix-colors",
         "nix-gaming": "nix-gaming",
