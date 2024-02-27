@@ -75,6 +75,7 @@
             treemacs-evil
             treemacs-projectile
             treemacs-magit
+            typescript-mode
             undo-tree
             use-package
             vertico
@@ -89,6 +90,7 @@
   emacs = let
     packages = builtins.attrValues {
       inherit (pkgs) nil alejandra rust-analyzer rustfmt;
+      inherit (pkgs.nodePackages) typescript-language-server;
     };
   in
     pkgs.stdenv.mkDerivation {
@@ -122,7 +124,7 @@ in {
       package = emacs;
     };
 
-    xdg.configFile."emacs/early-init.el".source = impurity.link ./config/early-init.el;
-    xdg.configFile."emacs/init.el".source = impurity.link ./config/init.el;
+    # xdg.configFile."emacs/early-init.el".source = impurity.link ./config/early-init.el;
+    # xdg.configFile."emacs/init.el".source = impurity.link ./config/init.el;
   };
 }

@@ -94,9 +94,9 @@
     extractPeripheralFirmware = true;
     peripheralFirmwareDirectory = ./firmware;
     withRust = true;
-    addEdgeKernelConfig = true;
+    # addEdgeKernelConfig = true;
     useExperimentalGPUDriver = true;
-    # experimentalGPUInstallMode = "overlay";
+    experimentalGPUInstallMode = "overlay";
   };
 
   networking.useDHCP = lib.mkDefault true;
