@@ -70,19 +70,6 @@
 
     # AirPlay support
     services.avahi.enable = true;
-    /*
-    environment.etc."pipewire/pipewire.conf.d/airplay.conf" = {
-      mode = "0444";
-      text = ''
-        context.modules = [
-          {
-            name = libpipewire-module-raop-discover
-            args = {}
-          }
-        ]
-      '';
-    };
-    */
 
     hardware.opengl = {
       driSupport = true;
