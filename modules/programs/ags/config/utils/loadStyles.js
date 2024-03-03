@@ -19,8 +19,5 @@ export const loadStyles = () => {
       App.resetCss();
       App.applyCss(css);
     },
-
-    // specify that its a directory
-    "directory",
   );
 };
