@@ -39,7 +39,7 @@
           ];
         };
 
-        extraConfigFiles."ha-assist.ron".source = hmConfig.lib.file.mkOutOfStoreSymlink "/run/user/1000/agenix/ha_assist_config";
+        extraConfigFiles."ha-assist.ron".source = "/run/user/1000/agenix/ha_assist_config";
 
         extraConfigFiles."nixos-options.ron".text = let
           nixos-options = osConfig.system.build.manual.optionsJSON + "/share/doc/nixos/options.json";

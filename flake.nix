@@ -50,12 +50,12 @@
     impurity.url = "github:outfoxxed/impurity.nix";
     nix-colors = {url = "github:Misterio77/nix-colors";};
     nix-gaming = {url = "github:fufexan/nix-gaming";};
-    nix-super = {url = "github:privatevoid-net/nix-super/ba035e1ea339a97e6ba6a1dd79e0c0e334240234";};
+    nix-super = {url = "github:privatevoid-net/nix-super";};
     nixpkgs = {url = "github:nixos/nixpkgs/nixos-unstable";};
     nur = {url = "github:nix-community/NUR";};
     poweroff = {url = "github:n3oney/ha-poweroff";};
     rust-overlay = {url = "github:oxalica/rust-overlay";};
-    shadower = {url = "github:n3oney/shadower";};
+    shadower.url = "github:n3oney/shadower";
     uonetplan.url = "github:n3oney/uonetplan";
   };
 

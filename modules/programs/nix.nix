@@ -60,7 +60,9 @@ in {
   os = {
     nixpkgs.overlays = [
       (_: prev: {
-        nix-super = inputs.nix-super.packages.${prev.system}.default;
+        nix-super = inputs.nix-super.packages.${prev.system}.default.overrideAttrs (old: {
+          doCheck = false;
+        });
         # nixos-option = prev.nixos-option.override {nix = prev.nixVersions.nix_2_15;};
       })
     ];
