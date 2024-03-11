@@ -10,7 +10,7 @@
 
   config.os = lib.mkIf config.services.conduit.enable {
     services.matrix-conduit = {
-      package = inputs.conduit.packages.${pkgs.system}.default;
+      package = inputs.conduwuit.packages.${pkgs.system}.default;
       enable = true;
       settings.global = {
         server_name = "neoney.dev";

@@ -17,7 +17,7 @@
       url = "github:catppuccin/btop";
     };
     catppuccin-lemmy = {url = "github:n3oney/catppuccin-lemmy";};
-    conduit = {url = "gitlab:famedly/conduit/next";};
+    conduwuit = {url = "github:girlbossceo/conduwuit";};
     eww = {
       inputs = {
         nixpkgs = {follows = "nixpkgs";};
