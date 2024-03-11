@@ -39,7 +39,7 @@
           ];
         };
 
-        extraConfigFiles."ha-assist.ron".source = "/run/user/1000/agenix/ha_assist_config";
+        extraConfigFiles."ha-assist.ron".source = hmConfig.age.secrets.ha_assist_config.path;
 
         extraConfigFiles."nixos-options.ron".text = let
           nixos-options = osConfig.system.build.manual.optionsJSON + "/share/doc/nixos/options.json";

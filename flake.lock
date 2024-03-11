@@ -211,7 +211,7 @@
         "type": "github"
       }
     },
-    "conduit": {
+    "conduwuit": {
       "inputs": {
         "attic": "attic",
         "crane": "crane_2",
@@ -222,24 +222,23 @@
         "nixpkgs": "nixpkgs_9"
       },
       "locked": {
-        "lastModified": 1709684259,
-        "narHash": "sha256-ribzy5s5s7YTDy4UgESVoIfOGI9tVl5BtmUMZVCAioE=",
-        "owner": "famedly",
-        "repo": "conduit",
-        "rev": "20bb214d7e5202820016385a98074b746fbc8e9d",
-        "type": "gitlab"
+        "lastModified": 1710090208,
+        "narHash": "sha256-1W7yDW+kqCr/9SygZwygBayE8HwLnzJq48fMAOZQLAY=",
+        "owner": "girlbossceo",
+        "repo": "conduwuit",
+        "rev": "e888a0a745ac979abe6a687ff24b8c5e7b7b79ed",
+        "type": "github"
       },
       "original": {
-        "owner": "famedly",
-        "ref": "next",
-        "repo": "conduit",
-        "type": "gitlab"
+        "owner": "girlbossceo",
+        "repo": "conduwuit",
+        "type": "github"
       }
     },
     "crane": {
       "inputs": {
         "nixpkgs": [
-          "conduit",
+          "conduwuit",
           "attic",
           "nixpkgs"
         ]
@@ -261,7 +260,7 @@
     "crane_2": {
       "inputs": {
         "nixpkgs": [
-          "conduit",
+          "conduwuit",
           "nixpkgs"
         ]
       },
@@ -352,7 +351,7 @@
     "fenix": {
       "inputs": {
         "nixpkgs": [
-          "conduit",
+          "conduwuit",
           "nixpkgs"
         ],
         "rust-analyzer-src": "rust-analyzer-src"
@@ -1479,7 +1478,7 @@
         "arrpc": "arrpc",
         "btop": "btop",
         "catppuccin-lemmy": "catppuccin-lemmy",
-        "conduit": "conduit",
+        "conduwuit": "conduwuit",
         "emacs-overlay": "emacs-overlay",
         "eww": "eww",
         "home-manager": "home-manager_2",

@@ -43,14 +43,14 @@
       alsa.enable = true;
       pulse.enable = true;
       # Remote audio
-      extraConfig = ''
+      extraConfig.pipewire."10-remote-audio" = {
         context.modules = [
           {
-            name = libpipewire-module-zeroconf-discover
-            args = {}
+            name = "libpipewire-module-zeroconf-discover";
+            args = {};
           }
-        ]
-      '';
+        ];
+      };
     };
 
     services.avahi.enable = true;
