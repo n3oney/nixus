@@ -4,6 +4,7 @@
   inputs,
   config,
   hmConfig,
+  osConfig,
   ...
 }: let
   cfg = config.display;
@@ -71,7 +72,23 @@ in {
 
     package = mkOption {
       type = types.package;
-      default = inputs.hyprland.packages.${pkgs.system}.hyprland;
+      # default = inputs.hyprland.packages.${pkgs.system}.hyprland.override {
+      # mesa = osConfig.hardware.opengl.package;
+      # wlroots = inputs.hyprland.packages.${pkgs.system}.wlroots-hyprland.overrideAttrs (old: {
+      # buildInputs = (old.buildInputs or []) ++ [osConfig.hardware.opengl.package];
+      # });
+      # };
+
+      default = pkgs.hyprland;
+
+      # default = pkgs.hyprland.overrideAttrs (old: {
+      # src = pkgs.fetchFromGitHub {
+      # owner = "hyprwm";
+      # repo = "hyprland";
+      # rev = "05c84304ccb1169b550504830139e07e28500a3b";
+      # hash = "sha256-8PyLk/gfMo4asjbqsoXw1I3zfnkCPSSX0r6UCJP3ctw=";
+      # };
+      # });
     };
 
     monitors = {
@@ -172,6 +189,8 @@ in {
   config = lib.mkMerge [
     (mkIf cfg.enable {
       os = {
+        nixpkgs.overlays = [inputs.hyprland.overlays.default];
+
         programs.hyprland = {
           enable = true;
           package = cfg.package;
@@ -273,269 +292,270 @@ in {
           settings = let
             lockSequence = "physlock -ldms && ${lib.getExe pkgs.swaylock} && physlock -Ld";
           in
-            lib.mkMerge ([
-                {
-                  exec-once =
-                    [
-                      "dbus-update-activation-environment --systemd --all"
-                      "hyprctl setcursor ${cursor.name} ${toString cursor.size}"
-                      "${lib.getExe pkgs.hyprpaper} & ${pkgs.playerctl}/bin/playerctld & mako"
+            lib.mkMerge [
+              {
+                exec-once =
+                  [
+                    "dbus-update-activation-environment --systemd --all"
+                    "hyprctl setcursor ${cursor.name} ${toString cursor.size}"
+                    "${lib.getExe pkgs.hyprpaper} & ${pkgs.playerctl}/bin/playerctld & mako"
 
-                      "firefox &"
-                      "${lib.getExe config.programs.discord.finalPackage} &"
-                      "cinny &"
-                      # "${lib.getExe pkgs.caprine-bin} &"
+                    "firefox &"
+                    "${lib.getExe config.programs.discord.finalPackage} &"
+                    "cinny &"
+                    # "${lib.getExe pkgs.caprine-bin} &"
 
-                      "${lib.getExe inputs.arrpc.packages.${pkgs.system}.arrpc} &"
+                    "${lib.getExe inputs.arrpc.packages.${pkgs.system}.arrpc} &"
 
-                      "wlsunset -l 52.2 -L 21 &"
+                    "wlsunset -l 52.2 -L 21 &"
 
-                      ''${lib.getExe pkgs.xss-lock} --ignore-sleep -- ${lib.getExe pkgs.bash} -c ${builtins.toJSON lockSequence}''
+                    ''${lib.getExe pkgs.xss-lock} --ignore-sleep -- ${lib.getExe pkgs.bash} -c ${builtins.toJSON lockSequence}''
 
-                      ''swayidle timeout 300 '${lockSequence}' timeout 360 'hyprctl dispatch dpms off' resume 'hyprctl dispatch dpms on' timeout 420 'test $(${pkgs.sysstat}/bin/mpstat -o JSON 1 1 | ${lib.getExe pkgs.jaq} -r ".sysstat.hosts[0].statistics[0]["cpu-load"][0].usr | floor") -lt 80 && systemctl suspend' ''
+                    ''swayidle timeout 300 '${lockSequence}' timeout 360 'hyprctl dispatch dpms off' resume 'hyprctl dispatch dpms on' timeout 420 'test $(${pkgs.sysstat}/bin/mpstat -o JSON 1 1 | ${lib.getExe pkgs.jaq} -r ".sysstat.hosts[0].statistics[0]["cpu-load"][0].usr | floor") -lt 80 && systemctl suspend' ''
 
-                      "systemctl --user restart xdg-desktop-portal xdg-desktop-portal-hyprland"
-                    ]
-                    ++ (lib.optionals config.programs.ags.enable ["ags"]);
+                    "systemctl --user restart xdg-desktop-portal xdg-desktop-portal-hyprland"
+                  ]
+                  ++ (lib.optionals config.programs.ags.enable ["ags"]);
 
-                  monitor =
-                    [
-                      "${cfg.monitors.main.name},${toString cfg.monitors.main.width}x${toString cfg.monitors.main.height}@${toString cfg.monitors.main.refreshRate},0x0,${toString cfg.monitors.main.scale}"
-                    ]
-                    ++ (lib.optionals (cfg.monitors.secondary.name != null) ["monitor=${cfg.monitors.secondary.name},${toString cfg.monitors.secondary.width}x${toString cfg.monitors.secondary.height}@60,2560x0,1"]);
+                monitor =
+                  [
+                    "${cfg.monitors.main.name},${toString cfg.monitors.main.width}x${toString cfg.monitors.main.height}@${toString cfg.monitors.main.refreshRate},0x0,${toString cfg.monitors.main.scale}"
+                  ]
+                  ++ (lib.optionals (cfg.monitors.secondary.name != null) ["monitor=${cfg.monitors.secondary.name},${toString cfg.monitors.secondary.width}x${toString cfg.monitors.secondary.height}@60,2560x0,1"]);
 
-                  workspace =
-                    (builtins.map (n: "${toString n},monitor:${cfg.monitors.main.name}") (lib.range 1 10))
-                    ++ (lib.optionals (cfg.monitors.secondary.name != null) (builtins.map (n: "${toString n},monitor:${cfg.monitors.secondary.name}") (lib.range 11 20)))
-                    ++ [
-                      "${
-                        toString (
-                          if cfg.monitors.secondary.name != null
-                          then 19
-                          else 9
-                        )
-                      },monitor:${
+                workspace =
+                  (builtins.map (n: "${toString n},monitor:${cfg.monitors.main.name}") (lib.range 1 10))
+                  ++ (lib.optionals (cfg.monitors.secondary.name != null) (builtins.map (n: "${toString n},monitor:${cfg.monitors.secondary.name}") (lib.range 11 20)))
+                  ++ [
+                    "${
+                      toString (
                         if cfg.monitors.secondary.name != null
-                        then cfg.monitors.secondary.name
-                        else cfg.monitors.main.name
-                      }, ${
-                        if cfg.monitors.secondary.name != null
-                        then "default:true, "
-                        else ""
-                      }gapsin:0, gapsout:0, bordersize:0, rounding:false"
-                    ]
-                    ++ [
-                      "1,monitor:${cfg.monitors.main.name}, gapsin:0, gapsout:0, bordersize:1, rounding:false"
-                      "2,monitor:${cfg.monitors.main.name}, default:true"
-                    ];
-                  input = {
-                    kb_options = "caps:backspace";
+                        then 19
+                        else 9
+                      )
+                    },monitor:${
+                      if cfg.monitors.secondary.name != null
+                      then cfg.monitors.secondary.name
+                      else cfg.monitors.main.name
+                    }, ${
+                      if cfg.monitors.secondary.name != null
+                      then "default:true, "
+                      else ""
+                    }gapsin:0, gapsout:0, bordersize:0, rounding:false"
+                  ]
+                  ++ [
+                    "1,monitor:${cfg.monitors.main.name}, gapsin:0, gapsout:0, bordersize:1, rounding:false"
+                    "2,monitor:${cfg.monitors.main.name}, default:true"
+                  ];
+                input = {
+                  kb_options = "caps:backspace";
 
-                    # Mouse speed
-                    accel_profile = "flat";
-                    sensitivity = toString cfg.mouseSensitivity;
-                    follow_mouse = true;
+                  # Mouse speed
+                  accel_profile = "flat";
+                  sensitivity = toString cfg.mouseSensitivity;
+                  follow_mouse = true;
 
-                    touchpad = {
-                      disable_while_typing = true;
-                      drag_lock = true;
-                      clickfinger_behavior = true;
-                    };
+                  touchpad = {
+                    disable_while_typing = true;
+                    drag_lock = true;
+                    clickfinger_behavior = true;
                   };
+                };
 
-                  "device:glorious-model-o-wireless" = {
-                    sensitivity = -0.76;
-                  };
+                device =
+                  [
+                    {
+                      name = "glorious-model-o-wireless";
+                      sensitivity = -0.76;
+                    }
+                    {
+                      name = "ydotoold-virtual-device-1";
+                      sensitivity = 0;
+                    }
+                  ]
+                  ++ (builtins.map (keyboard: {
+                      name = keyboard;
+                      kb_layout = "pl";
+                    })
+                    cfg.keyboards);
 
-                  gestures = {
-                    workspace_swipe = true;
-                  };
+                gestures = {
+                  workspace_swipe = true;
+                };
 
-                  misc = {
-                    disable_hyprland_logo = true;
-                    vfr = true;
-                    vrr = true;
-                  };
+                misc = {
+                  disable_hyprland_logo = true;
+                  vfr = true;
+                  vrr = true;
+                };
 
-                  "device:ydotoold-virtual-device-1" = {
-                    sensitivity = 0;
-                  };
+                env = lib.mkIf cfg.enableTearing ["WLR_DRM_NO_ATOMIC,1"];
 
-                  env = lib.mkIf cfg.enableTearing ["WLR_DRM_NO_ATOMIC,1"];
+                general = {
+                  allow_tearing = cfg.enableTearing;
+                  gaps_in = 8;
+                  gaps_out = 14;
+                  border_size = 2;
+                  "col.active_border" = "rgb(${config.colors.colorScheme.colors.accent})";
+                  "col.inactive_border" = "rgb(2B2937)";
 
-                  general = {
-                    allow_tearing = cfg.enableTearing;
-                    gaps_in = 8;
-                    gaps_out = 14;
-                    border_size = 2;
-                    "col.active_border" = "rgb(${config.colors.colorScheme.colors.accent})";
-                    "col.inactive_border" = "rgb(2B2937)";
+                  layout = "dwindle";
+                };
 
-                    layout = "dwindle";
-                  };
+                decoration = {
+                  rounding = 20;
 
-                  decoration = {
-                    rounding = 20;
+                  drop_shadow = true;
+                  shadow_ignore_window = true;
+                  shadow_range = 20;
+                  shadow_render_power = 2;
+                  shadow_offset = "0 2";
+                  "col.shadow" = "rgba(0000001A)";
 
-                    drop_shadow = true;
-                    shadow_ignore_window = true;
-                    shadow_range = 20;
-                    shadow_render_power = 2;
-                    shadow_offset = "0 2";
-                    "col.shadow" = "rgba(0000001A)";
+                  dim_special = 0.6;
 
-                    dim_special = 0.6;
-
-                    blur = {
-                      enabled = true;
-                      size = 5;
-                      passes = 4;
-                      contrast = 1;
-                      brightness = 1;
-                      noise = 0.01;
-                    };
-                  };
-
-                  animations = {
+                  blur = {
                     enabled = true;
-
-                    bezier = [
-                      "linear, 0, 0, 1, 1"
-                      "md3_standard, 0.2, 0, 0, 1"
-                      "md3_decel, 0.05, 0.7, 0.1, 1"
-                      "md3_accel, 0.3, 0, 0.8, 0.15"
-                      "overshot, 0.05, 0.9, 0.1, 1.1"
-                      "crazyshot, 0.1, 1.5, 0.76, 0.92"
-                      "hyprnostretch, 0.05, 0.9, 0.1, 1.0"
-                      "fluent_decel, 0.1, 1, 0, 1"
-                      "easeInOutCirc, 0.85, 0, 0.15, 1"
-                      "easeOutCirc, 0, 0.55, 0.45, 1"
-                      "easeOutExpo, 0.16, 1, 0.3, 1"
-                    ];
-
-                    # Animation configs
-                    animation = [
-                      "windows, 1, 3, md3_decel, popin 60%"
-                      "border, 1, 10, default"
-                      "fade, 1, 2.5, md3_decel"
-                      # animation = workspaces, 1, 3.5, md3_decel, slide
-                      "workspaces, 1, 7, fluent_decel, slide"
-                      # animation = workspaces, 1, 7, fluent_decel, slidefade 15%
-                      # animation = specialWorkspace, 1, 3, md3_decel, slidefadevert 15%
-                      "specialWorkspace, 1, 3, md3_decel, slidevert"
-                    ];
-
-                    # https://wiki.hyprland.org/Configuring/Animations/
-                    # animation = [
-                    # "windows, 1, 3, default"
-                    # "windowsOut, 1, 3, default, popin 80%"
-                    # "border, 1, 3, default"
-                    # "fade, 1, 4, default"
-                    # "workspaces, 1, 4, default, slide"
-                    # ];
+                    size = 5;
+                    passes = 4;
+                    contrast = 1;
+                    brightness = 1;
+                    noise = 0.01;
                   };
+                };
 
-                  dwindle = {
-                    no_gaps_when_only = true;
-                    pseudotile = true;
-                    preserve_split = true;
-                  };
+                animations = {
+                  enabled = true;
 
-                  windowrulev2 = [
-                    "immediate,class:^(cs2)$"
-                    "nofullscreenrequest,class:^(cs2)$"
-                    "nomaximizerequest,class:^(cs2)$"
-                    "immediate,class:^(Minecraft.*)$"
-                    "noblur,class:^(Xdg-desktop-portal-gtk)$"
-                    "pin,class:^(ssh-askpass)$"
-                    "float,class:^(ssh-askpass)$"
-                    "idleinhibit focus,title:^(YouTube on TV.*)$"
-                    "idleinhibit fullscreen,class:^(.*)$"
-                    "float,class:^([Ww]aydroid.*)$"
-
-                    "workspace 2,class:firefox"
-
-                    "workspace ${
-                      if cfg.monitors.secondary.name != null
-                      then "18"
-                      else "8"
-                    },class:Caprine"
-
-                    "workspace ${
-                      if cfg.monitors.secondary.name != null
-                      then "19"
-                      else "9"
-                    },class:cinny"
-
-                    "workspace ${
-                      if cfg.monitors.secondary.name != null
-                      then "19"
-                      else "9"
-                    },class:vesktop"
-                    "opacity 0.999,class:vesktop"
-
-                    "workspace ${
-                      if cfg.monitors.secondary.name != null
-                      then "20"
-                      else "10"
-                    }, class:^(YouTube Music)$"
-
-                    "forceinput,class:^(fusion360.exe)$"
-                    "windowdance,class:^(fusion360.exe)$"
-                    "noanim,title:^(PAUSESHOT)$"
-                    "fullscreen,title:^(PAUSESHOT)$"
-
-                    "nomaxsize,class:^(.*)$"
+                  bezier = [
+                    "linear, 0, 0, 1, 1"
+                    "md3_standard, 0.2, 0, 0, 1"
+                    "md3_decel, 0.05, 0.7, 0.1, 1"
+                    "md3_accel, 0.3, 0, 0.8, 0.15"
+                    "overshot, 0.05, 0.9, 0.1, 1.1"
+                    "crazyshot, 0.1, 1.5, 0.76, 0.92"
+                    "hyprnostretch, 0.05, 0.9, 0.1, 1.0"
+                    "fluent_decel, 0.1, 1, 0, 1"
+                    "easeInOutCirc, 0.85, 0, 0.15, 1"
+                    "easeOutCirc, 0, 0.55, 0.45, 1"
+                    "easeOutExpo, 0.16, 1, 0.3, 1"
                   ];
 
-                  bind = builtins.map (b: b.bind + "," + b.action) cfg.binds;
-
-                  binde =
-                    [
-                      # Volume controls
-                      ", XF86AudioRaiseVolume, exec, pactl set-sink-volume @DEFAULT_SINK@ +5%"
-                      ", XF86AudioLowerVolume, exec, pactl set-sink-volume @DEFAULT_SINK@ -5%"
-
-                      # Brightness
-
-                      "ALT, XF86MonBrightnessUp, exec, ${lib.getExe pkgs.brightnessctl} -c leds --device \"kbd_backlight\" set +5%"
-                      "ALT, XF86MonBrightnessDown, exec, ${lib.getExe pkgs.brightnessctl} -c leds --device \"kbd_backlight\" set 5%-"
-                      ", XF86MonBrightnessUp, exec, ${lib.getExe pkgs.brightnessctl} --device \"apple-panel-bl\" set +5%"
-                      ", XF86MonBrightnessDown, exec, ${lib.getExe pkgs.brightnessctl} --device \"apple-panel-bl\" set 5%-"
-                    ]
-                    ++ (lib.optionals (cfg.secondarySink != null) ["ALT, XF86AudioRaiseVolume, exec, pactl set-sink-volume ${cfg.secondarySink} +5%" "ALT, XF86AudioLowerVolume, exec, pactl set-sink-volume ${cfg.secondarySink} -5%"]);
-
-                  # Move/resize windows with mainMod + LMB/RMB and dragging
-                  bindm = [
-                    "${mainMod}, mouse:272, movewindow"
-                    "${mainMod}, mouse:273, resizewindow"
+                  # Animation configs
+                  animation = [
+                    "windows, 1, 3, md3_decel, popin 60%"
+                    "border, 1, 10, default"
+                    "fade, 1, 2.5, md3_decel"
+                    # animation = workspaces, 1, 3.5, md3_decel, slide
+                    "workspaces, 1, 7, fluent_decel, slide"
+                    # animation = workspaces, 1, 7, fluent_decel, slidefade 15%
+                    # animation = specialWorkspace, 1, 3, md3_decel, slidefadevert 15%
+                    "specialWorkspace, 1, 3, md3_decel, slidevert"
                   ];
 
-                  layerrule = [
-                    "blur,bar-0"
-                    "ignorezero,bar-0"
-                    "blur,gtk-layer-shell"
-                    "ignorezero,gtk-layer-shell"
-                    "blur,anyrun"
-                    "ignorealpha 0.6,anyrun"
-                    "blur,notifications"
-                    "ignorezero,notifications"
+                  # https://wiki.hyprland.org/Configuring/Animations/
+                  # animation = [
+                  # "windows, 1, 3, default"
+                  # "windowsOut, 1, 3, default, popin 80%"
+                  # "border, 1, 3, default"
+                  # "fade, 1, 4, default"
+                  # "workspaces, 1, 4, default, slide"
+                  # ];
+                };
 
-                    "blur,yubikey-state"
-                    "ignorealpha 0.6,yubikey-state"
+                dwindle = {
+                  no_gaps_when_only = true;
+                  pseudotile = true;
+                  preserve_split = true;
+                };
 
-                    "noanim,selection"
-                  ];
-                }
-              ]
-              ++ (builtins.map (keyboard: {
-                  "device:${keyboard}" = {
-                    kb_layout = "pl";
-                    # kb_model = "";
-                    # kb_rules = "";
-                  };
-                })
-                cfg.keyboards));
+                windowrulev2 = [
+                  "immediate,class:^(cs2)$"
+                  "suppressevent fullscreen,class:^(cs2)$"
+                  "suppressevent maximize,class:^(cs2)$"
+                  "immediate,class:^(Minecraft.*)$"
+                  "noblur,class:^(Xdg-desktop-portal-gtk)$"
+                  "pin,class:^(ssh-askpass)$"
+                  "float,class:^(ssh-askpass)$"
+                  "idleinhibit focus,title:^(YouTube on TV.*)$"
+                  "idleinhibit fullscreen,class:^(.*)$"
+                  "float,class:^([Ww]aydroid.*)$"
+
+                  "workspace 2,class:firefox"
+
+                  "workspace ${
+                    if cfg.monitors.secondary.name != null
+                    then "18"
+                    else "8"
+                  },class:Caprine"
+
+                  "workspace ${
+                    if cfg.monitors.secondary.name != null
+                    then "19"
+                    else "9"
+                  },class:cinny"
+
+                  "workspace ${
+                    if cfg.monitors.secondary.name != null
+                    then "19"
+                    else "9"
+                  },class:vesktop"
+                  "opacity 0.999,class:vesktop"
+
+                  "workspace ${
+                    if cfg.monitors.secondary.name != null
+                    then "20"
+                    else "10"
+                  }, class:^(YouTube Music)$"
+
+                  "forceinput,class:^(fusion360.exe)$"
+                  "windowdance,class:^(fusion360.exe)$"
+                  "noanim,title:^(PAUSESHOT)$"
+                  "fullscreen,title:^(PAUSESHOT)$"
+
+                  "nomaxsize,class:^(.*)$"
+                ];
+
+                bind = builtins.map (b: b.bind + "," + b.action) cfg.binds;
+
+                binde =
+                  [
+                    # Volume controls
+                    ", XF86AudioRaiseVolume, exec, pactl set-sink-volume @DEFAULT_SINK@ +5%"
+                    ", XF86AudioLowerVolume, exec, pactl set-sink-volume @DEFAULT_SINK@ -5%"
+
+                    # Brightness
+
+                    "ALT, XF86MonBrightnessUp, exec, ${lib.getExe pkgs.brightnessctl} -c leds --device \"kbd_backlight\" set +5%"
+                    "ALT, XF86MonBrightnessDown, exec, ${lib.getExe pkgs.brightnessctl} -c leds --device \"kbd_backlight\" set 5%-"
+                    ", XF86MonBrightnessUp, exec, ${lib.getExe pkgs.brightnessctl} --device \"apple-panel-bl\" set +5%"
+                    ", XF86MonBrightnessDown, exec, ${lib.getExe pkgs.brightnessctl} --device \"apple-panel-bl\" set 5%-"
+                  ]
+                  ++ (lib.optionals (cfg.secondarySink != null) ["ALT, XF86AudioRaiseVolume, exec, pactl set-sink-volume ${cfg.secondarySink} +5%" "ALT, XF86AudioLowerVolume, exec, pactl set-sink-volume ${cfg.secondarySink} -5%"]);
+
+                # Move/resize windows with mainMod + LMB/RMB and dragging
+                bindm = [
+                  "${mainMod}, mouse:272, movewindow"
+                  "${mainMod}, mouse:273, resizewindow"
+                ];
+
+                layerrule = [
+                  "blur,bar-0"
+                  "ignorezero,bar-0"
+                  "blur,gtk-layer-shell"
+                  "ignorezero,gtk-layer-shell"
+                  "blur,anyrun"
+                  "ignorealpha 0.6,anyrun"
+                  "blur,notifications"
+                  "ignorezero,notifications"
+
+                  "blur,yubikey-state"
+                  "ignorealpha 0.6,yubikey-state"
+
+                  "noanim,selection"
+                ];
+              }
+            ];
         };
       };
     })

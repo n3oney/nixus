@@ -62,16 +62,6 @@
     };
   };
 
-  /*
-  boot.tmp.useTmpfs = true;
-
-  fileSystems."/" = {
-    device = "none";
-    fsType = "tmpfs";
-    options = ["size=8G" "mode=755"];
-  };
-  */
-
   boot.tmp.useTmpfs = true;
 
   fileSystems."/" = {
@@ -112,12 +102,13 @@
   ];
 
   hardware.asahi = {
+    enable = true;
     extractPeripheralFirmware = true;
     peripheralFirmwareDirectory = ./firmware;
     withRust = true;
     # addEdgeKernelConfig = true;
     useExperimentalGPUDriver = true;
-    # experimentalGPUInstallMode = "overlay";
+    experimentalGPUInstallMode = "replace";
   };
 
   networking.useDHCP = lib.mkDefault true;
