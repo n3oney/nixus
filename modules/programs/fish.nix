@@ -79,7 +79,7 @@
 
       programs.eza = {
         enable = true;
-        enableAliases = false;
+        # enableAliases = false;
         icons = true;
         git = true;
       };

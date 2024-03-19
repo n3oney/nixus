@@ -39,7 +39,7 @@
       inputs = {nixpkgs = {follows = "nixpkgs";};};
       url = "github:hyprwm/contrib";
     };
-    hyprland = {url = "github:hyprwm/hyprland/3656045ad88717fbc079c1ebb44c6f7d2ed85cf2";};
+    hyprland = {url = "github:hyprwm/hyprland";};
     hyprpaper = {url = "github:hyprwm/hyprpaper";};
     hyprpicker = {url = "github:hyprwm/hyprpicker";};
     impermanence = {url = "github:nix-community/impermanence";};
@@ -100,18 +100,6 @@
             ./modules
             ./hosts/vic
             ./configs/vic
-          ];
-        };
-      };
-      vic-impure = combinedManager.nixosSystem {
-        inherit inputs;
-        configuration = {
-          system = "aarch64-linux";
-          modules = [
-            ./modules
-            ./hosts/vic
-            ./configs/vic
-            {os.impurity.enable = true;}
           ];
         };
       };

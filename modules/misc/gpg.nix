@@ -1,6 +1,7 @@
 {
   config,
   lib,
+  pkgs,
   ...
 }: {
   options.gpg.enable = lib.mkEnableOption "gpg";
@@ -20,7 +21,7 @@
       services.gpg-agent = {
         enable = true;
         enableFishIntegration = true;
-        pinentryFlavor = "gnome3";
+        pinentryPackage = pkgs.pinentry-gnome3;
         enableSshSupport = true;
         sshKeys = ["B390FD9142AF0954054B0B3C312763C295DA2E65"];
       };
