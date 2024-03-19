@@ -64,6 +64,15 @@ in {
       (_: prev: {
         nix-super = inputs.nix-super.packages.${prev.system}.default.overrideAttrs (old: {
           doCheck = false;
+          patches =
+            (old.patches or [])
+            ++ [
+              (pkgs.fetchpatch
+                {
+                  url = "https://github.com/NixOS/nix/pull/9723.patch";
+                  hash = "sha256-BIfuC/lr4TXuR0H2WH93dDB/CwjB4xt42oj4dUTTXI4=";
+                })
+            ];
         });
         # nixos-option = prev.nixos-option.override {nix = prev.nixVersions.nix_2_15;};
       })

@@ -15,6 +15,6 @@
       '';
     };
 
-    home.file.".ssh/hosts".source = hmConfig.age.secrets.ssh_hosts.path;
+    home.file.".ssh/hosts".source = hmConfig.lib.file.mkOutOfStoreSymlink "/run/user/1000/agenix/ssh_hosts";
   };
 }
