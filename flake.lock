@@ -222,12 +222,12 @@
         "nixpkgs": "nixpkgs_9"
       },
       "locked": {
-        "lastModified": 1710785672,
-        "narHash": "sha256-tEP/amp09fSKeTBrcHWAYr/tQ0g2ZxJQlnCiZDi6qtY=",
-        "owner": "famedly",
-        "repo": "conduit",
-        "rev": "81bc1fc4e324c4798dc7b7e3cec94495a94455e0",
-        "type": "gitlab"
+        "lastModified": 1710821861,
+        "narHash": "sha256-Y+x3q7VkPpRok7Om2bwB2v1JDK/OCZmiFaBrIOJRojY=",
+        "owner": "girlbossceo",
+        "repo": "conduwuit",
+        "rev": "7809f0a6aee6900de59b720bf966d4a0315276bc",
+        "type": "github"
       },
       "original": {
         "owner": "girlbossceo",
