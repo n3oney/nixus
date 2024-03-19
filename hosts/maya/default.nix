@@ -1,6 +1,8 @@
 _: {
   osModules = [./hardware-configuration.nix];
   os = {
+    systemd.services.NetworkManager-wait-online.enable = false;
+
     nixpkgs.config.allowUnfree = true;
 
     boot.loader = {
