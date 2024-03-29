@@ -62,6 +62,7 @@ in {
       xonotic.enable = true;
     };
     jellyfinPlayer.enable = true;
+    ngrok.enable = true;
     swappy.enable = true;
     thunderbird.enable = true;
     youtube-tv = {
