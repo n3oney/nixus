@@ -2,7 +2,6 @@
   pkgs,
   lib,
   config,
-  inputs,
   ...
 }: {
   options.programs.gaming = {
@@ -29,7 +28,7 @@
       nixpkgs.overlays = lib.mkIf config.programs.gaming.steam.proton-ge.enable [
         (_: prev: {
           steam = prev.steam.override {
-            extraProfile = "export STEAM_EXTRA_COMPAT_TOOLS_PATHS='${inputs.nix-gaming.packages.${pkgs.system}.proton-ge}'";
+            extraCompatTools = [pkgs.proton-ge-bin];
           };
         })
       ];

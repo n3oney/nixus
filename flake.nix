@@ -49,7 +49,6 @@
     };
     impurity.url = "github:outfoxxed/impurity.nix";
     nix-colors = {url = "github:Misterio77/nix-colors";};
-    nix-gaming = {url = "github:fufexan/nix-gaming";};
     nix-super = {url = "github:privatevoid-net/nix-super";};
     nixpkgs = {url = "github:nixos/nixpkgs/nixos-unstable";};
     nur = {url = "github:nix-community/NUR";};
