@@ -341,10 +341,10 @@ in {
                       if cfg.monitors.secondary.name != null
                       then "default:true, "
                       else ""
-                    }gapsin:0, gapsout:0, bordersize:0, rounding:false"
+                    }gapsin:0, gapsout:0"
                   ]
                   ++ [
-                    "1,monitor:${cfg.monitors.main.name}, gapsin:0, gapsout:0, bordersize:1, rounding:false"
+                    "1,monitor:${cfg.monitors.main.name}, gapsin:0, gapsout:0"
                     "2,monitor:${cfg.monitors.main.name}, default:true"
                   ];
                 input = {
@@ -482,6 +482,24 @@ in {
                   "float,class:^([Ww]aydroid.*)$"
 
                   "workspace 2,class:firefox"
+
+                  "rounding 0,workspace:1,floating:0"
+                  "bordersize 1,workspace:1,floating:0"
+
+                  "rounding 0,workspace:${
+                    toString (
+                      if cfg.monitors.secondary.name != null
+                      then 19
+                      else 9
+                    )
+                  },floating:0"
+                  "bordersize 1,workspace:${
+                    toString (
+                      if cfg.monitors.secondary.name != null
+                      then 19
+                      else 9
+                    )
+                  },floating:0"
 
                   "workspace ${
                     if cfg.monitors.secondary.name != null
