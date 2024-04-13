@@ -16,6 +16,8 @@
     jackett.enable = false;
   };
 
+  services.vaultwarden.enable = true;
+
   hm.home.packages = with pkgs; [
     ripgrep
     lazygit
