@@ -25,12 +25,8 @@
 
       programs.gamescope.enable = true;
 
-      nixpkgs.overlays = lib.mkIf config.programs.gaming.steam.proton-ge.enable [
-        (_: prev: {
-          steam = prev.steam.override {
-            extraCompatTools = [pkgs.proton-ge-bin];
-          };
-        })
+      programs.steam.extraCompatPackages = lib.mkIf config.programs.gaming.steam.proton-ge.enable [
+        pkgs.proton-ge-bin
       ];
     })
 
