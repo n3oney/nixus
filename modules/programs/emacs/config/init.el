@@ -54,11 +54,24 @@
   :mode "\\.rs\\'"
   :hook (rust-mode . disable-tabs))
 
+(use-package tsx-ts-mode
+  :mode "\\.[jt]s[x]?\\'"
+  :hook (tsx-ts-mode . disable-tabs))
+
+(use-package affe
+  :commands affe-find
+  :init
+  (define-key evil-normal-state-map (kbd "SPC f") 'affe-find))
+
+(use-package projectile
+  :config (projectile-global-mode))
+
 (use-package lsp-mode
   ;; :init
   ;; (setq lsp-nix-nil-server-path (executable-find "nil"))
   :hook (nix-mode . lsp-deferred)
   :hook (rust-mode . lsp-deferred)
+  :hook (tsx-ts-mode . lsp-deferred)
   :commands (lsp lsp-deferred)
   :config
   (define-key evil-normal-state-map (kbd "SPC r") #'lsp-rename)

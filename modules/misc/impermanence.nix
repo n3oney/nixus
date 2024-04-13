@@ -50,7 +50,6 @@
                 ".bun"
                 ".local/share/zoxide"
                 ".xonotic"
-                ".config/emacs"
                 ".local/share/emacs"
               ]
               ++ (lib.optionals config.programs.jellyfinPlayer.enable [".config/jellyfin.org" ".local/share/jellyfinmediaplayer" ".local/share/Jellyfin Media Player" ".cache/Jellyfin Media Player"]))

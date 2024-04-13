@@ -46,6 +46,7 @@ in {
     cinny.enable = true;
     discord.enable = true;
     ags.enable = true;
+    emacs.enable = true;
     eww = {
       enable = true;
       micName = "Blue Snowball Mono";
