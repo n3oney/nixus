@@ -24,6 +24,12 @@
             display-inlay-hints = true;
           };
 
+          rulers = [
+            80
+            100
+            120
+          ];
+
           cursor-shape = {
             insert = "bar";
           };
