@@ -9,12 +9,12 @@
   config = lib.mkMerge [
     (lib.mkIf config.programs.btop.enable {
       hm = {
-        xdg.configFile."btop/themes/catppuccin_macchiato.theme".source = "${inputs.btop}/themes/catppuccin_macchiato.theme";
+        xdg.configFile."btop/themes/rose-pine.theme".source = "${inputs.btop-rose-pine}/rose-pine.theme";
 
         programs.btop = {
           enable = true;
           settings = {
-            color_theme = "catppuccin_macchiato";
+            color_theme = "rose-pine";
           };
         };
       };

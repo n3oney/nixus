@@ -12,9 +12,9 @@
       inputs = {nixpkgs = {follows = "nixpkgs";};};
       url = "github:notashelf/arrpc-flake";
     };
-    btop = {
+    btop-rose-pine = {
       flake = false;
-      url = "github:catppuccin/btop";
+      url = "github:rose-pine/btop";
     };
     catppuccin-lemmy = {url = "github:n3oney/catppuccin-lemmy";};
     conduwuit = {url = "github:girlbossceo/conduwuit";};

@@ -176,18 +176,18 @@
         "type": "github"
       }
     },
-    "btop": {
+    "btop-rose-pine": {
       "flake": false,
       "locked": {
-        "lastModified": 1696688295,
-        "narHash": "sha256-jodJl4f2T9ViNqsY9fk8IV62CrpC5hy7WK3aRpu70Cs=",
-        "owner": "catppuccin",
+        "lastModified": 1689701146,
+        "narHash": "sha256-sShQYfsyR5mq/e+pjeIsFzVZv3tCpQEdGC9bnTKlQ5c=",
+        "owner": "rose-pine",
         "repo": "btop",
-        "rev": "c6469190f2ecf25f017d6120bf4e050e6b1d17af",
+        "rev": "6d6abdc0a8c8bcd3b056d9fe3256cfbe7e359312",
         "type": "github"
       },
       "original": {
-        "owner": "catppuccin",
+        "owner": "rose-pine",
         "repo": "btop",
         "type": "github"
       }
@@ -1443,7 +1443,7 @@
         "anyrun-nixos-options": "anyrun-nixos-options",
         "apple-silicon-support": "apple-silicon-support",
         "arrpc": "arrpc",
-        "btop": "btop",
+        "btop-rose-pine": "btop-rose-pine",
         "catppuccin-lemmy": "catppuccin-lemmy",
         "conduwuit": "conduwuit",
         "emacs-overlay": "emacs-overlay",
