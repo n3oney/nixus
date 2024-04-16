@@ -10,17 +10,21 @@
       enable = true;
 
       iconTheme = {
-        package = pkgs.papirus-icon-theme;
-        name = "Papirus-Dark";
+        # package = pkgs.papirus-icon-theme;
+        # name = "Papirus-Dark";
+        package = pkgs.rose-pine-icon-theme;
+        name = "rose-pine";
       };
 
       theme = {
-        package = pkgs.catppuccin-gtk.override {
-          accents = ["pink"];
-          tweaks = ["rimless"];
-          variant = "macchiato";
-        };
-        name = "Catppuccin-Macchiato-Standard-Pink-Dark";
+        # package = pkgs.catppuccin-gtk.override {
+        # accents = ["pink"];
+        # tweaks = ["rimless"];
+        # variant = "macchiato";
+        # };
+        # name = "Catppuccin-Macchiato-Standard-Pink-Dark";
+        package = pkgs.rose-pine-gtk-theme;
+        name = "rose-pine";
       };
     };
 

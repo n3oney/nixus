@@ -1,6 +1,6 @@
 {
   pkgs,
-  inputs,
+  # inputs,
   ...
 }: {
   users.main = "neoney";
@@ -15,7 +15,7 @@
     monitors = {
       main = {
         name = "eDP-1";
-        wallpaper = ../../wallpapers/cherry/laptop.png;
+        wallpaper = ../../wallpapers/blockwavemoon.png;
         width = 2560;
         height = 1600;
         refreshRate = 60;
