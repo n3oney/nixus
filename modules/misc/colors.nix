@@ -28,7 +28,7 @@
           base0E = "f6c177";
           base0F = "524f67";
 
-          accent = base08;
+          accent = base0C;
         };
       };
     };

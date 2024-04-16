@@ -15,7 +15,7 @@
     monitors = {
       main = {
         name = "eDP-1";
-        wallpaper = ../../wallpapers/blockwavemoon.png;
+        wallpaper = ../../wallpapers/blue_blobs.jpg;
         width = 2560;
         height = 1600;
         refreshRate = 60;
