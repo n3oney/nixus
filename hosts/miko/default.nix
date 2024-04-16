@@ -42,7 +42,8 @@
       enable = true;
       alsa.enable = true;
       pulse.enable = true;
-      # Remote audio
+      # Remote audio-currently not loading automatically.
+      # TODO
       extraConfig.pipewire."10-remote-audio" = {
         context.modules = [
           {
