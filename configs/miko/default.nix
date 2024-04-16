@@ -64,6 +64,7 @@ in {
     };
     jellyfinPlayer.enable = true;
     ngrok.enable = true;
+    obsidian.enable = true;
     swappy.enable = true;
     thunderbird.enable = true;
     youtube-tv = {
