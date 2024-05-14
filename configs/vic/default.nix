@@ -44,10 +44,6 @@
     cinny.enable = true;
     discord.enable = true;
     emacs.enable = true;
-    eww = {
-      # enable = true;
-      micName = "Built-in Audio Headset Microphone";
-    };
     ags.enable = true;
     firefox.enable = true;
     foot.enable = true;

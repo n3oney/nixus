@@ -1,5 +1,0 @@
-(defwidget idle-inhibit []
-  (button :class "idle-inhibit" :onclick {idle-inhibit-open ? "@pidof@ wlroots-idle-inhibit | @xargs@ kill; eww update idle-inhibit-open=false" : "hyprctl dispatch exec [workspace 69 silent] @idleInhibit@ ; eww update idle-inhibit-open=true"} "${idle-inhibit-open ? "" : ""}")
-)
-
-(defvar idle-inhibit-open false)

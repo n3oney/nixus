@@ -47,10 +47,6 @@ in {
     discord.enable = true;
     ags.enable = true;
     emacs.enable = true;
-    eww = {
-      enable = true;
-      micName = "Blue Snowball Mono";
-    };
     firefox.enable = true;
     foot.enable = true;
     gaming = {

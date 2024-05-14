@@ -2,58 +2,50 @@
   description = "neoney's NixOS config flake";
 
   inputs = {
-    agenix = {url = "github:ryantm/agenix";};
-    ags = {url = "github:Aylur/ags";};
-    anyrun = {url = "github:kirottu/anyrun";};
-    anyrun-ha-assist = {url = "github:n3oney/anyrun-ha-assist";};
-    anyrun-nixos-options = {url = "github:n3oney/anyrun-nixos-options/v2.0.0";};
-    apple-silicon-support = {url = "github:tpwrules/nixos-apple-silicon";};
+    agenix.url = "github:ryantm/agenix";
+    ags.url = "github:Aylur/ags";
+    anyrun.url = "github:kirottu/anyrun";
+    anyrun-ha-assist.url = "github:n3oney/anyrun-ha-assist";
+    anyrun-nixos-options.url = "github:n3oney/anyrun-nixos-options/v2.0.0";
+    apple-silicon-support.url = "github:tpwrules/nixos-apple-silicon";
     arrpc = {
-      inputs = {nixpkgs = {follows = "nixpkgs";};};
+      inputs.nixpkgs.follows = "nixpkgs";
       url = "github:notashelf/arrpc-flake";
     };
     btop-rose-pine = {
       flake = false;
       url = "github:rose-pine/btop";
     };
-    catppuccin-lemmy = {url = "github:n3oney/catppuccin-lemmy";};
-    conduwuit = {url = "github:girlbossceo/conduwuit";};
-    eww = {
-      inputs = {
-        nixpkgs = {follows = "nixpkgs";};
-        rust-overlay = {follows = "rust-overlay";};
-      };
-      url = "github:ralismark/eww/tray-3";
-    };
-
+    catppuccin-lemmy.url = "github:n3oney/catppuccin-lemmy";
+    conduwuit.url = "github:girlbossceo/conduwuit";
     emacs-overlay = {
       url = "github:nix-community/emacs-overlay";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
     home-manager = {
-      inputs = {nixpkgs = {follows = "nixpkgs";};};
+      inputs.nixpkgs.follows = "nixpkgs";
       url = "github:nix-community/home-manager";
     };
     hyprcontrib = {
-      inputs = {nixpkgs = {follows = "nixpkgs";};};
+      inputs.nixpkgs.follows = "nixpkgs";
       url = "github:hyprwm/contrib";
     };
-    hyprland = {url = "github:hyprwm/hyprland";};
-    hyprpaper = {url = "github:hyprwm/hyprpaper";};
-    hyprpicker = {url = "github:hyprwm/hyprpicker";};
-    impermanence = {url = "github:nix-community/impermanence";};
+    hyprland.url = "github:hyprwm/hyprland";
+    hyprpaper.url = "github:hyprwm/hyprpaper";
+    hyprpicker.url = "github:hyprwm/hyprpicker";
+    impermanence.url = "github:nix-community/impermanence";
     nh = {
-      inputs = {nixpkgs = {follows = "nixpkgs";};};
+      inputs.nixpkgs.follows = "nixpkgs";
       url = "github:viperML/nh";
     };
     impurity.url = "github:outfoxxed/impurity.nix";
-    nix-colors = {url = "github:Misterio77/nix-colors";};
-    nix-super = {url = "github:privatevoid-net/nix-super";};
-    nixpkgs = {url = "github:nixos/nixpkgs/nixos-unstable";};
-    nur = {url = "github:nix-community/NUR";};
-    poweroff = {url = "github:n3oney/ha-poweroff";};
-    rust-overlay = {url = "github:oxalica/rust-overlay";};
+    nix-colors.url = "github:Misterio77/nix-colors";
+    nix-super.url = "github:privatevoid-net/nix-super";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nur.url = "github:nix-community/NUR";
+    poweroff.url = "github:n3oney/ha-poweroff";
+    rust-overlay.url = "github:oxalica/rust-overlay";
     shadower.url = "github:n3oney/shadower";
     uonetplan.url = "github:n3oney/uonetplan";
   };
