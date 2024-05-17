@@ -51,6 +51,7 @@
             args = ["--stdio"];
             config.hostInfo = "helix";
             config.documentFormatting = false;
+            config.includeCompletionsForModuleExports = false;
           };
           rust-analyzer.command = lib.getExe pkgs.rust-analyzer;
           vscode-css-language-server = {
