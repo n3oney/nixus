@@ -83,6 +83,10 @@ in {
           settings = {
             rpc-whitelist-enabled = false;
             rpc-bind-address = "0.0.0.0";
+            download-queue-enabled = false;
+            download-queue-size = 5;
+            queue-stalled-enabled = false;
+            queue-stalled-minutes = 30;
             # ratio-limit = 1.1;
             # ratio-limit-enabled = true;
             # script-torrent-done-seeding-enabled = true;
