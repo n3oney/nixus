@@ -212,8 +212,8 @@ in {
 
       hm = let
         cursor = {
-          package = pkgs.catppuccin-cursors.macchiatoPink;
-          name = "Catppuccin-Macchiato-Pink-Cursors";
+          package = pkgs.catppuccin-cursors.macchiatoTeal;
+          name = "Catppuccin-Macchiato-Teal-Cursors";
           size = 24;
         };
       in {
