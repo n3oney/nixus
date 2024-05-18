@@ -41,6 +41,9 @@ in {
               owner = "uonetplan";
             }
           )
+          (
+            secretForHostnames ["miko" "vic" "maya"] ../../secrets/shibabot.age "shibabot" {owner = "shibabot";}
+          )
         ];
         environment.systemPackages = [inputs.agenix.packages.${pkgs.system}.default];
       };

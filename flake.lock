@@ -1539,6 +1539,7 @@
         "poweroff": "poweroff",
         "rust-overlay": "rust-overlay_2",
         "shadower": "shadower",
+        "shibabot": "shibabot",
         "uonetplan": "uonetplan"
       }
     },
@@ -1611,6 +1612,22 @@
         "owner": "n3oney",
         "repo": "shadower",
         "type": "github"
+      }
+    },
+    "shibabot": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1716067294,
+        "narHash": "sha256-CCDbg5n1UstkaSlmJsFo7TSu9clPBxTf9Aw+5nOw/U8=",
+        "ref": "refs/heads/main",
+        "rev": "159247f9727bfbeab95376c2b296879bb1bce55c",
+        "revCount": 204,
+        "type": "git",
+        "url": "ssh://git@github.com/n3oney/shibabot2.git"
+      },
+      "original": {
+        "type": "git",
+        "url": "ssh://git@github.com/n3oney/shibabot2.git"
       }
     },
     "systems": {

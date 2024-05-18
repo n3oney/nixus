@@ -16,6 +16,8 @@
     jackett.enable = false;
   };
 
+  services.shibabot.enable = true;
+
   services.vaultwarden.enable = true;
 
   hm.home.packages = with pkgs; [

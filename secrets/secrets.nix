@@ -25,4 +25,6 @@ in {
 
   "ngrok.age".publicKeys = miko ++ vic ++ maya ++ max;
   "uonetplan.age".publicKeys = miko ++ vic ++ maya;
+
+  "shibabot.age".publicKeys = miko ++ vic ++ maya;
 }
