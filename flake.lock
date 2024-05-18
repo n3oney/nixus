@@ -1617,11 +1617,11 @@
     "shibabot": {
       "flake": false,
       "locked": {
-        "lastModified": 1716067294,
-        "narHash": "sha256-CCDbg5n1UstkaSlmJsFo7TSu9clPBxTf9Aw+5nOw/U8=",
+        "lastModified": 1716069788,
+        "narHash": "sha256-IsKmcRWQIdVt6taYC+3ya6ZG2TbTijpiUCWzd6inZvA=",
         "ref": "refs/heads/main",
-        "rev": "159247f9727bfbeab95376c2b296879bb1bce55c",
-        "revCount": 204,
+        "rev": "f6121b0252cc9ffac823251813a3cb9391621a2f",
+        "revCount": 205,
         "type": "git",
         "url": "ssh://git@github.com/n3oney/shibabot2.git"
       },
