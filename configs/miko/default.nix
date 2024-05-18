@@ -28,6 +28,7 @@ in {
     keyboards = [
       "logitech-g915-tkl-lightspeed-wireless-rgb-mechanical-gaming-keyboard"
       "logitech-usb-receiver-keyboard"
+      "logitech-k400-plus"
     ];
     mouseSensitivity = -0.76;
 
