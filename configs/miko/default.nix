@@ -3,6 +3,8 @@
 in {
   users.main = "neoney";
 
+  bluetooth.enable = true;
+
   display = {
     enable = true;
 
