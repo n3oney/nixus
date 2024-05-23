@@ -66,6 +66,7 @@ in {
     obsidian.enable = true;
     swappy.enable = true;
     thunderbird.enable = true;
+    vscode.enable = true;
     youtube-tv = {
       enable = true;
       audioSink = secondarySink;

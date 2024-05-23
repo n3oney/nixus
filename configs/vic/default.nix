@@ -61,6 +61,8 @@
     # Won't be watching stuff until HW accel...
     # jellyfinPlayer.enable = true;
 
+    vscode.enable = true;
+
     youtube-music.enable = true;
   };
 

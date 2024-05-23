@@ -189,6 +189,7 @@ in {
   config = lib.mkMerge [
     (mkIf cfg.enable {
       os = {
+        environment.sessionVariables.NIXOS_OZONE_WL = "1";
         nixpkgs.overlays = [inputs.hyprland.overlays.default];
 
         programs.hyprland = {
