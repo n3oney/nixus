@@ -25,6 +25,7 @@
         "command aliases" = {
           "workbench.action.files.save" = "w";
         };
+        "platformio-ide.customPATH" = "${pkgs.platformio}/bin/platformio";
 
         "git.enableSmartCommit" = true;
         "git.autofetch" = true;
@@ -42,6 +43,10 @@
           esbenp.prettier-vscode
           dbaeumer.vscode-eslint
           usernamehw.errorlens
+          gruntfuggly.todo-tree
+          eamodio.gitlens
+          github.vscode-github-actions
+          ms-vscode.cpptools-extension-pack
         ])
         ++ (
           pkgs.vscode-utils.extensionsFromVscodeMarketplace [
@@ -56,6 +61,12 @@
               publisher = "ArturoDent";
               version = "0.6.2";
               sha256 = "sha256-NSDhmbCH1zHyLheOpd9Zr+gQZZAf7FN/89qXYeByw1U=";
+            }
+            {
+              name = "platformio-ide";
+              publisher = "platformio";
+              version = "3.3.3";
+              sha256 = "sha256-pcWKBqtpU7DVpiT7UF6Zi+YUKknyjtXFEf5nL9+xuSo=";
             }
           ]
         );

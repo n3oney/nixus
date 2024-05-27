@@ -31,6 +31,7 @@ in {
       "logitech-g915-tkl-lightspeed-wireless-rgb-mechanical-gaming-keyboard"
       "logitech-usb-receiver-keyboard"
       "logitech-k400-plus"
+      "corne-keyboard"
     ];
     mouseSensitivity = -0.76;
 
