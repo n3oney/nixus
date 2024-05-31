@@ -22,9 +22,15 @@
         "[jsonc]" = {
           "editor.defaultFormatter" = "esbenp.prettier-vscode";
         };
+        "[cpp]" = {
+          "editor.defaultFormatter" = "xaver.clang-format";
+        };
+        "clang-format.executable" = "${pkgs.clang-tools}/bin/clang-format";
+
         "command aliases" = {
           "workbench.action.files.save" = "w";
         };
+
         "platformio-ide.customPATH" = "${pkgs.platformio}/bin/platformio";
 
         "git.enableSmartCommit" = true;
@@ -36,8 +42,8 @@
         "workbench.colorTheme" = "Rosé Pine";
       };
 
-      extensions =
-        (with pkgs.vscode-extensions; [
+      extensions = with pkgs;
+        (with vscode-extensions; [
           mvllow.rose-pine
           mkhl.direnv
           esbenp.prettier-vscode
@@ -46,7 +52,7 @@
           gruntfuggly.todo-tree
           eamodio.gitlens
           github.vscode-github-actions
-          ms-vscode.cpptools-extension-pack
+          xaver.clang-format
         ])
         ++ (
           pkgs.vscode-utils.extensionsFromVscodeMarketplace [
