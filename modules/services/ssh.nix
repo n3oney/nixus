@@ -10,6 +10,7 @@
   hm = {
     programs.ssh = {
       enable = true;
+      addKeysToAgent = "yes";
       extraConfig = ''
         Include hosts
       '';

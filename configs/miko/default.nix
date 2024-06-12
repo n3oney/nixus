@@ -90,7 +90,6 @@ in {
   };
 
   impermanence.enable = true;
-  gpg.enable = true;
   keyring.enable = true;
   nur.enable = true;
   agenix.enable = true;
