@@ -40,6 +40,8 @@
         "editor.fontSize" = 15;
         "editor.formatOnSave" = true;
         "workbench.colorTheme" = "Rosé Pine";
+        "git.openRepositoryInParentFolders" = "always";
+        "security.workspace.trust.enabled" = false;
       };
 
       extensions = with pkgs;
@@ -73,6 +75,18 @@
               publisher = "platformio";
               version = "3.3.3";
               sha256 = "sha256-pcWKBqtpU7DVpiT7UF6Zi+YUKknyjtXFEf5nL9+xuSo=";
+            }
+            {
+              name = "vscode-monorepo-workspace";
+              publisher = "folke";
+              version = "1.3.1";
+              sha256 = "sha256-BtJBd9T+5qPY2YD93Rn2AiClwYGD1s4o+IEUHdaq61c=";
+            }
+            {
+              name = "pretty-ts-errors";
+              publisher = "yoavbls";
+              version = "0.5.4";
+              sha256 = "sha256-SMEqbpKYNck23zgULsdnsw4PS20XMPUpJ5kYh1fpd14=";
             }
           ]
         );
