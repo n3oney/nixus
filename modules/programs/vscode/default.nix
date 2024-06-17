@@ -34,7 +34,7 @@
         "platformio-ide.customPATH" = "${pkgs.platformio}/bin/platformio";
 
         "git.enableSmartCommit" = true;
-        "git.autofetch" = true;
+        "git.autofetch" = false;
         "git.confirmSync" = false;
         "editor.fontFamily" = "monospace";
         "editor.fontSize" = 15;
