@@ -32,8 +32,6 @@
     home-assistant.host = "hass.max.local:80";
   };
 
-  services.shairport-sync.enable = true;
-
   services.mopidy.enable = true;
 
   hm.home.packages = with pkgs; [
