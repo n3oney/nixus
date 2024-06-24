@@ -25,7 +25,7 @@
       containers.homeassistant = {
         volumes = ["/etc/home-assistant:/config" "/var/lib/home-assistant-media:/media"];
         environment.TZ = "Europe/Warsaw";
-        image = "ghcr.io/home-assistant/home-assistant:2023.9";
+        image = "ghcr.io/home-assistant/home-assistant:2024.6";
         extraOptions = [
           "--network=host"
         ];
