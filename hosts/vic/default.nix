@@ -59,7 +59,6 @@
     services.avahi.enable = true;
 
     hardware.opengl = {
-      driSupport = true;
       driSupport32Bit = lib.mkForce false;
     };
 
