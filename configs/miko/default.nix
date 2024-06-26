@@ -44,13 +44,14 @@ in {
   };
 
   programs = {
+    adb.enable = true;
     waydroid.enable = true;
     anyrun.enable = true;
     btop.enable = true;
     cinny.enable = true;
     discord.enable = true;
     ags.enable = true;
-    emacs.enable = true;
+    emacs.enable = false;
     firefox.enable = true;
     foot.enable = true;
     gaming = {
