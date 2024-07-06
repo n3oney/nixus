@@ -55,6 +55,7 @@
           eamodio.gitlens
           github.vscode-github-actions
           xaver.clang-format
+          editorconfig.editorconfig
         ])
         ++ (
           pkgs.vscode-utils.extensionsFromVscodeMarketplace [
