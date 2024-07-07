@@ -42,6 +42,7 @@
         "workbench.colorTheme" = "Rosé Pine";
         "git.openRepositoryInParentFolders" = "always";
         "security.workspace.trust.enabled" = false;
+        "typescript.inlayHints.parameterNames.enabled" = "all";
       };
 
       extensions = with pkgs;
