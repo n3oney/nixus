@@ -43,6 +43,10 @@
         "git.openRepositoryInParentFolders" = "always";
         "security.workspace.trust.enabled" = false;
         "typescript.inlayHints.parameterNames.enabled" = "all";
+
+        "extensions.experimental.affinity" = {
+          "jasew.vscode-helix-emulation" = 1;
+        };
       };
 
       extensions = with pkgs;
@@ -61,10 +65,22 @@
         ++ (
           pkgs.vscode-utils.extensionsFromVscodeMarketplace [
             {
-              name = "dancehelix";
-              publisher = "silverquark";
-              version = "0.5.16";
-              sha256 = "sha256-oHwtlbB18ctEnfStDOpJ+2/Kq41JZog8FVhTa1/s7m0=";
+              name = "sqltools";
+              publisher = "mtxr";
+              version = "0.28.3";
+              sha256 = "sha256-bTrHAhj8uwzRIImziKsOizZf8+k3t+VrkOeZrFx7SH8=";
+            }
+            {
+              name = "vsliveshare";
+              publisher = "MS-vsliveshare";
+              version = "1.0.5932";
+              sha256 = "sha256-uqBUGGvEIBP+ZpJqdAdTlnN65mJvW1SEWgjw8inBHW4=";
+            }
+            {
+              name = "vscode-helix-emulation";
+              publisher = "jasew";
+              version = "0.6.2";
+              sha256 = "sha256-V/7Tu1Ze/CYRmtxwU2+cQLOxLwH7YRYYeHSUGbGTb5I=";
             }
             {
               name = "command-alias";
