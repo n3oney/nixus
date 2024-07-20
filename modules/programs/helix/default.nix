@@ -55,7 +55,7 @@
           };
           rust-analyzer.command = lib.getExe pkgs.rust-analyzer;
           vscode-css-language-server = {
-            command = lib.getExe pkgs.nodePackages.vscode-css-languageserver-bin;
+            command = "${pkgs.vscode-langservers-extracted}/bin/vscode-css-language-server";
             args = ["--stdio"];
             config.provideFormatter = true;
           };

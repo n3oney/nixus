@@ -48,7 +48,6 @@
 
     systemd.services.NetworkManager-wait-online.enable = false;
 
-    sound.enable = true;
     services.pipewire = {
       enable = true;
       alsa.enable = true;
