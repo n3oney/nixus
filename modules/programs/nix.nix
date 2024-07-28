@@ -62,7 +62,7 @@ in {
   os = {
     nixpkgs.overlays = [
       (_: prev: {
-        nix-super = inputs.nix-super.packages.${prev.system}.default;
+        # nix-super = inputs.nix-super.packages.${prev.system}.default;
         # nixos-option = prev.nixos-option.override {nix = prev.nixVersions.nix_2_15;};
       })
     ];
@@ -78,7 +78,7 @@ in {
     nix = let
       mappedRegistry = lib.mapAttrs (_: v: {flake = v;}) inputs;
     in {
-      package = pkgs.nix-super;
+      # package = pkgs.nix-super;
       registry =
         mappedRegistry
         // {

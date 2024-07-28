@@ -41,7 +41,7 @@
     };
     impurity.url = "github:outfoxxed/impurity.nix";
     nix-colors.url = "github:Misterio77/nix-colors";
-    nix-super.url = "github:privatevoid-net/nix-super";
+    # nix-super.url = "github:privatevoid-net/nix-super";
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     nur.url = "github:nix-community/NUR";
     poweroff.url = "github:n3oney/ha-poweroff";
