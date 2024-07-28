@@ -48,6 +48,24 @@ in {
       extraConfig = ''
         root * ${pkgs.cinny}
         file_server
+
+        @index {
+          not path /index.html
+          not path /public/*
+          not path /assets/*
+
+          not path /config.json
+
+          not path /manifest.json
+
+          not path /pdf.worker.min.js
+          not path /olm.wasm
+
+          path /*
+        }
+
+        rewrite /*/olm.wasm /olm.wasm
+        rewrite @index /index.html
       '';
     };
   };
@@ -62,7 +80,7 @@ in {
           description = "Host to open tabs with xdg-open";
           path = pkgs.writeScript "external_tabs" ''
             #!${lib.getExe pkgs.python3}
-                      
+                    
             import sys
             import struct
             import subprocess

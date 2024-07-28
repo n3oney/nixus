@@ -527,8 +527,6 @@ in {
                     else "10"
                   }, class:^(YouTube Music)$"
 
-                  "forceinput,class:^(fusion360.exe)$"
-                  "windowdance,class:^(fusion360.exe)$"
                   "noanim,title:^(PAUSESHOT)$"
                   "fullscreen,title:^(PAUSESHOT)$"
 
