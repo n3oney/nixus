@@ -66,7 +66,7 @@ in {
     jellyfinPlayer.enable = true;
     ngrok.enable = true;
     obsidian.enable = true;
-    slack.enable = true;
+    mattermost.enable = true;
     swappy.enable = true;
     thunderbird.enable = true;
     vscode.enable = true;
@@ -75,6 +75,7 @@ in {
       audioSink = secondarySink;
     };
     youtube-music.enable = true;
+    zed.enable = true;
   };
 
   services = {
