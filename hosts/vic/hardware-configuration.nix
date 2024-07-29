@@ -101,7 +101,8 @@
 
   swapDevices = [
     {
-      device = "/dev/disk/by-label/swap";
+      device = "/persist/swapfile";
+      size = 8 * 1024;
     }
   ];
 
