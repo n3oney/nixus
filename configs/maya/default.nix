@@ -7,6 +7,8 @@
 
   services.conduit.enable = true;
 
+  services.mattermost.enable = true;
+
   services.minecraft-server.enable = true;
 
   services.uonetplan.enable = true;
