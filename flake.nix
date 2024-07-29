@@ -31,7 +31,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
       url = "github:hyprwm/contrib";
     };
-    hyprland.url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
+    hyprland.url = "git+https://github.com/hyprwm/Hyprland?rev=f642fb97df5c69267a03452533de383ff8023570&submodules=1";
     hyprpaper.url = "github:hyprwm/hyprpaper";
     hyprpicker.url = "github:hyprwm/hyprpicker";
     impermanence.url = "github:nix-community/impermanence";

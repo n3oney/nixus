@@ -390,7 +390,7 @@ in {
                   vrr = true;
                 };
 
-                env = lib.mkIf cfg.enableTearing ["WLR_DRM_NO_ATOMIC,1"];
+                env = lib.mkIf cfg.enableTearing ["AQ_DRM_NO_ATOMIC,1"];
 
                 general = {
                   allow_tearing = cfg.enableTearing;
