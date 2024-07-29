@@ -43,6 +43,7 @@
     nix-colors.url = "github:Misterio77/nix-colors";
     # nix-super.url = "github:privatevoid-net/nix-super";
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs-master.url = "github:nixos/nixpkgs";
     nur.url = "github:nix-community/NUR";
     poweroff.url = "github:n3oney/ha-poweroff";
     rust-overlay.url = "github:oxalica/rust-overlay";

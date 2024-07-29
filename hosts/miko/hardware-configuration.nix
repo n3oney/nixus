@@ -16,7 +16,7 @@
   boot.kernelPackages = pkgs.linuxPackages_xanmod_latest;
   boot.kernelModules = ["kvm-amd" "amdgpu"];
 
-  boot.tmp.useTmpfs = true;
+  # boot.tmp.useTmpfs = true;
 
   fileSystems."/" = {
     device = "none";
@@ -53,6 +53,12 @@
     device = "/dev/disk/by-label/NIXROOT";
     fsType = "btrfs";
     options = ["noatime" "discard" "subvol=@swap"];
+  };
+
+  fileSystems."/tmp" = {
+    device = "/dev/disk/by-label/NIXROOT";
+    fsType = "btrfs";
+    options = ["noatime" "discard" "subvol=@tmp"];
   };
 
   swapDevices = [

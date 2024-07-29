@@ -55,6 +55,7 @@
                 ".platformio"
                 ".config/obsidian"
                 ".config/kdeconnect"
+                ".config/Slack"
               ]
               ++ (lib.optionals config.programs.jellyfinPlayer.enable [".config/jellyfin.org" ".local/share/jellyfinmediaplayer" ".local/share/Jellyfin Media Player" ".cache/Jellyfin Media Player"]))
             ++ ["/var/lib/waydroid" "/etc/nixos" "/etc/NetworkManager" "/var/log" "/var/lib" "/etc/nix" "/etc/ssh" "/var/db/sudo" "/var/lib/minecraft" "/var/lib/bluetooth"];

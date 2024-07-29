@@ -30,7 +30,7 @@
         defaultFonts = {
           sansSerif = ["Inter"];
           serif = ["Roboto Serif"];
-          monospace = ["TwilioSansM Nerd Font"];
+          monospace = ["TwilioSansM Nerd Font" "Cozette"];
           emoji = ["JoyPixels"];
         };
       };
