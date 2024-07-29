@@ -62,8 +62,6 @@
     };
   };
 
-  boot.tmp.useTmpfs = true;
-
   fileSystems."/" = {
     device = "none";
     fsType = "tmpfs";
@@ -87,6 +85,12 @@
     device = "/dev/disk/by-label/NIXROOT";
     fsType = "btrfs";
     options = ["noatime" "discard" "subvol=@nix" "compress=zstd"];
+  };
+
+  fileSystems."/tmp" = {
+    device = "/dev/disk/by-label/NIXROOT";
+    fsType = "btrfs";
+    options = ["noatime" "discard" "subvol=@tmp"];
   };
 
   fileSystems."/boot" = {
