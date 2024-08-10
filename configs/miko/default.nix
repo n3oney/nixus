@@ -45,6 +45,7 @@ in {
 
   programs = {
     adb.enable = true;
+    curaSlicer.enable = true;
     waydroid.enable = true;
     anyrun.enable = true;
     btop.enable = true;

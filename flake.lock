@@ -1390,6 +1390,22 @@
         "type": "github"
       }
     },
+    "nixpkgs-2405": {
+      "locked": {
+        "lastModified": 1717179513,
+        "narHash": "sha256-vboIEwIQojofItm2xGCdZCzW96U85l9nDW3ifMuAIdM=",
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "63dacb46bf939521bdc93981b4cbb7ecb58427a0",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos",
+        "ref": "24.05",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "nixpkgs-lib": {
       "locked": {
         "dir": "lib",
@@ -1934,6 +1950,7 @@
         "nh": "nh",
         "nix-colors": "nix-colors",
         "nixpkgs": "nixpkgs_15",
+        "nixpkgs-2405": "nixpkgs-2405",
         "nixpkgs-master": "nixpkgs-master",
         "nur": "nur",
         "poweroff": "poweroff",
