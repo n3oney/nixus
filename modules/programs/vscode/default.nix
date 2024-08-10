@@ -61,6 +61,7 @@
           github.vscode-github-actions
           xaver.clang-format
           editorconfig.editorconfig
+          bradlc.vscode-tailwindcss
         ])
         ++ (
           pkgs.vscode-utils.extensionsFromVscodeMarketplace [
