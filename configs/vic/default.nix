@@ -58,7 +58,6 @@
     };
 
     ngrok.enable = true;
-    mattermost.enable = true;
 
     # Won't be watching stuff until HW accel...
     # jellyfinPlayer.enable = true;
