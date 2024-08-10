@@ -12,7 +12,7 @@
   boot.initrd.availableKernelModules = ["nvme" "xhci_pci" "ahci" "usbhid" "usb_storage" "sd_mod"];
 
   boot.extraModulePackages = with config.boot.kernelPackages; [v4l2loopback.out];
-  boot.initrd.kernelModules = ["v4l2loopback"];
+  boot.initrd.kernelModules = [];
   boot.kernelPackages = pkgs.linuxPackages_xanmod_latest;
   boot.kernelModules = ["kvm-amd" "amdgpu"];
 
