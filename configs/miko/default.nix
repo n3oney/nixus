@@ -67,6 +67,7 @@ in {
     jellyfinPlayer.enable = true;
     ngrok.enable = true;
     obsidian.enable = true;
+    orcaSlicer.enable = true;
     swappy.enable = true;
     thunderbird.enable = true;
     vscode.enable = true;
