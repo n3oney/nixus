@@ -1439,21 +1439,6 @@
         "type": "github"
       }
     },
-    "nixpkgs-master": {
-      "locked": {
-        "lastModified": 1722239494,
-        "narHash": "sha256-jXKEcptpZWuCDey/TM3CcXN0tn/io+6JH5pxk5L/zaA=",
-        "owner": "nixos",
-        "repo": "nixpkgs",
-        "rev": "055ee1d52481f8848d8ab080bc47f67338fb2974",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nixos",
-        "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
     "nixpkgs-regression": {
       "locked": {
         "lastModified": 1643052045,
@@ -1616,11 +1601,11 @@
     },
     "nixpkgs_15": {
       "locked": {
-        "lastModified": 1722062969,
-        "narHash": "sha256-QOS0ykELUmPbrrUGmegAUlpmUFznDQeR4q7rFhl8eQg=",
+        "lastModified": 1723362943,
+        "narHash": "sha256-dFZRVSgmJkyM0bkPpaYRtG/kRMRTorUIDj8BxoOt1T4=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "b73c2221a46c13557b1b3be9c2070cc42cf01eb3",
+        "rev": "a58bc8ad779655e790115244571758e8de055e3d",
         "type": "github"
       },
       "original": {
@@ -1951,7 +1936,6 @@
         "nix-colors": "nix-colors",
         "nixpkgs": "nixpkgs_15",
         "nixpkgs-2405": "nixpkgs-2405",
-        "nixpkgs-master": "nixpkgs-master",
         "nur": "nur",
         "poweroff": "poweroff",
         "rust-overlay": "rust-overlay_2",
