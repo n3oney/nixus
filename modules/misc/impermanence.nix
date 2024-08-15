@@ -59,7 +59,7 @@
               ++ (lib.optionals config.programs.curaSlicer.enable [".config/cura" ".local/share/cura"])
               ++ (lib.optionals config.programs.orcaSlicer.enable [".config/OrcaSlicer" ".local/share/orca-slicer"])
               ++ (lib.optionals config.programs.jellyfinPlayer.enable [".config/jellyfin.org" ".local/share/jellyfinmediaplayer" ".local/share/Jellyfin Media Player" ".cache/Jellyfin Media Player"]))
-            ++ ["/var/lib/waydroid" "/etc/nixos" "/etc/NetworkManager" "/var/log" "/var/lib" "/etc/nix" "/etc/ssh" "/var/db/sudo" "/var/lib/minecraft" "/var/lib/bluetooth"];
+            ++ ["/var/lib/cloudflare-warp" "/var/lib/waydroid" "/etc/nixos" "/etc/NetworkManager" "/var/log" "/var/lib" "/etc/nix" "/etc/ssh" "/var/db/sudo" "/var/lib/minecraft" "/var/lib/bluetooth"];
           files = ["/etc/machine-id" "/home/neoney/.cache/anyrun-ha-assist.sqlite3" "/home/neoney/.local/share/fish/fish_history" "/home/neoney/.config/nushell/history.txt"];
         };
 

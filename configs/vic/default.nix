@@ -64,13 +64,13 @@
     # jellyfinPlayer.enable = true;
 
     vscode.enable = true;
+    warp.enable = true;
 
     youtube-music.enable = true;
   };
 
   services = {
     tlp.enable = true;
-    wg.enable = true;
     yubikey-touch-detector.enable = true;
     podman.enable = true;
     # uxplay.enable = true;

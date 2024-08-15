@@ -80,7 +80,7 @@ in {
   };
 
   services = {
-    wg.enable = true;
+    warp.enable = true;
     kde_connect.enable = true;
     ha-poweroff.enable = true;
     podman.enable = true;

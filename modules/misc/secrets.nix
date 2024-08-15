@@ -27,8 +27,6 @@ in {
           (secretForHostnames ["max"] ../../secrets/cloudflared.age "cloudflared" {
             owner = "cloudflared";
           })
-          (secretForHostnames ["miko" "vic"] ../../secrets/wg.age "wg" {
-            })
           (
             secretForHostnames [
               "miko"
