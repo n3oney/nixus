@@ -79,7 +79,17 @@ in {
       # });
       # };
 
-      default = pkgs.hyprland;
+      default = pkgs.hyprland.overrideAttrs (old: {
+        patches =
+          (old.patches or [])
+          ++ [
+            (pkgs.fetchpatch
+              {
+                url = "https://github.com/hyprwm/Hyprland/commit/f7fb7e7e49e3b47f9b72c55fbf2d093e1a7981f5.patch";
+                hash = "sha256-moRZpoNrHrVCJfZTv/6l3mkQwTvpP7wGLECzInf/kiw=";
+              })
+          ];
+      });
 
       # default = pkgs.hyprland.overrideAttrs (old: {
       # src = pkgs.fetchFromGitHub {
