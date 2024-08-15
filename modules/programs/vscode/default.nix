@@ -62,6 +62,8 @@
           xaver.clang-format
           editorconfig.editorconfig
           bradlc.vscode-tailwindcss
+          ms-vscode-remote.remote-containers
+          bbenoist.nix
         ])
         ++ (
           pkgs.vscode-utils.extensionsFromVscodeMarketplace [
