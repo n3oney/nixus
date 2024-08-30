@@ -77,6 +77,7 @@ in {
     };
     youtube-music.enable = true;
     zed.enable = true;
+    zenBrowser.enable = true;
   };
 
   services = {

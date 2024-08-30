@@ -79,17 +79,7 @@ in {
       # });
       # };
 
-      default = pkgs.hyprland.overrideAttrs (old: {
-        patches =
-          (old.patches or [])
-          ++ [
-            (pkgs.fetchpatch
-              {
-                url = "https://github.com/hyprwm/Hyprland/commit/f7fb7e7e49e3b47f9b72c55fbf2d093e1a7981f5.patch";
-                hash = "sha256-moRZpoNrHrVCJfZTv/6l3mkQwTvpP7wGLECzInf/kiw=";
-              })
-          ];
-      });
+      default = pkgs.hyprland;
 
       # default = pkgs.hyprland.overrideAttrs (old: {
       # src = pkgs.fetchFromGitHub {
@@ -311,7 +301,7 @@ in {
                     "hyprctl setcursor ${cursor.name} ${toString cursor.size}"
                     "${lib.getExe pkgs.hyprpaper} & ${pkgs.playerctl}/bin/playerctld & mako"
 
-                    "firefox &"
+                    "zen-browser &"
                     "${lib.getExe config.programs.discord.finalPackage} &"
                     "cinny &"
                     # "${lib.getExe pkgs.caprine-bin} &"
@@ -492,7 +482,7 @@ in {
                   "idleinhibit fullscreen,class:^(.*)$"
                   "float,class:^([Ww]aydroid.*)$"
 
-                  "workspace 2,class:firefox"
+                  "workspace 2,class:zen-alpha"
 
                   "rounding 0,workspace:1,floating:0"
                   "bordersize 1,workspace:1,floating:0"

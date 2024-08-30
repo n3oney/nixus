@@ -55,6 +55,7 @@
                 ".platformio"
                 ".config/obsidian"
                 ".config/kdeconnect"
+                ".zen"
               ]
               ++ (lib.optionals config.programs.curaSlicer.enable [".config/cura" ".local/share/cura"])
               ++ (lib.optionals config.programs.orcaSlicer.enable [".config/OrcaSlicer" ".local/share/orca-slicer"])
