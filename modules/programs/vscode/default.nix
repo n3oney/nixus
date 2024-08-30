@@ -64,6 +64,7 @@
           bradlc.vscode-tailwindcss
           ms-vscode-remote.remote-containers
           bbenoist.nix
+          wakatime.vscode-wakatime
         ])
         ++ (
           pkgs.vscode-utils.extensionsFromVscodeMarketplace [
