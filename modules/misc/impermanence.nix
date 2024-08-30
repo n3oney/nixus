@@ -56,6 +56,7 @@
                 ".config/obsidian"
                 ".config/kdeconnect"
                 ".wakatime"
+                ".local/share/bottles"
                 ".config/workpuls-agent"
                 ".zen"
                 ".config/zed"

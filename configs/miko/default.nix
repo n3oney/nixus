@@ -47,6 +47,7 @@ in {
     adb.enable = true;
     waydroid.enable = true;
     anyrun.enable = true;
+    bottles.enable = true;
     btop.enable = true;
     cinny.enable = true;
     discord.enable = true;
