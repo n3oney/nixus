@@ -64,7 +64,6 @@
     # jellyfinPlayer.enable = true;
 
     vscode.enable = true;
-    warp.enable = true;
 
     youtube-music.enable = true;
   };
@@ -74,6 +73,7 @@
     yubikey-touch-detector.enable = true;
     podman.enable = true;
     # uxplay.enable = true;
+    warp.enable = true;
     kondo.enable = true;
   };
 
