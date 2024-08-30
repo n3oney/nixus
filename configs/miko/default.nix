@@ -63,6 +63,7 @@ in {
       steeringWheel.enable = true;
       xonotic.enable = true;
     };
+    insightful.enable = true;
     jellyfinPlayer.enable = true;
     ngrok.enable = true;
     obsidian.enable = true;

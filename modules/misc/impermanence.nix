@@ -56,6 +56,7 @@
                 ".config/obsidian"
                 ".config/kdeconnect"
                 ".wakatime"
+                ".config/workpuls-agent"
                 ".zen"
               ]
               ++ (lib.optionals config.programs.curaSlicer.enable [".config/cura" ".local/share/cura"])
