@@ -75,6 +75,11 @@ in {
       dev.enable = false;
     };
 
+    nixpkgs.config.permittedInsecurePackages = [
+      "cinny-unwrapped-4.1.0"
+      "olm-3.2.16"
+    ];
+
     nix = let
       mappedRegistry = lib.mapAttrs (_: v: {flake = v;}) inputs;
     in {
