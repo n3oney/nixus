@@ -58,6 +58,7 @@
                 ".wakatime"
                 ".config/workpuls-agent"
                 ".zen"
+                ".config/zed"
               ]
               ++ (lib.optionals config.programs.curaSlicer.enable [".config/cura" ".local/share/cura"])
               ++ (lib.optionals config.programs.orcaSlicer.enable [".config/OrcaSlicer" ".local/share/orca-slicer"])
