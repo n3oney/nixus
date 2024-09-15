@@ -70,6 +70,12 @@
         ++ (
           pkgs.vscode-utils.extensionsFromVscodeMarketplace [
             {
+              name = "tailwind-fold";
+              publisher = "stivo";
+              version = "0.2.0";
+              sha256 = "sha256-yH3eA5jgBwxqnpFQkg91KQMkQps5iM1v783KQkQcWUU=";
+            }
+            {
               name = "sqltools";
               publisher = "mtxr";
               version = "0.28.3";
