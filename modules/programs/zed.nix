@@ -6,6 +6,30 @@
 }: {
   options.programs.zed.enable = lib.mkEnableOption "Zed";
 
+  config.os = lib.mkIf config.programs.zed.enable {
+    systemd.tmpfiles.settings = {
+      "10-zed" = {
+        "/home/neoney/.local/share/zed".d = {
+          group = "users";
+          user = "neoney";
+          mode = "0755";
+        };
+
+        "/home/neoney/.local/share/zed/languages".d = {
+          group = "users";
+          user = "neoney";
+          mode = "0755";
+        };
+
+        "/home/neoney/.local/share/zed/languages/eslint".d = {
+          group = "users";
+          user = "neoney";
+          mode = "0755";
+        };
+      };
+    };
+  };
+
   config.hm = lib.mkIf config.programs.zed.enable {
     home.file.".local/share/zed/node/node-v22.5.1-linux-x64" = {
       recursive = true;
@@ -20,16 +44,24 @@
       {
         "assistant": {
           "default_model": {
-            "provider": "anthropic",
+            "provider": "zed.dev",
             "model": "claude-3-5-sonnet-20240620"
+            ${
+        /*
+        "provider": "copilot_chat",
+         "model": "gpt-4o"
+        */
+        ""
+      }
           },
           "version": "2"
         },
         "ui_font_size": 16,
-        "buffer_font_size": 16,
+        "buffer_font_size": 14,
+        "buffer_font_family": "monospace",
         "theme": {
           "mode": "system",
-          "light": "Rosé Pine",
+          "light": "Rosé Pine Moon",
           "dark": "One Dark"
         },
         "load_direnv": "direct",
@@ -42,6 +74,11 @@
           "hour_format": "hour24"
         },
         "lsp": {
+          "eslint": {
+            "binary": {
+              "path_lookup": true
+            }
+          },
           "nixd": {
             "binary": {
               "path": "${pkgs.nixd}/bin/nixd"

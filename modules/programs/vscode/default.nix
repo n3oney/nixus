@@ -33,13 +33,14 @@
 
         "platformio-ide.customPATH" = "${pkgs.platformio}/bin/platformio";
 
+        "editor.fontLigatures" = "'calt', 'ss01', 'ss02', 'ss03', 'ss04', 'ss06', 'ss07', 'ss08', 'ss09', 'liga'";
         "git.enableSmartCommit" = true;
         "git.autofetch" = false;
         "git.confirmSync" = false;
         "editor.fontFamily" = "monospace";
         "editor.fontSize" = 15;
         "editor.formatOnSave" = true;
-        "workbench.colorTheme" = "Rosé Pine";
+        "workbench.colorTheme" = "Rosé Pine Moon";
         "git.openRepositoryInParentFolders" = "always";
         "security.workspace.trust.enabled" = false;
         "typescript.inlayHints.parameterNames.enabled" = "all";
