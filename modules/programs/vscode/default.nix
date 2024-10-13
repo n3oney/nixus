@@ -22,6 +22,9 @@
         "[jsonc]" = {
           "editor.defaultFormatter" = "esbenp.prettier-vscode";
         };
+        "[json]" = {
+          "editor.defaultFormatter" = "esbenp.prettier-vscode";
+        };
         "[cpp]" = {
           "editor.defaultFormatter" = "xaver.clang-format";
         };
