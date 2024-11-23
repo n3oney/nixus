@@ -72,10 +72,6 @@ in {
     swappy.enable = true;
     thunderbird.enable = true;
     vscode.enable = true;
-    youtube-tv = {
-      enable = true;
-      audioSink = secondarySink;
-    };
     youtube-music.enable = true;
     zed.enable = true;
     zenBrowser.enable = true;
