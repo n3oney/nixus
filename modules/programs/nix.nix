@@ -76,7 +76,7 @@ in {
     };
 
     nixpkgs.config.permittedInsecurePackages = [
-      "cinny-unwrapped-4.1.0"
+      "cinny-unwrapped-4.2.1"
       "olm-3.2.16"
     ];
 
