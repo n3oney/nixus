@@ -347,6 +347,9 @@ in {
                   ++ [
                     "1,monitor:${cfg.monitors.main.name}, gapsin:0, gapsout:0"
                     "2,monitor:${cfg.monitors.main.name}, default:true"
+                    "w[t1], gapsin:0, gapsout:0, border:0"
+                    "w[tg1], gapsin:0, gapsout:0, border:0"
+                    "f[1], gapsin:0, gapsout:0, border:0"
                   ];
                 input = {
                   kb_options = "caps:backspace";
@@ -465,7 +468,6 @@ in {
                 };
 
                 dwindle = {
-                  no_gaps_when_only = true;
                   pseudotile = true;
                   preserve_split = true;
                 };
