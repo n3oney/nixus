@@ -63,6 +63,9 @@
                 ".local/share/zed/copilot"
                 ".local/share/zed/languages/eslint"
                 ".config/github-copilot"
+                ".config/spotify"
+                ".config/JetBrains"
+                ".local/share/JetBrains"
               ]
               ++ (lib.optionals config.programs.curaSlicer.enable [".config/cura" ".local/share/cura"])
               ++ (lib.optionals config.programs.orcaSlicer.enable [".config/OrcaSlicer" ".local/share/orca-slicer"])

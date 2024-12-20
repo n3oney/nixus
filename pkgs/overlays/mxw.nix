@@ -2,7 +2,7 @@
   lib,
   fetchFromGitHub,
   rustPlatform,
-  libusb,
+  libusb1,
   pkg-config,
 }:
 rustPlatform.buildRustPackage rec {
@@ -18,7 +18,7 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-EcDRtGgnVTJXnmcYG99orxchxGkv1QDVIPbWJv+2PAQ=";
 
-  buildInputs = [libusb];
+  buildInputs = [libusb1];
   nativeBuildInputs = [pkg-config];
 
   meta = with lib; {

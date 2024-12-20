@@ -409,12 +409,14 @@ in {
                 decoration = {
                   rounding = 20;
 
-                  drop_shadow = true;
-                  shadow_ignore_window = true;
-                  shadow_range = 20;
-                  shadow_render_power = 2;
-                  shadow_offset = "0 2";
-                  "col.shadow" = "rgba(0000001A)";
+                  shadow = {
+                    enabled = true;
+                    color = "rgba(0000001A)";
+                    ignore_window = true;
+                    range = 20;
+                    render_power = 2;
+                    offset = "0 2";
+                  };
 
                   dim_special = 0.6;
 

@@ -6,7 +6,7 @@
 }: {
   os.environment = {
     systemPackages = [inputs.nh.packages.${pkgs.system}.default];
-    sessionVariables.FLAKE = "/home/neoney/nixus";
+    sessionVariables.NH_FLAKE = "/home/neoney/nixus";
   };
 
   os.nix.settings = {

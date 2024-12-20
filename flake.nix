@@ -3,7 +3,7 @@
 
   inputs = {
     agenix.url = "github:ryantm/agenix";
-    ags.url = "github:Aylur/ags";
+    ags.url = "github:Aylur/ags/v1.9.0";
     anyrun.url = "github:kirottu/anyrun";
     anyrun-ha-assist.url = "github:n3oney/anyrun-ha-assist";
     anyrun-nixos-options.url = "github:n3oney/anyrun-nixos-options/v2.0.0";

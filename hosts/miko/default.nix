@@ -53,9 +53,7 @@
 
     services.avahi.enable = true;
 
-    hardware.opengl = {
-      driSupport32Bit = true;
-    };
+    hardware.graphics.enable32Bit = true;
 
     users.users.neoney.openssh.authorizedKeys.keys = [
       "sk-ssh-ed25519@openssh.com AAAAGnNrLXNzaC1lZDI1NTE5QG9wZW5zc2guY29tAAAAIFeCIZo/mMTNeo7hcOorHs0ooTACJqiT+MGe6xUJV2BzAAAABHNzaDo= neoney@miko"

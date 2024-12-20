@@ -57,7 +57,7 @@
         hmConfig.gtk.theme.package
       ]
       ++ (with pkgs; [
-        qt5ct
+        libsForQt5.qt5ct
         lightly-qt
       ]);
 

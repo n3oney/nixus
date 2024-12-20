@@ -10,7 +10,8 @@
     fonts = {
       packages = with pkgs; [
         cozette
-        (nerdfonts.override {fonts = ["JetBrainsMono" "Monaspace"];})
+        nerd-fonts.monaspace
+        nerd-fonts.jetbrains-mono
         twilio-sans-mono-nerd-font
         roboto
         roboto-serif
@@ -20,7 +21,7 @@
         font-awesome_4
         joypixels
         noto-fonts
-        noto-fonts-cjk
+        noto-fonts-cjk-sans
       ];
 
       enableDefaultPackages = false;

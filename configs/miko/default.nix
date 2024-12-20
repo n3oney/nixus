@@ -66,14 +66,16 @@ in {
     };
     insightful.enable = true;
     jellyfinPlayer.enable = true;
+    webstorm.enable = true;
     ngrok.enable = true;
     obsidian.enable = true;
     orcaSlicer.enable = true;
+    spotify.enable = true;
     swappy.enable = true;
     thunderbird.enable = true;
     vscode.enable = true;
     youtube-music.enable = true;
-    zed.enable = true;
+    # zed.enable = true;
     zenBrowser.enable = true;
   };
 

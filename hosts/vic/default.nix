@@ -57,9 +57,7 @@
     # AirPlay support
     services.avahi.enable = true;
 
-    hardware.opengl = {
-      driSupport32Bit = lib.mkForce false;
-    };
+    hardware.graphics.enable32Bit = lib.mkForce false;
 
     users.users = let
       keys = [
