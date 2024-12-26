@@ -3,23 +3,11 @@
   # pkgs,
   lib,
   inputs,
-  pkgs,
   ...
 }: {
   osModules = [inputs.apple-silicon-support.nixosModules.apple-silicon-support ./hardware-configuration.nix];
 
-  os = let
-    box64 = pkgs.box64.overrideAttrs (old: {
-      version = "unstable-2024-01-29";
-      src = pkgs.fetchFromGitHub {
-        owner = "ptitSeb";
-        repo = "box64";
-        rev = "9793c3b142c325d9405b1baa5959547a3f49fcaf";
-        hash = "sha256-zvkSeZcDWj+3XJSo3c5MRk3e0FJhVe7FuEyEVwkCzPE=";
-      };
-      cmakeFlags = (old.cmakeFlags or []) ++ ["-D M1=1"];
-    });
-  in {
+  os = {
     nixpkgs.config.allowUnfree = true;
 
     boot.loader = {
@@ -30,7 +18,7 @@
     boot.binfmt.emulatedSystems = ["x86_64-linux"];
 
     networking = {
-      hostName = "vic";
+      hostName = "ciri";
       wireless = {
         enable = false;
         iwd.enable = true;

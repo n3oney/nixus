@@ -39,21 +39,19 @@
       inputs.nixpkgs.follows = "nixpkgs";
       url = "github:viperML/nh";
     };
-    impurity.url = "github:outfoxxed/impurity.nix";
     nix-colors.url = "github:Misterio77/nix-colors";
     # nix-super.url = "github:privatevoid-net/nix-super";
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     # nixpkgs-master.url = "github:nixos/nixpkgs";
     nixpkgs-2405.url = "github:nixos/nixpkgs/24.05";
     nur.url = "github:nix-community/NUR";
-    poweroff.url = "github:n3oney/ha-poweroff";
     rust-overlay.url = "github:oxalica/rust-overlay";
     shadower.url = "github:n3oney/shadower";
     shibabot = {
       url = "git+ssh://git@github.com/n3oney/shibabot2.git";
       flake = false;
     };
-    uonetplan.url = "github:n3oney/uonetplan";
+    zen-browser.url = "github:fufexan/zen-browser-flake";
   };
 
   outputs = inputs @ {nixpkgs, ...}: let
@@ -89,27 +87,27 @@
       };
 
       # Laptop
-      vic = combinedManager.nixosSystem {
+      ciri = combinedManager.nixosSystem {
         inherit inputs;
         configuration = {
           system = "aarch64-linux";
           modules = [
             ./modules
-            ./hosts/vic
-            ./configs/vic
+            ./hosts/ciri
+            ./configs/ciri
           ];
         };
       };
 
       # # VPS
-      maya = combinedManager.nixosSystem {
+      yen = combinedManager.nixosSystem {
         inherit inputs;
         configuration = {
           system = "aarch64-linux";
           modules = [
             ./modules
-            ./hosts/maya
-            ./configs/maya
+            ./hosts/yen
+            ./configs/yen
           ];
         };
       };

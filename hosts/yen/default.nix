@@ -11,7 +11,7 @@ _: {
     };
 
     networking = {
-      hostName = "maya";
+      hostName = "yen";
       networkmanager.enable = true;
       enableIPv6 = true;
       firewall.allowedTCPPorts = [21];

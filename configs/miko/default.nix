@@ -65,7 +65,6 @@ in {
       xonotic.enable = true;
     };
     insightful.enable = true;
-    jellyfinPlayer.enable = true;
     webstorm.enable = true;
     ngrok.enable = true;
     obsidian.enable = true;
@@ -82,7 +81,6 @@ in {
   services = {
     warp.enable = true;
     kde_connect.enable = true;
-    ha-poweroff.enable = true;
     podman.enable = true;
     openrgb = {
       enable = true;

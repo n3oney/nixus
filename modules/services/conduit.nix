@@ -19,6 +19,8 @@
       };
     };
 
+    systemd.services.conduit.serviceConfig.ExecStart = lib.mkForce "${inputs.conduwuit.packages.${pkgs.system}.default}/bin/conduwuit";
+
     networking.firewall.allowedTCPPorts = [80 443 8448];
 
     services.caddy = {

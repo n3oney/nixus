@@ -78,6 +78,8 @@ in {
     nixpkgs.config.permittedInsecurePackages = [
       "cinny-unwrapped-4.2.3"
       "olm-3.2.16"
+      "dotnet-sdk-6.0.428"
+      "aspnetcore-runtime-6.0.36"
     ];
 
     nix = let

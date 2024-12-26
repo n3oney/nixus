@@ -28,19 +28,7 @@ in {
             owner = "cloudflared";
           })
           (
-            secretForHostnames [
-              "miko"
-              "vic"
-              "maya"
-            ]
-            ../../secrets/uonetplan.age
-            "uonetplan"
-            {
-              owner = "uonetplan";
-            }
-          )
-          (
-            secretForHostnames ["miko" "vic" "maya"] ../../secrets/shibabot.age "shibabot" {owner = "shibabot";}
+            secretForHostnames ["miko" "ciri" "yen"] ../../secrets/shibabot.age "shibabot" {owner = "shibabot";}
           )
         ];
         environment.systemPackages = [inputs.agenix.packages.${pkgs.system}.default];
@@ -48,11 +36,11 @@ in {
 
       hm = {
         age.secrets = lib.mkMerge [
-          (secretForHostnames ["miko" "vic"] ../../secrets/ha_assist_config.age "ha_assist_config" {})
-          (secretForHostnames ["miko" "vic"] ../../secrets/gh_notifications_key.age "gh_notifications_key" {})
-          (secretForHostnames ["miko" "vic" "maya" "max"] ../../secrets/wakatime.age "wakatime" {})
-          (secretForHostnames ["miko" "vic" "maya" "max"] ../../secrets/ssh_hosts.age "ssh_hosts" {})
-          (secretForHostnames ["miko" "vic" "maya" "max"] ../../secrets/ngrok.age "ngrok" {})
+          (secretForHostnames ["miko" "ciri"] ../../secrets/ha_assist_config.age "ha_assist_config" {})
+          (secretForHostnames ["miko" "ciri"] ../../secrets/gh_notifications_key.age "gh_notifications_key" {})
+          (secretForHostnames ["miko" "ciri" "yen" "max"] ../../secrets/wakatime.age "wakatime" {})
+          (secretForHostnames ["miko" "ciri" "yen" "max"] ../../secrets/ssh_hosts.age "ssh_hosts" {})
+          (secretForHostnames ["miko" "ciri" "yen" "max"] ../../secrets/ngrok.age "ngrok" {})
         ];
         age.identityPaths = ["/home/neoney/.ssh/id_ed25519_agenix"];
       };

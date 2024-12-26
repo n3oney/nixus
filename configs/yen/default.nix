@@ -9,10 +9,8 @@
 
   services.minecraft-server.enable = true;
 
-  services.uonetplan.enable = true;
-
   services.arr = {
-    enable = true;
+    enable = false;
     jackett.enable = false;
   };
 

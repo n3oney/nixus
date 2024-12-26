@@ -9,44 +9,29 @@
 
   services.upower.enable = true;
 
-  boot.kernelPatches = [
-    {
-      name = "edge-config";
-      patch = null;
-      # derived from
-      # https://github.com/AsahiLinux/PKGBUILDs/blob/stable/linux-asahi/config.edge
-      extraConfig = ''
-        DRM_SIMPLEDRM_BACKLIGHT n
-        BACKLIGHT_GPIO n
-        DRM_APPLE m
-        APPLE_SMC m
-        APPLE_SMC_RTKIT m
-        APPLE_RTKIT m
-        APPLE_MBOX m
-        GPIO_MACSMC m
-        DRM_VGEM n
-        DRM_SCHED y
-        DRM_GEM_SHMEM_HELPER y
-        DRM_ASAHI m
-        SUSPEND y
-      '';
-    }
-    {
-      name = "waydroid";
-      patch = null;
-      extraConfig = ''
-        ANDROID_BINDER_IPC y
-        ANDROID_BINDERFS y
-        ASHMEM y
-        MEMFD_CREATE y
-        CONFIG_MEMFD_CREATE y
-        CONFIG_ASHMEM y
-        CONFIG_ANDROID_BINDERFS y
-        CONFIG_ANDROID_BINDER_IPC y
-        ANDROID_BINDER_DEVICES binder,hwbinder,vndbinder
-      '';
-    }
-  ];
+  # boot.kernelPatches = [
+  #   {
+  #     name = "edge-config";
+  #     patch = null;
+  #     # derived from
+  #     # https://github.com/AsahiLinux/PKGBUILDs/blob/stable/linux-asahi/config.edge
+  #     extraConfig = ''
+  #       DRM_SIMPLEDRM_BACKLIGHT n
+  #       BACKLIGHT_GPIO n
+  #       DRM_APPLE m
+  #       APPLE_SMC m
+  #       APPLE_SMC_RTKIT m
+  #       APPLE_RTKIT m
+  #       APPLE_MBOX m
+  #       GPIO_MACSMC m
+  #       DRM_VGEM n
+  #       DRM_SCHED y
+  #       DRM_GEM_SHMEM_HELPER y
+  #       DRM_ASAHI m
+  #       SUSPEND y
+  #     '';
+  #   }
+  # ];
 
   boot.initrd.luks.devices = {
     nixos-enc = {
