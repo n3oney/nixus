@@ -64,10 +64,8 @@ in {
       steeringWheel.enable = true;
       xonotic.enable = true;
     };
-    insightful.enable = true;
     webstorm.enable = true;
     ngrok.enable = true;
-    obsidian.enable = true;
     orcaSlicer.enable = true;
     spotify.enable = true;
     swappy.enable = true;

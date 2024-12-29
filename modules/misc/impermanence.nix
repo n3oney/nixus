@@ -53,7 +53,6 @@
                 ".xonotic"
                 ".local/share/emacs"
                 ".platformio"
-                ".config/obsidian"
                 ".config/kdeconnect"
                 ".wakatime"
                 ".local/share/bottles"
