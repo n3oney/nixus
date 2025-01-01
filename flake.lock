@@ -1781,11 +1781,11 @@
     },
     "nixpkgs_20": {
       "locked": {
-        "lastModified": 1725634671,
-        "narHash": "sha256-v3rIhsJBOMLR8e/RNWxr828tB+WywYIoajrZKFM+0Gg=",
+        "lastModified": 1735291276,
+        "narHash": "sha256-NYVcA06+blsLG6wpAbSPTCyLvxD/92Hy4vlY9WxFI1M=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "574d1eac1c200690e27b8eb4e24887f8df7ac27c",
+        "rev": "634fd46801442d760e09493a794c4f15db2d0cbb",
         "type": "github"
       },
       "original": {
@@ -1986,7 +1986,7 @@
         "rust-overlay": "rust-overlay_2",
         "shadower": "shadower",
         "shibabot": "shibabot",
-        "zen-browser": "zen-browser"
+        "zen-browser-flake": "zen-browser-flake"
       }
     },
     "rust-analyzer-src": {
@@ -2272,20 +2272,20 @@
         "type": "github"
       }
     },
-    "zen-browser": {
+    "zen-browser-flake": {
       "inputs": {
         "nixpkgs": "nixpkgs_20"
       },
       "locked": {
-        "lastModified": 1735044813,
-        "narHash": "sha256-ZM0Xe8bISkwuZ5YVznB1inXuZT95EjrFkFR+P5RIKYE=",
-        "owner": "fufexan",
+        "lastModified": 1735446997,
+        "narHash": "sha256-Er9Jftp09FPMya0qpb2H+PKBkVgTbGSayNes2sQd9hQ=",
+        "owner": "youwen5",
         "repo": "zen-browser-flake",
-        "rev": "2aee37b6cba97fc1fbec9bf7f64626f2e69982c6",
+        "rev": "12bba4871d25e1f51d0ccb1967a49ade45811849",
         "type": "github"
       },
       "original": {
-        "owner": "fufexan",
+        "owner": "youwen5",
         "repo": "zen-browser-flake",
         "type": "github"
       }

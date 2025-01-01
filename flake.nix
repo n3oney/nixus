@@ -51,7 +51,7 @@
       url = "git+ssh://git@github.com/n3oney/shibabot2.git";
       flake = false;
     };
-    zen-browser.url = "github:fufexan/zen-browser-flake";
+    zen-browser-flake.url = "github:youwen5/zen-browser-flake";
   };
 
   outputs = inputs @ {nixpkgs, ...}: let

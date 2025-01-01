@@ -301,7 +301,7 @@ in {
                     "hyprctl setcursor ${cursor.name} ${toString cursor.size}"
                     "${lib.getExe pkgs.hyprpaper} & ${pkgs.playerctl}/bin/playerctld & mako"
 
-                    "zen-browser &"
+                    "zen &"
                     "${lib.getExe config.programs.discord.finalPackage} &"
                     "cinny &"
                     # "${lib.getExe pkgs.caprine-bin} &"
