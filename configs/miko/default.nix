@@ -96,6 +96,7 @@ in {
 
   hm.home.packages = with pkgs; [
     horizontallyspinningrat
+    unzip
 
     (wrapOBS {
       plugins = with obs-studio-plugins; [
