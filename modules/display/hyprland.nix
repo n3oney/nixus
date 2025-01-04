@@ -486,7 +486,7 @@ in {
                   "idleinhibit fullscreen,class:^(.*)$"
                   "float,class:^([Ww]aydroid.*)$"
 
-                  "workspace 2,class:zen-alpha"
+                  "workspace 2,class:zen-beta"
 
                   "rounding 0,workspace:1,floating:0"
                   "bordersize 1,workspace:1,floating:0"
