@@ -32,7 +32,9 @@
     home-assistant.host = "hass.max.local:80";
   };
 
-  services.mopidy.enable = true;
+  services.librespot.enable = true;
+
+  services.mopidy.enable = false;
 
   hm.home.packages = with pkgs; [
     ripgrep
