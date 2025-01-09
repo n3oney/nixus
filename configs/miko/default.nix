@@ -95,6 +95,7 @@ in {
   agenix.enable = true;
 
   hm.home.packages = with pkgs; [
+    cloudflared
     horizontallyspinningrat
     unzip
 
