@@ -35,6 +35,19 @@
 
       hyprlandCfg = hmConfig.wayland.windowManager.hyprland.settings;
 
+      nwg-hello = pkgs.nwg-hello.overrideAttrs (oldAttrs: {
+        postPatch =
+          (oldAttrs.postPatch or "")
+          + ''
+            substituteInPlace nwg_hello/main.py \
+              --replace "$out/etc/nwg-hello/nwg-hello.json" "/etc/nwg-hello/nwg-hello.json" \
+              --replace "$out/etc/nwg-hello/nwg-hello.css" "/etc/nwg-hello/nwg-hello.css"
+
+            substituteInPlace nwg-hello-default.css \
+              --replace "/usr/share/nwg-hello/nwg.jpg" "$out/share/nwg-hello/nwg.jpg"
+          '';
+      });
+
       greetdHyprlandConfig = pkgs.writeText "greetd-hyprland-config" (toHyprconf {
           inherit (hyprlandCfg) input general decoration animations dwindle misc;
 
@@ -47,16 +60,28 @@
               "GTK_THEME,${hmConfig.gtk.theme.name}"
             ];
 
+          debug.disable_logs = false;
+
           exec-once = [
             "dbus-update-activation-environment --systemd --all"
             "hyprctl setcursor ${hmConfig.home.pointerCursor.name} ${toString hmConfig.home.pointerCursor.size}"
             # No --layer-shell, because Hyprland doesn't focus it by default.
-            "${lib.getExe pkgs.greetd.regreet}; hyprctl dispatch exit"
+            "${nwg-hello}/bin/nwg-hello; hyprctl dispatch exit"
             "systemctl --user restart xdg-desktop-portal xdg-desktop-portal-hyprland"
           ];
         }
         0);
     in {
+      environment.etc."nwg-hello/nwg-hello.json".text = builtins.toJSON {
+        session_dirs = ["${hmConfig.wayland.windowManager.hyprland.package}/share/wayland-sessions"];
+        custom_sessions = [
+          {
+            name = "Hyprland";
+            exec = "Hyprland";
+          }
+        ];
+      };
+
       services.greetd = {
         enable = true;
         settings = {
