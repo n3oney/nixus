@@ -26,5 +26,12 @@
     });
   in {
     home.packages = [orcaslicer];
+
+    xdg.desktopEntries.orca-slicer = {
+      name = "Orca Slicer";
+      exec = "${orcaslicer}/bin/orca-slicer";
+      terminal = false;
+      type = "Application";
+    };
   });
 }
