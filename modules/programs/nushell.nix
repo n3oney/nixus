@@ -64,6 +64,20 @@
             ${opaquewrap "hx"}
           }
 
+
+          def --wrapped nvim [...args] {
+            ${opaquewrap "nvim"}
+          }
+
+
+          def --wrapped vim [...args] {
+            ${opaquewrap "vim"}
+          }
+
+          def --wrapped vi [...args] {
+            ${opaquewrap "vi"}
+          }
+
           def --wrapped btop [...args] {
             ${opaquewrap "btop"}
           }
