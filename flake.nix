@@ -52,6 +52,7 @@
       flake = false;
     };
     zen-browser-flake.url = "github:youwen5/zen-browser-flake";
+    nvf.url = "github:NotAShelf/nvf";
   };
 
   outputs = inputs @ {nixpkgs, ...}: let

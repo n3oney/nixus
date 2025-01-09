@@ -65,6 +65,7 @@ in {
       xonotic.enable = true;
     };
     webstorm.enable = true;
+    neovim.enable = true;
     ngrok.enable = true;
     orcaSlicer.enable = true;
     spotify.enable = true;
