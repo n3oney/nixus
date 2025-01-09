@@ -49,6 +49,7 @@
     ags.enable = true;
     firefox.enable = true;
     foot.enable = true;
+    neovim.enable = true;
     swappy.enable = true;
     thunderbird.enable = true;
     gaming = {
