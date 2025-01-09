@@ -21,12 +21,30 @@
           }
         ];
 
+        useSystemClipboard = true;
+        ui = {
+          fastaction.enable = true;
+          smartcolumn.enable = true;
+          borders.plugins.fastaction.enable = true;
+          illuminate.enable = true;
+          modes-nvim.enable = true;
+        };
+        assistant.copilot = {
+          enable = true;
+          cmp.enable = true;
+        };
+
         viAlias = true;
         vimAlias = true;
         lsp = {
           enable = true;
           formatOnSave = true;
           lightbulb.enable = true;
+          lspSignature.enable = true;
+          mappings = {
+            hover = "<leader>h";
+            codeAction = "<leader>.";
+          };
         };
         telescope = {
           enable = true;
@@ -45,7 +63,12 @@
         autocomplete = {
           nvim-cmp.enable = true;
         };
-        utility.motion.leap.enable = true;
+        utility = {
+          surround.enable = true;
+          motion.leap.enable = true;
+          motion.precognition.enable = true;
+          ccc.enable = true;
+        };
         autopairs.nvim-autopairs.enable = true;
         theme = {
           enable = true;
@@ -53,7 +76,10 @@
           style = "main";
         };
         treesitter.enable = true;
-        binds.whichKey.enable = true;
+        binds = {
+          whichKey.enable = true;
+          cheatsheet.enable = true;
+        };
         languages = {
           nix = {
             enable = true;
