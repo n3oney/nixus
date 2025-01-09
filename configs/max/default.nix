@@ -36,6 +36,8 @@
 
   services.mopidy.enable = false;
 
+  services.sage.enable = true;
+
   hm.home.packages = with pkgs; [
     ripgrep
     lazygit
