@@ -87,6 +87,12 @@
             lsp.enable = true;
             treesitter.enable = true;
           };
+          clang = {
+            enable = true;
+            cHeader = true;
+            lsp.enable = true;
+            treesitter.enable = true;
+          };
           ts = {
             enable = true;
             lsp.enable = true;
