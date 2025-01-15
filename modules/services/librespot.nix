@@ -4,7 +4,13 @@
   lib,
   ...
 }: {
-  options.services.librespot.enable = lib.mkEnableOption "Librespot";
+  options.services.librespot = {
+    enable = lib.mkEnableOption "Librespot";
+    name = lib.mkOption {
+      type = lib.types.str;
+      default = "Lirespot";
+    };
+  };
 
   config.os = lib.mkIf config.services.librespot.enable {
     systemd.services.librespot = {
@@ -17,7 +23,7 @@
         Group = toString config.os.users.groups.librespot.name;
       };
       wantedBy = ["multi-user.target"];
-      script = "${pkgs.librespot}/bin/librespot --name Librespot --enable-oauth -c /var/cache/librespot";
+      script = "${pkgs.librespot}/bin/librespot --name ${config.services.librespot.name} --enable-oauth -c /var/cache/librespot";
     };
 
     systemd.tmpfiles.rules = [
