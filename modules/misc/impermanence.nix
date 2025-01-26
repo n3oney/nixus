@@ -18,6 +18,7 @@
               user = "neoney";
               group = "users";
             }) ([
+                ".config/sops"
                 ".local/share/waydroid"
                 "nixus"
                 "Downloads"

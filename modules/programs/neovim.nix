@@ -14,20 +14,53 @@
       enable = true;
       settings.vim = {
         keymaps = [
+          # alt backspace to delete word backwards
           {
             key = "<M-BS>";
             mode = ["i"];
             action = "<C-W>";
+          }
+
+          # ctrl+j = leap (i+n)
+          # ctrl+alt+jf leap backward (i+n)
+          {
+            key = "<C-j>";
+            mode = ["n"];
+            action = ":lua require('leap').leap {}<CR>";
+          }
+          {
+            key = "<C-j>";
+            mode = ["i"];
+            lua = true;
+            action = "function() require('leap').leap {} end";
+          }
+
+          {
+            key = "<C-M-j>";
+            mode = ["n"];
+            action = ":lua require('leap').leap { backward = true }<CR>";
+          }
+
+          {
+            key = "<C-M-j>";
+            mode = ["i"];
+            lua = true;
+            action = "function() require('leap').leap { backward = true } end";
           }
         ];
 
         useSystemClipboard = true;
         ui = {
           fastaction.enable = true;
+          fastaction.setupOpts = {
+            popup = {
+              relative = "cursor";
+            };
+          };
           smartcolumn.enable = true;
-          borders.plugins.fastaction.enable = true;
           illuminate.enable = true;
           modes-nvim.enable = true;
+          noice.enable = true;
         };
         assistant.copilot = {
           enable = true;
@@ -37,6 +70,7 @@
         viAlias = true;
         vimAlias = true;
         lsp = {
+          lspconfig.enable = true;
           enable = true;
           formatOnSave = true;
           lightbulb.enable = true;
@@ -61,7 +95,7 @@
           mappings.liveGrep = "<leader>/";
         };
         autocomplete = {
-          nvim-cmp.enable = true;
+          nvim-cmp.enable = false;
         };
         utility = {
           surround.enable = true;
