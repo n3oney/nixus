@@ -71,5 +71,7 @@
   networking.useDHCP = lib.mkDefault true;
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
+  nixpkgs.config.rocmSupport = true;
   hardware.cpu.amd.updateMicrocode = true;
+  hardware.amdgpu.opencl.enable = true;
 }
