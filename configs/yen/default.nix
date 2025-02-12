@@ -14,6 +14,8 @@
     jackett.enable = false;
   };
 
+  services.syncthing.enable = true;
+
   services.shibabot.enable = true;
 
   services.vaultwarden.enable = true;
