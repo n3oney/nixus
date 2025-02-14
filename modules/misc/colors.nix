@@ -10,7 +10,7 @@
         slug = "rose-pine";
         name = "Rosé Pine";
         author = "https://github.com/edunfelt";
-        colors = rec {
+        palette = rec {
           base00 = "191724";
           base01 = "1f1d2e";
           base02 = "26233a";

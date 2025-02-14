@@ -33,13 +33,13 @@
             with builtins;
             with lib; ''
               printf "\033]11;rgba:${
-                concatStringsSep "/" (match "([0-9a-fA-F]{2})([0-9a-fA-F]{2})([0-9a-fA-F]{2})" config.colors.colorScheme.colors.base00)
+                concatStringsSep "/" (match "([0-9a-fA-F]{2})([0-9a-fA-F]{2})([0-9a-fA-F]{2})" config.colors.colorScheme.palette.base00)
               }/ff\007"
 
               ${binary} $argv
 
               printf "\033]11;rgba:${
-                concatStringsSep "/" (match "([0-9a-fA-F]{2})([0-9a-fA-F]{2})([0-9a-fA-F]{2})" config.colors.colorScheme.colors.base00)
+                concatStringsSep "/" (match "([0-9a-fA-F]{2})([0-9a-fA-F]{2})([0-9a-fA-F]{2})" config.colors.colorScheme.palette.base00)
               }/${toHexString (floor (config.colors.backgroundAlpha * 255))}\007"
             '';
           inherit (lib) mkIf;
@@ -80,7 +80,7 @@
       programs.eza = {
         enable = true;
         # enableAliases = false;
-        icons = true;
+        icons = "auto";
         git = true;
       };
     };

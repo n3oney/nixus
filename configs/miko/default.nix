@@ -49,12 +49,12 @@ in {
     anyrun.enable = true;
     bottles.enable = true;
     btop.enable = true;
-    cinny.enable = true;
+    # cinny.enable = true;
     discord.enable = true;
     ags.enable = true;
     emacs.enable = false;
     firefox.enable = true;
-    foot.enable = true;
+    # foot.enable = true;
     gaming = {
       steam = {
         enable = true;
@@ -64,6 +64,7 @@ in {
       steeringWheel.enable = true;
       xonotic.enable = true;
     };
+    ghostty.enable = true;
     webstorm.enable = true;
     neovim.enable = true;
     ngrok.enable = true;

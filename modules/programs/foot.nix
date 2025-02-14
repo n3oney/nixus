@@ -16,7 +16,7 @@
         };
 
         colors = let
-          colors = config.colors.colorScheme.colors;
+          colors = config.colors.colorScheme.palette;
         in {
           alpha = config.colors.backgroundAlpha;
           foreground = colors.base05;

@@ -15,7 +15,7 @@ in {
     finalPackage = lib.mkOption {
       readOnly = true;
       default = cfg.package.overrideAttrs (old: {
-        patches = (old.patches or []) ++ [./readonlyFix.patch];
+        # patches = (old.patches or []) ++ [./readonlyFix.patch];
         postFixup =
           (old.postFixup or "")
           + ''

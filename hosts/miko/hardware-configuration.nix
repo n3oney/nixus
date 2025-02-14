@@ -16,57 +16,56 @@
   boot.kernelPackages = pkgs.linuxPackages_xanmod_latest;
   boot.kernelModules = ["kvm-amd" "amdgpu"];
 
-  # boot.tmp.useTmpfs = true;
+  fileSystems = let
+    generalOptions = ["noatime" "discard" "ssd" "compress=zstd"];
+  in {
+    "/" = {
+      device = "none";
+      fsType = "tmpfs";
+      options = ["size=14G" "mode=755"];
+    };
 
-  fileSystems."/" = {
-    device = "none";
-    fsType = "tmpfs";
-    options = ["size=14G" "mode=755"];
+    "/etc/ssh" = {
+      depends = ["/persist"];
+      neededForBoot = true;
+    };
+
+    "/nix" = {
+      neededForBoot = true;
+      device = "/dev/disk/by-uuid/3bb92a69-2ef7-45f7-99a6-526cb8989337";
+      fsType = "btrfs";
+      options = generalOptions ++ ["subvol=@nix"];
+    };
+
+    "/persist" = {
+      neededForBoot = true;
+      device = "/dev/disk/by-uuid/3bb92a69-2ef7-45f7-99a6-526cb8989337";
+      fsType = "btrfs";
+      options = generalOptions ++ ["subvol=@persist"];
+    };
+
+    "/boot" = {
+      device = "/dev/disk/by-uuid/0256-2C79";
+      fsType = "vfat";
+      options = ["noatime" "discard"];
+    };
+
+    /*
+    "/swap" = {
+      device = "/dev/disk/by-uuid/3bb92a69-2ef7-45f7-99a6-526cb8989337";
+      fsType = "btrfs";
+      options = generalOptions ++ ["subvol=@swap"];
+    };
+    */
+
+    "/tmp" = {
+      device = "/dev/disk/by-uuid/3bb92a69-2ef7-45f7-99a6-526cb8989337";
+      fsType = "btrfs";
+      options = generalOptions ++ ["subvol=@tmp"];
+    };
   };
 
-  fileSystems."/etc/ssh" = {
-    depends = ["/persist"];
-    neededForBoot = true;
-  };
-
-  fileSystems."/nix" = {
-    neededForBoot = true;
-    device = "/dev/disk/by-label/NIXROOT";
-    fsType = "btrfs";
-    options = ["noatime" "discard" "subvol=@nix" "compress=zstd"];
-  };
-
-  fileSystems."/persist" = {
-    neededForBoot = true;
-    device = "/dev/disk/by-label/NIXROOT";
-    fsType = "btrfs";
-    options = ["noatime" "discard" "subvol=@persist" "compress=zstd"];
-  };
-
-  fileSystems."/boot" = {
-    device = "/dev/disk/by-label/NIXBOOT";
-    fsType = "vfat";
-    options = ["noatime" "discard"];
-  };
-
-  fileSystems."/swap" = {
-    device = "/dev/disk/by-label/NIXROOT";
-    fsType = "btrfs";
-    options = ["noatime" "discard" "subvol=@swap"];
-  };
-
-  fileSystems."/tmp" = {
-    device = "/dev/disk/by-label/NIXROOT";
-    fsType = "btrfs";
-    options = ["noatime" "discard" "subvol=@tmp"];
-  };
-
-  swapDevices = [
-    {
-      device = "/swap/swapfile";
-      size = 8192;
-    }
-  ];
+  zramSwap.enable = true;
 
   networking.useDHCP = lib.mkDefault true;
 

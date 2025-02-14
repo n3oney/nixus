@@ -34,13 +34,13 @@
             with builtins;
             with lib; ''
               printf "\\033]11;rgba:${
-                concatStringsSep "/" (match "([0-9a-fA-F]{2})([0-9a-fA-F]{2})([0-9a-fA-F]{2})" config.colors.colorScheme.colors.base00)
+                concatStringsSep "/" (match "([0-9a-fA-F]{2})([0-9a-fA-F]{2})([0-9a-fA-F]{2})" config.colors.colorScheme.palette.base00)
               }/ff\\007"
 
               ^${binary} ...$args
 
               printf "\\033]11;rgba:${
-                concatStringsSep "/" (match "([0-9a-fA-F]{2})([0-9a-fA-F]{2})([0-9a-fA-F]{2})" config.colors.colorScheme.colors.base00)
+                concatStringsSep "/" (match "([0-9a-fA-F]{2})([0-9a-fA-F]{2})([0-9a-fA-F]{2})" config.colors.colorScheme.palette.base00)
               }/${toHexString (floor (config.colors.backgroundAlpha * 255))}\\007"
             '';
         in ''
@@ -169,7 +169,7 @@
 
           $env.config = {
             color_config: {
-              string: "#${config.colors.colorScheme.colors.base05}"
+              string: "#${config.colors.colorScheme.palette.base05}"
             },
             show_banner: false,
             completions: {

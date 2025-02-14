@@ -116,7 +116,11 @@ in {
     binds = mkOption {
       default =
         [
-          (mkBind "${mainMod}, Return" "exec, foot" "Launch terminal")
+          (mkBind "${mainMod}, Return" "exec, ${
+            if config.programs.ghostty.enable
+            then "ghostty"
+            else "foot"
+          }" "Launch terminal")
           (mkBind "${mainMod}, W" "killactive," "Close focused window")
           (mkBind "${mainMod}, M" "exit," "Close Hyprland")
           (mkBind "${mainMod}, P" "exec, hyprpicker -a" "Open color picker")
@@ -189,6 +193,13 @@ in {
   config = lib.mkMerge [
     (mkIf cfg.enable {
       os = {
+        assertions = [
+          {
+            assertion = config.programs.foot.enable || config.programs.ghostty.enable;
+            message = "You haven't enabled any terminal emulator. Enable programs.foot or programs.ghostty.";
+          }
+        ];
+
         environment.sessionVariables.NIXOS_OZONE_WL = "1";
         nixpkgs.overlays = [inputs.hyprland.overlays.default];
 
@@ -400,7 +411,7 @@ in {
                   gaps_in = 8;
                   gaps_out = 14;
                   border_size = 2;
-                  "col.active_border" = "rgb(${config.colors.colorScheme.colors.accent})";
+                  "col.active_border" = "rgb(${config.colors.colorScheme.palette.accent})";
                   "col.inactive_border" = "rgb(2B2937)";
 
                   layout = "dwindle";

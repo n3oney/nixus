@@ -45,7 +45,6 @@
             args = ["--stdio"];
           };
           clangd.command = "${pkgs.llvmPackages.clang-unwrapped}/bin/clangd";
-          typst-lsp.command = "${pkgs.typst-lsp}/bin/typst-lsp";
           typescript-language-server = {
             command = lib.getExe pkgs.nodePackages.typescript-language-server;
             args = ["--stdio"];

@@ -10,8 +10,8 @@
 
       settings = with lib;
       with builtins; let
-        background = "#${config.colors.colorScheme.colors.base00}${toHexString (floor (config.colors.backgroundAlpha * 255))}";
-        foreground = "#${config.colors.colorScheme.colors.base05}";
+        background = "#${config.colors.colorScheme.palette.base00}${toHexString (floor (config.colors.backgroundAlpha * 255))}";
+        foreground = "#${config.colors.colorScheme.palette.base05}";
       in {
         global = {
           monitor = 1;
@@ -37,17 +37,17 @@
 
         urgency_low = {
           inherit background foreground;
-          frame_color = "#${config.colors.colorScheme.colors.base03}";
+          frame_color = "#${config.colors.colorScheme.palette.base03}";
         };
 
         urgency_normal = {
           inherit background foreground;
-          frame_color = "#${config.colors.colorScheme.colors.accent}";
+          frame_color = "#${config.colors.colorScheme.palette.accent}";
         };
 
         urgency_critical = {
           inherit background foreground;
-          frame_color = "#${config.colors.colorScheme.colors.base08}";
+          frame_color = "#${config.colors.colorScheme.palette.base08}";
         };
       };
     };

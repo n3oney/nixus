@@ -5,7 +5,7 @@
 }:
 with lib;
 with builtins; let
-  background = "#${config.colors.colorScheme.colors.base00}${toHexString (floor (config.colors.backgroundAlpha * 255))}";
+  background = "#${config.colors.colorScheme.palette.base00}${toHexString (floor (config.colors.backgroundAlpha * 255))}";
 in {
   hm = lib.mkIf config.programs.discord.enable {
     xdg.configFile."vesktop/themes/Catppuccin.theme.css".text = ''

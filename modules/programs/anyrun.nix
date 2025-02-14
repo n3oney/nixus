@@ -105,8 +105,8 @@
 
           #match.activatable:selected, #match.activatable:hover:selected {
             background: rgba(255,255,255,0.1);
-            border: 2px solid #${hmConfig.colorScheme.colors.accent};
-            border-top: 2px solid #${hmConfig.colorScheme.colors.accent};
+            border: 2px solid #${hmConfig.colorScheme.palette.accent};
+            border-top: 2px solid #${hmConfig.colorScheme.palette.accent};
           }
 
           #match, #plugin {
@@ -117,7 +117,7 @@
             color: white;
             box-shadow: none;
             border-radius: 12px;
-            border: 2px solid #${hmConfig.colorScheme.colors.accent};
+            border: 2px solid #${hmConfig.colorScheme.palette.accent};
           }
 
           box#main {

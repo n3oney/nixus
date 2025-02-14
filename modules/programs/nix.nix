@@ -59,6 +59,8 @@
 in {
   hm.nix.settings = nixSettings;
 
+  osModules = [inputs.lix-module.nixosModules.default];
+
   os = {
     nixpkgs.overlays = [
       (_: prev: {

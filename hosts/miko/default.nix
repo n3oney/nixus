@@ -20,7 +20,8 @@
 
     boot.loader = {
       systemd-boot.enable = true;
-      efi.canTouchEfiVariables = false;
+      # grub.enable = true;
+      efi.canTouchEfiVariables = true;
     };
 
     networking = {

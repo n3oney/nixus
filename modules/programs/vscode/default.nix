@@ -34,7 +34,7 @@
           "workbench.action.files.save" = "w";
         };
 
-        "platformio-ide.customPATH" = "${pkgs.platformio}/bin/platformio";
+        # "platformio-ide.customPATH" = "${pkgs.platformio}/bin/platformio";
 
         "editor.fontLigatures" = "'calt', 'ss01', 'ss02', 'ss03', 'ss04', 'ss06', 'ss07', 'ss08', 'ss09', 'liga'";
         "git.enableSmartCommit" = true;
@@ -103,12 +103,12 @@
               version = "0.6.2";
               sha256 = "sha256-NSDhmbCH1zHyLheOpd9Zr+gQZZAf7FN/89qXYeByw1U=";
             }
-            {
-              name = "platformio-ide";
-              publisher = "platformio";
-              version = "3.3.3";
-              sha256 = "sha256-pcWKBqtpU7DVpiT7UF6Zi+YUKknyjtXFEf5nL9+xuSo=";
-            }
+            # {
+              # name = "platformio-ide";
+              # publisher = "platformio";
+              # version = "3.3.3";
+              # sha256 = "sha256-pcWKBqtpU7DVpiT7UF6Zi+YUKknyjtXFEf5nL9+xuSo=";
+            # }
             {
               name = "vscode-monorepo-workspace";
               publisher = "folke";

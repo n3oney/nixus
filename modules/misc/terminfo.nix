@@ -4,5 +4,6 @@
     foot
     kitty
     wezterm
+    ghostty
   ]);
 }
