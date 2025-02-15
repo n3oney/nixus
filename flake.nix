@@ -16,7 +16,6 @@
       flake = false;
       url = "github:rose-pine/btop";
     };
-    catppuccin-lemmy.url = "github:n3oney/catppuccin-lemmy";
     conduwuit.url = "github:girlbossceo/conduwuit";
     emacs-overlay = {
       url = "github:nix-community/emacs-overlay";

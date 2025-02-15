@@ -5,8 +5,6 @@
 
   programs.btop.enable = true;
 
-  # services.lemmy.enable = true;
-
   # services.conduit.enable = true;
 
   services.smarthome = {
