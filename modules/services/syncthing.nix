@@ -4,7 +4,10 @@
   osConfig,
   ...
 }: {
-  options.services.syncthing.enable = lib.mkEnableOption "Syncthing";
+  options.services.syncthing = {
+    enable = lib.mkEnableOption "Syncthing";
+    openToInternet = lib.mkEnableOption "Open to internet";
+  };
 
   config.os = lib.mkIf config.services.syncthing.enable {
     services.syncthing = {
@@ -16,10 +19,12 @@
       };
     };
 
-    services.caddy = {
+    services.caddy = lib.mkIf config.services.syncthing.openToInternet {
       enable = true;
       virtualHosts."syncthing.neoney.dev".extraConfig = ''
-        reverse_proxy http://${osConfig.services.syncthing.guiAddress}
+        reverse_proxy http://${osConfig.services.syncthing.guiAddress} {
+          header_up Host {upstream_hostport}
+        }
       '';
     };
   };

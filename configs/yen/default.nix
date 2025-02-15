@@ -14,7 +14,10 @@
     jackett.enable = false;
   };
 
-  services.syncthing.enable = true;
+  services.syncthing = {
+    enable = true;
+    openToInternet = true;
+  };
 
   services.shibabot.enable = true;
 
