@@ -55,7 +55,6 @@
                 ".local/share/emacs"
                 ".platformio"
                 ".config/kdeconnect"
-                ".wakatime"
                 ".local/share/bottles"
                 ".config/workpuls-agent"
                 ".zen"
@@ -66,10 +65,12 @@
                 ".config/spotify"
                 ".config/JetBrains"
                 ".local/share/JetBrains"
+
+                ".phase"
               ]
               ++ (lib.optionals config.programs.curaSlicer.enable [".config/cura" ".local/share/cura"])
               ++ (lib.optionals config.programs.orcaSlicer.enable [".config/OrcaSlicer" ".local/share/orca-slicer"]))
-            ++ ["/var/lib/cloudflare-warp" "/var/lib/waydroid" "/etc/nixos" "/etc/NetworkManager" "/var/log" "/var/lib" "/etc/nix" "/etc/ssh" "/var/db/sudo" "/var/lib/minecraft" "/var/lib/bluetooth"];
+            ++ ["/var/lib/syncthing/.config/syncthing" "/var/lib/cloudflare-warp" "/var/lib/waydroid" "/etc/nixos" "/etc/NetworkManager" "/var/log" "/var/lib" "/etc/nix" "/etc/ssh" "/var/db/sudo" "/var/lib/minecraft" "/var/lib/bluetooth"];
           files = ["/home/neoney/.wakatime.cfg" "/etc/machine-id" "/home/neoney/.cache/anyrun-ha-assist.sqlite3" "/home/neoney/.local/share/fish/fish_history" "/home/neoney/.config/nushell/history.txt"];
         };
 

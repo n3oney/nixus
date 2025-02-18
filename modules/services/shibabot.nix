@@ -65,7 +65,7 @@
             pname = "shibabot";
             version = "unstable-2024-05-18";
 
-            buildInputs = [pkgs.prisma-engines];
+            buildInputs = [pkgs.prisma-engines pkgs.openssl];
 
             PRISMA_SCHEMA_ENGINE_BINARY = "${pkgs.prisma-engines}/bin/schema-engine";
 

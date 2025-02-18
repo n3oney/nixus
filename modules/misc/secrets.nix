@@ -38,7 +38,6 @@ in {
         age.secrets = lib.mkMerge [
           (secretForHostnames ["miko" "ciri"] ../../secrets/ha_assist_config.age "ha_assist_config" {})
           (secretForHostnames ["miko" "ciri"] ../../secrets/gh_notifications_key.age "gh_notifications_key" {})
-          (secretForHostnames ["miko" "ciri" "yen" "max"] ../../secrets/wakatime.age "wakatime" {})
           (secretForHostnames ["miko" "ciri" "yen" "max"] ../../secrets/ssh_hosts.age "ssh_hosts" {})
           (secretForHostnames ["miko" "ciri" "yen" "max"] ../../secrets/ngrok.age "ngrok" {})
         ];

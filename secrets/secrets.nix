@@ -16,7 +16,6 @@ let
 in {
   "ha_assist_config.age".publicKeys = miko ++ ciri;
   "gh_notifications_key.age".publicKeys = miko ++ ciri;
-  "wakatime.age".publicKeys = miko ++ ciri ++ yen ++ max;
   "cloudflared.age".publicKeys = miko ++ max;
 
   "ssh_hosts.age".publicKeys = miko ++ ciri ++ yen ++ max;

@@ -69,7 +69,6 @@
           ms-vscode-remote.remote-containers
           bbenoist.nix
           rust-lang.rust-analyzer
-          wakatime.vscode-wakatime
         ])
         ++ (
           pkgs.vscode-utils.extensionsFromVscodeMarketplace [
@@ -104,10 +103,10 @@
               sha256 = "sha256-NSDhmbCH1zHyLheOpd9Zr+gQZZAf7FN/89qXYeByw1U=";
             }
             # {
-              # name = "platformio-ide";
-              # publisher = "platformio";
-              # version = "3.3.3";
-              # sha256 = "sha256-pcWKBqtpU7DVpiT7UF6Zi+YUKknyjtXFEf5nL9+xuSo=";
+            # name = "platformio-ide";
+            # publisher = "platformio";
+            # version = "3.3.3";
+            # sha256 = "sha256-pcWKBqtpU7DVpiT7UF6Zi+YUKknyjtXFEf5nL9+xuSo=";
             # }
             {
               name = "vscode-monorepo-workspace";
