@@ -14,7 +14,7 @@
 
   services.librespot.enable = true;
 
-  services.sage.enable = true;
+  #services.sage.enable = true;
 
   hm.home.packages = with pkgs; [
     ripgrep
