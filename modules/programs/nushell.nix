@@ -46,6 +46,11 @@
         in ''
           $env.LS_COLORS = (${lib.getExe pkgs.vivid} generate catppuccin-macchiato | str trim)
 
+          $env.config.hooks.command_not_found = {
+            |command_name|
+            print $"Command ($command_name) not found. Prefix it with a , to fetch from nixpkgs."
+          };
+
           def --wrapped bs [...args] {
             bash -c ...$args
           }

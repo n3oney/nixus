@@ -43,9 +43,11 @@
       url = "github:viperML/nh";
     };
     nix-colors.url = "github:Misterio77/nix-colors";
-    # nix-super.url = "github:privatevoid-net/nix-super";
+
+    nix-index-database.url = "github:nix-community/nix-index-database";
+    nix-index-database.inputs.nixpkgs.follows = "nixpkgs";
+
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    # nixpkgs-master.url = "github:nixos/nixpkgs";
     nixpkgs-2405.url = "github:nixos/nixpkgs/24.05";
     nur.url = "github:nix-community/NUR";
     rust-overlay.url = "github:oxalica/rust-overlay";
