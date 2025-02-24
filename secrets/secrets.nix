@@ -23,4 +23,6 @@ in {
   "ngrok.age".publicKeys = miko ++ ciri ++ yen ++ max;
 
   "shibabot.age".publicKeys = miko ++ ciri ++ yen;
+
+  "z2m.age".publicKeys = miko ++ ciri ++ max;
 }

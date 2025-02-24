@@ -16,7 +16,7 @@
           settings.allow_anonymous = false;
           users.neoney = {
             acl = ["readwrite #"];
-            hashedPassword = "$7$101$TQrUXba2xQwEgcC0$i/LqAtjHl8Dw1Rhnbl+dDvHQWlBrgKL9+X0LENlof4c6UiY3QN4QV/3IRCLMj137Hm4wWddXEuZecyrLpKJM6w==";
+            hashedPassword = "$7$101$imEmDk/nVR25q/yy$OtUGfAWVZI7L8yTXE65mssJ+tBh1HSfiYxmiQi1bWR7QjwcnJ2IUy43KSGEDWE6a21xTLm+Gar3x3qw5DTM0CA==";
           };
         }
       ];

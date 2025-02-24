@@ -27,6 +27,11 @@ in {
           (secretForHostnames ["max"] ../../secrets/cloudflared.age "cloudflared" {
             owner = "cloudflared";
           })
+          (secretForHostnames ["max"] ../../secrets/z2m.age "z2m.yaml" {
+            owner = "zigbee2mqtt";
+            group = "zigbee2mqtt";
+            mode = "770";
+          })
           (
             secretForHostnames ["miko" "ciri" "yen"] ../../secrets/shibabot.age "shibabot" {owner = "shibabot";}
           )
