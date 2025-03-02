@@ -24,32 +24,39 @@ in {
       }
 
       body,
-      .bg__12180,
-      .scrollableContainer__33e06,
-      .container__590e2,
+      .bg__960e4,
+      .scrollableContainer__74017,
+      .container__2637a,
       .panels__58331,
       .container_ca50b9,
-      .chat__52833,
-      .container_b2ce9c,
-      .chatContent__5dca8,
-      .member_aa4760 {
+      .chat_f75fb0,
+      .container_c8ffbb,
+      .chatContent_f75fb0,
+      .app__160d8,
+      .guilds_c48ade>ul,
+      .container__37e49,
+      .form_f75fb0,
+      .member_c8ffbb,
+      .floatingBars__74017,
+      .panels_c48ade,
+      .footer__214dc {
           background: transparent !important
       }
 
-      .app_de4237 {
+      .app_a3002d {
           background: ${background} !important;
       }
 
-      .guilds__2b93a,
-      .sidebar_ded4b5,
+      .guilds_c48ade,
+      .sidebar_c48ade,
       section[class^=title],
-      .channelTextArea__2e60f,
-      .members__9f47b {
+      .channelTextArea_f75fb0,
+      .members_c8ffbb {
           background: rgba(0, 0, 0, 0.1) !important;
       }
 
       form::before,
-      .children__32014::after {
+      .children__9293f::after {
           background: unset !important;
       }
     '';
