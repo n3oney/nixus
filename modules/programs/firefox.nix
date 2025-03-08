@@ -2,10 +2,11 @@
   pkgs,
   lib,
   config,
-  hmConfig,
   ...
 }: {
   options.programs.firefox.enable = lib.mkEnableOption "firefox";
+
+  config.impermanence.userDirs = lib.mkIf config.programs.firefox.enable [".mozilla"];
 
   config.hm = lib.mkIf config.programs.firefox.enable (let
     buildFirefoxXpiAddon = lib.makeOverridable ({

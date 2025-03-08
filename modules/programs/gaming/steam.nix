@@ -13,6 +13,8 @@
     steeringWheel.enable = lib.mkEnableOption "steering wheel";
   };
 
+  config.impermanence.userDirs = lib.mkIf config.programs.gaming.steam.enable [".local/share/steam" ".steam"];
+
   config.os = lib.mkMerge [
     (lib.mkIf config.programs.gaming.steam.enable {
       programs.steam = {

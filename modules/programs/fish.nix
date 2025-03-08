@@ -11,6 +11,7 @@
   };
 
   config = {
+    impermanence.userFiles = [".local/share/fish/fish_history"];
     os = {
       programs.fish.enable = true;
 
@@ -60,11 +61,6 @@
         shellAliases = {
           cat = "${pkgs.bat}/bin/bat";
         };
-      };
-
-      programs.zoxide = {
-        enable = true;
-        enableFishIntegration = true;
       };
 
       programs.direnv = {

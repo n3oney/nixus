@@ -9,23 +9,27 @@
     openToInternet = lib.mkEnableOption "Open to internet";
   };
 
-  config.os = lib.mkIf config.services.syncthing.enable {
-    services.syncthing = {
-      enable = true;
-      openDefaultPorts = true;
-      settings.gui = {
-        user = "neoney";
-        password = "$2a$16$3sJpgx6UK5GBWvD/E5QJFOshPg1DqinP2DIXmIoHXWgreC4rObgJC";
-      };
-    };
+  config = lib.mkIf config.services.syncthing.enable {
+    impermanence.systemDirs = ["/var/lib/syncthing/.config/syncthing"];
 
-    services.caddy = lib.mkIf config.services.syncthing.openToInternet {
-      enable = true;
-      virtualHosts."syncthing.neoney.dev".extraConfig = ''
-        reverse_proxy http://${osConfig.services.syncthing.guiAddress} {
-          header_up Host {upstream_hostport}
-        }
-      '';
+    os = {
+      services.syncthing = {
+        enable = true;
+        openDefaultPorts = true;
+        settings.gui = {
+          user = "neoney";
+          password = "$2a$16$3sJpgx6UK5GBWvD/E5QJFOshPg1DqinP2DIXmIoHXWgreC4rObgJC";
+        };
+      };
+
+      services.caddy = lib.mkIf config.services.syncthing.openToInternet {
+        enable = true;
+        virtualHosts."syncthing.neoney.dev".extraConfig = ''
+          reverse_proxy http://${osConfig.services.syncthing.guiAddress} {
+            header_up Host {upstream_hostport}
+          }
+        '';
+      };
     };
   };
 }

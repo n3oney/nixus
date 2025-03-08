@@ -52,7 +52,6 @@ in {
     # cinny.enable = true;
     discord.enable = true;
     ags.enable = true;
-    emacs.enable = false;
     firefox.enable = true;
     # foot.enable = true;
     gaming = {
@@ -68,6 +67,7 @@ in {
     webstorm.enable = true;
     neovim.enable = true;
     ngrok.enable = true;
+    obs-studio.enable = true;
     orcaSlicer.enable = true;
     spotify.enable = true;
     swappy.enable = true;
@@ -76,6 +76,7 @@ in {
     youtube-music.enable = true;
     # zed.enable = true;
     zenBrowser.enable = true;
+    zoxide.enable = true;
   };
 
   services = {
@@ -102,11 +103,6 @@ in {
     horizontallyspinningrat
     unzip
 
-    (wrapOBS {
-      plugins = with obs-studio-plugins; [
-        droidcam-obs
-      ];
-    })
     neofetch
     wl-clipboard
     pavucontrol

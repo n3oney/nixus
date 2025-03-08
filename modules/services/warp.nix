@@ -5,9 +5,12 @@
 }: {
   options.services.warp.enable = lib.mkEnableOption "Cloudflare Warp";
 
-  config.os = lib.mkIf config.services.warp.enable {
-    services.cloudflare-warp = {
-      enable = true;
+  config = lib.mkIf config.services.warp.enable {
+    impermanence.systemDirs = ["/var/lib/cloudflare-warp"];
+    os = {
+      services.cloudflare-warp = {
+        enable = true;
+      };
     };
   };
 }

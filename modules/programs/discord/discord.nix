@@ -26,6 +26,8 @@ in {
     };
   };
 
+  config.impermanence.userDirs = lib.mkIf cfg.enable [".config/vesktop"];
+
   config.hm = mkIf cfg.enable {
     home.packages = [
       cfg.finalPackage

@@ -12,6 +12,8 @@
       users.defaultUserShell = hmConfig.programs.nushell.package;
     };
 
+    impermanence.userFiles = [".config/nushell/history.txt"];
+
     hm = {
       programs.nushell = {
         enable = true;

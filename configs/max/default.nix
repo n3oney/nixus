@@ -5,6 +5,8 @@
 
   programs.btop.enable = true;
 
+  programs.zoxide.enable = true;
+
   # services.conduit.enable = true;
 
   services.smarthome = {

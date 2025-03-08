@@ -6,7 +6,8 @@
 }: {
   options.programs.gaming.xonotic.enable = lib.mkEnableOption "xonotic";
 
-  config.hm = lib.mkIf config.programs.gaming.xonotic.enable {
-    home.packages = [pkgs.xonotic];
+  config = lib.mkIf config.programs.gaming.xonotic.enable {
+    hm.home.packages = [pkgs.xonotic];
+    impermanence.userDirs = [".xonotic"];
   };
 }

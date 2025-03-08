@@ -50,6 +50,7 @@
     firefox.enable = true;
     foot.enable = true;
     neovim.enable = true;
+    obs-studio.enable = true;
     swappy.enable = true;
     thunderbird.enable = true;
     gaming = {
@@ -65,6 +66,7 @@
 
     youtube-music.enable = true;
     zenBrowser.enable = true;
+    zoxide.enable = true;
   };
 
   services = {
@@ -85,7 +87,6 @@
   hm.home.packages = with pkgs; [
     horizontallyspinningrat
 
-    obs-studio
     neofetch
     wl-clipboard
     pavucontrol

@@ -6,7 +6,7 @@
 }: {
   options.programs.orcaSlicer.enable = lib.mkEnableOption "Orca";
 
-  config.hm = lib.mkIf config.programs.orcaSlicer.enable (let
+  config = lib.mkIf config.programs.orcaSlicer.enable (let
     orcaslicer = let
       version = "2.3.0-beta";
     in (pkgs.appimageTools.wrapType2 {
@@ -25,13 +25,17 @@
       '';
     });
   in {
-    home.packages = [orcaslicer];
+    impermanence.userDirs = [".config/OrcaSlicer" ".local/share/orca-slicer"];
 
-    xdg.desktopEntries.orca-slicer = {
-      name = "Orca Slicer";
-      exec = "${orcaslicer}/bin/orca-slicer";
-      terminal = false;
-      type = "Application";
+    hm = {
+      home.packages = [orcaslicer];
+
+      xdg.desktopEntries.orca-slicer = {
+        name = "Orca Slicer";
+        exec = "${orcaslicer}/bin/orca-slicer";
+        terminal = false;
+        type = "Application";
+      };
     };
   });
 }

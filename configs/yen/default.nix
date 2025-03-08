@@ -23,6 +23,8 @@
 
   services.vaultwarden.enable = true;
 
+  programs.zoxide.enable = true;
+
   hm.home.packages = with pkgs; [
     ripgrep
     lazygit

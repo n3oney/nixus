@@ -7,6 +7,8 @@
 }: {
   osModules = [inputs.apple-silicon-support.nixosModules.apple-silicon-support ./hardware-configuration.nix];
 
+  impermanence.systemDirs = ["/etc/NetworkManager"];
+
   os = {
     nixpkgs.config.allowUnfree = true;
 

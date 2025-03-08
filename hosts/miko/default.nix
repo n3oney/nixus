@@ -8,6 +8,8 @@
     ./hardware-configuration.nix
   ];
 
+  impermanence.systemDirs = ["/etc/NetworkManager"];
+
   os = {
     boot.binfmt.emulatedSystems = ["aarch64-linux"];
 

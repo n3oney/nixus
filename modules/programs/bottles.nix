@@ -6,5 +6,9 @@
 }: {
   options.programs.bottles.enable = lib.mkEnableOption "Bottles";
 
-  config.hm.home.packages = lib.mkIf config.programs.bottles.enable [pkgs.bottles];
+  config = lib.mkIf config.programs.bottles.enable {
+    hm.home.packages = [pkgs.bottles];
+
+    impermanence.userDirs = [".local/share/bottles"];
+  };
 }

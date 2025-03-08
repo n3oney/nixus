@@ -11,6 +11,8 @@
 
   config = lib.mkMerge [
     (lib.mkIf config.programs.anyrun.enable {
+      impermanence.userFiles = [".cache/anyrun-ha-assist.sqlite3"];
+
       os.nix.settings = {
         substituters = ["https://anyrun.cachix.org"];
 
