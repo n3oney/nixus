@@ -53,7 +53,7 @@ in {
     discord.enable = true;
     ags.enable = true;
     firefox.enable = true;
-    # foot.enable = true;
+    foot.enable = true;
     gaming = {
       steam = {
         enable = true;
@@ -63,12 +63,13 @@ in {
       steeringWheel.enable = true;
       xonotic.enable = true;
     };
-    ghostty.enable = true;
+    ghostty.enable = false;
     webstorm.enable = true;
     neovim.enable = true;
     ngrok.enable = true;
     obs-studio.enable = true;
     orcaSlicer.enable = true;
+    rider.enable = true;
     spotify.enable = true;
     swappy.enable = true;
     thunderbird.enable = true;
