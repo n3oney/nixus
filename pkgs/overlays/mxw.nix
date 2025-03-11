@@ -6,6 +6,8 @@
   pkg-config,
 }:
 rustPlatform.buildRustPackage rec {
+  useFetchCargoVendor = true;
+
   pname = "mxw";
   version = "0.1.1";
 
@@ -16,7 +18,7 @@ rustPlatform.buildRustPackage rec {
     hash = "sha256-IBDxn64XQsvg+C+9rfn71zzlOpgfcl/7PPFNnRyazP8=";
   };
 
-  cargoHash = "sha256-EcDRtGgnVTJXnmcYG99orxchxGkv1QDVIPbWJv+2PAQ=";
+  cargoHash = "sha256-xiLpV/nC+x1VAh9X3r3gxBEqcWZAcTp52SuNNjg/ruU=";
 
   buildInputs = [libusb1];
   nativeBuildInputs = [pkg-config];
