@@ -42,7 +42,6 @@
     # waydroid.enable = true;
     anyrun.enable = true;
     btop.enable = true;
-    curaSlicer.enable = true;
     cinny.enable = true;
     discord.enable = true;
     # emacs.enable = true;
