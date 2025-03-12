@@ -34,7 +34,7 @@
     '';
 
     xdg.configFile = {
-      kdeglobals.source = "${pkgs.breeze-qt5}/share/color-schemes/BreezeDark.colors";
+      kdeglobals.source = "${pkgs.libsForQt5.breeze-qt5}/share/color-schemes/BreezeDark.colors";
 
       "qt5ct/qt5ct.conf".text = ''
         [Appearance]

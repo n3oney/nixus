@@ -11,7 +11,7 @@
 
     hm.home.packages = [
       (pkgs.wrapOBS {
-        plugins = [pkgs.obs-studio-plugins.droidcam-obs];
+        plugins = [];
       })
     ];
   };
