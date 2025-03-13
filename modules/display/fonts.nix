@@ -12,7 +12,6 @@
         cozette
         nerd-fonts.monaspace
         nerd-fonts.jetbrains-mono
-        twilio-sans-mono-nerd-font
         roboto
         roboto-serif
         inter
