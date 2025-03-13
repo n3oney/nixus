@@ -9,11 +9,6 @@
   config = lib.mkIf config.programs.rider.enable {
     hm.home.packages = [pkgs.jetbrains.rider pkgs.dotnet-sdk_9];
 
-    os.nixpkgs.config.permittedInsecurePackages = [
-      "dotnet-sdk-6.0.428"
-      "dotnet-runtime-6.0.36"
-    ];
-
-    impermanence.userDirs = [".config/JetBrains" ".local/share/JetBrains" ".dotnet"];
+    impermanence.userDirs = [".java/.userPrefs" ".config/JetBrains" ".local/share/JetBrains" ".cache/JetBrains"];
   };
 }
