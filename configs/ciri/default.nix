@@ -64,6 +64,8 @@
 
     vscode.enable = true;
 
+    webstorm.enable = true;
+
     zenBrowser.enable = true;
     zoxide.enable = true;
   };

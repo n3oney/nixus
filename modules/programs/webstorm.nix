@@ -6,11 +6,22 @@
 }: {
   options.programs.webstorm.enable = lib.mkEnableOption "WebStorm";
 
-  config.hm = lib.mkIf config.programs.webstorm.enable {
-    home.packages = [pkgs.jetbrains.webstorm];
+  config = lib.mkIf config.programs.webstorm.enable {
+    hm.home.packages = [
+      (pkgs.jetbrains.webstorm.overrideAttrs (old: {
+        postFixup =
+          (old.postFixup or "")
+          + ''
+            wrapProgram $out/bin/rider \
+              --suffix PATH : "${pkgs.nodejs_23}/bin"
+          '';
+      }))
+    ];
 
-    home.file.".ideavimrc".text = ''
+    hm.home.file.".ideavimrc".text = ''
       set clipboard^=unnamedplus
     '';
+
+    impermanence.userDirs = [".java/.userPrefs" ".config/JetBrains" ".local/share/JetBrains" ".cache/JetBrains"];
   };
 }
