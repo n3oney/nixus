@@ -80,7 +80,7 @@
               user = "neoney";
               group = "users";
             })
-            config.impermanence.userDirs
+            (lib.lists.unique config.impermanence.userDirs)
             ++ config.impermanence.systemDirs;
           files =
             builtins.map (v: {
@@ -90,7 +90,7 @@
                 group = "users";
               };
             })
-            config.impermanence.userFiles
+            (lib.lists.unique config.impermanence.userFiles)
             ++ config.impermanence.systemFiles;
         };
 
