@@ -63,7 +63,6 @@ in {
       steeringWheel.enable = true;
       xonotic.enable = true;
     };
-    ghostty.enable = false;
     webstorm.enable = true;
     neovim.enable = true;
     ngrok.enable = true;
@@ -74,7 +73,6 @@ in {
     swappy.enable = true;
     thunderbird.enable = true;
     vscode.enable = true;
-    youtube-music.enable = true;
     # zed.enable = true;
     zenBrowser.enable = true;
     zoxide.enable = true;

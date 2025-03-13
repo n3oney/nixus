@@ -117,9 +117,9 @@ in {
       default =
         [
           (mkBind "${mainMod}, Return" "exec, ${
-            if config.programs.ghostty.enable
-            then "ghostty"
-            else "foot"
+            if config.programs.foot.enable
+            then "foot"
+            else "false"
           }" "Launch terminal")
           (mkBind "${mainMod}, W" "killactive," "Close focused window")
           (mkBind "${mainMod}, M" "exit," "Close Hyprland")
@@ -195,8 +195,8 @@ in {
       os = {
         assertions = [
           {
-            assertion = config.programs.foot.enable || config.programs.ghostty.enable;
-            message = "You haven't enabled any terminal emulator. Enable programs.foot or programs.ghostty.";
+            assertion = config.programs.foot.enable;
+            message = "You haven't enabled any terminal emulator. Enable programs.foot.";
           }
         ];
 
@@ -362,6 +362,12 @@ in {
                     "w[tg1], gapsin:0, gapsout:0, border:0"
                     "f[1], gapsin:0, gapsout:0, border:0"
                   ];
+
+                cursor = {
+                  persistent_warps = true;
+                  inactive_timeout = 30.0;
+                };
+
                 input = {
                   kb_options = "caps:backspace";
 
@@ -401,7 +407,9 @@ in {
                 misc = {
                   disable_hyprland_logo = true;
                   vfr = true;
-                  vrr = true;
+                  vrr = 1;
+                  animate_manual_resizes = true;
+                  animate_mouse_windowdragging = true;
                 };
 
                 env = lib.mkIf cfg.enableTearing ["AQ_DRM_NO_ATOMIC,1"];
@@ -419,6 +427,8 @@ in {
 
                 decoration = {
                   rounding = 20;
+
+                  rounding_power = 4.0;
 
                   shadow = {
                     enabled = true;

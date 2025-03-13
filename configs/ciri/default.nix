@@ -46,10 +46,11 @@
     discord.enable = true;
     # emacs.enable = true;
     ags.enable = true;
-    firefox.enable = true;
+    # firefox.enable = true;
     foot.enable = true;
     neovim.enable = true;
     obs-studio.enable = true;
+    rider.enable = true;
     swappy.enable = true;
     thunderbird.enable = true;
     gaming = {
@@ -63,7 +64,6 @@
 
     vscode.enable = true;
 
-    youtube-music.enable = true;
     zenBrowser.enable = true;
     zoxide.enable = true;
   };
