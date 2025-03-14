@@ -62,6 +62,13 @@
           "extensions.experimental.affinity" = {
             "jasew.vscode-helix-emulation" = 1;
           };
+
+          "nix.formatterPath" = "${pkgs.alejandra}/bin/alejandra";
+          "nix.enableLanguageServer" = true;
+          "nix.serverPath" = "${pkgs.nil}/bin/nil";
+          "nix.serverSettings" = {
+            "nil.formatting.command" = ["${pkgs.alejandra}/bin/alejandra"];
+          };
         };
 
         extensions = with pkgs;
@@ -78,7 +85,7 @@
             editorconfig.editorconfig
             bradlc.vscode-tailwindcss
             ms-vscode-remote.remote-containers
-            bbenoist.nix
+            jnoortheen.nix-ide
             rust-lang.rust-analyzer
             github.copilot
             github.copilot-chat
