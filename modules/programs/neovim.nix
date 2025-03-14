@@ -3,12 +3,15 @@
   lib,
   inputs,
   pkgs,
+  osConfig,
   ...
 }: {
   options.programs.neovim.enable = lib.mkEnableOption "neovim";
 
   config = lib.mkIf config.programs.neovim.enable {
     osModules = [inputs.nvf.nixosModules.default];
+
+    os.environment.variables.EDITOR = "${osConfig.programs.nvf.finalPackage}/bin/nvim";
 
     os.programs.nvf = {
       enable = true;
