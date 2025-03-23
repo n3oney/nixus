@@ -76,8 +76,8 @@
         session_dirs = ["${hmConfig.wayland.windowManager.hyprland.package}/share/wayland-sessions"];
         custom_sessions = [
           {
-            name = "Hyprland";
-            exec = "Hyprland";
+            name = "Hyprland (UWSM)";
+            exec = "uwsm start hyprland-uwsm.desktop";
           }
         ];
       };
@@ -94,7 +94,7 @@
       security.pam.services.greetd.enableGnomeKeyring = true;
 
       environment.etc."greetd/environments".text = ''
-        Hyprland
+        uwsm start hyprland-uwsm.desktop
       '';
     };
   };

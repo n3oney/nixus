@@ -203,10 +203,16 @@ in {
         environment.sessionVariables.NIXOS_OZONE_WL = "1";
         nixpkgs.overlays = [inputs.hyprland.overlays.default];
 
+        programs.uwsm = {
+          enable = true;
+        };
+
         programs.hyprland = {
           enable = true;
           package = cfg.package;
+          withUWSM = true;
         };
+
         xdg.portal = {
           enable = true;
           wlr.enable = lib.mkForce false;
@@ -232,6 +238,7 @@ in {
         home.packages = with pkgs;
         with inputs.hyprcontrib.packages.${pkgs.system};
         with inputs.shadower.packages.${pkgs.system}; [
+          inputs.hyprland-qtutils.packages.${pkgs.system}.hyprland-qtutils
           pulseaudio
 
           # caprine-bin
