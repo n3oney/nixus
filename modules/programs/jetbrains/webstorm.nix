@@ -12,15 +12,11 @@
         postFixup =
           (old.postFixup or "")
           + ''
-            wrapProgram $out/bin/rider \
+            wrapProgram $out/bin/webstorm \
               --suffix PATH : "${pkgs.nodejs_23}/bin"
           '';
       }))
     ];
-
-    hm.home.file.".ideavimrc".text = ''
-      set clipboard^=unnamedplus
-    '';
 
     impermanence.userDirs = [".java/.userPrefs" ".config/JetBrains" ".local/share/JetBrains" ".cache/JetBrains"];
   };

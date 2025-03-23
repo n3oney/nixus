@@ -20,10 +20,6 @@
       pkgs.dotnet-sdk_9
     ];
 
-    hm.home.file.".ideavimrc".text = ''
-      set clipboard^=unnamedplus
-    '';
-
     impermanence.userDirs = [".java/.userPrefs" ".config/JetBrains" ".local/share/JetBrains" ".cache/JetBrains"];
   };
 }
