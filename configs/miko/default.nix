@@ -52,7 +52,7 @@ in {
     # cinny.enable = true;
     discord.enable = true;
     ags.enable = true;
-    firefox.enable = true;
+    firefox.enable = false;
     foot.enable = true;
     gaming = {
       steam = {
