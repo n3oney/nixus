@@ -16,6 +16,7 @@
     networking.firewall.allowedTCPPorts = [
       80
       8123
+      21063
       21064
       21065 # for homekit
     ];
