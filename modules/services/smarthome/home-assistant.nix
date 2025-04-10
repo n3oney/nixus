@@ -21,6 +21,10 @@
       21065 # for homekit
     ];
 
+    networking.firewall.allowedUDPPorts = [
+      5353
+    ];
+
     virtualisation.oci-containers = {
       backend = "podman";
       containers.homeassistant = {
