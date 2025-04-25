@@ -76,6 +76,7 @@
       programs.eza = {
         enable = true;
         # enableAliases = false;
+        enableNushellIntegration = lib.mkForce false;
         icons = "auto";
         git = true;
       };
