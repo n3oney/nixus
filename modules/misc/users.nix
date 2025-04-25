@@ -25,6 +25,7 @@ in {
           "networkmanager"
           "lp"
           "pulse-access"
+          "dialout"
         ];
       };
       users.mutableUsers = false;
