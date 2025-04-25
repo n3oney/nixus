@@ -58,11 +58,6 @@
             args = ["--stdio"];
             config.provideFormatter = true;
           };
-          prisma-language-server = {
-            command = lib.getExe pkgs.nodePackages."@prisma/language-server";
-            args = ["--stdio"];
-            config.provideFormatter = true;
-          };
           tailwindcss-ls = {
             command =
               lib.getExe pkgs.nodejs;
