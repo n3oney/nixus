@@ -21,6 +21,7 @@
         joypixels
         noto-fonts
         noto-fonts-cjk-sans
+        nerd-fonts.fira-code
       ];
 
       enableDefaultPackages = false;
@@ -30,7 +31,7 @@
         defaultFonts = {
           sansSerif = ["Inter"];
           serif = ["Roboto Serif"];
-          monospace = ["MonaspiceNe Nerd Font" "TwilioSansM Nerd Font" "Cozette"];
+          monospace = ["FiraCode Nerd Font" "MonaspiceNe Nerd Font" "TwilioSansM Nerd Font" "Cozette"];
           emoji = ["JoyPixels"];
         };
       };
