@@ -12,7 +12,6 @@
       flake = false;
       url = "github:rose-pine/btop";
     };
-    conduwuit.url = "github:girlbossceo/conduwuit";
     degra-ical.url = "github:n3oney/degra-ical";
     emacs-overlay = {
       url = "github:nix-community/emacs-overlay";

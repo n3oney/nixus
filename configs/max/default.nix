@@ -7,8 +7,6 @@
 
   programs.zoxide.enable = true;
 
-  # services.conduit.enable = true;
-
   services.smarthome = {
     enable = true;
     home-assistant.host = "hass.max.local:80";

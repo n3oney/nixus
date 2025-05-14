@@ -5,8 +5,6 @@
 
   programs.btop.enable = true;
 
-  services.conduit.enable = true;
-
   services.minecraft-server.enable = true;
 
   services.arr = {
