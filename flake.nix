@@ -8,10 +8,6 @@
     anyrun-ha-assist.url = "github:n3oney/anyrun-ha-assist";
     anyrun-nixos-options.url = "github:n3oney/anyrun-nixos-options/v2.0.0";
     apple-silicon-support.url = "github:oliverbestmann/nixos-apple-silicon";
-    arrpc = {
-      inputs.nixpkgs.follows = "nixpkgs";
-      url = "github:notashelf/arrpc-flake";
-    };
     btop-rose-pine = {
       flake = false;
       url = "github:rose-pine/btop";

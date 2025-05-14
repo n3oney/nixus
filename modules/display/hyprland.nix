@@ -303,6 +303,8 @@ in {
           }
         '';
 
+        services.arrpc.enable = true;
+
         wayland.windowManager.hyprland = {
           enable = true;
 
@@ -323,8 +325,6 @@ in {
                     "${lib.getExe config.programs.discord.finalPackage} &"
                     "cinny &"
                     # "${lib.getExe pkgs.caprine-bin} &"
-
-                    "${lib.getExe inputs.arrpc.packages.${pkgs.system}.arrpc} &"
 
                     "wlsunset -l 52.2 -L 21 &"
 
