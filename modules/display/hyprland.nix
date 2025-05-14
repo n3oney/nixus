@@ -376,6 +376,7 @@ in {
                 };
 
                 input = {
+                  kb_layout = "pl";
                   kb_options = "caps:backspace";
 
                   # Mouse speed
@@ -390,22 +391,16 @@ in {
                   };
                 };
 
-                device =
-                  [
-                    {
-                      name = "glorious-model-o-wireless";
-                      sensitivity = -0.76;
-                    }
-                    {
-                      name = "ydotoold-virtual-device-1";
-                      sensitivity = 0;
-                    }
-                  ]
-                  ++ (builtins.map (keyboard: {
-                      name = keyboard;
-                      kb_layout = "pl";
-                    })
-                    cfg.keyboards);
+                device = [
+                  {
+                    name = "glorious-model-o-wireless";
+                    sensitivity = -0.76;
+                  }
+                  {
+                    name = "ydotoold-virtual-device-1";
+                    sensitivity = 0;
+                  }
+                ];
 
                 gestures = {
                   workspace_swipe = true;
