@@ -26,6 +26,8 @@ in {
           "lp"
           "pulse-access"
           "dialout"
+          "input"
+          "render"
         ];
       };
       users.mutableUsers = false;

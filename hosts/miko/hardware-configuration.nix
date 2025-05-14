@@ -73,4 +73,5 @@
   nixpkgs.config.rocmSupport = true;
   hardware.cpu.amd.updateMicrocode = true;
   hardware.amdgpu.opencl.enable = true;
+  hardware.amdgpu.initrd.enable = true;
 }

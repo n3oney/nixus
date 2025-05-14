@@ -10,37 +10,6 @@
   cfg = config.display;
   inherit (lib) mkEnableOption mkOption types mkIf;
 
-  # don't ask
-  uwunix = ''
-    ✨ Nix-chan's Sugoi Advantages! ✨
-
-    * Evewyfing packaged juuuust wight, onii-chan! No mowie missing stuffies! >.<
-    * Nix-chan nevew changes up da wesults! Uwu can always count on it! 💖
-    * Supew easy to buiwd stuffies! Onii-chan, you'we da smartestest!
-    * Change package fingies wifout icky stuffies! Souwce-based is bestest!
-    * One package managew to bwing dem all! Wikey...magic stuffies! >w<
-    * Switching dev stuffies is a bweezy wif dat diwenv fingy!
-    * Twy out packages wifout icky stuffies behind! nix shell is a wifesaver!
-    * Scipts can do ANYFINGY! Nix-chan wiww fetch da goodies, no sweaties! 💦
-    * Binawy caches mean wessie waiting... Nix-chan hates compiwing too! >.<
-    * Setting up caches is easy peasy! Even a baka wike me can do it!
-    * Wemote buiwding? Dat's... amazwing! Testy-testy fwuffy-wuffy!
-    * It wuns on Winuxy fingies AND da fwuity OS! Sugoi desu! ✨
-    * Nix-chan can wun all by hersewf! Mixing packages wifout bweaking? Yes pwease! 🥺👉👈
-    * Fwakes...dey sound impowtant! Pinning vewsions...smawtie pants!
-
-    🌟 NixOS makes my heart go doki-doki! 🌟
-
-    * Uwu teww NixOS wat chu wantie, and poofie! It just happens! Wikey a wishie! 💫
-    * Easy to change stuffies up, ow fix boo-boos... >.<
-    * Shawe youw setup wif fwiends, onii-chan! Dey'ww fink you'we a hewo!
-    * Depwoying stuffies is a snappy! Wollbacks awe da bestest!
-    * Sooo many optionsies! Wikey, evewyfingy I couwd evew wantie!
-    * No nasty side effects... It's like magic cweaning poofies!
-    * VMs wif bawely any effowtsies... Onii-chan, you'we a genius!
-    * Fwiends can twy my set up too! It's da coolestest!
-  '';
-
   strOption = mkOption {
     type = types.str;
   };
@@ -149,7 +118,6 @@ in {
           (mkBind ", XF86AudioPrev" "exec, ${lib.getExe pkgs.playerctl} previous" null)
 
           (mkBind "${mainMod} , z" ''exec, sleep 1 && ${lib.getExe pkgs.wtype} " +:hesrightyouknow:" -P Return -p Return'' "He's right you know.")
-          (mkBind "${mainMod} , n" ''exec, echo -e "${builtins.replaceStrings ["\"" "\n"] ["\\\"" "\\n"] uwunix}" | wl-copy'' "i love nixos")
 
           # move focus
           (windowSwitchBind "left" "l" "Move to window on the left")
