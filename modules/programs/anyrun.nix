@@ -21,8 +21,6 @@
         ];
       };
 
-      hmModules = [inputs.anyrun.homeManagerModules.default];
-
       hm.programs.anyrun = {
         enable = true;
 

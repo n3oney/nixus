@@ -13,7 +13,7 @@
           (old.postFixup or "")
           + ''
             wrapProgram $out/bin/webstorm \
-              --suffix PATH : "${pkgs.nodejs_23}/bin"
+              --suffix PATH : "${pkgs.nodejs_24}/bin"
           '';
       }))
     ];

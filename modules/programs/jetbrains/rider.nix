@@ -14,7 +14,7 @@
             (old.postFixup or "")
             + ''
               wrapProgram $out/bin/rider \
-                --suffix PATH : "${pkgs.nodejs_23}/bin"
+                --suffix PATH : "${pkgs.nodejs_24}/bin"
             '';
         }))
       pkgs.dotnet-sdk_9
