@@ -45,6 +45,7 @@ in {
           (secretForHostnames ["miko" "ciri"] ../../secrets/gh_notifications_key.age "gh_notifications_key" {})
           (secretForHostnames ["miko" "ciri" "yen" "max"] ../../secrets/ssh_hosts.age "ssh_hosts" {})
           (secretForHostnames ["miko" "ciri" "yen" "max"] ../../secrets/ngrok.age "ngrok" {})
+          (secretForHostnames ["miko" "ciri"] ../../secrets/mcp.age "mcp" {})
         ];
         age.identityPaths = ["/home/neoney/.ssh/id_ed25519_agenix"];
       };
