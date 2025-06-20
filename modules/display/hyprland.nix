@@ -374,6 +374,11 @@ in {
                   workspace_swipe = true;
                 };
 
+                ecosystem = {
+                  no_update_news = true;
+                  no_donation_nag = true;
+                };
+
                 misc = {
                   disable_hyprland_logo = true;
                   vfr = true;
