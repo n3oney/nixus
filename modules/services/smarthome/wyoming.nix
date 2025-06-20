@@ -14,7 +14,7 @@
       };
       faster-whisper.servers.polish = {
         uri = "tcp://0.0.0.0:10300";
-        model = "tiny-int8";
+        model = "base-int8";
         language = "en";
         enable = true;
         extraArgs = [];
