@@ -86,6 +86,7 @@ in {
       enable = true;
       motherboard = "amd";
     };
+    ollama.enable = true;
     kondo.enable = true;
     syncthing.enable = true;
     yubikey-touch-detector.enable = true;
