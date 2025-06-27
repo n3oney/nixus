@@ -107,7 +107,6 @@ in {
     wl-clipboard
     pavucontrol
     telegram-desktop
-    lazygit
     xdg-utils
 
     ripgrep

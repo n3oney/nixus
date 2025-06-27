@@ -10,5 +10,17 @@ _: {
       init.defaultBranch = "main";
       push.autoSetupRemote = true;
     };
+    difftastic = {
+      enable = true;
+      enableAsDifftool = true;
+      background = "dark";
+    };
+  };
+
+  hm.programs.lazygit = {
+    enable = true;
+    settings = {
+      git.paging.externalDiffCommand = "difft --color=always";
+    };
   };
 }

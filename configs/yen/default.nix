@@ -27,7 +27,6 @@
 
   hm.home.packages = with pkgs; [
     ripgrep
-    lazygit
   ];
 
   os.environment.systemPackages = [pkgs.wget];
