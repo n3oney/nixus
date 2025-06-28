@@ -25,10 +25,10 @@
         args = ["-y" "repomix" "--mcp"];
       };
 
-      ripgrep = {
-        command = npx;
-        args = ["-y" "mcp-ripgrep@latest"];
-      };
+      # ripgrep = {
+      # command = npx;
+      # args = ["-y" "mcp-ripgrep@latest"];
+      # };
 
       axiom = {
         command = npx;
@@ -83,12 +83,13 @@
     };
     instructions = ''
       Use context7 for library documentation. The shell used on the system is Nushell, not bash, so in commands use ';' instead of the shell '&&', or 'and' instead of the boolean '&&'.
-      Use the repomix tool for tasks that aren't just the most basic edits.
+      Use the repomix tool for tasks that aren't just the most basic edits. You have direct file system access, so don't use the "read repomix output" tool. Just read the file directly.
+      Prefer reading the entire repomix file over using the "grep repomix output" tool.
     '';
   in {
     xdg.configFile."github-copilot/global-copilot-instructions.md".text = instructions;
 
-    programs.vscode.userSettings = {
+    programs.vscode.profiles.default.userSettings = {
       mcp.servers = lib.mapAttrs (name: value: value // {type = "stdio";}) servers;
 
       "github.copilot.chat.codeGeneration.instructions" = [
