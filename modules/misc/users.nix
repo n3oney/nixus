@@ -28,6 +28,7 @@ in {
           "dialout"
           "input"
           "render"
+          "kvm"
         ];
       };
       users.mutableUsers = false;
