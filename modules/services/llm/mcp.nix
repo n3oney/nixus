@@ -50,6 +50,19 @@
           ];
       };
 
+      postgres = {
+        command = "${pkgs.podman}/bin/podman";
+        args = [
+          "run"
+          "-i"
+          "--rm"
+          "-e"
+          "DATABASE_URI"
+          "docker.io/crystaldba/postgres-mcp"
+          "--access-mode=restricted"
+        ];
+      };
+
       tavily = {
         command = npx;
         args =
