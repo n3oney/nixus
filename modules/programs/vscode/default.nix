@@ -75,6 +75,7 @@
             "github.copilot.nextEditSuggestions.enabled" = true;
             "vim.useSystemClipboard" = true;
             "vim.easymotion" = true;
+            "editor.tabSize" = 2;
           };
 
           extensions = with pkgs;
@@ -93,6 +94,7 @@
               rust-lang.rust-analyzer
               github.copilot
               github.copilot-chat
+              github.vscode-pull-request-github
             ])
             ++ (
               pkgs.vscode-utils.extensionsFromVscodeMarketplace [
