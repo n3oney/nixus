@@ -32,7 +32,7 @@
 
     accept-flake-config = true;
 
-    extra-experimental-features = ["flakes" "nix-command" "ca-derivations"];
+    extra-experimental-features = ["flakes" "nix-command"];
 
     substituters = [
       "https://cache.nixos.org"
