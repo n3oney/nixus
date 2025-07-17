@@ -13,11 +13,6 @@
       url = "github:rose-pine/btop";
     };
     degra-ical.url = "github:n3oney/degra-ical";
-    emacs-overlay = {
-      url = "github:nix-community/emacs-overlay";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     home-manager = {
       inputs.nixpkgs.follows = "nixpkgs";
       url = "github:nix-community/home-manager";
@@ -48,10 +43,6 @@
     nur.url = "github:nix-community/NUR";
     rust-overlay.url = "github:oxalica/rust-overlay";
     shadower.url = "github:n3oney/shadower";
-    shibabot = {
-      url = "git+ssh://git@github.com/n3oney/shibabot2.git";
-      flake = false;
-    };
     zen-browser-flake.url = "github:youwen5/zen-browser-flake";
     nvf.url = "github:NotAShelf/nvf";
   };

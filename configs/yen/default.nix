@@ -19,8 +19,6 @@
 
   services.degra-ical.enable = true;
 
-  services.shibabot.enable = true;
-
   services.vaultwarden.enable = true;
 
   programs.zoxide.enable = true;

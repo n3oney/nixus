@@ -44,7 +44,6 @@
     btop.enable = true;
     cinny.enable = true;
     discord.enable = true;
-    # emacs.enable = true;
     ags.enable = true;
     # firefox.enable = true;
     foot.enable = true;

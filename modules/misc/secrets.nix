@@ -32,9 +32,6 @@ in {
             group = "zigbee2mqtt";
             mode = "770";
           })
-          (
-            secretForHostnames ["miko" "ciri" "yen"] ../../secrets/shibabot.age "shibabot" {owner = "shibabot";}
-          )
         ];
         environment.systemPackages = [inputs.agenix.packages.${pkgs.system}.default];
       };
