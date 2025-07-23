@@ -30,6 +30,7 @@
 
       impermanence = {
         userDirs = [
+          ".yalc"
           ".config/sops"
           "nixus"
           "Downloads"
