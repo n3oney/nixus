@@ -15,6 +15,11 @@
     ];
 
     servers = {
+      effect = {
+        command = npx;
+        args = ["-y" "effect-mcp@latest"];
+      };
+
       git = {
         command = npx;
         args = ["-y" "@cyanheads/git-mcp-server"];
@@ -74,20 +79,20 @@
           ];
       };
 
-      github = {
-        command = npx;
-        args =
-          envArgs
-          ++ [
-            "${pkgs.podman}/bin/podman"
-            "run"
-            "-i"
-            "--rm"
-            "-e"
-            "GITHUB_PERSONAL_ACCESS_TOKEN"
-            "ghcr.io/github/github-mcp-server"
-          ];
-      };
+      # github = {
+      #   command = npx;
+      #   args =
+      #     envArgs
+      #     ++ [
+      #       "${pkgs.podman}/bin/podman"
+      #       "run"
+      #       "-i"
+      #       "--rm"
+      #       "-e"
+      #       "GITHUB_PERSONAL_ACCESS_TOKEN"
+      #       "ghcr.io/github/github-mcp-server"
+      #     ];
+      # };
 
       context7 = {
         command = npx;
@@ -98,6 +103,7 @@
       Use context7 for library documentation. The shell used on the system is Nushell, not bash, so in commands use ';' instead of the shell '&&', or 'and' instead of the boolean '&&'.
       Use the repomix tool for tasks that aren't just the most basic edits. You have direct file system access, so don't use the "read repomix output" tool. Just read the file directly.
       Prefer reading the entire repomix file over using the "grep repomix output" tool.
+      Use tavily to search the web for information. If working with effect, use the effect tool to get proper documentation.
     '';
   in {
     xdg.configFile."github-copilot/global-copilot-instructions.md".text = instructions;
