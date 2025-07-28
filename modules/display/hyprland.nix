@@ -70,6 +70,10 @@ in {
         height = intOption;
         scale = floatOption // {default = 1.0;};
         refreshRate = intOption // {default = 60;};
+        transform = mkOption {
+          type = types.str;
+          default = "";
+        };
       };
       secondary = {
         name = nullStrOption;
@@ -306,7 +310,7 @@ in {
 
                 monitor =
                   [
-                    "${cfg.monitors.main.name},${toString cfg.monitors.main.width}x${toString cfg.monitors.main.height}@${toString cfg.monitors.main.refreshRate},0x0,${toString cfg.monitors.main.scale}"
+                    "${cfg.monitors.main.name},${toString cfg.monitors.main.width}x${toString cfg.monitors.main.height}@${toString cfg.monitors.main.refreshRate},0x0,${toString cfg.monitors.main.scale}${cfg.monitors.main.transform}"
                   ]
                   ++ (lib.optionals (cfg.monitors.secondary.name != null) ["monitor=${cfg.monitors.secondary.name},${toString cfg.monitors.secondary.width}x${toString cfg.monitors.secondary.height}@60,2560x0,1"]);
 

@@ -17,6 +17,7 @@ in {
         width = 2560;
         height = 1440;
         refreshRate = 144;
+        transform = ",transform,1";
       };
       secondary = {
         name = "DP-3";
