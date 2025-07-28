@@ -52,7 +52,12 @@
           }
         ];
 
-        useSystemClipboard = true;
+        clipboard = {
+          enable = true;
+          providers.wl-copy.enable = true;
+          registers = "unnamedplus";
+        };
+        # useSystemClipboard = true;
         ui = {
           fastaction.enable = true;
           fastaction.setupOpts = {
