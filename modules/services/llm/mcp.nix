@@ -109,13 +109,15 @@
     xdg.configFile."github-copilot/global-copilot-instructions.md".text = instructions;
 
     programs.vscode.profiles.default.userSettings = {
-      mcp.servers = lib.mapAttrs (name: value: value // {type = "stdio";}) servers;
-
       "github.copilot.chat.codeGeneration.instructions" = [
         {
           text = instructions;
         }
       ];
+    };
+
+    xdg.configFile."Code/User/mcp.json".text = builtins.toJSON {
+      servers = lib.mapAttrs (name: value: value // {type = "stdio";}) servers;
     };
 
     xdg.configFile."github-copilot/mcp.json".text = builtins.toJSON {
