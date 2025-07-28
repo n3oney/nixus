@@ -9,6 +9,7 @@
 
     fonts = {
       packages = with pkgs; [
+        zed-plex-mono
         cozette
         nerd-fonts.monaspace
         nerd-fonts.jetbrains-mono
@@ -31,7 +32,7 @@
         defaultFonts = {
           sansSerif = ["Inter"];
           serif = ["Roboto Serif"];
-          monospace = ["FiraCode Nerd Font" "MonaspiceNe Nerd Font" "TwilioSansM Nerd Font" "Cozette"];
+          monospace = ["Zed Plex Mono" "FiraCode Nerd Font" "MonaspiceNe Nerd Font" "TwilioSansM Nerd Font" "Cozette"];
           emoji = ["JoyPixels"];
         };
       };
