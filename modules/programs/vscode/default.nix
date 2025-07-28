@@ -8,7 +8,16 @@
 
   config = lib.mkIf config.programs.vscode.enable {
     impermanence.userDirs = [".config/Code/User/History" ".config/Code/User/workspaceStorage" ".config/Code/User/globalStorage" ".config/Code/WebStorage" ".config/Code/logs" ".config/Code/blob_storage" ".config/Code/Cache" ".config/Code/Code Cache" ".config/Code/CachedData" ".config/Code/CachedExtensionVSIXs" ".config/Code/CachedProfilesData" ".config/Code/Cookies" ".config/Code/Cookies-journal"];
-    impermanence.userFiles = [".vscode/argv.json" ".config/Code/Network Persistent State" ".config/Code/TransportSecurity" ".config/Code/SharedStorage" ".config/Code/SharedStorage-wal" ".config/Code/Trust Tokens" ".config/Code/Trust Tokens-journal"];
+    impermanence.userFiles = [
+      ".vscode/argv.json"
+      /*
+      ".config/Code/Network Persistent State" ".config/Code/TransportSecurity"
+      */
+      ".config/Code/SharedStorage"
+      ".config/Code/SharedStorage-wal"
+      ".config/Code/Trust Tokens"
+      ".config/Code/Trust Tokens-journal"
+    ];
 
     hm = {
       programs.vscode = {
