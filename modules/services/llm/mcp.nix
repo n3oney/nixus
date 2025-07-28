@@ -114,6 +114,14 @@
           text = instructions;
         }
       ];
+      "github.copilot.chat.agent.terminal.allowList" = let
+        pkg = "(npm|yarn)";
+      in {
+        "/${pkg} run$/" = true;
+        "/${pkg}( run)? build$/" = true;
+        "/${pkg}( run)? typecheck$/" = true;
+        "/npx tsc --noEmit$/" = true;
+      };
     };
 
     xdg.configFile."Code/User/mcp.json".text = builtins.toJSON {
