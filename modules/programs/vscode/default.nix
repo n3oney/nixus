@@ -85,6 +85,11 @@
             "vim.useSystemClipboard" = true;
             "vim.easymotion" = true;
             "editor.tabSize" = 2;
+
+            "tailwind-fold.foldedText" = "";
+            "tailwind-fold.foldStyle" = "QUOTES";
+            "tailwind-fold.unfoldIfLineSelected" = true;
+            "tailwind-fold.foldLengthThreshold" = 10;
           };
 
           extensions = with pkgs;
