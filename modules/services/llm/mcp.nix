@@ -55,7 +55,7 @@
           ];
       };
 
-      postgres = {
+      postgresReadOnly = {
         command = "${pkgs.podman}/bin/podman";
         args = [
           "run"
@@ -65,6 +65,19 @@
           "DATABASE_URI"
           "docker.io/crystaldba/postgres-mcp"
           "--access-mode=restricted"
+        ];
+      };
+
+      postgresMutable = {
+        command = "${pkgs.podman}/bin/podman";
+        args = [
+          "run"
+          "-i"
+          "--rm"
+          "-e"
+          "DATABASE_URI"
+          "docker.io/crystaldba/postgres-mcp"
+          "--access-mode=unrestricted"
         ];
       };
 
@@ -104,6 +117,7 @@
       Use the repomix tool for tasks that aren't just the most basic edits. You have direct file system access, so don't use the "read repomix output" tool. Just read the file directly.
       Prefer reading the entire repomix file over using the "grep repomix output" tool.
       Use tavily to search the web for information. If working with effect, use the effect tool to get proper documentation.
+      Prefer using the postgresReadOnly tool if possible, as it's much faster. Only use the postgresMutable tool if the query will change data. The tools access the same database, so use the postgresMutable ONLY when mutating data. Even when verifying if a mutation done with postgresMutable worked, use postgresReadOnly.
     '';
   in {
     xdg.configFile."github-copilot/global-copilot-instructions.md".text = instructions;
