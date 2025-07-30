@@ -1,4 +1,8 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  lib,
+  ...
+}: {
   users.main = "neoney";
 
   agenix.enable = true;
@@ -13,6 +17,7 @@
   };
 
   services.librespot.enable = true;
+  services.klipper.enable = true;
 
   #services.sage.enable = true;
 
@@ -21,4 +26,5 @@
   ];
 
   os.environment.systemPackages = [pkgs.wget];
+  os.boot.kernelPackages = lib.mkForce pkgs.linuxPackages-rt_latest;
 }
