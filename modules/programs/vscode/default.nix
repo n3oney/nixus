@@ -43,6 +43,7 @@
             }
           ];
           userSettings = {
+            "typescript.tsdk" = "node_modules/typescript/lib";
             "[typescript]" = {
               "editor.defaultFormatter" = "esbenp.prettier-vscode";
             };
@@ -109,6 +110,7 @@
               github.copilot
               github.copilot-chat
               github.vscode-pull-request-github
+              saoudrizwan.claude-dev
             ])
             ++ (
               pkgs.vscode-utils.extensionsFromVscodeMarketplace [
@@ -119,10 +121,16 @@
                   sha256 = "sha256-E7BXc9P3RKIXTh3Vb6/r6SJIdfvJB3puXDd6FuQDr9w=";
                 }
                 {
+                  name = "vscode-twoslash-queries";
+                  publisher = "Orta";
+                  version = "1.5.0";
+                  sha256 = "sha256-4D4ky3DSmepJ+z5KSvaIjNRegnG/ZTfOF4Tc0Q/FZxc=";
+                }
+                {
                   name = "effect-vscode";
                   publisher = "effectful-tech";
-                  version = "0.1.7";
-                  sha256 = "sha256-qLTqOxQCTIn/tzbTU51D/XpOYnPn1M1/8UNv30t9hDE=";
+                  version = "0.3.1";
+                  sha256 = "sha256-mWiFZQmVhAG22WKY+Sh2chi7yvEZ2PF7ol0UPVk+L1Y=";
                 }
                 {
                   name = "tailwind-fold";
