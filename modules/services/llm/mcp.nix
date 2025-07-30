@@ -138,6 +138,10 @@
       };
     };
 
+    xdg.configFile."Code/User/globalStorage/saoudrizwan.claude-dev/settings/cline_mcp_settings.json".text = builtins.toJSON {
+      mcpServers = lib.mapAttrs (name: value: value // {disabled = false;}) servers;
+    };
+
     xdg.configFile."Code/User/mcp.json".text = builtins.toJSON {
       servers = lib.mapAttrs (name: value: value // {type = "stdio";}) servers;
     };
