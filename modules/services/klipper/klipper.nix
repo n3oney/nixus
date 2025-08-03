@@ -137,6 +137,23 @@
     rev = "b0dad8ec9ee31cb644b94e39d4b8a8fb9d6c9ba0";
     sha256 = "sha256-05l1rXmjiI+wOj2vJQdMf/cwVUOyq5d21LZesSowuvc=";
   };
+  package =
+    (pkgs.callPackage kalico {
+      extraPythonPackages = ps: [
+        ps.numpy
+        ps.matplotlib
+        ps.scipy
+      ];
+    }).overrideAttrs
+    (old: {
+      installPhase =
+        old.installPhase
+        + ''
+          cp ${cartographer-klipper}/idm.py $out/lib/klippy/extras/idm.py
+          cp ${cartographer-klipper}/cartographer.py $out/lib/klippy/extras/cartographer.py
+          cp ${cartographer-klipper}/scanner.py $out/lib/klippy/extras/scanner.py
+        '';
+    });
 in {
   options.services.klipper.enable = lib.mkEnableOption "Klipper service";
 
@@ -153,28 +170,20 @@ in {
 
     services.klipper = {
       package =
-        (pkgs.callPackage kalico {
-          extraPythonPackages = ps: [
-            ps.numpy
-            ps.matplotlib
-            ps.scipy
-          ];
-        }).overrideAttrs
-        (old: {
-          installPhase =
-            old.installPhase
-            + ''
-              cp ${cartographer-klipper}/idm.py $out/lib/klippy/extras/idm.py
-              cp ${cartographer-klipper}/cartographer.py $out/lib/klippy/extras/cartographer.py
-              cp ${cartographer-klipper}/scanner.py $out/lib/klippy/extras/scanner.py
-            '';
-        });
+        package;
       enable = true;
       user = "klipper";
       group = "klipper";
       configFile = "/etc/klipper/config/printer.cfg";
       configDir = "/etc/klipper/config";
       mutableConfig = true;
+      logFile = "/var/log/klipper/klippy.log";
+    };
+
+    systemd.tmpfiles.settings."klippy-log"."/var/log/klipper".d = {
+      mode = "0755";
+      user = "klipper";
+      group = "klipper";
     };
 
     services.moonraker = {
