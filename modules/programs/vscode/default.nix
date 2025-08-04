@@ -129,8 +129,8 @@
                 {
                   name = "effect-vscode";
                   publisher = "effectful-tech";
-                  version = "0.3.1";
-                  sha256 = "sha256-mWiFZQmVhAG22WKY+Sh2chi7yvEZ2PF7ol0UPVk+L1Y=";
+                  version = "0.4.0";
+                  sha256 = "sha256-rc8UbVnedDUw1XDjeI5bHU4rBTud/UKwc0ZzYE0K9Oo=";
                 }
                 {
                   name = "tailwind-fold";
