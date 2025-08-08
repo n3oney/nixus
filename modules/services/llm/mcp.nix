@@ -2,6 +2,7 @@
   config,
   lib,
   pkgs,
+  inputs,
   ...
 }: {
   config.hm = lib.mkIf config.services.ollama.enable (let
@@ -122,6 +123,26 @@
   in {
     xdg.configFile."github-copilot/global-copilot-instructions.md".text = instructions;
 
+    home.activation = let
+      text = pkgs.writeText "instructions" instructions;
+    in {
+      cline-instructions = inputs.home-manager.lib.hm.dag.entryAfter ["writeBoundary"] ''
+        run mkdir -p /home/neoney/Documents/Cline/Rules
+        run rm /home/neoney/Documents/Cline/Rules/global-instructions.md || true
+        run cp ${text} /home/neoney/Documents/Cline/Rules/global-instructions.md
+      '';
+    };
+
+    /*
+    home.file."Documents/Cline/Rules/global-instructions.md" = {
+      text = instructions;
+      onChange = ''
+        cp /home/neoney/Documents/Cline/global-instructions.md /home/neoney/Documents/Cline/01-global-instructions.md
+      '';
+      recursive = true;
+    };
+    */
+
     programs.vscode.profiles.default.userSettings = {
       "github.copilot.chat.codeGeneration.instructions" = [
         {
@@ -139,7 +160,12 @@
     };
 
     xdg.configFile."Code/User/globalStorage/saoudrizwan.claude-dev/settings/cline_mcp_settings.json".text = builtins.toJSON {
-      mcpServers = lib.mapAttrs (name: value: value // {disabled = false;}) servers;
+      mcpServers = lib.mapAttrs (name: value:
+        value
+        // {
+          disabled = false;
+        })
+      servers;
     };
 
     xdg.configFile."Code/User/mcp.json".text = builtins.toJSON {
