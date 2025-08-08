@@ -87,6 +87,8 @@
             "vim.easymotion" = true;
             "editor.tabSize" = 2;
 
+            "diffEditor.experimental.showMoves" = true;
+
             "tailwind-fold.foldedText" = "";
             "tailwind-fold.foldStyle" = "QUOTES";
             "tailwind-fold.unfoldIfLineSelected" = true;
