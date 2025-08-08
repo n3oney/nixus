@@ -116,6 +116,13 @@ in {
 
   os.programs.nix-ld.enable = true;
 
+  os.system.activationScripts.binbash = {
+    deps = ["binsh"];
+    text = ''
+      ln -s /bin/sh /bin/bash 2>/dev/null || true
+    '';
+  };
+
   os.environment.systemPackages = [pkgs.wget];
   os.security.rtkit.enable = true;
 }
