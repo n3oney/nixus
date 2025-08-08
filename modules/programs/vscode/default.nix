@@ -110,7 +110,14 @@
               github.copilot
               github.copilot-chat
               github.vscode-pull-request-github
-              saoudrizwan.claude-dev
+              (saoudrizwan.claude-dev.overrideAttrs (old: {
+                patchPhase =
+                  (old.patchPhase or "")
+                  + ''
+                    ls
+                    ${pkgs.gnused}/bin/sed -i 's/...Itr(),/...process.env,/' dist/extension.js
+                  '';
+              }))
             ])
             ++ (
               pkgs.vscode-utils.extensionsFromVscodeMarketplace [
