@@ -19,16 +19,19 @@
       effect = {
         command = npx;
         args = ["-y" "effect-mcp@latest"];
+        autoApprove = ["get_effect_doc" "effect_doc_search"];
       };
 
       git = {
         command = npx;
         args = ["-y" "@cyanheads/git-mcp-server"];
+        autoApprove = ["git_status" "git_set_working_dir" "git_status" "git_diff" "git_log" "git_push"];
       };
 
       repomix = {
         command = npx;
         args = ["-y" "repomix" "--mcp"];
+        autoApprove = ["pack_codebase"];
       };
 
       # ripgrep = {
@@ -37,6 +40,7 @@
       # };
 
       axiom = {
+        autoApprove = ["listDatasets" "queryApl"];
         command = npx;
         args =
           envArgs
@@ -91,22 +95,23 @@
             "-y"
             "tavily-mcp@0.2.2"
           ];
+        autoApprove = ["tavily-search"];
       };
 
-      # github = {
-      #   command = npx;
-      #   args =
-      #     envArgs
-      #     ++ [
-      #       "${pkgs.podman}/bin/podman"
-      #       "run"
-      #       "-i"
-      #       "--rm"
-      #       "-e"
-      #       "GITHUB_PERSONAL_ACCESS_TOKEN"
-      #       "ghcr.io/github/github-mcp-server"
-      #     ];
-      # };
+      github = {
+        command = npx;
+        args =
+          envArgs
+          ++ [
+            "${pkgs.podman}/bin/podman"
+            "run"
+            "-i"
+            "--rm"
+            "-e"
+            "GITHUB_PERSONAL_ACCESS_TOKEN"
+            "ghcr.io/github/github-mcp-server"
+          ];
+      };
 
       context7 = {
         command = npx;
