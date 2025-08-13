@@ -100,6 +100,7 @@
 
       github = {
         command = npx;
+        autoApprove = ["get_issue"];
         args =
           envArgs
           ++ [
