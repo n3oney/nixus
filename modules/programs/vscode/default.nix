@@ -124,7 +124,7 @@
                     ls
                     ${pkgs.gnused}/bin/sed -i 's/...Itr(),/...process.env,/' dist/extension.js
                     # ${pkgs.gnused}/bin/sed -i 's#executablePath:[^,]*,#executablePath: "${pkgs.chromium}/bin/chromium",#' dist/extension.js
-                    # ${pkgs.google-chrome}
+                    # ${pkgs.chromium}
                   '';
               }))
             ])
