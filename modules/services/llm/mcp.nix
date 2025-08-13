@@ -25,7 +25,7 @@
       git = {
         command = npx;
         args = ["-y" "@cyanheads/git-mcp-server"];
-        autoApprove = ["git_status" "git_set_working_dir" "git_status" "git_diff" "git_log" "git_push"];
+        autoApprove = ["git_add" "git_status" "git_set_working_dir" "git_status" "git_diff" "git_log" "git_push"];
       };
 
       repomix = {
