@@ -31,7 +31,7 @@
       repomix = {
         command = npx;
         args = ["-y" "repomix" "--mcp"];
-        autoApprove = ["pack_codebase"];
+        autoApprove = ["grep_repomix_output" "pack_codebase"];
       };
 
       # ripgrep = {
@@ -95,12 +95,12 @@
             "-y"
             "tavily-mcp@0.2.2"
           ];
-        autoApprove = ["tavily-search"];
+        autoApprove = ["tavily-search" "tavily-extract"];
       };
 
       github = {
         command = npx;
-        autoApprove = ["get_issue"];
+        autoApprove = ["get_pull_request_diff" "get_issue"];
         args =
           envArgs
           ++ [
@@ -117,6 +117,7 @@
       context7 = {
         command = npx;
         args = ["-y" "@upstash/context7-mcp"];
+        autoApprove = ["resolve-library-id" "get-library-docs"];
       };
     };
     instructions = ''
@@ -125,6 +126,8 @@
       Prefer reading the entire repomix file over using the "grep repomix output" tool.
       Use tavily to search the web for information. If working with effect, use the effect tool to get proper documentation.
       Prefer using the postgresReadOnly tool if possible, as it's much faster. Only use the postgresMutable tool if the query will change data. The tools access the same database, so use the postgresMutable ONLY when mutating data. Even when verifying if a mutation done with postgresMutable worked, use postgresReadOnly.
+      Do not tackle tasks you were not asked to do without asking for confirmation. For example, if you implement a new feature, and then run typechecks to test if it's correct, do not go out of your way to fix other type errors.
+      Do not hallucinate library usages. You have the tools for documentation for a reason. Use the tools, it doesn't cost you anything, and you won't look like a fool on drugs hallucinating libraries.
     '';
   in {
     xdg.configFile."github-copilot/global-copilot-instructions.md".text = instructions;
