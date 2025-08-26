@@ -72,6 +72,7 @@
             };
 
             "workbench.colorTheme" = "nightfall";
+            "workbench.iconTheme" = "flow-dim";
             "git.openRepositoryInParentFolders" = "always";
             "security.workspace.trust.enabled" = false;
             "typescript.inlayHints.parameterNames.enabled" = "all";
@@ -93,6 +94,7 @@
             "tailwind-fold.foldStyle" = "QUOTES";
             "tailwind-fold.unfoldIfLineSelected" = true;
             "tailwind-fold.foldLengthThreshold" = 10;
+            "biome.suggestInstallingGlobally" = false;
           };
 
           extensions = with pkgs;
@@ -113,6 +115,7 @@
               github.copilot
               github.copilot-chat
               github.vscode-pull-request-github
+              ms-vscode-remote.remote-ssh
               (saoudrizwan.claude-dev.overrideAttrs (old: {
                 patchPhase =
                   (old.patchPhase or "")
@@ -126,6 +129,18 @@
             ])
             ++ (
               pkgs.vscode-utils.extensionsFromVscodeMarketplace [
+                {
+                  name = "flow-icons";
+                  publisher = "thang-nm";
+                  version = "1.1.0";
+                  sha256 = "sha256-bXZoDgKSPhqA61cZuSptppesO7C3Xok00j1txUdtw+c=";
+                }
+                {
+                  name = "typescript-explorer";
+                  publisher = "mxsdev";
+                  version = "0.4.2";
+                  sha256 = "sha256-IHz7fpE+RiLP6tEkWwShsfDPM3rTbq5tE9/BHt1QkIQ=";
+                }
                 {
                   name = "nightfall";
                   publisher = "nightfall";
