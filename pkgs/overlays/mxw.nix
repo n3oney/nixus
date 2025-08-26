@@ -6,8 +6,6 @@
   pkg-config,
 }:
 rustPlatform.buildRustPackage rec {
-  useFetchCargoVendor = true;
-
   pname = "mxw";
   version = "0.1.1";
 
