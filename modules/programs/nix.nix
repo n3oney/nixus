@@ -35,7 +35,7 @@
     extra-experimental-features = ["flakes" "nix-command"];
 
     substituters = [
-      "https://cache.nixos.org"
+      "https://aseipp-nix-cache.freetls.fastly.net"
       "https://nix-community.cachix.org"
       "https://hyprland.cachix.org"
       "https://cache.garnix.io"
