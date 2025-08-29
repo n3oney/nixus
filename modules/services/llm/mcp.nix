@@ -100,7 +100,7 @@
 
       github = {
         command = npx;
-        autoApprove = ["get_pull_request_diff" "get_issue"];
+        autoApprove = ["list_issues" "search_issues" "get_pull_request_diff" "get_issue"];
         args =
           envArgs
           ++ [
