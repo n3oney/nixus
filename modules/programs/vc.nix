@@ -26,6 +26,7 @@
         };
         ui = {
           diff-formatter = ["${pkgs.difftastic}/bin/difft" "--color=always" "$left" "$right"];
+          conflict-marker-style = "git";
         };
       };
     };
