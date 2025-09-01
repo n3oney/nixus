@@ -71,7 +71,7 @@
               "source.organizeImports.biome" = "explicit";
             };
 
-            "workbench.colorTheme" = "nightfall";
+            "workbench.colorTheme" = "Dim Fire Night";
             "workbench.iconTheme" = "flow-dim";
             "git.openRepositoryInParentFolders" = "always";
             "security.workspace.trust.enabled" = false;
@@ -115,6 +115,7 @@
               github.copilot
               github.copilot-chat
               github.vscode-pull-request-github
+              visualstudioexptteam.vscodeintellicode
               ms-vscode-remote.remote-ssh
               (saoudrizwan.claude-dev.overrideAttrs (old: {
                 patchPhase =
@@ -129,11 +130,12 @@
             ])
             ++ (
               pkgs.vscode-utils.extensionsFromVscodeMarketplace [
+                # Theming
                 {
-                  name = "visualjj";
-                  publisher = "visualjj";
-                  version = "0.16.1";
-                  sha256 = "sha256-KuAT8+8t6YlQ4VygtxGindvSRs1x7oKT9ZgE7Vhvf8I=";
+                  name = "dimfire";
+                  publisher = "ahme-dev";
+                  version = "1.0.2";
+                  sha256 = "sha256-ApJY8uaqBQIhlGMs2L96zsN3gqMJs6X1Wl9FOm6SRWo=";
                 }
                 {
                   name = "flow-icons";
@@ -142,22 +144,52 @@
                   sha256 = "sha256-bXZoDgKSPhqA61cZuSptppesO7C3Xok00j1txUdtw+c=";
                 }
                 {
-                  name = "typescript-explorer";
-                  publisher = "mxsdev";
-                  version = "0.4.2";
-                  sha256 = "sha256-IHz7fpE+RiLP6tEkWwShsfDPM3rTbq5tE9/BHt1QkIQ=";
-                }
-                {
                   name = "nightfall";
                   publisher = "nightfall";
                   version = "0.0.3";
                   sha256 = "sha256-E7BXc9P3RKIXTh3Vb6/r6SJIdfvJB3puXDd6FuQDr9w=";
+                }
+
+                # Jujutsu VCS plugin
+                {
+                  name = "visualjj";
+                  publisher = "visualjj";
+                  version = "0.16.1";
+                  sha256 = "sha256-KuAT8+8t6YlQ4VygtxGindvSRs1x7oKT9ZgE7Vhvf8I=";
+                }
+
+                # SQL Tools
+                {
+                  name = "sqltools";
+                  publisher = "mtxr";
+                  version = "0.28.3";
+                  sha256 = "sha256-bTrHAhj8uwzRIImziKsOizZf8+k3t+VrkOeZrFx7SH8=";
+                }
+                {
+                  name = "sqltools-driver-pg";
+                  publisher = "mtxr";
+                  version = "0.5.5";
+                  sha256 = "sha256-B1wycDFSWPaQ87HF54+GrNX0b5f3tODLStuxqICdkjs=";
+                }
+
+                # somewhat make it ok to work with TS
+                {
+                  name = "pretty-ts-errors";
+                  publisher = "yoavbls";
+                  version = "0.5.4";
+                  sha256 = "sha256-SMEqbpKYNck23zgULsdnsw4PS20XMPUpJ5kYh1fpd14=";
                 }
                 {
                   name = "vscode-twoslash-queries";
                   publisher = "Orta";
                   version = "1.5.0";
                   sha256 = "sha256-4D4ky3DSmepJ+z5KSvaIjNRegnG/ZTfOF4Tc0Q/FZxc=";
+                }
+                {
+                  name = "typescript-explorer";
+                  publisher = "mxsdev";
+                  version = "0.4.2";
+                  sha256 = "sha256-IHz7fpE+RiLP6tEkWwShsfDPM3rTbq5tE9/BHt1QkIQ=";
                 }
                 {
                   name = "effect-vscode";
@@ -170,24 +202,6 @@
                   publisher = "stivo";
                   version = "0.2.0";
                   sha256 = "sha256-yH3eA5jgBwxqnpFQkg91KQMkQps5iM1v783KQkQcWUU=";
-                }
-                {
-                  name = "sqltools";
-                  publisher = "mtxr";
-                  version = "0.28.3";
-                  sha256 = "sha256-bTrHAhj8uwzRIImziKsOizZf8+k3t+VrkOeZrFx7SH8=";
-                }
-                {
-                  name = "vscode-monorepo-workspace";
-                  publisher = "folke";
-                  version = "1.3.1";
-                  sha256 = "sha256-BtJBd9T+5qPY2YD93Rn2AiClwYGD1s4o+IEUHdaq61c=";
-                }
-                {
-                  name = "pretty-ts-errors";
-                  publisher = "yoavbls";
-                  version = "0.5.4";
-                  sha256 = "sha256-SMEqbpKYNck23zgULsdnsw4PS20XMPUpJ5kYh1fpd14=";
                 }
               ]
             );
