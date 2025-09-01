@@ -130,6 +130,12 @@
             ++ (
               pkgs.vscode-utils.extensionsFromVscodeMarketplace [
                 {
+                  name = "visualjj";
+                  publisher = "visualjj";
+                  version = "0.16.1";
+                  sha256 = "sha256-KuAT8+8t6YlQ4VygtxGindvSRs1x7oKT9ZgE7Vhvf8I=";
+                }
+                {
                   name = "flow-icons";
                   publisher = "thang-nm";
                   version = "1.1.0";
