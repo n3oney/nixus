@@ -6,6 +6,21 @@
     programs.jujutsu = {
       enable = true;
       settings = {
+        aliases = {
+          pull = ["git" "fetch"];
+          push = ["git" "push"];
+          tug = ["bookmark" "move" "--from" "closest_bookmark(@-)" "--to" "@-"];
+          sync = [
+            "rebase"
+            "--source"
+            "all:roots(trunk()..mutable())"
+            "--destination"
+            "trunk()"
+          ];
+        };
+        revset-aliases = {
+          "closest_bookmark(to)" = "heads(::to & bookmarks())";
+        };
         user = {
           inherit email name;
         };
@@ -15,7 +30,7 @@
       };
     };
 
-    home.packages = [pkgs.lazyjj];
+    home.packages = [pkgs.jjui];
 
     programs.git = {
       enable = true;
