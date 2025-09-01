@@ -25,6 +25,7 @@
           inherit email name;
         };
         ui = {
+          default-command = "log";
           diff-formatter = ["${pkgs.difftastic}/bin/difft" "--color=always" "$left" "$right"];
           conflict-marker-style = "git";
         };
