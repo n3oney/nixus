@@ -185,12 +185,12 @@
                   version = "1.5.0";
                   sha256 = "sha256-4D4ky3DSmepJ+z5KSvaIjNRegnG/ZTfOF4Tc0Q/FZxc=";
                 }
-                {
-                  name = "typescript-explorer";
-                  publisher = "mxsdev";
-                  version = "0.4.2";
-                  sha256 = "sha256-IHz7fpE+RiLP6tEkWwShsfDPM3rTbq5tE9/BHt1QkIQ=";
-                }
+                # {
+                #   name = "typescript-explorer";
+                #   publisher = "mxsdev";
+                #   version = "0.4.2";
+                #   sha256 = "sha256-IHz7fpE+RiLP6tEkWwShsfDPM3rTbq5tE9/BHt1QkIQ=";
+                # }
                 {
                   name = "effect-vscode";
                   publisher = "effectful-tech";
