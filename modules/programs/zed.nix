@@ -7,151 +7,68 @@
   options.programs.zed.enable = lib.mkEnableOption "Zed";
 
   config = lib.mkIf config.programs.zed.enable {
-    /*
-      impermanence.userDirs = [".config/zed" ".local/share/zed/copilot" ".local/share/zed/languages/eslint"];
-
-    os = {
-      systemd.tmpfiles.settings = {
-        "10-zed" = {
-          "/home/neoney/.local/share/zed".d = {
-            group = "users";
-            user = "neoney";
-            mode = "0755";
-          };
-
-          "/home/neoney/.local/share/zed/languages".d = {
-            group = "users";
-            user = "neoney";
-            mode = "0755";
-          };
-
-          "/home/neoney/.local/share/zed/languages/eslint".d = {
-            group = "users";
-            user = "neoney";
-            mode = "0755";
-          };
-        };
-      };
-    };
-    */
+    impermanence.userDirs = [
+      ".local/share/zed/debug_adapters"
+      ".local/share/zed/languages"
+      ".local/share/zed/extensions"
+      ".local/share/zed/prettier"
+      ".local/share/zed/conversations"
+      ".local/share/zed/copilot"
+      ".local/share/zed/db"
+      ".local/share/zed/threads"
+      ".local/share/zed/prompts"
+    ];
 
     hm = lib.mkIf config.programs.zed.enable {
       programs.zed-editor = {
         enable = true;
         package =
           pkgs.zed-editor.override {withGLES = pkgs.system != "x86_64-linux";};
+        userKeymaps = [
+          {
+            bindings = {
+              "ctrl-f" = "project_search::ToggleFocus";
+            };
+          }
+        ];
         userSettings = {
+          minimap = {
+            show = "auto";
+            current_line_highlight = "line";
+          };
+          edit_predictions = {
+            mode = "eager";
+            copilot = {
+              proxy = null;
+              proxy_no_verify = null;
+              enterprise_uri = null;
+            };
+            enabled_in_text_threads = false;
+          };
+          features = {
+            edit_prediction_provider = "zed";
+          };
+          agent = {
+            play_sound_when_agent_done = true;
+            default_model = {
+              provider = "zed.dev";
+              model = "claude-sonnet-4";
+            };
+          };
           load_direnv = "direct";
           vim_mode = true;
-          theme = "One Dark";
+          theme = "Min Dark (Blurred)";
+          ui_font_size = 14;
+          buffer_font_size = 14;
           languages = {
             TypeScript.language_servers = ["tsgo" "vtsls"];
           };
+          wrap_guides = [60 80 120];
+          show_wrap_guides = true;
+          icon_theme = "JetBrains New UI Icons (Dark)";
         };
-        extensions = ["tsgo"];
+        extensions = ["tsgo" "nix" "min-theme"];
       };
-      /*
-        home.file.".local/share/zed/node/node-v22.5.1-linux-x64" = {
-        recursive = true;
-        source = "${pkgs.nodejs}";
-      };
-
-      home.packages = [
-      ];
-
-      xdg.configFile."zed/settings.json".text = ''
-        {
-          "assistant": {
-            "default_model": {
-              "provider": "zed.dev",
-              "model": "claude-3-5-sonnet-20240620"
-              ${
-          "provider": "copilot_chat",
-           "model": "gpt-4o"
-          ""
-        }
-            },
-            "version": "2"
-          },
-          "ui_font_size": 16,
-          "buffer_font_size": 14,
-          "buffer_font_family": "monospace",
-          "theme": {
-            "mode": "system",
-            "light": "Rosé Pine Moon",
-            "dark": "One Dark"
-          },
-          "load_direnv": "direct",
-          "vim_mode": true,
-          "inlay_hints": {
-            "enabled": true,
-            "show_type_hints": false
-          },
-          "journal": {
-            "hour_format": "hour24"
-          },
-          "lsp": {
-            "eslint": {
-              "binary": {
-                "path_lookup": true
-              }
-            },
-            "nixd": {
-              "binary": {
-                "path": "${pkgs.nixd}/bin/nixd"
-              }
-            }
-          },
-          "terminal": {
-            "dock": "right"
-          },
-          "languages": {
-            "JavaScript": {
-              "formatter": {
-                "external": {
-                  "command": "${pkgs.nodePackages.prettier}/bin/prettier",
-                  "arguments": ["--stdin-filepath", "{buffer_path}"]
-                }
-              },
-              "code_actions_on_format": {
-                "source.fixAll.eslint": true
-              }
-            },
-            "TSX": {
-              "formatter": {
-                "external": {
-                  "command": "${pkgs.nodePackages.prettier}/bin/prettier",
-                  "arguments": ["--stdin-filepath", "{buffer_path}"]
-                }
-              },
-              "code_actions_on_format": {
-                "source.fixAll.eslint": true
-              }
-            },
-            "TypeScript": {
-              "formatter": {
-                "external": {
-                  "command": "${pkgs.nodePackages.prettier}/bin/prettier",
-                  "arguments": ["--stdin-filepath", "{buffer_path}"]
-                }
-              },
-              "code_actions_on_format": {
-                "source.fixAll.eslint": true
-              }
-            }
-          },
-          "vim": {
-            "use_system_clipboard": "always",
-            "use_multiline_find": true,
-            "use_smartcase_find": true
-          },
-          "relative_line_numbers": true,
-          "scrollbar": {
-            "show": "never"
-          }
-        }
-      '';
-      */
     };
   };
 }
