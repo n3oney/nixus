@@ -74,7 +74,7 @@ in {
     swappy.enable = true;
     thunderbird.enable = true;
     vscode.enable = true;
-    # zed.enable = true;
+    zed.enable = true;
     zenBrowser.enable = true;
     zoxide.enable = true;
   };

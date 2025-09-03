@@ -181,6 +181,15 @@
       servers = lib.mapAttrs (name: value: value // {type = "stdio";}) servers;
     };
 
+    programs.zed-editor.userSettings.context_servers = lib.mapAttrs (name: value:
+      value
+      // {
+        source = "custom";
+        enabled = true;
+        env = {};
+      })
+    servers;
+
     xdg.configFile."github-copilot/mcp.json".text = builtins.toJSON {
       servers = servers;
     };

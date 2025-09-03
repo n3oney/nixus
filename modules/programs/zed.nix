@@ -7,7 +7,8 @@
   options.programs.zed.enable = lib.mkEnableOption "Zed";
 
   config = lib.mkIf config.programs.zed.enable {
-    impermanence.userDirs = [".config/zed" ".local/share/zed/copilot" ".local/share/zed/languages/eslint"];
+    /*
+      impermanence.userDirs = [".config/zed" ".local/share/zed/copilot" ".local/share/zed/languages/eslint"];
 
     os = {
       systemd.tmpfiles.settings = {
@@ -32,15 +33,30 @@
         };
       };
     };
+    */
 
     hm = lib.mkIf config.programs.zed.enable {
-      home.file.".local/share/zed/node/node-v22.5.1-linux-x64" = {
+      programs.zed-editor = {
+        enable = true;
+        package =
+          pkgs.zed-editor.override {withGLES = pkgs.system != "x86_64-linux";};
+        userSettings = {
+          load_direnv = "direct";
+          vim_mode = true;
+          theme = "One Dark";
+          languages = {
+            TypeScript.language_servers = ["tsgo" "vtsls"];
+          };
+        };
+        extensions = ["tsgo"];
+      };
+      /*
+        home.file.".local/share/zed/node/node-v22.5.1-linux-x64" = {
         recursive = true;
         source = "${pkgs.nodejs}";
       };
 
       home.packages = [
-        (pkgs.zed-editor.override {withGLES = true;})
       ];
 
       xdg.configFile."zed/settings.json".text = ''
@@ -50,10 +66,8 @@
               "provider": "zed.dev",
               "model": "claude-3-5-sonnet-20240620"
               ${
-          /*
           "provider": "copilot_chat",
            "model": "gpt-4o"
-          */
           ""
         }
             },
@@ -137,6 +151,7 @@
           }
         }
       '';
+      */
     };
   };
 }
