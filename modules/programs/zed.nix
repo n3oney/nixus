@@ -32,6 +32,8 @@
           }
         ];
         userSettings = {
+          project_panel.dock = "right";
+
           minimap = {
             show = "auto";
             current_line_highlight = "line";
@@ -57,17 +59,20 @@
           };
           load_direnv = "direct";
           vim_mode = true;
-          theme = "Min Dark (Blurred)";
+          theme = "Catppuccin Macchiato (Blur) [Heavy]";
           ui_font_size = 14;
           buffer_font_size = 14;
           languages = {
-            TypeScript.language_servers = ["tsgo" "vtsls"];
+            TypeScript = {
+              language_servers = ["tsgo" "vtsls" "eslint" "codebook"];
+              code_actions_on_format."source.fixAll.eslint" = true;
+            };
           };
           wrap_guides = [60 80 120];
           show_wrap_guides = true;
           icon_theme = "JetBrains New UI Icons (Dark)";
         };
-        extensions = ["tsgo" "nix" "min-theme"];
+        extensions = ["tsgo" "nix" "jetbrains-new-ui-icons" "catppuccin-blur" "codebook"];
       };
     };
   };
