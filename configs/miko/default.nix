@@ -83,10 +83,7 @@ in {
     warp.enable = true;
     kde_connect.enable = true;
     podman.enable = true;
-    openrgb = {
-      enable = true;
-      motherboard = "amd";
-    };
+    openrgb.enable = true;
     ollama.enable = true;
     kondo.enable = true;
     syncthing.enable = true;
