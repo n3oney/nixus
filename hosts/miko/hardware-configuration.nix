@@ -15,6 +15,7 @@
   boot.initrd.kernelModules = [];
   boot.kernelPackages = pkgs.linuxPackages_xanmod_latest;
   boot.kernelModules = ["kvm-amd" "amdgpu"];
+  boot.kernelParams = ["acpi_enforce_resources=lax"];
 
   fileSystems = let
     generalOptions = ["noatime" "discard" "ssd" "compress=zstd"];
