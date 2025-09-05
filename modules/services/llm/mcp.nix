@@ -18,7 +18,7 @@
     servers = {
       effect = {
         command = npx;
-        args = ["-y" "effect-mcp@latest"];
+        args = ["-y" "effect-mcp@0.1.10"];
         autoApprove = ["get_effect_doc" "effect_doc_search"];
       };
 
