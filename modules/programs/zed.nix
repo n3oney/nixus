@@ -57,6 +57,20 @@
               model = "claude-sonnet-4";
             };
           };
+          language_models = {
+            anthropic = {
+              api_url = "https://api.z.ai/api/anthropic";
+
+              available_models = [
+                {
+                  name = "glm-4.5";
+                  display_name = "GLM 4.5";
+                  max_tokens = 131072; #128k
+                  mode.type = "thinking";
+                }
+              ];
+            };
+          };
           load_direnv = "direct";
           vim_mode = true;
           theme = "Catppuccin Macchiato (Blur) [Heavy]";
