@@ -86,6 +86,7 @@ in {
     podman.enable = true;
     openrgb.enable = true;
     ollama.enable = true;
+    mcp.enable = true;
     kondo.enable = true;
     syncthing.enable = true;
     yubikey-touch-detector.enable = true;

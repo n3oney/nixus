@@ -5,7 +5,8 @@
   inputs,
   ...
 }: {
-  config.hm = lib.mkIf config.services.ollama.enable (let
+  options.services.mcp.enable = lib.mkEnableOption "MCP";
+  config.hm = lib.mkIf config.services.mcp.enable (let
     npx = "${pkgs.nodejs}/bin/npx";
 
     envArgs = [

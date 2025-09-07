@@ -70,6 +70,7 @@
   };
 
   services = {
+    mcp.enable = true;
     tlp.enable = true;
     yubikey-touch-detector.enable = true;
     podman.enable = true;
