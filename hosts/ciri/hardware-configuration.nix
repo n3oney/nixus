@@ -95,10 +95,7 @@
     enable = true;
     extractPeripheralFirmware = true;
     peripheralFirmwareDirectory = ./firmware;
-    withRust = true;
     # addEdgeKernelConfig = true;
-    useExperimentalGPUDriver = true;
-    experimentalGPUInstallMode = "replace";
   };
 
   networking.useDHCP = lib.mkDefault true;
