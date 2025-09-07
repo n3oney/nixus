@@ -34,11 +34,11 @@
     '';
 
     xdg.configFile = {
-      kdeglobals.source = "${pkgs.libsForQt5.breeze-qt5}/share/color-schemes/BreezeDark.colors";
+      kdeglobals.source = "${pkgs.kdePackages.breeze}/share/color-schemes/BreezeDark.colors";
 
       "qt5ct/qt5ct.conf".text = ''
         [Appearance]
-        style=Lightly
+        style=Darkly
         icon_theme=Papirus-Dark
         custom_palette=true
         color_scheme_path=${pkgs.catppuccin-qt5ct}/share/qt5ct/colors/Catppuccin-Macchiato.conf
@@ -56,10 +56,10 @@
         # Make the GTK theme available for other users
         hmConfig.gtk.theme.package
       ]
-      ++ (with pkgs; [
-        libsForQt5.qt5ct
-        lightly-qt
-      ]);
+      ++ [
+        pkgs.libsForQt5.qt5ct
+        pkgs.darkly-qt5
+      ];
 
     environment.variables = let
       qmlPackages = with pkgs; [

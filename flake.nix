@@ -4,7 +4,7 @@
   inputs = {
     agenix.url = "github:ryantm/agenix";
     ags.url = "github:Aylur/ags/v1.9.0";
-    anyrun.url = "github:kirottu/anyrun";
+    anyrun.url = "github:kirottu/anyrun/25367153f225a59c5ce5746583e39a71ff052f09";
     anyrun-ha-assist.url = "github:n3oney/anyrun-ha-assist";
     anyrun-nixos-options.url = "github:n3oney/anyrun-nixos-options/v2.0.0";
     apple-silicon-support.url = "github:oliverbestmann/nixos-apple-silicon";
