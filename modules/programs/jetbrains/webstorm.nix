@@ -8,7 +8,7 @@
 
   config = lib.mkIf config.programs.webstorm.enable {
     hm.home.packages = [
-      (pkgs.jetbrains.webstorm.overrideAttrs (old: {
+      ((pkgs.jetbrains.webstorm.override {jdk = pkgs.openjdk21;}).overrideAttrs (old: {
         postFixup =
           (old.postFixup or "")
           + ''
