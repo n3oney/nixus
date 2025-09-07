@@ -384,9 +384,10 @@ in {
                   }
                 ];
 
-                gestures = {
-                  workspace_swipe = true;
-                };
+                gesture = [
+                  "3, horizontal, workspace"
+                  "3, swipe, mod:SUPER, resize"
+                ];
 
                 ecosystem = {
                   no_update_news = true;
