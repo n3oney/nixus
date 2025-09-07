@@ -53,8 +53,8 @@
           agent = {
             play_sound_when_agent_done = true;
             default_model = {
-              provider = "zed.dev";
-              model = "claude-sonnet-4";
+              provider = "anthropic";
+              model = "glm-4.5";
             };
           };
           language_models = {

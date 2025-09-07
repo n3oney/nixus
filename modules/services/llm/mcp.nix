@@ -181,6 +181,14 @@
       servers = lib.mapAttrs (name: value: value // {type = "stdio";}) servers;
     };
 
+    programs.opencode.settings.mcp =
+      lib.mapAttrs (name: value: {
+        enabled = true;
+        type = "local";
+        command = [value.command] ++ value.args;
+      })
+      servers;
+
     programs.zed-editor.userSettings.context_servers = lib.mapAttrs (name: value:
       value
       // {

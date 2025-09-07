@@ -68,6 +68,7 @@ in {
     neovim.enable = true;
     ngrok.enable = true;
     obs-studio.enable = true;
+    opencode.enable = true;
     orcaSlicer.enable = true;
     rider.enable = true;
     spotify.enable = true;
