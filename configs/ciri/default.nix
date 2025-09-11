@@ -52,6 +52,7 @@
     opencode.enable = true;
     rider.enable = true;
     swappy.enable = true;
+    orcaSlicer.enable = true;
     thunderbird.enable = true;
     gaming = {
       # no steam build for aarch64 :(
