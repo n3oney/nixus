@@ -23,7 +23,8 @@
       programs.zed-editor = {
         enable = true;
         package =
-          pkgs.zed-editor.override {withGLES = pkgs.system != "x86_64-linux";};
+          pkgs.zed-editor;
+        # pkgs.zed-editor.override {withGLES = pkgs.system != "x86_64-linux";};
         userKeymaps = [
           {
             bindings = {
