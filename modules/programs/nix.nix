@@ -64,6 +64,9 @@ in {
   os = {
     nixpkgs.overlays = [
       (_: prev: {
+        difftastic = prev.difftastic.overrideAttrs (old: {
+          env = {JEMALLOC_SYS_WITH_LG_PAGE = 14;};
+        });
         # nix-super = inputs.nix-super.packages.${prev.system}.default;
         # nixos-option = prev.nixos-option.override {nix = prev.nixVersions.nix_2_15;};
       })
