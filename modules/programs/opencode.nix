@@ -16,6 +16,7 @@
         enable = true;
         settings = {
           theme = "opencode";
+          instructions = [".github/copilot-instructions.md"];
           provider = {
             zaianthropic = {
               npm = "@ai-sdk/anthropic";
