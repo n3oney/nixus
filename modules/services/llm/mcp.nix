@@ -17,6 +17,11 @@
     ];
 
     servers = {
+      treesitter = {
+        command = npx;
+        args = ["-y" "@nendo/tree-sitter-mcp" "--mcp"];
+      };
+
       effect = {
         command = npx;
         args = ["-y" "effect-mcp@0.1.10"];
@@ -142,6 +147,8 @@
         run cp ${text} /home/neoney/Documents/Cline/Rules/global-instructions.md
       '';
     };
+
+    programs.opencode.settings.instructions = [(pkgs.writeText "instructiond.md" instructions)];
 
     /*
     home.file."Documents/Cline/Rules/global-instructions.md" = {
