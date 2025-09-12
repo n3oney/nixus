@@ -78,7 +78,14 @@
           buffer_font_size = 14;
           languages = {
             TypeScript = {
-              language_servers = ["tsgo" "vtsls" "eslint" "codebook"];
+              language_servers = [
+                /*
+                "tsgo"
+                */
+                "vtsls"
+                "eslint"
+                "codebook"
+              ];
               code_actions_on_format."source.fixAll.eslint" = true;
             };
           };
