@@ -36,12 +36,12 @@
     xdg.configFile = {
       kdeglobals.source = "${pkgs.kdePackages.breeze}/share/color-schemes/BreezeDark.colors";
 
-      "qt5ct/qt5ct.conf".text = ''
+      "qt6ct/qt6ct.conf".text = ''
         [Appearance]
         style=Darkly
         icon_theme=Papirus-Dark
         custom_palette=true
-        color_scheme_path=${pkgs.catppuccin-qt5ct}/share/qt5ct/colors/Catppuccin-Macchiato.conf
+        color_scheme_path=${pkgs.catppuccin-qt5ct}/share/qt6ct/colors/catppuccin-macchiato-blue.conf
 
         [Fonts]
         fixed="Monospace,9,-1,5,50,0,0,0,0,0"
@@ -57,18 +57,18 @@
         hmConfig.gtk.theme.package
       ]
       ++ [
-        pkgs.libsForQt5.qt5ct
-        pkgs.darkly-qt5
+        pkgs.kdePackages.qt6ct
+        pkgs.darkly
       ];
 
     environment.variables = let
       qmlPackages = with pkgs; [
-        plasma5Packages.qqc2-desktop-style
-        plasma5Packages.kirigami2
+        kdePackages.qqc2-desktop-style
+        kdePackages.kirigami
       ];
-      qtVersion = pkgs.qt515.qtbase.version;
+      qtVersion = pkgs.kdePackages.qtbase.version;
     in {
-      QT_QPA_PLATFORMTHEME = "qt5ct";
+      QT_QPA_PLATFORMTHEME = "qt6ct";
       QML2_IMPORT_PATH = lib.concatStringsSep ":" (builtins.map (p: "${p}/lib/qt-${qtVersion}/qml") qmlPackages);
     };
   };
