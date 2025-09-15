@@ -583,6 +583,7 @@ in {
                   "ignorezero,gtk-layer-shell"
                   "blur,anyrun"
                   "ignorealpha 0.6,anyrun"
+                  "noanim,anyrun"
                   "blur,notifications"
                   "ignorezero,notifications"
 

@@ -21,11 +21,24 @@
         ];
       };
 
+      hmModules = [
+        inputs.anyrun.homeManagerModules.default
+
+        ({modulesPath, ...}: {
+          # Important! We disable home-manager's module to avoid option
+          # definition collisions
+          disabledModules = ["${modulesPath}/programs/anyrun.nix"];
+        })
+      ];
+
       hm.programs.anyrun = {
         enable = true;
 
         config = {
           y.fraction = 0.2;
+          x.fraction = 0.5;
+          width.fraction = 0.3;
+          layer = "overlay";
           closeOnClick = true;
           hidePluginInfo = true;
           showResultsImmediately = true;
