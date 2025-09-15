@@ -1,4 +1,4 @@
-{...}: {
+_: {
   osModules = [./hardware-configuration.nix];
 
   os = {

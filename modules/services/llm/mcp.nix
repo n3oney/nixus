@@ -40,6 +40,11 @@
         autoApprove = ["grep_repomix_output" "pack_codebase"];
       };
 
+      typescript = {
+        command = npx;
+        args = ["-y" "typescript-mcp"];
+      };
+
       # ripgrep = {
       # command = npx;
       # args = ["-y" "mcp-ripgrep@latest"];
@@ -134,6 +139,16 @@
       Prefer using the postgresReadOnly tool if possible, as it's much faster. Only use the postgresMutable tool if the query will change data. The tools access the same database, so use the postgresMutable ONLY when mutating data. Even when verifying if a mutation done with postgresMutable worked, use postgresReadOnly.
       Do not tackle tasks you were not asked to do without asking for confirmation. For example, if you implement a new feature, and then run typechecks to test if it's correct, do not go out of your way to fix other type errors.
       Do not hallucinate library usages. You have the tools for documentation for a reason. Use the tools, it doesn't cost you anything, and you won't look like a fool on drugs hallucinating libraries.
+
+      **When performing refactoring operations (rename, move, etc.) on TypeScript code, ALWAYS use typescript MCP tools (`mcp__typescript_*`) instead of the default Edit/Write tools.**
+
+      Specifically for refactoring:
+
+      - For renaming symbols: ALWAYS use `mcp__typescript__rename_symbol` instead of Edit/Write
+      - For moving files: ALWAYS use `mcp__typescript__move_file` instead of Bash(mv) or Write
+      - For moving directories: ALWAYS use `mcp__typescript__move_directory` instead of Bash(mv)
+      - For finding references: ALWAYS use `mcp__typescript__find_references` instead of Grep/Bash(grep)
+      - For type analysis: ALWAYS use `mcp__typescript__get_type_*` tools
     '';
   in {
     xdg.configFile."github-copilot/global-copilot-instructions.md".text = instructions;
@@ -207,7 +222,7 @@
     servers;
 
     xdg.configFile."github-copilot/mcp.json".text = builtins.toJSON {
-      servers = servers;
+      inherit servers;
     };
   });
 }

@@ -15,7 +15,7 @@
             ${indent}${n} {
             ${toHyprconf attrs (indentLevel + 1)}${indent}}
           '';
-          sections = filterAttrs (n: v: isAttrs v) attrs;
+          sections = filterAttrs (n: isAttrs) attrs;
 
           mkFields = generators.toKeyValue {
             listsAsDuplicateKeys = true;

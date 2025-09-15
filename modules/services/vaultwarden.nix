@@ -13,7 +13,7 @@
 
   config.os = let
     cfg = config.services.vaultwarden;
-  in (lib.mkIf cfg.enable {
+  in lib.mkIf cfg.enable {
     services.vaultwarden = {
       enable = true;
 
@@ -33,5 +33,5 @@
         reverse_proxy 127.0.0.1:${builtins.toString cfg.port}
       '';
     };
-  });
+  };
 }

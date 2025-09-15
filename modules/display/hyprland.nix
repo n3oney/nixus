@@ -182,7 +182,7 @@ in {
 
         programs.hyprland = {
           enable = true;
-          package = cfg.package;
+          inherit (cfg) package;
           withUWSM = true;
         };
 
@@ -260,9 +260,9 @@ in {
 
         home.pointerCursor = {
           gtk.enable = true;
-          name = cursor.name;
-          package = cursor.package;
-          size = cursor.size;
+          inherit (cursor) name;
+          inherit (cursor) package;
+          inherit (cursor) size;
           x11 = {
             defaultCursor = cursor.name;
             enable = true;
@@ -290,7 +290,7 @@ in {
         wayland.windowManager.hyprland = {
           enable = true;
 
-          package = cfg.package;
+          inherit (cfg) package;
 
           settings = let
             lockSequence = "physlock -ldms && ${lib.getExe pkgs.swaylock} && physlock -Ld";

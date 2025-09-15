@@ -10,7 +10,7 @@
     orcaslicer = let
       shortVersion = "V2.3.1-beta";
       version = "v2.3.1-beta";
-    in (pkgs.appimageTools.wrapType2 {
+    in pkgs.appimageTools.wrapType2 {
       pname = "orca-slicer";
       inherit version;
 
@@ -24,7 +24,7 @@
       profile = ''
         export GST_PLUGIN_SYSTEM_PATH_1_0=/usr/lib/gstreamer-1.0
       '';
-    });
+    };
   in {
     impermanence.userDirs = [".config/OrcaSlicer" ".local/share/orca-slicer"];
 

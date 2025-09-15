@@ -8,7 +8,7 @@
 with lib;
 let
   cfg = config.services.mainsail;
-  moonraker = osConfig.services.moonraker;
+  inherit (osConfig.services) moonraker;
 in
 {
   options.services.mainsail = {

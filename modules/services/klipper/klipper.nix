@@ -169,8 +169,7 @@ in {
     security.rtkit.enable = true;
 
     services.klipper = {
-      package =
-        package;
+      inherit package;
       enable = true;
       user = "klipper";
       group = "klipper";
