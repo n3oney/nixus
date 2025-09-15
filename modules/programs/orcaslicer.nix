@@ -8,15 +8,15 @@
 
   config = lib.mkIf config.programs.orcaSlicer.enable (let
     orcaslicer = let
-      shortVersion = "nightly";
-      version = "nightly-builds";
+      shortVersion = "V2.3.1-beta";
+      version = "v2.3.1-beta";
     in (pkgs.appimageTools.wrapType2 {
       pname = "orca-slicer";
       inherit version;
 
       src = pkgs.fetchurl {
         url = "https://github.com/SoftFever/OrcaSlicer/releases/download/${version}/OrcaSlicer_Linux_AppImage_Ubuntu2404_${shortVersion}.AppImage";
-        hash = "sha256-gcl2oF6bezPJ1Z08zxvaJiPk7TanEy71wOrH+LTs4u8=";
+        sha256 = "sha256-a9IBGPItM+SvWEHtH+EhXR9VurL0QoCHtW5zRzPn3Kg=";
       };
 
       extraPkgs = pkgs: [pkgs.webkitgtk_4_1];
