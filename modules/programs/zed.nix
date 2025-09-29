@@ -80,7 +80,7 @@
             TypeScript = {
               language_servers = [
                 "tsgo"
-                # "vtsls"
+                "vtsls"
                 "eslint"
                 "codebook"
               ];
