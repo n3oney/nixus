@@ -32,7 +32,8 @@
       interfaces.eno1.wakeOnLan.enable = true;
       firewall.allowedTCPPorts = [2115];
       nameservers = [
-        "192.168.1.4"
+        "1.1.1.1"
+        "1.0.0.1"
       ];
     };
 

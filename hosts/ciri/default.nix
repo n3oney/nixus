@@ -45,6 +45,8 @@
       pulse.enable = true;
     };
 
+    services.tailscale.enable = true;
+
     # AirPlay support
     services.avahi.enable = true;
 

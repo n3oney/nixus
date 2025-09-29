@@ -87,6 +87,7 @@ in {
     openrgb.enable = true;
     ollama.enable = true;
     mcp.enable = true;
+    tailscale.enable = true;
     kondo.enable = true;
     syncthing.enable = true;
     yubikey-touch-detector.enable = true;
