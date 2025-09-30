@@ -78,7 +78,7 @@
     yubikey-touch-detector.enable = true;
     podman.enable = true;
     # uxplay.enable = true;
-    warp.enable = true;
+    # warp.enable = true;
     kondo.enable = true;
   };
 

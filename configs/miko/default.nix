@@ -81,7 +81,7 @@ in {
   };
 
   services = {
-    warp.enable = true;
+    # warp.enable = true;
     kde_connect.enable = true;
     podman.enable = true;
     openrgb.enable = true;
