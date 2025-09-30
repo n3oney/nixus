@@ -199,6 +199,12 @@ in {
           wantedBy = ["sleep.target"];
           script = "${pkgs.systemd}/bin/loginctl lock-sessions";
         };
+
+        services.logind.settings.Login = {
+          IdleActionSec = "7min";
+          IdleAction = "suspend";
+          HandleLidSwitch = "suspend";
+        };
       };
 
       hm = let
@@ -312,7 +318,7 @@ in {
 
                     ''${lib.getExe pkgs.xss-lock} --ignore-sleep -- ${lib.getExe pkgs.bash} -c ${builtins.toJSON lockSequence}''
 
-                    ''swayidle timeout 300 '${lockSequence}' timeout 360 'hyprctl dispatch dpms off' resume 'hyprctl dispatch dpms on' timeout 420 'test $(${pkgs.sysstat}/bin/mpstat -o JSON 1 1 | ${lib.getExe pkgs.jaq} -r ".sysstat.hosts[0].statistics[0]["cpu-load"][0].usr | floor") -lt 80 && systemctl suspend' ''
+                    ''swayidle timeout 300 '${lockSequence}' timeout 360 'hyprctl dispatch dpms off' timeout 420 'systemctl suspend' resume 'hyprctl dispatch dpms on' timeout 420 'test $(${pkgs.sysstat}/bin/mpstat -o JSON 1 1 | ${lib.getExe pkgs.jaq} -r ".sysstat.hosts[0].statistics[0]["cpu-load"][0].usr | floor") -lt 80 && systemctl suspend' ''
 
                     "systemctl --user restart xdg-desktop-portal xdg-desktop-portal-hyprland"
                   ]
