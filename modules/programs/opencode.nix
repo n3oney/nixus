@@ -13,6 +13,15 @@
 
     hm = {
       programs.opencode = {
+        package = pkgs.opencode.overrideAttrs (old: {
+          version = "0.13.5";
+          src = pkgs.fetchFromGitHub {
+            owner = "sst";
+            repo = "opencode";
+            tag = "v0.13.5";
+            hash = "sha256-GiByJg4NpllA4N4QGSyWsBNqKqKIdxicIjQpc7mHgEs=";
+          };
+        });
         enable = true;
         settings = {
           theme = "opencode";
