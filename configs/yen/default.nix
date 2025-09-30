@@ -20,6 +20,7 @@
   services.degra-ical.enable = true;
 
   services.vaultwarden.enable = true;
+  services.tailscale.enable = true;
 
   programs.zoxide.enable = true;
 
