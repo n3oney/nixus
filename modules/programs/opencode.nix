@@ -21,6 +21,24 @@
             tag = "v0.13.5";
             hash = "sha256-GiByJg4NpllA4N4QGSyWsBNqKqKIdxicIjQpc7mHgEs=";
           };
+          patches =
+            old.patches
+            ++ [
+              (pkgs.fetchpatch {
+                url = "http://github.com/sst/opencode/pull/2830.patch";
+                sha256 = "sha256-adUMxWG4qA0Qmw7Zyo5KjNyCjTPbSbbvMb7XZcO7rjI=";
+              })
+
+              (pkgs.fetchpatch {
+                url = "http://github.com/sst/opencode/pull/2653.patch";
+                sha256 = "sha256-9Pfz65ChM9dHZ2pXWCFGWcu1mpG+odBAJmNTeL5HAig=";
+              })
+
+              (pkgs.fetchpatch {
+                url = "http://github.com/sst/opencode/pull/2867.patch";
+                sha256 = "sha256-YaS58yqSUPQi8SUc3LLJAx+delaQIXhqG2LkKnIZBTo=";
+              })
+            ];
         });
         enable = true;
         settings = {
