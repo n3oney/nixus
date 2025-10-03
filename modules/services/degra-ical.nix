@@ -24,6 +24,8 @@
         '';
       };
 
+      networking.firewall.allowedTCPPorts = [80 443];
+
       systemd.services.degra-ical = {
         enable = true;
         description = "degra-ical";
