@@ -14,12 +14,15 @@
   services.smarthome = {
     enable = true;
     home-assistant.host = "hass.max.local:80";
+    wyoming.enable = false;
   };
 
   services.tailscale.enable = true;
 
   # services.librespot.enable = true;
   # services.klipper.enable = true;
+
+  services.spoolman.enable = true;
 
   #services.sage.enable = true;
 
