@@ -50,7 +50,7 @@
     neovim.enable = true;
     obs-studio.enable = true;
     opencode.enable = true;
-    # rider.enable = true;
+    rider.enable = true;
     swappy.enable = true;
     orcaSlicer.enable = true;
     thunderbird.enable = true;
