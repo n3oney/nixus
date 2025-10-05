@@ -32,6 +32,8 @@ in {
             group = "zigbee2mqtt";
             mode = "770";
           })
+          (secretForHostnames ["yen"] ../../secrets/librechat.age "librechat" {
+            })
         ];
         environment.systemPackages = [inputs.agenix.packages.${pkgs.system}.default];
       };

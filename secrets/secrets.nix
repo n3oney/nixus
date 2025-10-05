@@ -25,4 +25,6 @@ in {
   "z2m.age".publicKeys = miko ++ ciri ++ max;
 
   "mcp.age".publicKeys = miko ++ ciri;
+
+  "librechat.age".publicKeys = miko ++ ciri ++ yen;
 }
