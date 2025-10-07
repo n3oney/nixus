@@ -25,6 +25,19 @@
         };
         custom = [
           {
+            name = "Mistral";
+            apiKey = "user_provided";
+            baseURL = "https://api.mistral.ai/v1";
+            models = {
+              fetch = true;
+              default = ["devstral-medium-latest" "mistral-tiny" "mistral-medium" "mistral-large-latest"];
+            };
+            titleConvo = true;
+            titleModel = "mistral-tiny";
+            modelDisplayLabel = "Mistral";
+            dropParams = ["stop" "user" "frequency_penalty" "presence_penalty"];
+          }
+          {
             name = "z.ai";
             baseURL = "https://api.z.ai/api/coding/paas/v4";
             models = {
