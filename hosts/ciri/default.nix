@@ -46,9 +46,9 @@
     };
 
     services.tailscale.enable = true;
+    services.syncthing.enable = true;
 
     # AirPlay support
-    services.avahi.enable = true;
 
     hardware.graphics.enable32Bit = lib.mkForce false;
 
