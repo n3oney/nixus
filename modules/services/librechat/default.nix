@@ -148,7 +148,7 @@
             HOST = "127.0.0.1";
             MONGO_URI = "mongodb://localhost:27017/LibreChat";
             ALLOW_UNVERIFIED_EMAIL_LOGIN = "true";
-            ALLOW_REGISTRATION = "true";
+            ALLOW_REGISTRATION = "false";
             TZ = "Europe/Warsaw";
           };
           extraOptions = ["--network=host"];
