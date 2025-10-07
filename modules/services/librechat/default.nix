@@ -72,6 +72,41 @@
           command = "npx";
           args = ["-y" "mcp-server-code-runner@latest"];
         };
+        mysql = {
+          startup = false;
+          type = "stdio";
+          command = "npx";
+          args = ["-y" "@kevinwatt/mysql-mcp"];
+          env = {
+            MYSQL_HOST = "{{MYSQL_HOST}}";
+            MYSQL_PORT = "{{MYSQL_PORT}}";
+            MYSQL_USER = "{{MYSQL_USER}}";
+            MYSQL_PASS = "{{MYSQL_PASSWORD}}";
+            MYSQL_DB = "{{MYSQL_DB}}";
+          };
+          customUserVars = {
+            MYSQL_HOST = {
+              title = "MySQL host";
+              description = "Host to connect to";
+            };
+            MYSQL_PORT = {
+              title = "MySQL port";
+              description = "Port to connect to";
+            };
+            MYSQL_USER = {
+              title = "MySQL user";
+              description = "User to connect as";
+            };
+            MYSQL_PASSWORD = {
+              title = "MySQL password";
+              description = "Password to authenticate with";
+            };
+            MYSQL_DB = {
+              title = "MySQL database";
+              description = "Database to use";
+            };
+          };
+        };
         openmemory = {
           startup = false;
           type = "stdio";
