@@ -1,7 +1,6 @@
 {
   lib,
   config,
-  inputs,
   osConfig,
   pkgs,
   ...
@@ -80,8 +79,6 @@
     };
     settingsYaml = pkgs.writeText "librechat.yaml" (builtins.toJSON settings);
   in {
-    osModules = [inputs.librechat-flake.nixosModules.librechat];
-
     os = {
       services.mongodb = {
         enable = true;
