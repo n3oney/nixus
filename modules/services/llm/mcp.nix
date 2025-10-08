@@ -7,8 +7,39 @@
 }: {
   options.services.mcp.enable = lib.mkEnableOption "MCP";
   config.hm = lib.mkIf config.services.mcp.enable (let
-    npx = "${pkgs.nodejs}/bin/npx";
+    npxDerivation = let
+      nodejs = pkgs.nodejs;
+    in
+      pkgs.stdenv.mkDerivation {
+        pname = "wrapped-npx";
+        version = nodejs.version;
 
+        nativeBuildInputs = [
+          pkgs.makeWrapper
+        ];
+
+        dontUnpack = true;
+        dontConfigure = true;
+        dontBuild = true;
+
+        installPhase = ''
+          runHook preInstall
+
+          mkdir -p $out/bin
+
+          makeWrapper ${nodejs}/bin/npx $out/bin/npx \
+            --suffix PATH : "${nodejs}/bin"
+
+          runHook postInstall
+        '';
+
+        meta = {
+          description = "A wrapped npx binary that includes nodejs/bin in its PATH.";
+          license = pkgs.lib.licenses.mit;
+          platforms = nodejs.meta.platforms;
+        };
+      };
+    npx = "${npxDerivation}/bin/npx";
     envArgs = [
       "-y"
       "envmcp"
