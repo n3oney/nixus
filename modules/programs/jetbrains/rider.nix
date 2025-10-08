@@ -8,7 +8,12 @@
 
   config = lib.mkIf config.programs.rider.enable {
     hm.home.packages = [
-      ((pkgs.jetbrains.rider.override {jdk = pkgs.openjdk21;}).overrideAttrs
+      ((
+          pkgs.jetbrains.rider
+          /*
+          .override {jdk = pkgs.openjdk21;}
+          */
+        ).overrideAttrs
         (old: {
           postFixup =
             (old.postFixup or "")
