@@ -10,7 +10,7 @@
   };
 
   config = lib.mkIf config.services.syncthing.enable {
-    impermanence.systemDirs = ["/var/lib/syncthing/.config/syncthing"];
+    impermanence.systemDirs = ["/var/lib/syncthing"];
 
     os = {
       services.syncthing = {
@@ -20,6 +20,8 @@
           user = "neoney";
           password = "$2a$16$3sJpgx6UK5GBWvD/E5QJFOshPg1DqinP2DIXmIoHXWgreC4rObgJC";
         };
+        overrideDevices = false;
+        overrideFolders = false;
       };
 
       services.caddy = lib.mkIf config.services.syncthing.openToInternet {
