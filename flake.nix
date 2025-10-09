@@ -26,18 +26,6 @@
     hyprpaper.url = "github:hyprwm/hyprpaper";
     hyprpicker.url = "github:hyprwm/hyprpicker";
     impermanence.url = "github:nix-community/impermanence";
-    lix-module = {
-      url = "git+https://git.lix.systems/lix-project/nixos-module";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.lix = {
-        url = "git+https://git.lix.systems/lix-project/lix";
-        inputs.nixpkgs.follows = "nixpkgs";
-      };
-    };
-    # lix-module = {
-    #   url = "https://git.lix.systems/lix-project/nixos-module/archive/2.93.3-1.tar.gz";
-    #   inputs.nixpkgs.follows = "nixpkgs";
-    # };
     nh = {
       inputs.nixpkgs.follows = "nixpkgs";
       url = "github:viperML/nh";

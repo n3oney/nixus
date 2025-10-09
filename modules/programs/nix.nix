@@ -59,8 +59,6 @@
 in {
   hm.nix.settings = nixSettings;
 
-  osModules = [inputs.lix-module.nixosModules.default];
-
   os = {
     nixpkgs.overlays = [
       (_: prev: {
@@ -90,6 +88,7 @@ in {
     nix = let
       mappedRegistry = lib.mapAttrs (_: v: {flake = v;}) inputs;
     in {
+      package = pkgs.lixPackageSets.stable.lix;
       # package = pkgs.nix-super;
       registry =
         mappedRegistry
