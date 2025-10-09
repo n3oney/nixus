@@ -9,7 +9,12 @@
   config = lib.mkIf config.programs.datagrip.enable {
     hm.home.packages = [
       (
-        (pkgs.jetbrains.datagrip.override {jdk = pkgs.openjdk21;})
+        (
+          pkgs.jetbrains.datagrip
+          /*
+          .override {jdk = pkgs.openjdk21;}
+          */
+        )
         /*
                                                                      .overrideAttrs (old: {
           postFixup =
