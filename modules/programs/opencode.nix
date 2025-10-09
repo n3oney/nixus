@@ -9,6 +9,7 @@
   config = lib.mkIf config.programs.opencode.enable {
     impermanence.userDirs = [
       ".local/share/opencode"
+      ".cache/opencode"
     ];
 
     hm = {
