@@ -17,6 +17,8 @@
     openToInternet = true;
   };
 
+  services.n8n.enable = true;
+
   services.librechat.enable = true;
 
   services.degra-ical.enable = true;
