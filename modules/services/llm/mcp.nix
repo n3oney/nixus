@@ -6,6 +6,11 @@
   ...
 }: {
   options.services.mcp.enable = lib.mkEnableOption "MCP";
+
+  config.impermanence.userDirs = lib.mkIf config.services.mcp.enable [
+    ".npm/_npx"
+  ];
+
   config.hm = lib.mkIf config.services.mcp.enable (let
     npxDerivation = let
       nodejs = pkgs.nodejs;
