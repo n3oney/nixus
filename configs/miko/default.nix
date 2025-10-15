@@ -71,6 +71,7 @@ in {
     opencode.enable = true;
     orcaSlicer.enable = true;
     rider.enable = true;
+    datagrip.enable = true;
     spotify.enable = true;
     swappy.enable = true;
     thunderbird.enable = true;
