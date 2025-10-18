@@ -9,7 +9,10 @@
       url = "github:n3oney/anyrun-ha-assist";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    anyrun-nixos-options.url = "github:n3oney/anyrun-nixos-options/v2.0.0";
+    anyrun-nixos-options = {
+      url = "github:n3oney/anyrun-nixos-options/v2.0.0";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     apple-silicon-support.url = "github:nix-community/nixos-apple-silicon";
     btop-rose-pine = {
       flake = false;
