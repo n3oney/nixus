@@ -5,4 +5,5 @@ _: prev: {
   proton-ge-custom = prev.callPackage ./proton-ge-custom {};
   horizontallyspinningrat = prev.callPackage ./horizontallyspinningrat {};
   mxw = prev.callPackage ./mxw.nix {};
+  orca-slicer-wayland = prev.callPackage ./orca-slicer-wayland {};
 }
