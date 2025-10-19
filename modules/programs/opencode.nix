@@ -32,10 +32,10 @@
               #   sha256 = "sha256-adUMxWG4qA0Qmw7Zyo5KjNyCjTPbSbbvMb7XZcO7rjI=";
               # })
 
-              (pkgs.fetchpatch {
-                url = "http://github.com/sst/opencode/pull/2653.patch";
-                sha256 = "sha256-9Pfz65ChM9dHZ2pXWCFGWcu1mpG+odBAJmNTeL5HAig=";
-              })
+              # (pkgs.fetchpatch {
+              #   url = "http://github.com/sst/opencode/pull/2653.patch";
+              #   sha256 = "sha256-9Pfz65ChM9dHZ2pXWCFGWcu1mpG+odBAJmNTeL5HAig=";
+              # })
 
               (pkgs.fetchpatch {
                 url = "http://github.com/sst/opencode/pull/2867.patch";
