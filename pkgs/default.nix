@@ -5,5 +5,5 @@
   horizontallyspinningrat = pkgs.callPackage ./overlays/horizontallyspinningrat {};
   mxw = pkgs.callPackage ./overlays/mxw.nix {};
   zed-plex-mono = pkgs.callPackage ./overlays/zed-plex/default.nix {};
-  orca-slicer-wayland = pkgs.callPackage ./overlays/orca-slicer-wayland {};
+  orca-slicer-nightly = pkgs.callPackage ./overlays/orca-slicer-nightly {};
 }
