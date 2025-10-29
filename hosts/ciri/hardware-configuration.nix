@@ -53,10 +53,10 @@
     options = ["size=14G" "mode=755"];
   };
 
-  fileSystems."/etc/ssh" = {
-    depends = ["/persist"];
-    neededForBoot = true;
-  };
+  # fileSystems."/etc/ssh" = {
+  #   depends = ["/persist"];
+  #   neededForBoot = true;
+  # };
 
   fileSystems."/persist" = {
     neededForBoot = true;

@@ -26,10 +26,10 @@
       options = ["size=14G" "mode=755"];
     };
 
-    "/etc/ssh" = {
-      depends = ["/persist"];
-      neededForBoot = true;
-    };
+    # "/etc/ssh" = {
+    #   depends = ["/persist"];
+    #   neededForBoot = true;
+    # };
 
     "/nix" = {
       neededForBoot = true;

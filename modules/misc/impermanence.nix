@@ -22,11 +22,15 @@
       type = lib.types.listOf lib.types.str;
       default = [];
     };
+    earlySystemFiles = lib.mkOption {
+      type = lib.types.listOf lib.types.str;
+      default = [];
+    };
   };
 
   config = lib.mkMerge [
     (lib.mkIf config.impermanence.enable {
-      osModules = [inputs.impermanence.nixosModule];
+      osModules = [inputs.preservation.nixosModules.default];
 
       impermanence = {
         userDirs = [
@@ -59,14 +63,9 @@
           ".config/github-copilot"
         ];
 
-        systemFiles = [
-          "/etc/machine-id"
-        ];
-
         systemDirs = [
           "/etc/nixos"
           "/etc/nix"
-          "/etc/ssh"
           "/var/lib"
           "/var/log"
           "/var/db/sudo"
@@ -74,25 +73,46 @@
       };
 
       os = {
-        environment.persistence."/persist" = {
-          directories =
-            builtins.map (v: {
-              directory = "/home/neoney/${v}";
-              user = "neoney";
-              group = "users";
-            })
-            (lib.lists.unique config.impermanence.userDirs)
-            ++ config.impermanence.systemDirs;
-          files =
-            builtins.map (v: {
-              file = "/home/neoney/${v}";
-              parentDirectory = {
+        boot.initrd.systemd.enable = true;
+        preservation = {
+          enable = true;
+          preserveAt."/persist" = {
+            directories =
+              builtins.map (v: {
+                directory = "/home/neoney/${v}";
                 user = "neoney";
                 group = "users";
-              };
-            })
-            (lib.lists.unique config.impermanence.userFiles)
-            ++ config.impermanence.systemFiles;
+              })
+              (lib.lists.unique config.impermanence.userDirs)
+              ++ config.impermanence.systemDirs;
+            files =
+              builtins.map (v: {
+                file = "/home/neoney/${v}";
+                configureParent = true;
+                parent = {
+                  group = "users";
+                  user = "neoney";
+                };
+              })
+              (lib.lists.unique config.impermanence.userFiles)
+              ++ config.impermanence.systemFiles
+              ++ [
+                {
+                  file = "/etc/machine-id";
+                  inInitrd = true;
+                }
+                {
+                  file = "/etc/ssh/ssh_host_rsa_key";
+                  how = "symlink";
+                  configureParent = true;
+                }
+                {
+                  file = "/etc/ssh/ssh_host_ed25519_key";
+                  how = "symlink";
+                  configureParent = true;
+                }
+              ];
+          };
         };
 
         users = {

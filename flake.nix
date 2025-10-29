@@ -32,6 +32,7 @@
     hyprpaper.url = "github:hyprwm/hyprpaper";
     hyprpicker.url = "github:hyprwm/hyprpicker";
     impermanence.url = "github:nix-community/impermanence";
+    preservation.url = "github:nix-community/preservation";
     nh = {
       inputs.nixpkgs.follows = "nixpkgs";
       url = "github:viperML/nh";
