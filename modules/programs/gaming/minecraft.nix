@@ -7,7 +7,7 @@
   options.programs.gaming.minecraft.enable = lib.mkEnableOption "Minecraft";
 
   config = lib.mkIf config.programs.gaming.minecraft.enable {
-    hm.home.packages = [pkgs.prismlauncher pkgs.glfw-wayland-minecraft];
+    hm.home.packages = [pkgs.prismlauncher pkgs.glfw3-minecraft];
 
     impermanence.userDirs = [".local/share/PrismLauncher"];
   };
