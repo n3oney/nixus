@@ -2,6 +2,7 @@
   pkgs,
   lib,
   config,
+  inputs,
   ...
 }: {
   options.programs.gaming = {
@@ -13,7 +14,11 @@
     steeringWheel.enable = lib.mkEnableOption "steering wheel";
   };
 
-  config.impermanence.userDirs = lib.mkIf config.programs.gaming.steam.enable [".local/share/steam" ".steam"];
+  config.impermanence.userDirs = lib.mkIf config.programs.gaming.steam.enable [
+    ".local/share/steam"
+    ".local/share/Steam"
+    ".steam"
+  ];
 
   config.os = lib.mkMerge [
     (lib.mkIf config.programs.gaming.steam.enable {
@@ -21,7 +26,7 @@
         enable = true;
         remotePlay.openFirewall = true;
         package = pkgs.steam.override {
-          extraPkgs = pkgs: with pkgs; [gamescope libkrb5 keyutils];
+          extraPkgs = pkgs: with pkgs; [gamescope libkrb5 keyutils nspr nss_latest];
         };
       };
 
@@ -29,7 +34,15 @@
 
       programs.steam.extraCompatPackages = lib.mkIf config.programs.gaming.steam.proton-ge.enable [
         pkgs.proton-ge-bin
+        ((pkgs.proton-ge-bin.override {steamDisplayName = "GE-Proton8-27";}).overrideAttrs (old: rec {
+          version = "GE-Proton8-27";
+          src = pkgs.fetchzip {
+            url = "https://github.com/GloriousEggroll/proton-ge-custom/releases/download/${version}/${version}.tar.gz";
+            hash = "sha256-YeibTA2z69bNE3V/sgFHOHaxl0Uf77unQQc7x2w/1AI=";
+          };
+        }))
       ];
+      programs.steam.protontricks.enable = true;
     })
 
     {
