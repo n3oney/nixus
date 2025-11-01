@@ -2,6 +2,7 @@
   pkgs,
   config,
   lib,
+  inputs,
   ...
 }: {
   options.programs.opencode.enable = lib.mkEnableOption "opencode";
@@ -14,39 +15,13 @@
 
     hm = {
       programs.opencode = {
-        package = pkgs.opencode.overrideAttrs (old: {
-          /*
-            version = "0.15.3";
-          src = pkgs.fetchFromGitHub {
-            owner = "sst";
-            repo = "opencode";
-            tag = "v0.15.3";
-            hash = "sha256-zypzRF31610x2EaMCXDOLKb6oyEWDLGGLeQYG99vYGw=";
-          };
-          */
-          patches =
-            old.patches
-            ++ [
-              # (pkgs.fetchpatch {
-              #   url = "http://github.com/sst/opencode/pull/2830.patch";
-              #   sha256 = "sha256-adUMxWG4qA0Qmw7Zyo5KjNyCjTPbSbbvMb7XZcO7rjI=";
-              # })
-
-              # (pkgs.fetchpatch {
-              #   url = "http://github.com/sst/opencode/pull/2653.patch";
-              #   sha256 = "sha256-9Pfz65ChM9dHZ2pXWCFGWcu1mpG+odBAJmNTeL5HAig=";
-              # })
-
-              (pkgs.fetchpatch {
-                url = "http://github.com/sst/opencode/pull/2867.patch";
-                sha256 = "sha256-YaS58yqSUPQi8SUc3LLJAx+delaQIXhqG2LkKnIZBTo=";
-              })
-            ];
-        });
+        package = inputs.nix-ai-tools.packages.${pkgs.system}.opencode;
         enable = true;
         settings = {
-          theme = "opencode";
+          theme = "system";
           instructions = [".github/copilot-instructions.md"];
+          model = "zai-coding-plan/glm-4.6";
+          small_model = "zai-coding-plan/glm-4.5-air";
         };
       };
     };

@@ -37,6 +37,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
       url = "github:viperML/nh";
     };
+    nix-ai-tools.url = "github:numtide/nix-ai-tools";
     nix-colors.url = "github:Misterio77/nix-colors";
 
     nix-index-database.url = "github:nix-community/nix-index-database";
