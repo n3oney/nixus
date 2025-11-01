@@ -249,6 +249,7 @@ in {
           (writeShellScriptBin
             "pauseshot"
             ''
+              pkill -9 hyprpicker # kill all hyprpicker instances before launching this - sometimes it lags out
               ${hyprpicker}/bin/hyprpicker -r -z &
               picker_proc=$!
 
