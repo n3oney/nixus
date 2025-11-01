@@ -53,10 +53,10 @@
     ];
 
     servers = {
-      treesitter = {
-        command = npx;
-        args = ["-y" "@nendo/tree-sitter-mcp" "--mcp"];
-      };
+      # treesitter = {
+      #   command = npx;
+      #   args = ["-y" "@nendo/tree-sitter-mcp" "--mcp"];
+      # };
 
       effect = {
         command = npx;
@@ -64,11 +64,11 @@
         autoApprove = ["get_effect_doc" "effect_doc_search"];
       };
 
-      git = {
-        command = npx;
-        args = ["-y" "@cyanheads/git-mcp-server"];
-        autoApprove = ["git_add" "git_status" "git_set_working_dir" "git_status" "git_diff" "git_log" "git_push"];
-      };
+      # git = {
+      #   command = npx;
+      #   args = ["-y" "@cyanheads/git-mcp-server"];
+      #   autoApprove = ["git_add" "git_status" "git_set_working_dir" "git_status" "git_diff" "git_log" "git_push"];
+      # };
 
       repomix = {
         command = npx;
@@ -76,16 +76,22 @@
         autoApprove = ["grep_repomix_output" "pack_codebase"];
       };
 
-      typescript = {
+      mysql = {
         command = npx;
-        args = ["-y" "typescript-mcp"];
+        args = ["-y" "@kevinwatt/mysql-mcp"];
       };
+
+      # typescript = {
+      #   command = npx;
+      #   args = ["-y" "typescript-mcp"];
+      # };
 
       # ripgrep = {
       # command = npx;
       # args = ["-y" "mcp-ripgrep@latest"];
       # };
 
+      /*
       axiom = {
         autoApprove = ["listDatasets" "queryApl"];
         command = npx;
@@ -106,6 +112,7 @@
             "docker.io/acuvity/mcp-server-axiom:v0.0.1"
           ];
       };
+      */
 
       /*
       postgresReadOnly = {
@@ -170,28 +177,24 @@
       };
     };
     instructions = ''
-            Use context7 for library documentation. The shell used on the system is Nushell, not bash, so in commands use ';' instead of the shell '&&', or 'and' instead of the boolean '&&'.
-            Use the repomix tool for tasks that aren't just the most basic edits. You have direct file system access, so don't use the "read repomix output" tool. Just read the file directly.
-            Prefer reading the entire repomix file over using the "grep repomix output" tool.
-            Use tavily to search the web for information. If working with effect, use the effect tool to get proper documentation.
+      Use context7 for library documentation. The shell used on the system is Nushell, not bash, so in commands use ';' instead of the shell '&&', or 'and' instead of the boolean '&&'.
+            ${
+        /*
+          Use the repomix tool for tasks that aren't just the most basic edits. You have direct file system access, so don't use the "read repomix output" tool. Just read the file directly.
+        Prefer reading the entire repomix file over using the "grep repomix output" tool.
+        */
+        ""
+      }
+      Use tavily to search the web for information. If working with effect, use the effect tool to get proper documentation.
       ${
         /*
         Prefer using the postgresReadOnly tool if possible, as it's much faster. Only use the postgresMutable tool if the query will change data. The tools access the same database, so use the postgresMutable ONLY when mutating data. Even when verifying if a mutation done with postgresMutable worked, use postgresReadOnly.
         */
         ""
       }
-            Do not tackle tasks you were not asked to do without asking for confirmation. For example, if you implement a new feature, and then run typechecks to test if it's correct, do not go out of your way to fix other type errors.
-            Do not hallucinate library usages. You have the tools for documentation for a reason. Use the tools, it doesn't cost you anything, and you won't look like a fool on drugs hallucinating libraries.
-
-            **When performing refactoring operations (rename, move, etc.) on TypeScript code, ALWAYS use typescript MCP tools (`mcp__typescript_*`) instead of the default Edit/Write tools.**
-
-            Specifically for refactoring:
-
-            - For renaming symbols: ALWAYS use `mcp__typescript__rename_symbol` instead of Edit/Write
-            - For moving files: ALWAYS use `mcp__typescript__move_file` instead of Bash(mv) or Write
-            - For moving directories: ALWAYS use `mcp__typescript__move_directory` instead of Bash(mv)
-            - For finding references: ALWAYS use `mcp__typescript__find_references` instead of Grep/Bash(grep)
-            - For type analysis: ALWAYS use `mcp__typescript__get_type_*` tools
+      Do not tackle tasks you were not asked to do without asking for confirmation. For example, if you implement a new feature, and then run typechecks to test if it's correct, do not go out of your way to fix other type errors.
+      Do not hallucinate library usages. You have the tools for documentation for a reason. Use the tools, it doesn't cost you anything, and you won't look like a fool on drugs hallucinating libraries.
+      Do not use git. Use jj (jujutsu) instead. `jj pull; jj sync` will pull the latest changes, `jj tug; jj push` will push the changes. Remember that running `jj commit` will commit everything that was edited - there is no `git add`.
     '';
   in {
     xdg.configFile."github-copilot/global-copilot-instructions.md".text = instructions;
@@ -206,7 +209,7 @@
       '';
     };
 
-    programs.opencode.settings.instructions = [(pkgs.writeText "instructiond.md" instructions)];
+    programs.opencode.settings.instructions = [(pkgs.writeText "instructions.md" instructions)];
 
     /*
     home.file."Documents/Cline/Rules/global-instructions.md" = {
