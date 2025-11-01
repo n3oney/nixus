@@ -73,6 +73,9 @@
       };
 
       os = {
+        systemd.tmpfiles.rules = [
+          "d /home/neoney/.local - neoney users - -"
+        ];
         boot.initrd.systemd.enable = true;
         preservation = {
           enable = true;
@@ -82,6 +85,11 @@
                 directory = "/home/neoney/${v}";
                 user = "neoney";
                 group = "users";
+                configureParent = true;
+                parent = {
+                  group = "users";
+                  user = "neoney";
+                };
               })
               (lib.lists.unique config.impermanence.userDirs)
               ++ config.impermanence.systemDirs;
@@ -102,6 +110,7 @@
                 {
                   file = "/etc/machine-id";
                   inInitrd = true;
+                  how = "symlink";
                 }
                 {
                   file = "/etc/ssh/ssh_host_rsa_key";
