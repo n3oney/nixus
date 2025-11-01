@@ -17,7 +17,7 @@ in {
         width = 2560;
         height = 1440;
         refreshRate = 144;
-        transform = ",transform,1";
+        # transform = ",transform,1";
       };
       secondary = {
         name = "DP-3";
@@ -56,6 +56,7 @@ in {
     firefox.enable = false;
     foot.enable = true;
     gaming = {
+      alvr.enable = true;
       steam = {
         enable = true;
         proton-ge.enable = true;
@@ -70,6 +71,7 @@ in {
     obs-studio.enable = true;
     opencode.enable = true;
     orcaSlicer.enable = true;
+    qidiStudio.enable = true;
     rider.enable = true;
     datagrip.enable = true;
     spotify.enable = true;
@@ -86,7 +88,6 @@ in {
     kde_connect.enable = true;
     podman.enable = true;
     openrgb.enable = true;
-    ollama.enable = true;
     mcp.enable = true;
     tailscale.enable = true;
     kondo.enable = true;
