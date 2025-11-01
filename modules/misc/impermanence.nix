@@ -89,6 +89,8 @@
               builtins.map (v: {
                 file = "/home/neoney/${v}";
                 configureParent = true;
+                user = "neoney";
+                group = "users";
                 parent = {
                   group = "users";
                   user = "neoney";
