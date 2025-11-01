@@ -52,6 +52,11 @@
       };
     };
 
+    programs.difftastic = {
+      git.enable = true;
+      enable = true;
+    };
+
     programs.lazygit = {
       enable = true;
       settings = {
