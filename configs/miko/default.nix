@@ -66,6 +66,7 @@ in {
       steeringWheel.enable = true;
       xonotic.enable = true;
     };
+    kicad.enable = true;
     webstorm.enable = true;
     neovim.enable = true;
     ngrok.enable = true;
