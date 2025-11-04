@@ -48,6 +48,7 @@
     ags.enable = true;
     # firefox.enable = true;
     foot.enable = true;
+    kicad.enable = true;
     neovim.enable = true;
     obs-studio.enable = true;
     opencode.enable = true;

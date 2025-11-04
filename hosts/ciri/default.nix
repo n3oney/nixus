@@ -46,7 +46,6 @@
     };
 
     services.tailscale.enable = true;
-    services.syncthing.enable = true;
 
     # AirPlay support
 
