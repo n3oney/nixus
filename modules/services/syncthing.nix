@@ -10,11 +10,14 @@
   };
 
   config = lib.mkIf config.services.syncthing.enable {
-    impermanence.systemDirs = ["/var/lib/syncthing"];
+    impermanence.userDirs = ["Syncthing"];
 
     os = {
       services.syncthing = {
         enable = true;
+        user = "neoney";
+        group = "users";
+        dataDir = "/home/neoney/Syncthing";
         openDefaultPorts = true;
         settings.gui = {
           user = "neoney";
