@@ -75,6 +75,7 @@
   };
 
   services = {
+    syncthing.enable = true;
     mcp.enable = true;
     tlp.enable = true;
     yubikey-touch-detector.enable = true;
