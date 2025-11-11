@@ -7,10 +7,10 @@
   options.programs.chrome.enable = lib.mkEnableOption "Chrome";
 
   config = lib.mkIf config.programs.chrome.enable {
-    impermanence.userDirs = [".config/google-chrome"];
+    impermanence.userDirs = [".config/chromium"];
 
     hm.programs.chromium = {
-      package = pkgs.google-chrome;
+      package = pkgs.chromium;
       enable = true;
     };
   };

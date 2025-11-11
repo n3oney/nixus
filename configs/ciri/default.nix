@@ -43,6 +43,7 @@
     anyrun.enable = true;
     btop.enable = true;
     cinny.enable = true;
+    chrome.enable = true;
     datagrip.enable = true;
     discord.enable = true;
     ags.enable = true;
