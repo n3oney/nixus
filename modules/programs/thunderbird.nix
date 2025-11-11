@@ -10,7 +10,10 @@
 
   config.hm.programs.thunderbird = lib.mkIf config.programs.thunderbird.enable {
     enable = true;
-    package = pkgs.thunderbird-bin;
+    package =
+      if pkgs.system == "x86-64-linux"
+      then pkgs.thunderbird-bin
+      else pkgs.thunderbird;
     profiles.default = {
       isDefault = true;
       settings = {};
