@@ -1786,6 +1786,22 @@
         "type": "github"
       }
     },
+    "orcaslicer": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1762736046,
+        "narHash": "sha256-PXNp8ag52bNGjEqY0IeroSDW4F7+OutMCUvcdhY338c=",
+        "owner": "SoftFever",
+        "repo": "OrcaSlicer",
+        "rev": "a7adeb6305fe31b62072e80ef0021b17c77b213a",
+        "type": "github"
+      },
+      "original": {
+        "owner": "SoftFever",
+        "repo": "OrcaSlicer",
+        "type": "github"
+      }
+    },
     "pre-commit-hooks": {
       "inputs": {
         "flake-compat": "flake-compat_3",
@@ -1848,6 +1864,7 @@
         "nixpkgs": "nixpkgs_14",
         "nur": "nur",
         "nvf": "nvf",
+        "orcaslicer": "orcaslicer",
         "preservation": "preservation",
         "rust-overlay": "rust-overlay",
         "shadower": "shadower",

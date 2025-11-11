@@ -27,6 +27,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
       url = "github:hyprwm/contrib";
     };
+    orcaslicer = {
+      url = "github:SoftFever/OrcaSlicer";
+      flake = false;
+    };
     hyprland.url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
     hyprland-qtutils.url = "github:hyprwm/hyprland-qtutils";
     hyprpaper.url = "github:hyprwm/hyprpaper";
