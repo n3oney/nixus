@@ -73,7 +73,7 @@ in {
     obs-studio.enable = true;
     opencode.enable = true;
     orcaSlicer.enable = true;
-    qidiStudio.enable = true;
+    platformio.enable = true;
     rider.enable = true;
     datagrip.enable = true;
     spotify.enable = true;
