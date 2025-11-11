@@ -103,6 +103,8 @@
     xdg-utils
 
     ripgrep
+
+    unzip
   ];
 
   os.programs.nm-applet.enable = true;
