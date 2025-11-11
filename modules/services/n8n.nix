@@ -11,12 +11,15 @@
   in {
     services.n8n = {
       enable = true;
-      webhookUrl = "https://${host}/";
+      environment = {
+        N8N_PORT = port;
+      };
     };
 
     systemd.services.n8n.environment = {
       N8N_PORT = builtins.toString port;
       N8N_PROXY_HOPS = "1";
+      WEBHOOK_URL = "https://${host}/";
     };
 
     services.caddy = {
