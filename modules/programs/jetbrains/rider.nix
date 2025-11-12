@@ -7,6 +7,8 @@
   options.programs.rider.enable = lib.mkEnableOption "JetBrains Rider";
 
   config = lib.mkIf config.programs.rider.enable {
+    # Need to update
+    # nixpkgs-notify #460906
     hm.home.packages = [
       ((
           pkgs.jetbrains.rider
