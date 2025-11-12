@@ -11,8 +11,8 @@ jobs:
     runs-on: ubuntu-latest
     name: Check PR Merge Status
     permissions:
-      pull-requests: write  # For creating review comments
-      contents: read       # For reading repository content
+      pull-requests: write # For creating review comments
+      contents: read # For reading repository content
 
     steps:
       - name: Checkout repository
@@ -23,10 +23,8 @@ jobs:
         with:
           node-version: "20"
 
-      - name: Install dependencies
-        run: npm install
-
       - name: Run PR merge check
         uses: ./actions/check-pr-merge
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
+          branch-to-check: nixos-unstable
