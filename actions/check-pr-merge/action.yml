@@ -1,0 +1,13 @@
+name: "Check PR Merge"
+description: "Checks pull requests for merge readiness and status"
+author: "neoney"
+inputs:
+  github-token:
+    description: "GitHub token for API access"
+    required: false
+  branch-to-check:
+    description: "Branch to check for PR availability"
+    required: true
+runs:
+  using: "node20"
+  main: "dist/index.js"

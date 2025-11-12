@@ -1,0 +1,32 @@
+name: Check PR Merge
+
+on:
+  schedule:
+    # Run every day at 8:00 UTC
+    - cron: "0 8 * * *"
+  workflow_dispatch:
+
+jobs:
+  check-pr-merge:
+    runs-on: ubuntu-latest
+    name: Check PR Merge Status
+    permissions:
+      pull-requests: write  # For creating review comments
+      contents: read       # For reading repository content
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run PR merge check
+        uses: ./actions/check-pr-merge
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
