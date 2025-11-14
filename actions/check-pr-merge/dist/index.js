@@ -36604,11 +36604,10 @@ async function isPRInBranch(octokit, prNumber, branchName) {
 }
 
 /**
- * Checks if a comment already exists on a specific line
+ * Checks if a comment already exists for a file/line/PR combination
  * @param {Octokit} octokit - GitHub API client
  * @param {string} owner - Repository owner
  * @param {string} repo - Repository name
- * @param {number} prNumber - Pull request number
  * @param {string} filename - File path
  * @param {number} lineNumber - Line number
  * @param {number} targetPrNumber - PR number we're looking for
@@ -36618,25 +36617,37 @@ async function hasExistingComment(
   octokit,
   owner,
   repo,
-  prNumber,
   filename,
   lineNumber,
   targetPrNumber,
 ) {
   try {
-    const { data: comments } = await octokit.pulls.listReviewComments({
+    // Get recent commits for this file and check their comments
+    const { data: commits } = await octokit.repos.listCommits({
       owner,
       repo,
-      pull_number: prNumber,
+      path: filename,
+      per_page: 10, // Check last 10 commits
     });
 
-    // Check if any comment exists on this line mentioning the target PR
-    return comments.some(
-      (comment) =>
-        comment.path === filename &&
-        comment.position === lineNumber &&
-        comment.body.includes(`PR #${targetPrNumber} has arrived`),
-    );
+    // Check all commits concurrently
+    const commentChecks = commits.map(async (commit) => {
+      const { data: comments } = await octokit.repos.listCommentsForCommit({
+        owner,
+        repo,
+        commit_sha: commit.sha,
+      });
+
+      return comments.some(
+        (comment) =>
+          comment.path === filename &&
+          comment.line === lineNumber &&
+          comment.body.includes(`PR #${targetPrNumber} has arrived`),
+      );
+    });
+
+    const results = await Promise.all(commentChecks);
+    return results.some(hasComment => hasComment);
   } catch (error) {
     core.warning(`Failed to check existing comments: ${error.message}`);
     return false;
@@ -36644,11 +36655,11 @@ async function hasExistingComment(
 }
 
 /**
- * Creates a review comment on a specific line in a pull request
+ * Creates a commit comment on a specific line in a file
  * @param {Octokit} octokit - GitHub API client
  * @param {string} owner - Repository owner
  * @param {string} repo - Repository name
- * @param {number} prNumber - Pull request number
+ * @param {string} commitSha - Commit SHA
  * @param {string} filename - File path
  * @param {number} lineNumber - Line number
  * @param {string} message - Comment message
@@ -36658,7 +36669,7 @@ async function createLineComment(
   octokit,
   owner,
   repo,
-  prNumber,
+  commitSha,
   filename,
   lineNumber,
   message,
@@ -36670,7 +36681,6 @@ async function createLineComment(
       octokit,
       owner,
       repo,
-      prNumber,
       filename,
       lineNumber,
       targetPrNumber,
@@ -36682,21 +36692,13 @@ async function createLineComment(
       return;
     }
 
-    // Get the PR details to get the head commit SHA
-    const { data: pr } = await octokit.pulls.get({
+    await octokit.repos.createCommitComment({
       owner,
       repo,
-      pull_number: prNumber,
-    });
-
-    await octokit.pulls.createReviewComment({
-      owner,
-      repo,
-      pull_number: prNumber,
-      commit_id: pr.head.sha,
+      commit_sha: commitSha,
       body: message,
       path: filename,
-      position: lineNumber,
+      line: lineNumber,
     });
 
     core.info(`Created comment on ${filename}:${lineNumber}`);
@@ -36746,24 +36748,33 @@ async function processResults(octokit, results, branch, context) {
         `${isInBranch ? "✓" : "✗"} ${result.filename}:${result.lineNumber} -> #${result.issueNumber}`,
       );
 
-      // If PR has arrived in branch and we're in a PR context, create a line comment
-      if (
-        isInBranch &&
-        context &&
-        context.payload &&
-        context.payload.pull_request
-      ) {
+      // If PR has arrived in branch, create a commit comment on the file
+      if (isInBranch) {
         const message = `Hey, PR #${result.issueNumber} has arrived in \`${branch}\`! 🎉`;
-        await createLineComment(
+        
+        // Get the latest commit that modified this file
+        const commitSha = await getLatestCommitForFile(
           octokit,
           context.repo.owner,
           context.repo.repo,
-          context.payload.pull_request.number,
           result.filename,
-          result.lineNumber,
-          message,
-          result.issueNumber,
+          'main' // Use default branch, or make this configurable
         );
+        
+        if (commitSha) {
+          await createLineComment(
+            octokit,
+            context.repo.owner,
+            context.repo.repo,
+            commitSha,
+            result.filename,
+            result.lineNumber,
+            message,
+            result.issueNumber,
+          );
+        } else {
+          core.warning(`Could not find commit for ${result.filename}`);
+        }
       }
 
       processedResults.push({
