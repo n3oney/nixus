@@ -11,8 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     name: Check PR Merge Status
     permissions:
-      pull-requests: write # For creating review comments
-      contents: read # For reading repository content
+      contents: write # For creating commit comments
 
     steps:
       - name: Checkout repository
