@@ -36619,10 +36619,23 @@ async function getLatestCommitForFile(octokit, owner, repo, filename, branch) {
       repo,
       path: filename,
       sha: branch,
-      per_page: 1,
+      per_page: 10, // Get more commits to find one that actually modified the file
     });
 
-    return commits.length > 0 ? commits[0].sha : null;
+    // Find the first commit that actually has this file in its diff
+    for (const commit of commits) {
+      const { data: commitData } = await octokit.repos.getCommit({
+        owner,
+        repo,
+        ref: commit.sha,
+      });
+
+      if (commitData.files && commitData.files.some(file => file.filename === filename)) {
+        return commit.sha;
+      }
+    }
+
+    return null;
   } catch (error) {
     core.warning(`Failed to get latest commit for ${filename}: ${error.message}`);
     return null;
