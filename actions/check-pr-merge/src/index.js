@@ -142,6 +142,32 @@ async function isPRInBranch(octokit, prNumber, branchName) {
 }
 
 /**
+ * Gets the latest commit that modified a specific file
+ * @param {Octokit} octokit - GitHub API client
+ * @param {string} owner - Repository owner
+ * @param {string} repo - Repository name
+ * @param {string} filename - File path
+ * @param {string} branch - Branch to search in
+ * @returns {Promise<string|null>} Latest commit SHA or null if not found
+ */
+async function getLatestCommitForFile(octokit, owner, repo, filename, branch) {
+  try {
+    const { data: commits } = await octokit.repos.listCommits({
+      owner,
+      repo,
+      path: filename,
+      sha: branch,
+      per_page: 1,
+    });
+
+    return commits.length > 0 ? commits[0].sha : null;
+  } catch (error) {
+    core.warning(`Failed to get latest commit for ${filename}: ${error.message}`);
+    return null;
+  }
+}
+
+/**
  * Checks if a comment already exists for a file/line/PR combination
  * @param {Octokit} octokit - GitHub API client
  * @param {string} owner - Repository owner
