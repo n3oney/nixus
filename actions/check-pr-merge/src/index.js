@@ -205,7 +205,7 @@ async function hasExistingComment(
       return comments.some(
         (comment) =>
           comment.path === filename &&
-          comment.line === lineNumber &&
+          comment.position === lineNumber &&
           comment.body.includes(`PR #${targetPrNumber} has arrived`),
       );
     });
@@ -215,6 +215,61 @@ async function hasExistingComment(
   } catch (error) {
     core.warning(`Failed to check existing comments: ${error.message}`);
     return false;
+  }
+}
+
+/**
+ * Gets the diff position for a specific line in a commit
+ * @param {Octokit} octokit - GitHub API client
+ * @param {string} owner - Repository owner
+ * @param {string} repo - Repository name
+ * @param {string} commitSha - Commit SHA
+ * @param {string} filename - File path
+ * @param {number} lineNumber - Target line number
+ * @returns {Promise<number|null>} Diff position or null if not found
+ */
+async function getDiffPosition(octokit, owner, repo, commitSha, filename, lineNumber) {
+  try {
+    const { data: commit } = await octokit.repos.getCommit({
+      owner,
+      repo,
+      ref: commitSha,
+    });
+
+    const { files } = commit;
+    const file = files.find(f => f.filename === filename);
+    
+    if (!file || !file.patch) {
+      return null;
+    }
+
+    // Parse the patch to find the position for our line
+    const lines = file.patch.split('\n');
+    let currentPosition = 0;
+    let fileLineNumber = 1;
+
+    for (const line of lines) {
+      if (line.startsWith('@@')) {
+        // Parse hunk header: @@ -start,count +start,count @@
+        const match = line.match(/@@ -\d+(?:,\d+)? \+(\d+)(?:,\d+)? @@/);
+        if (match) {
+          fileLineNumber = parseInt(match[1], 10);
+          currentPosition = 0;
+        }
+      } else if (!line.startsWith('-') && !line.startsWith('\\')) {
+        // This is an added or unchanged line
+        if (fileLineNumber === lineNumber) {
+          return currentPosition + 1; // Position is 1-based in diff
+        }
+        fileLineNumber++;
+      }
+      currentPosition++;
+    }
+
+    return null;
+  } catch (error) {
+    core.warning(`Failed to get diff position: ${error.message}`);
+    return null;
   }
 }
 
@@ -256,16 +311,32 @@ async function createLineComment(
       return;
     }
 
+    // Get the correct diff position for this line
+    const position = await getDiffPosition(octokit, owner, repo, commitSha, filename, lineNumber);
+    if (position === null) {
+      core.warning(
+        `Could not find diff position for ${filename}:${lineNumber}, creating general comment`,
+      );
+      // Create a general commit comment without position
+      await octokit.repos.createCommitComment({
+        owner,
+        repo,
+        commit_sha: commitSha,
+        body: message,
+      });
+      return;
+    }
+
     await octokit.repos.createCommitComment({
       owner,
       repo,
       commit_sha: commitSha,
       body: message,
       path: filename,
-      line: lineNumber,
+      position: position,
     });
 
-    core.info(`Created comment on ${filename}:${lineNumber}`);
+    core.info(`Created comment on ${filename}:${lineNumber} (position: ${position})`);
   } catch (error) {
     core.warning(
       `Failed to create comment on ${filename}:${lineNumber}: ${error.message}`,
