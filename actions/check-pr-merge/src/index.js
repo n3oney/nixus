@@ -141,52 +141,14 @@ async function isPRInBranch(octokit, prNumber, branchName) {
   }
 }
 
+
+
 /**
- * Gets the latest commit that modified a specific file
+ * Checks if a comment already exists for a file/PR combination
  * @param {Octokit} octokit - GitHub API client
  * @param {string} owner - Repository owner
  * @param {string} repo - Repository name
  * @param {string} filename - File path
- * @param {string} branch - Branch to search in
- * @returns {Promise<string|null>} Latest commit SHA or null if not found
- */
-async function getLatestCommitForFile(octokit, owner, repo, filename, branch) {
-  try {
-    const { data: commits } = await octokit.repos.listCommits({
-      owner,
-      repo,
-      path: filename,
-      sha: branch,
-      per_page: 10, // Get more commits to find one that actually modified the file
-    });
-
-    // Find the first commit that actually has this file in its diff
-    for (const commit of commits) {
-      const { data: commitData } = await octokit.repos.getCommit({
-        owner,
-        repo,
-        ref: commit.sha,
-      });
-
-      if (commitData.files && commitData.files.some(file => file.filename === filename)) {
-        return commit.sha;
-      }
-    }
-
-    return null;
-  } catch (error) {
-    core.warning(`Failed to get latest commit for ${filename}: ${error.message}`);
-    return null;
-  }
-}
-
-/**
- * Checks if a comment already exists for a file/line/PR combination
- * @param {Octokit} octokit - GitHub API client
- * @param {string} owner - Repository owner
- * @param {string} repo - Repository name
- * @param {string} filename - File path
- * @param {number} lineNumber - Line number
  * @param {number} targetPrNumber - PR number we're looking for
  * @returns {Promise<boolean>} True if comment already exists
  */
@@ -195,19 +157,18 @@ async function hasExistingComment(
   owner,
   repo,
   filename,
-  lineNumber,
   targetPrNumber,
 ) {
   try {
-    // Get recent commits for this file and check their comments
+    // Get recent commits that include this file
     const { data: commits } = await octokit.repos.listCommits({
       owner,
       repo,
       path: filename,
-      per_page: 10, // Check last 10 commits
+      per_page: 10, // Check last 10 commits for this file
     });
 
-    // Check all commits concurrently
+    // Check all commits concurrently for comments on this specific file
     const commentChecks = commits.map(async (commit) => {
       const { data: comments } = await octokit.repos.listCommentsForCommit({
         owner,
@@ -218,7 +179,6 @@ async function hasExistingComment(
       return comments.some(
         (comment) =>
           comment.path === filename &&
-          comment.position === lineNumber &&
           comment.body.includes(`PR #${targetPrNumber} has arrived`),
       );
     });
@@ -231,60 +191,7 @@ async function hasExistingComment(
   }
 }
 
-/**
- * Gets the diff position for a specific line in a commit
- * @param {Octokit} octokit - GitHub API client
- * @param {string} owner - Repository owner
- * @param {string} repo - Repository name
- * @param {string} commitSha - Commit SHA
- * @param {string} filename - File path
- * @param {number} lineNumber - Target line number
- * @returns {Promise<number|null>} Diff position or null if not found
- */
-async function getDiffPosition(octokit, owner, repo, commitSha, filename, lineNumber) {
-  try {
-    const { data: commit } = await octokit.repos.getCommit({
-      owner,
-      repo,
-      ref: commitSha,
-    });
 
-    const { files } = commit;
-    const file = files.find(f => f.filename === filename);
-    
-    if (!file || !file.patch) {
-      return null;
-    }
-
-    // Parse the patch to find the position for our line
-    const lines = file.patch.split('\n');
-    let currentPosition = 0;
-    let fileLineNumber = 1;
-
-    for (const line of lines) {
-      if (line.startsWith('@@')) {
-        // Parse hunk header: @@ -start,count +start,count @@
-        const match = line.match(/@@ -\d+(?:,\d+)? \+(\d+)(?:,\d+)? @@/);
-        if (match) {
-          fileLineNumber = parseInt(match[1], 10);
-          currentPosition = 0;
-        }
-      } else if (!line.startsWith('-') && !line.startsWith('\\')) {
-        // This is an added or unchanged line
-        if (fileLineNumber === lineNumber) {
-          return currentPosition + 1; // Position is 1-based in diff
-        }
-        fileLineNumber++;
-      }
-      currentPosition++;
-    }
-
-    return null;
-  } catch (error) {
-    core.warning(`Failed to get diff position: ${error.message}`);
-    return null;
-  }
-}
 
 /**
  * Creates a commit comment on a specific line in a file
@@ -314,7 +221,6 @@ async function createLineComment(
       owner,
       repo,
       filename,
-      lineNumber,
       targetPrNumber,
     );
     if (hasComment) {
@@ -324,32 +230,15 @@ async function createLineComment(
       return;
     }
 
-    // Get the correct diff position for this line
-    const position = await getDiffPosition(octokit, owner, repo, commitSha, filename, lineNumber);
-    if (position === null) {
-      core.warning(
-        `Could not find diff position for ${filename}:${lineNumber}, creating general comment`,
-      );
-      // Create a general commit comment without position
-      await octokit.repos.createCommitComment({
-        owner,
-        repo,
-        commit_sha: commitSha,
-        body: message,
-      });
-      return;
-    }
-
+    // Create a general commit comment without position
     await octokit.repos.createCommitComment({
       owner,
       repo,
       commit_sha: commitSha,
       body: message,
-      path: filename,
-      position: position,
     });
 
-    core.info(`Created comment on ${filename}:${lineNumber} (position: ${position})`);
+    core.info(`Created comment on ${filename}:${lineNumber}`);
   } catch (error) {
     core.warning(
       `Failed to create comment on ${filename}:${lineNumber}: ${error.message}`,
@@ -400,28 +289,27 @@ async function processResults(octokit, results, branch, context) {
       if (isInBranch) {
         const message = `Hey, PR #${result.issueNumber} has arrived in \`${branch}\`! 🎉`;
         
-        // Get the latest commit that modified this file
-        const commitSha = await getLatestCommitForFile(
-          octokit,
-          context.repo.owner,
-          context.repo.repo,
-          result.filename,
-          'main' // Use default branch, or make this configurable
-        );
+        // Get the latest commit that includes this file
+        const { data: commits } = await octokit.repos.listCommits({
+          owner: context.repo.owner,
+          repo: context.repo.repo,
+          path: result.filename,
+          per_page: 1,
+        });
         
-        if (commitSha) {
+        if (commits.length > 0) {
           await createLineComment(
             octokit,
             context.repo.owner,
             context.repo.repo,
-            commitSha,
+            commits[0].sha,
             result.filename,
             result.lineNumber,
             message,
             result.issueNumber,
           );
         } else {
-          core.warning(`Could not find commit for ${result.filename}`);
+          core.warning(`Could not find any commits`);
         }
       }
 
