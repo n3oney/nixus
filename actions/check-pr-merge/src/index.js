@@ -160,12 +160,12 @@ async function hasExistingComment(
   targetPrNumber,
 ) {
   try {
-    // Get recent commits that include this file
+    // Get more commits that include this file to avoid duplicates
     const { data: commits } = await octokit.repos.listCommits({
       owner,
       repo,
       path: filename,
-      per_page: 10, // Check last 10 commits for this file
+      per_page: 50, // Check last 50 commits for this file
     });
 
     // Check all commits concurrently for comments on this specific file
@@ -176,15 +176,24 @@ async function hasExistingComment(
         commit_sha: commit.sha,
       });
 
-      return comments.some(
+      core.info(`Checking commit ${commit.sha} for comments on ${filename}, found ${comments.length} comments`);
+      
+      const matchingComments = comments.filter(
         (comment) =>
-          comment.path === filename &&
           comment.body.includes(`PR #${targetPrNumber} has arrived`),
       );
+      
+      if (matchingComments.length > 0) {
+        core.info(`Found existing comment on ${filename}: ${matchingComments[0].body}`);
+      }
+      
+      return matchingComments.length > 0;
     });
 
     const results = await Promise.all(commentChecks);
-    return results.some(hasComment => hasComment);
+    const hasComment = results.some(hasComment => hasComment);
+    core.info(`Final result for ${filename} PR #${targetPrNumber}: ${hasComment}`);
+    return hasComment;
   } catch (error) {
     core.warning(`Failed to check existing comments: ${error.message}`);
     return false;
@@ -223,6 +232,7 @@ async function createLineComment(
       filename,
       targetPrNumber,
     );
+    core.info(`Checking for existing comment on ${filename} for PR #${targetPrNumber}: ${hasComment}`);
     if (hasComment) {
       core.info(
         `Comment already exists on ${filename}:${lineNumber}, skipping`,
