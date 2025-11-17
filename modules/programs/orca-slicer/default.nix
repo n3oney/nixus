@@ -9,16 +9,7 @@
 
   config = lib.mkIf config.programs.orcaSlicer.enable (let
     # orcaslicer = pkgs.orca-slicer-nightly;
-    orcaslicer = pkgs.orca-slicer.overrideAttrs (old: {
-      pname = "orca-slicer-nightly";
-      version = "unstable-${inputs.orcaslicer.lastModifiedDate}";
-      src = inputs.orcaslicer;
-      cmakeFlags =
-        old.cmakeFlags
-        ++ [
-          (lib.cmakeBool "LIBNOISE_LIBRARY_RELEASE" true)
-        ];
-    });
+    orcaslicer = pkgs.orca-slicer;
   in {
     impermanence.userDirs = [".config/OrcaSlicer" ".local/share/orca-slicer"];
 
