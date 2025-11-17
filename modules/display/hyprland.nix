@@ -72,7 +72,7 @@ in {
         refreshRate = intOption // {default = 60;};
         transform = mkOption {
           type = types.str;
-          default = "";
+          default = "0";
         };
       };
       secondary = {
@@ -325,12 +325,27 @@ in {
                   ]
                   ++ (lib.optionals config.programs.ags.enable ["ags"]);
 
-                monitor =
+                monitorv2 =
                   [
-                    "${cfg.monitors.main.name},${toString cfg.monitors.main.width}x${toString cfg.monitors.main.height}@${toString cfg.monitors.main.refreshRate},0x0,${toString cfg.monitors.main.scale}${cfg.monitors.main.transform}"
+                    {
+                      output = cfg.monitors.main.name;
+                      mode = "${toString cfg.monitors.main.width}x${toString cfg.monitors.main.height}@${toString cfg.monitors.main.refreshRate}";
+                      position = "0x0";
+                      scale = cfg.monitors.main.scale;
+                      transform = cfg.monitors.main.transform;
+                    }
                   ]
-                  ++ (lib.optionals (cfg.monitors.secondary.name != null) ["monitor=${cfg.monitors.secondary.name},${toString cfg.monitors.secondary.width}x${toString cfg.monitors.secondary.height}@60,2560x0,1"]);
-
+                  ++ (lib.optionals (cfg.monitors.secondary.name != null) [
+                    {
+                      output = cfg.monitors.secondary.name;
+                      mode = "${toString cfg.monitors.secondary.width}x${
+                        toString cfg.monitors.secondary.height
+                      }@60";
+                      position = "auto-right";
+                      scale = "auto";
+                      transform = "0";
+                    }
+                  ]);
                 workspace =
                   (builtins.map (n: "${toString n},monitor:${cfg.monitors.main.name}") (lib.range 1 10))
                   ++ (lib.optionals (cfg.monitors.secondary.name != null) (builtins.map (n: "${toString n},monitor:${cfg.monitors.secondary.name}") (lib.range 11 20)))
@@ -358,6 +373,8 @@ in {
                     "w[tg1], gapsin:0, gapsout:0, border:0"
                     "f[1], gapsin:0, gapsout:0, border:0"
                   ];
+
+                experimental.xx_color_management_v4 = true;
 
                 cursor = {
                   persistent_warps = true;
