@@ -53,6 +53,10 @@
     shadower.url = "github:n3oney/shadower";
     zen-browser-flake.url = "github:youwen5/zen-browser-flake";
     nvf.url = "github:NotAShelf/nvf";
+    quickshell = {
+      url = "git+https://git.outfoxxed.me/outfoxxed/quickshell";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = inputs @ {nixpkgs, ...}: let
@@ -140,6 +144,9 @@
         pkgs.mkShell {
           buildInputs = with pkgs; [
             alejandra
+
+            # quickshell lsp
+            kdePackages.qtdeclarative
 
             # AGS configuring stuff
             nodejs
