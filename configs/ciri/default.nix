@@ -12,10 +12,11 @@
   display = {
     enable = true;
 
+    wallpaper.enableAnimation = false;
+
     monitors = {
       main = {
         name = "eDP-1";
-        wallpaper = ../../wallpapers/blue_blobs.jpg;
         width = 2560;
         height = 1600;
         refreshRate = 60;
@@ -47,6 +48,7 @@
     datagrip.enable = true;
     discord.enable = true;
     ags.enable = true;
+    quickshell.enable = true;
     # firefox.enable = true;
     foot.enable = true;
     kicad.enable = true;

@@ -16,7 +16,7 @@
       in
         pkgs.helix;
       settings = {
-        theme = "rose_pine";
+        theme = "catppuccin_mocha";
 
         editor = {
           true-color = true;

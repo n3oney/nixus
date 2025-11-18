@@ -7,34 +7,34 @@
   options.colors = {
     colorScheme = lib.mkOption {
       default = {
-        slug = "rose-pine";
-        name = "Rosé Pine";
-        author = "https://github.com/edunfelt";
+        slug = "catppuccin-mocha";
+        name = "Catppuccin Mocha";
+        author = "https://github.com/catppuccin/catppuccin";
         palette = rec {
-          base00 = "191724";
-          base01 = "1f1d2e";
-          base02 = "26233a";
-          base03 = "6e6a86";
-          base04 = "908caa";
-          base05 = "e0def4";
-          base06 = "e0def4";
-          base07 = "524f67";
-          base08 = "eb6f92";
-          base09 = "f6c177";
-          base0A = "ebbcba";
-          base0B = "31748f";
-          base0C = "9ccfd8";
-          base0D = "c4a7e7";
-          base0E = "f6c177";
-          base0F = "524f67";
+          base00 = "1e1e2e"; # Base
+          base01 = "181825"; # Mantle
+          base02 = "313244"; # Surface0
+          base03 = "45475a"; # Surface1
+          base04 = "585b70"; # Surface2
+          base05 = "cdd6f4"; # Text
+          base06 = "f5e0dc"; # Rosewater
+          base07 = "b4befe"; # Lavender
+          base08 = "f38ba8"; # Red
+          base09 = "fab387"; # Peach
+          base0A = "f9e2af"; # Yellow
+          base0B = "a6e3a1"; # Green
+          base0C = "94e2d5"; # Teal
+          base0D = "89b4fa"; # Blue
+          base0E = "cba6f7"; # Mauve
+          base0F = "f2cdcd"; # Flamingo
 
-          accent = base0C;
+          accent = base0B;
         };
       };
     };
     backgroundAlpha = lib.mkOption {
       type = lib.types.float;
-      default = 0.7;
+      default = 0.5;
     };
   };
 

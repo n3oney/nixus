@@ -74,7 +74,7 @@
           };
           load_direnv = "direct";
           vim_mode = true;
-          theme = "Catppuccin Macchiato (Blur) [Heavy]";
+          theme = "Catppuccin Mocha (Blur) [Light]";
           ui_font_size = 14;
           buffer_font_size = 14;
           languages = {

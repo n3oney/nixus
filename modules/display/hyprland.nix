@@ -60,12 +60,11 @@ in {
       # });
     };
 
+    wallpaper.enableAnimation = mkEnableOption "Animated Wallpaper";
+
     monitors = {
       main = {
         name = strOption;
-        wallpaper = mkOption {
-          type = types.path;
-        };
         width = intOption;
         height = intOption;
         scale = floatOption // {default = 1.0;};
@@ -77,10 +76,6 @@ in {
       };
       secondary = {
         name = nullStrOption;
-        wallpaper = mkOption {
-          type = types.nullOr types.path;
-          default = null;
-        };
         width = nullIntOption;
         height = nullIntOption;
       };
@@ -227,8 +222,6 @@ in {
 
           wl-clipboard
 
-          hyprpaper
-
           (wlsunset.overrideAttrs (old: {
             src = fetchFromSourcehut {
               owner = "~kennylevinsen";
@@ -245,6 +238,8 @@ in {
 
           jaq
           shadower
+
+          inputs.awww.packages.${pkgs.system}.awww
 
           (writeShellScriptBin
             "pauseshot"
@@ -276,22 +271,6 @@ in {
           };
         };
 
-        xdg.configFile."hypr/hyprpaper.conf".text = ''
-          preload=${cfg.monitors.main.wallpaper}
-          ${
-            if cfg.monitors.secondary.wallpaper != null
-            then "preload=${cfg.monitors.secondary.wallpaper}"
-            else ""
-          }
-
-          wallpaper = ${cfg.monitors.main.name},${cfg.monitors.main.wallpaper}
-          ${
-            if (cfg.monitors.secondary.name != null && cfg.monitors.secondary.wallpaper != null)
-            then "wallpaper = ${cfg.monitors.secondary.name},${cfg.monitors.secondary.wallpaper}"
-            else ""
-          }
-        '';
-
         services.arrpc.enable = true;
 
         wayland.windowManager.hyprland = {
@@ -308,7 +287,13 @@ in {
                   [
                     "dbus-update-activation-environment --systemd --all"
                     "hyprctl setcursor ${cursor.name} ${toString cursor.size}"
-                    "${lib.getExe pkgs.hyprpaper} & ${pkgs.playerctl}/bin/playerctld & mako"
+                    "${pkgs.playerctl}/bin/playerctld & mako"
+
+                    "awww-daemon & awww img ${
+                      if cfg.wallpaper.enableAnimation
+                      then ../../wallpapers/animated.gif
+                      else ../../wallpapers/pilulae.jpg
+                    }"
 
                     "zen &"
                     "${lib.getExe config.programs.discord.finalPackage} &"
@@ -458,7 +443,7 @@ in {
                   blur = {
                     enabled = true;
                     size = 5;
-                    passes = 4;
+                    passes = 3;
                     contrast = 1;
                     brightness = 1;
                     noise = 0.01;
