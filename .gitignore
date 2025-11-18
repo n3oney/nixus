@@ -1,3 +1,4 @@
 .direnv/
 result
 logs/
+.qmlls.ini
