@@ -34,6 +34,7 @@
 
       impermanence = {
         userDirs = [
+          ".cache"
           ".yalc"
           ".config/sops"
           "nixus"
@@ -48,9 +49,7 @@
           ".local/share/TelegramDesktop"
           ".gnupg"
           ".config/.wrangler"
-          ".cache/starship"
           ".local/share/keyrings"
-          ".cache/nix-index"
 
           ".local/share/pnpm/store"
           ".bun"
