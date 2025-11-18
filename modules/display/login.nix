@@ -49,7 +49,7 @@
       );
     in {
       environment.etc."nwg-hello/nwg-hello.json".text = builtins.toJSON {
-        # session_dirs = ["${hmConfig.wayland.windowManager.hyprland.package}/share/wayland-sessions"];
+        session_dirs = ["${hmConfig.wayland.windowManager.hyprland.package}/share/wayland-sessions"];
         custom_sessions = [
           {
             name = "Hyprland (UWSM)";
