@@ -78,10 +78,10 @@
         autoApprove = ["grep_repomix_output" "pack_codebase"];
       };
 
-      mysql = {
-        command = npx;
-        args = ["-y" "@kevinwatt/mysql-mcp"];
-      };
+      # mysql = {
+      #   command = npx;
+      #   args = ["-y" "@kevinwatt/mysql-mcp"];
+      # };
 
       # typescript = {
       #   command = npx;
