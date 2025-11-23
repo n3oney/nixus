@@ -55,7 +55,7 @@
             play_sound_when_agent_done = true;
             default_model = {
               provider = "anthropic";
-              model = "glm-4.5";
+              model = "glm-4.6";
             };
           };
           language_models = {
@@ -64,8 +64,8 @@
 
               available_models = [
                 {
-                  name = "glm-4.5";
-                  display_name = "GLM 4.5";
+                  name = "glm-4.6";
+                  display_name = "GLM 4.6";
                   max_tokens = 131072; #128k
                   mode.type = "thinking";
                 }
