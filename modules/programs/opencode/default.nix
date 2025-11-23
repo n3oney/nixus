@@ -15,7 +15,9 @@
 
     hm = {
       programs.opencode = {
-        package = inputs.nix-ai-tools.packages.${pkgs.system}.opencode;
+        package = inputs.nix-ai-tools.packages.${pkgs.system}.opencode.overrideAttrs (old: {
+          patches = (old.patches or []) ++ [./0000-opencode.patch];
+        });
         enable = true;
         settings = {
           theme = "system";
