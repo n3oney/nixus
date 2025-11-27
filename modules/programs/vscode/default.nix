@@ -117,16 +117,6 @@
               github.vscode-pull-request-github
               visualstudioexptteam.vscodeintellicode
               ms-vscode-remote.remote-ssh
-              (saoudrizwan.claude-dev.overrideAttrs (old: {
-                patchPhase =
-                  (old.patchPhase or "")
-                  + ''
-                    ls
-                    ${pkgs.gnused}/bin/sed -i 's/...Itr(),/...process.env,/' dist/extension.js
-                    # ${pkgs.gnused}/bin/sed -i 's#executablePath:[^,]*,#executablePath: "${pkgs.chromium}/bin/chromium",#' dist/extension.js
-                    # ${pkgs.chromium}
-                  '';
-              }))
             ])
             ++ (
               pkgs.vscode-utils.extensionsFromVscodeMarketplace [
