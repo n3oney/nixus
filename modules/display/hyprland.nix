@@ -522,6 +522,7 @@ in {
                   "float,class:^([Ww]aydroid.*)$"
 
                   "workspace 2,class:zen"
+                  "suppressevent maximize,class:zen"
 
                   "rounding 0,workspace:1,floating:0"
                   "bordersize 1,workspace:1,floating:0"
