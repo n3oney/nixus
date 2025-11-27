@@ -47,12 +47,22 @@
         };
       };
     npx = "${npxDerivation}/bin/npx";
-    envArgs = [
-      "-y"
-      "envmcp"
-      "--env-file"
-      "/run/user/1000/agenix/mcp"
-    ];
+    envFile = "/run/user/1000/agenix/mcp";
+    
+    # Helper function to wrap commands with environment variable loading
+    # Builds the entire command string so variables can be expanded after sourcing
+    withEnv = command: args: {
+      command = "${pkgs.bash}/bin/bash";
+      args = [
+        "-c"
+        (''
+          set -a
+          source ${envFile}
+          set +a
+          exec ${command} ${lib.concatMapStringsSep " " (arg: ''"${arg}"'') args}
+        '')
+      ];
+    };
 
     servers = {
       # treesitter = {
@@ -71,6 +81,19 @@
       #   args = ["-y" "@cyanheads/git-mcp-server"];
       #   autoApprove = ["git_add" "git_status" "git_set_working_dir" "git_status" "git_diff" "git_log" "git_push"];
       # };
+
+      linear = withEnv npx [
+        "-y"
+        "mcp-remote"
+        "https://mcp.linear.app/mcp"
+        "--header"
+        "Authorization: $LINEAR_AUTH_TOKEN"
+      ];
+
+      nx = {
+        command = npx;
+        args = ["-y" "nx-mcp@latest"];
+      };
 
       repomix = {
         command = npx;
@@ -94,25 +117,20 @@
       # };
 
       /*
-      axiom = {
+      axiom = (withEnv "${pkgs.podman}/bin/podman" [
+        "run"
+        "-i"
+        "--rm"
+        "--read-only"
+        "-e"
+        "AXIOM_TOKEN=$AXIOM_TOKEN"
+        "-e"
+        "AXIOM_URL=$AXIOM_URL"
+        "-e"
+        "AXIOM_ORG=$AXIOM_ORG"
+        "docker.io/acuvity/mcp-server-axiom:v0.0.1"
+      ]) // {
         autoApprove = ["listDatasets" "queryApl"];
-        command = npx;
-        args =
-          envArgs
-          ++ [
-            "${pkgs.podman}/bin/podman"
-            "run"
-            "-i"
-            "--rm"
-            "--read-only"
-            "-e"
-            "AXIOM_TOKEN"
-            "-e"
-            "AXIOM_URL"
-            "-e"
-            "AXIOM_ORG"
-            "docker.io/acuvity/mcp-server-axiom:v0.0.1"
-          ];
       };
       */
 
@@ -144,15 +162,10 @@
       };
       */
 
-      tavily = {
-        command = npx;
-        args =
-          envArgs
-          ++ [
-            npx
-            "-y"
-            "tavily-mcp@0.2.2"
-          ];
+      tavily = (withEnv npx [
+        "-y"
+        "tavily-mcp@0.2.2"
+      ]) // {
         autoApprove = ["tavily-search" "tavily-extract"];
       };
 
@@ -162,20 +175,15 @@
         environment.MEMORY_BANK_ROOT = "/home/neoney/.local/share/memory-bank";
       };
 
-      # github = {
-      #   command = npx;
+      # github = (withEnv "${pkgs.podman}/bin/podman" [
+      #   "run"
+      #   "-i"
+      #   "--rm"
+      #   "-e"
+      #   "GITHUB_PERSONAL_ACCESS_TOKEN=$GITHUB_PERSONAL_ACCESS_TOKEN"
+      #   "ghcr.io/github/github-mcp-server"
+      # ]) // {
       #   autoApprove = ["list_issues" "search_issues" "get_pull_request_diff" "get_issue"];
-      #   args =
-      #     envArgs
-      #     ++ [
-      #       "${pkgs.podman}/bin/podman"
-      #       "run"
-      #       "-i"
-      #       "--rm"
-      #       "-e"
-      #       "GITHUB_PERSONAL_ACCESS_TOKEN"
-      #       "ghcr.io/github/github-mcp-server"
-      #     ];
       # };
 
       context7 = {
@@ -362,6 +370,7 @@
         - Must be referenced in activeContext.md when added
 
       Use context7 for library documentation. The shell used on the system is Nushell, not bash, so in commands use ';' instead of the shell '&&', or 'and' instead of the boolean '&&'.
+      To redirect stdout, use `out>`. To redirect stderr, use `err>`. To redirect both, `out+err>`. TO pipe stderr, use `e>|`. To pipe both, use `o+e>|`.
             ${
         /*
           Use the repomix tool for tasks that aren't just the most basic edits. You have direct file system access, so don't use the "read repomix output" tool. Just read the file directly.
