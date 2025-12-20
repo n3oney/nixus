@@ -12,7 +12,7 @@
   display = {
     enable = true;
 
-    wallpaper.enableAnimation = false;
+    wallpaper.pauseOnBattery = true;
 
     monitors = {
       main = {

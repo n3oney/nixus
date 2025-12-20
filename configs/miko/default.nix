@@ -13,7 +13,6 @@ in {
     monitors = {
       main = {
         name = "DP-1";
-        wallpaper = ../../wallpapers/blue_blobs.jpg;
         width = 2560;
         height = 1440;
         refreshRate = 144;
@@ -21,7 +20,6 @@ in {
       };
       secondary = {
         name = "DP-3";
-        wallpaper = ../../wallpapers/blue_blobs.jpg;
         width = 1920;
         height = 1080;
       };

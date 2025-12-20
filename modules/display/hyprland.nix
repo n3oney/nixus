@@ -39,6 +39,8 @@ in {
 
     enableTearing = mkEnableOption "Tearing";
 
+    wallpaper.pauseOnBattery = mkEnableOption "Pause animated wallpaper on battery";
+
     package = mkOption {
       type = types.package;
       # default = inputs.hyprland.packages.${pkgs.system}.hyprland.override {
@@ -60,7 +62,7 @@ in {
       # });
     };
 
-    wallpaper.enableAnimation = mkEnableOption "Animated Wallpaper";
+
 
     monitors = {
       main = {
@@ -200,6 +202,29 @@ in {
           IdleAction = "suspend";
           HandleLidSwitch = "suspend";
         };
+
+        # udev rules for mpvpaper AC power control
+        services.udev.extraRules = lib.mkIf cfg.wallpaper.pauseOnBattery (let
+          mpvpaperCtl = pkgs.writeShellScript "mpvpaper-power" ''
+            SOCKET="/tmp/mpvpaper-socket"
+            if [ ! -S "$SOCKET" ]; then
+              exit 0
+            fi
+
+            case "$1" in
+              on)
+                echo 'set pause no' | ${pkgs.socat}/bin/socat - "$SOCKET"
+                ;;
+              off)
+                echo 'seek 0 absolute' | ${pkgs.socat}/bin/socat - "$SOCKET"
+                echo 'set pause yes' | ${pkgs.socat}/bin/socat - "$SOCKET"
+                ;;
+            esac
+          '';
+        in ''
+          SUBSYSTEM=="power_supply", ATTR{type}=="Mains", ATTR{online}=="1", RUN+="${mpvpaperCtl} on"
+          SUBSYSTEM=="power_supply", ATTR{type}=="Mains", ATTR{online}=="0", RUN+="${mpvpaperCtl} off"
+        '');
       };
 
       hm = let
@@ -239,7 +264,8 @@ in {
           jaq
           shadower
 
-          inputs.awww.packages.${pkgs.system}.awww
+          pkgs.mpvpaper
+          pkgs.socat
 
           (writeShellScriptBin
             "pauseshot"
@@ -289,11 +315,7 @@ in {
                     "hyprctl setcursor ${cursor.name} ${toString cursor.size}"
                     "${pkgs.playerctl}/bin/playerctld & mako"
 
-                    "awww-daemon & awww img ${
-                      if cfg.wallpaper.enableAnimation
-                      then ../../wallpapers/animated.gif
-                      else ../../wallpapers/pilulae.jpg
-                    }"
+                    ''mpvpaper -o "loop osd-level=0 panscan=1 input-ipc-server=/tmp/mpvpaper-socket$(${lib.optionalString cfg.wallpaper.pauseOnBattery "cat /sys/class/power_supply/*/online 2>/dev/null | grep -q 1 || echo ' pause'"})" '*' ${../../wallpapers/animated.mp4}''
 
                     "zen &"
                     "${lib.getExe config.programs.discord.finalPackage} &"
