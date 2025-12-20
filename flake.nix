@@ -20,6 +20,10 @@
       url = "github:rose-pine/btop";
     };
     degra-ical.url = "github:n3oney/degra-ical";
+    EffectPatterns = {
+      url = "github:PauljPhilp/EffectPatterns";
+      flake = false;
+    };
     home-manager = {
       inputs.nixpkgs.follows = "nixpkgs";
       url = "github:nix-community/home-manager";

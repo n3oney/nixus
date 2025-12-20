@@ -48,19 +48,19 @@
       };
     npx = "${npxDerivation}/bin/npx";
     envFile = "/run/user/1000/agenix/mcp";
-    
+
     # Helper function to wrap commands with environment variable loading
     # Builds the entire command string so variables can be expanded after sourcing
     withEnv = command: args: {
       command = "${pkgs.bash}/bin/bash";
       args = [
         "-c"
-        (''
+        ''
           set -a
           source ${envFile}
           set +a
           exec ${command} ${lib.concatMapStringsSep " " (arg: ''"${arg}"'') args}
-        '')
+        ''
       ];
     };
 
@@ -162,12 +162,14 @@
       };
       */
 
-      tavily = (withEnv npx [
-        "-y"
-        "tavily-mcp@0.2.2"
-      ]) // {
-        autoApprove = ["tavily-search" "tavily-extract"];
-      };
+      tavily =
+        (withEnv npx [
+          "-y"
+          "tavily-mcp@0.2.2"
+        ])
+        // {
+          autoApprove = ["tavily-search" "tavily-extract"];
+        };
 
       memoryBank = {
         command = npx;
@@ -193,10 +195,10 @@
       };
     };
     instructions = ''
-
       # Memory Bank via MCP
 
       I'm an expert engineer whose memory resets between sessions. I rely ENTIRELY on my Memory Bank, accessed via MCP tools, and MUST read ALL memory bank files before EVERY task.
+      I use the Effect pattern skills when neccessary.
 
       ## Key Commands
 
@@ -369,8 +371,7 @@
         - Should follow main structure's naming patterns
         - Must be referenced in activeContext.md when added
 
-      Use context7 for library documentation. The shell used on the system is Nushell, not bash, so in commands use ';' instead of the shell '&&', or 'and' instead of the boolean '&&'.
-      To redirect stdout, use `out>`. To redirect stderr, use `err>`. To redirect both, `out+err>`. TO pipe stderr, use `e>|`. To pipe both, use `o+e>|`.
+      Use context7 for library documentation.
             ${
         /*
           Use the repomix tool for tasks that aren't just the most basic edits. You have direct file system access, so don't use the "read repomix output" tool. Just read the file directly.
@@ -388,8 +389,6 @@
       Do not tackle tasks you were not asked to do without asking for confirmation. For example, if you implement a new feature, and then run typechecks to test if it's correct, do not go out of your way to fix other type errors.
       Do not hallucinate library usages. You have the tools for documentation for a reason. Use the tools, it doesn't cost you anything, and you won't look like a fool on drugs hallucinating libraries.
       Do not use git. Use jj (jujutsu) instead. `jj pull; jj sync` will pull the latest changes, `jj tug; jj push` will push the changes. Remember that running `jj commit` will commit everything that was edited - there is no `git add`.
-
-      IMPORTANT: If you hit any issues regarding file corruption or severe syntax errors, stop working, and hand over control to the user. The user can fix the errors for you.
     '';
   in {
     xdg.configFile."github-copilot/global-copilot-instructions.md".text = instructions;

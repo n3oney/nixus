@@ -4,7 +4,48 @@
   lib,
   inputs,
   ...
-}: {
+}: let
+  effectPatternsPath = "${inputs.EffectPatterns}/content/published/patterns";
+
+  # Get all pattern directories
+  patternDirs = builtins.attrNames (
+    lib.filterAttrs (_: v: v == "directory") (builtins.readDir effectPatternsPath)
+  );
+
+  # For each pattern directory, get all .mdx files and create skill entries
+  getPatternFiles = patternName: let
+    patternPath = "${effectPatternsPath}/${patternName}";
+    files = builtins.attrNames (builtins.readDir patternPath);
+    mdxFiles = builtins.filter (f: lib.hasSuffix ".mdx" f) files;
+  in
+    builtins.map (fileName: {
+      inherit patternName fileName;
+      skillName = lib.removeSuffix ".mdx" fileName;
+      content = builtins.readFile "${patternPath}/${fileName}";
+    })
+    mdxFiles;
+
+  # Flatten all pattern files
+  allPatternFiles = builtins.concatMap getPatternFiles patternDirs;
+
+  # Create xdg.configFile entries for each skill
+  # Structure: effect-patterns/<skill-name>/SKILL.md
+  skillConfigFiles = builtins.listToAttrs (
+    builtins.map (file: let
+      # Flatten "rule:\n  " to bring description to top level
+      content = builtins.replaceStrings ["rule:\n  "] [""] file.content;
+      lines = lib.splitString "\n" content;
+      # Insert `name:` after the first line (the opening ---)
+      skillContent = builtins.concatStringsSep "\n" (
+        [(builtins.head lines) "name: ${file.skillName}"] ++ (builtins.tail lines)
+      );
+    in {
+      name = "opencode/skills/effect-patterns/${file.skillName}/SKILL.md";
+      value.text = skillContent;
+    })
+    allPatternFiles
+  );
+in {
   options.programs.opencode.enable = lib.mkEnableOption "opencode";
 
   config = lib.mkIf config.programs.opencode.enable {
@@ -20,12 +61,16 @@
         });
         enable = true;
         settings = {
+          plugin = ["opencode-skills"];
           theme = "system";
           instructions = [".github/copilot-instructions.md"];
           model = "zai-coding-plan/glm-4.6";
           small_model = "zai-coding-plan/glm-4.5-air";
         };
       };
+
+      # Create skill directories in ~/.config/opencode/skills/
+      xdg.configFile = skillConfigFiles;
     };
   };
 }
