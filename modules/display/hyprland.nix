@@ -10,6 +10,27 @@
   cfg = config.display;
   inherit (lib) mkEnableOption mkOption types mkIf;
 
+  # Use raw display resolution for wallpaper dimensions
+  displayWidth = cfg.monitors.main.width;
+  displayHeight = cfg.monitors.main.height;
+  
+  animatedWallpaper = pkgs.runCommand "animated-wallpaper" {
+    nativeBuildInputs = [ pkgs.ffmpeg ];
+    src = ../../wallpapers/animated.mp4;
+  } ''
+    mkdir -p $out
+    # Scale to cover display maintaining aspect ratio, then crop to exact dimensions
+    # force_original_aspect_ratio=increase ensures it covers the entire area
+    ffmpeg -i $src -vf "scale=${toString displayWidth}:${toString displayHeight}:force_original_aspect_ratio=increase:flags=lanczos,crop=${toString displayWidth}:${toString displayHeight},palettegen=stats_mode=full" palette.png
+    # Create GIF with exact dimensions
+    ffmpeg -i $src -i palette.png -lavfi "scale=${toString displayWidth}:${toString displayHeight}:force_original_aspect_ratio=increase:flags=lanczos,crop=${toString displayWidth}:${toString displayHeight},paletteuse=dither=sierra2_4a" $out/animated.gif
+    # Extract first frame at exact dimensions
+    ffmpeg -i $src -vf "scale=${toString displayWidth}:${toString displayHeight}:force_original_aspect_ratio=increase:flags=lanczos,crop=${toString displayWidth}:${toString displayHeight}" -vframes 1 -q:v 2 $out/paused.png
+    rm palette.png
+  '';
+
+  awwwPkg = inputs.awww.packages.${pkgs.system}.default;
+
   strOption = mkOption {
     type = types.str;
   };
@@ -203,27 +224,28 @@ in {
           HandleLidSwitch = "suspend";
         };
 
-        # udev rules for mpvpaper AC power control
+        # udev rules for awww AC power control
         services.udev.extraRules = lib.mkIf cfg.wallpaper.pauseOnBattery (let
-          mpvpaperCtl = pkgs.writeShellScript "mpvpaper-power" ''
-            SOCKET="/tmp/mpvpaper-socket"
-            if [ ! -S "$SOCKET" ]; then
-              exit 0
-            fi
-
+          awwwCtl = pkgs.writeShellScript "awww-power" ''
+            DAEMON_PID=$(${pkgs.procps}/bin/pgrep -x awww-daemon)
+            [ -z "$DAEMON_PID" ] && exit 0
+            
+            USER=$(${pkgs.procps}/bin/ps -o user= -p "$DAEMON_PID")
+            USER_ID=$(${pkgs.coreutils}/bin/id -u "$USER")
+            WAYLAND_DISPLAY=$(${pkgs.gnugrep}/bin/grep -z WAYLAND_DISPLAY /proc/$DAEMON_PID/environ | ${pkgs.coreutils}/bin/cut -d= -f2)
+            
             case "$1" in
               on)
-                echo 'set pause no' | ${pkgs.socat}/bin/socat - "$SOCKET"
+                ${pkgs.su}/bin/su "$USER" -c "XDG_RUNTIME_DIR=/run/user/$USER_ID WAYLAND_DISPLAY=$WAYLAND_DISPLAY ${awwwPkg}/bin/awww img ${animatedWallpaper}/animated.gif --transition-type fade --no-resize"
                 ;;
               off)
-                echo 'seek 0 absolute' | ${pkgs.socat}/bin/socat - "$SOCKET"
-                echo 'set pause yes' | ${pkgs.socat}/bin/socat - "$SOCKET"
+                ${pkgs.su}/bin/su "$USER" -c "XDG_RUNTIME_DIR=/run/user/$USER_ID WAYLAND_DISPLAY=$WAYLAND_DISPLAY ${awwwPkg}/bin/awww img ${animatedWallpaper}/paused.png --transition-type fade --no-resize"
                 ;;
             esac
           '';
         in ''
-          SUBSYSTEM=="power_supply", ATTR{type}=="Mains", ATTR{online}=="1", RUN+="${mpvpaperCtl} on"
-          SUBSYSTEM=="power_supply", ATTR{type}=="Mains", ATTR{online}=="0", RUN+="${mpvpaperCtl} off"
+          SUBSYSTEM=="power_supply", ATTR{type}=="Mains", ATTR{online}=="1", RUN+="${awwwCtl} on"
+          SUBSYSTEM=="power_supply", ATTR{type}=="Mains", ATTR{online}=="0", RUN+="${awwwCtl} off"
         '');
       };
 
@@ -264,8 +286,7 @@ in {
           jaq
           shadower
 
-          pkgs.mpvpaper
-          pkgs.socat
+          awwwPkg
 
           (writeShellScriptBin
             "pauseshot"
@@ -315,7 +336,9 @@ in {
                     "hyprctl setcursor ${cursor.name} ${toString cursor.size}"
                     "${pkgs.playerctl}/bin/playerctld & mako"
 
-                    ''mpvpaper -o "loop osd-level=0 panscan=1 input-ipc-server=/tmp/mpvpaper-socket$(${lib.optionalString cfg.wallpaper.pauseOnBattery "cat /sys/class/power_supply/*/online 2>/dev/null | grep -q 1 || echo ' pause'"})" '*' ${../../wallpapers/animated.mp4}''
+                    (if cfg.wallpaper.pauseOnBattery
+                      then ''awww-daemon && sleep 1 && awww img ${animatedWallpaper}/$(cat /sys/class/power_supply/*/online 2>/dev/null | grep -q 1 && echo 'animated.gif' || echo 'paused.png') --transition-type fade --no-resize''
+                      else ''awww-daemon && sleep 1 && awww img ${animatedWallpaper}/animated.gif --transition-type fade --no-resize'')
 
                     "zen &"
                     "${lib.getExe config.programs.discord.finalPackage} &"

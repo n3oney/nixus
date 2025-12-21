@@ -14,6 +14,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     apple-silicon-support.url = "github:nix-community/nixos-apple-silicon";
+    awww.url = "git+https://codeberg.org/LGFae/awww";
 
     btop-rose-pine = {
       flake = false;
