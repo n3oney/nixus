@@ -33,6 +33,7 @@
           diff-formatter = ["${pkgs.difftastic}/bin/difft" "--color=always" "$left" "$right"];
           conflict-marker-style = "git";
           log-word-wrap = true;
+          merge-editor = "${pkgs.mergiraf}/bin/mergiraf";
         };
 
         # Use relative timestamps (e.g. "2 hours ago")
