@@ -14,6 +14,7 @@ in {
 
   config = {
     os = {
+      users.groups.plugdev = {};
       users.users.root.hashedPasswordFile = "/persist/passwords/root";
       users.users.${cfg.main} = {
         uid = 1000;
@@ -29,6 +30,7 @@ in {
           "input"
           "render"
           "kvm"
+          "plugdev"
         ];
       };
       users.mutableUsers = false;
