@@ -40,7 +40,7 @@
         [(builtins.head lines) "name: ${file.skillName}"] ++ (builtins.tail lines)
       );
     in {
-      name = "opencode/skills/effect-patterns/${file.skillName}/SKILL.md";
+      name = "opencode/skill/effect-patterns-${file.skillName}/SKILL.md";
       value.text = skillContent;
     })
     allPatternFiles
@@ -61,7 +61,7 @@ in {
         });
         enable = true;
         settings = {
-          plugin = ["opencode-skills"];
+          plugin = ["@franlol/opencode-md-table-formatter@0.0.3"];
           theme = "system";
           instructions = [".github/copilot-instructions.md"];
           model = "zai-coding-plan/glm-4.6";
