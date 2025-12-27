@@ -61,7 +61,6 @@ in {
         proton-ge.enable = true;
       };
       minecraft.enable = true;
-      steeringWheel.enable = true;
       xonotic.enable = true;
     };
     kicad.enable = true;
