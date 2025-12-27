@@ -76,6 +76,21 @@
         "Authorization: $LINEAR_AUTH_TOKEN"
       ];
 
+      github =
+        (withEnv "docker" [
+          "run"
+          "-i"
+          "--rm"
+          "-e"
+          "GITHUB_PERSONAL_ACCESS_TOKEN=$GITHUB_AUTH_TOKEN"
+          "-e"
+          "GITHUB_HOST"
+          "ghcr.io/github/github-mcp-server"
+        ])
+        // {
+          environment.GITHUB_HOST = "https://github.com";
+        };
+
       nx = {
         command = npx;
         args = ["-y" "nx-mcp@latest"];
