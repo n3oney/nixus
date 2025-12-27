@@ -325,6 +325,9 @@ in {
 
           inherit (cfg) package;
 
+          # Disable systemd integration as it conflicts with UWSM
+          systemd.enable = false;
+
           settings = let
             lockSequence = "physlock -ldms && ${lib.getExe pkgs.swaylock} && physlock -Ld";
           in
@@ -403,8 +406,6 @@ in {
                     "w[tg1], gapsin:0, gapsout:0, border:0"
                     "f[1], gapsin:0, gapsout:0, border:0"
                   ];
-
-                experimental.xx_color_management_v4 = true;
 
                 cursor = {
                   persistent_warps = true;
@@ -539,73 +540,86 @@ in {
                   preserve_split = true;
                 };
 
-                windowrulev2 = [
-                  "immediate,class:^(cs2)$"
-                  "suppressevent fullscreen,class:^(cs2)$"
-                  "suppressevent maximize,class:^(cs2)$"
-                  "immediate,class:^(Minecraft.*)$"
-                  "noblur,class:^(Xdg-desktop-portal-gtk)$"
-                  "pin,class:^(ssh-askpass)$"
-                  "float,class:^(ssh-askpass)$"
-                  "idleinhibit focus,title:^(YouTube on TV.*)$"
-                  "idleinhibit fullscreen,class:^(.*)$"
-                  "float,class:^([Ww]aydroid.*)$"
+                windowrule = [
+                  # Gaming - tearing and fullscreen suppression
+                  "immediate on, match:class ^(cs2)$"
+                  "suppress_event fullscreen, match:class ^(cs2)$"
+                  "suppress_event maximize, match:class ^(cs2)$"
+                  "immediate on, match:class ^(Minecraft.*)$"
 
-                  "workspace 2,class:zen"
-                  "suppressevent maximize,class:zen"
+                  # Misc window rules
+                  "no_blur on, match:class ^(Xdg-desktop-portal-gtk)$"
+                  "pin on, match:class ^(ssh-askpass)$"
+                  "float on, match:class ^(ssh-askpass)$"
+                  "idle_inhibit focus, match:title ^(YouTube on TV.*)$"
+                  "idle_inhibit fullscreen, match:class ^(.*)$"
+                  "float on, match:class ^([Ww]aydroid.*)$"
 
-                  "rounding 0,workspace:1,floating:0"
-                  "bordersize 1,workspace:1,floating:0"
+                  # Browser workspace
+                  "workspace 2, match:class ^(zen)$"
+                  "suppress_event maximize, match:class ^(zen)$"
 
-                  "move 0 0,class:(flameshot),title:(flameshot)"
-                  "pin,class:(flameshot),title:(flameshot)"
-                  "fullscreenstate,class:(flameshot),title:(flameshot)"
-                  "float,class:(flameshot),title:(flameshot)"
+                  # Workspace 1 styling (tiled windows)
+                  "rounding 0, match:workspace 1, match:float false"
+                  "border_size 1, match:workspace 1, match:float false"
 
-                  "rounding 0,workspace:${
+                  # Flameshot
+                  "move 0 0, match:class ^(flameshot)$, match:title ^(flameshot)$"
+                  "pin on, match:class ^(flameshot)$, match:title ^(flameshot)$"
+                  "fullscreen_state 2 2, match:class ^(flameshot)$, match:title ^(flameshot)$"
+                  "float on, match:class ^(flameshot)$, match:title ^(flameshot)$"
+
+                  # Chat workspace styling (tiled windows)
+                  "rounding 0, match:workspace ${
                     toString (
                       if cfg.monitors.secondary.name != null
                       then 19
                       else 9
                     )
-                  },floating:0"
-                  "bordersize 1,workspace:${
+                  }, match:float false"
+                  "border_size 1, match:workspace ${
                     toString (
                       if cfg.monitors.secondary.name != null
                       then 19
                       else 9
                     )
-                  },floating:0"
+                  }, match:float false"
 
+                  # Caprine workspace
                   "workspace ${
                     if cfg.monitors.secondary.name != null
                     then "18"
                     else "8"
-                  },class:Caprine"
+                  }, match:class ^(Caprine)$"
 
+                  # Cinny workspace
                   "workspace ${
                     if cfg.monitors.secondary.name != null
                     then "19"
                     else "9"
-                  },class:cinny"
+                  }, match:class ^(cinny)$"
 
+                  # Vesktop workspace
                   "workspace ${
                     if cfg.monitors.secondary.name != null
                     then "19"
                     else "9"
-                  },class:vesktop"
-                  "opacity 0.999,class:vesktop"
+                  }, match:class ^(vesktop)$"
+                  "opacity 0.999, match:class ^(vesktop)$"
 
+                  # YouTube Music workspace
                   "workspace ${
                     if cfg.monitors.secondary.name != null
                     then "20"
                     else "10"
-                  }, class:^(YouTube Music)$"
+                  }, match:class ^(YouTube Music)$"
 
-                  "noanim,title:^(PAUSESHOT)$"
-                  "fullscreen,title:^(PAUSESHOT)$"
+                  # Pauseshot
+                  "no_anim on, match:title ^(PAUSESHOT)$"
+                  "fullscreen on, match:title ^(PAUSESHOT)$"
 
-                  "nomaxsize,class:^(.*)$"
+                  # Remove max size limits from all windows
+                  "no_max_size on, match:class ^(.*)$"
                 ];
 
                 bind = builtins.map (b: b.bind + "," + b.action) cfg.binds;
@@ -632,20 +646,20 @@ in {
                 ];
 
                 layerrule = [
-                  "blur,bar-0"
-                  "ignorezero,bar-0"
-                  "blur,gtk-layer-shell"
-                  "ignorezero,gtk-layer-shell"
-                  "blur,anyrun"
-                  "ignorealpha 0.6,anyrun"
-                  "noanim,anyrun"
-                  "blur,notifications"
-                  "ignorezero,notifications"
+                  "blur on, match:namespace bar-0"
+                  "ignore_alpha 0, match:namespace bar-0"
+                  "blur on, match:namespace gtk-layer-shell"
+                  "ignore_alpha 0, match:namespace gtk-layer-shell"
+                  "blur on, match:namespace anyrun"
+                  "ignore_alpha 0.2, match:namespace anyrun"
+                  "no_anim on, match:namespace anyrun"
+                  "blur on, match:namespace notifications"
+                  "ignore_alpha 0, match:namespace notifications"
 
-                  "blur,yubikey-state"
-                  "ignorealpha 0.6,yubikey-state"
+                  "blur on, match:namespace yubikey-state"
+                  "ignore_alpha 0.2, match:namespace yubikey-state"
 
-                  "noanim,selection"
+                  "no_anim on, match:namespace selection"
                 ];
               }
             ];
