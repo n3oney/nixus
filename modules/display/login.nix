@@ -38,36 +38,56 @@
             debug.disable_logs = false;
 
             exec-once = [
-              "dbus-update-activation-environment --systemd --all"
               "hyprctl setcursor ${hmConfig.home.pointerCursor.name} ${toString hmConfig.home.pointerCursor.size}"
               # No --layer-shell, because Hyprland doesn't focus it by default.
               "${nwg-hello}/bin/nwg-hello; hyprctl dispatch exit"
-              "systemctl --user restart xdg-desktop-portal xdg-desktop-portal-hyprland"
             ];
           };
         }
       );
+
     in {
+      # Make session files available in /run/current-system/sw/share/
+      environment.pathsToLink = [
+        "/share/wayland-sessions"
+        "/share/xsessions"
+      ];
+
       environment.etc."nwg-hello/nwg-hello.json".text = builtins.toJSON {
-        session_dirs = ["${hmConfig.wayland.windowManager.hyprland.package}/share/wayland-sessions"];
-        custom_sessions = [
-          {
-            name = "Hyprland (UWSM)";
-            exec = "uwsm start hyprland-uwsm.desktop";
-          }
+        # Use standard system session paths
+        session_dirs = [
+          "/run/current-system/sw/share/wayland-sessions"
+          "/run/current-system/sw/share/xsessions"
         ];
+        custom_sessions = [];
+        # Use GTK theme from user config
+        gtk-theme = hmConfig.gtk.theme.name;
+        gtk-icon-theme = hmConfig.gtk.iconTheme.name;
+        gtk-cursor-theme = hmConfig.home.pointerCursor.name;
+        prefer-dark-theme = true;
+        # Delay for multi-monitor setups
+        delay_secs = 1;
       };
 
       services.greetd = {
         enable = true;
         settings = {
           default_session = {
-            command = "${lib.getExe config.display.package} --config ${greetdHyprlandConfig}";
+            command = "${config.display.package}/bin/start-hyprland -- --config ${greetdHyprlandConfig}";
           };
         };
       };
 
       security.pam.services.greetd.enableGnomeKeyring = true;
+
+      # Create cache directory and pre-populate with default session
+      systemd.tmpfiles.rules = [
+        "d /var/cache/nwg-hello 0755 greeter greeter -"
+        "C /var/cache/nwg-hello/cache.json 0644 greeter greeter - ${pkgs.writeText "nwg-hello-cache" (builtins.toJSON {
+          sessions.neoney = "uwsm start -e -D Hyprland hyprland.desktop";
+          user = "neoney";
+        })}"
+      ];
 
       environment.etc."greetd/environments".text = ''
         uwsm start hyprland-uwsm.desktop
