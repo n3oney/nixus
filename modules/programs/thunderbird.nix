@@ -8,18 +8,23 @@
 
   config.impermanence.userDirs = lib.mkIf config.programs.thunderbird.enable [".thunderbird"];
 
-  config.hm.programs.thunderbird = lib.mkIf config.programs.thunderbird.enable {
-    enable = true;
-    package =
-      if pkgs.system == "x86_64-linux"
-      then pkgs.thunderbird-bin
-      else pkgs.thunderbird;
-    profiles.default = {
-      isDefault = true;
-      settings = {};
-      userChrome = "";
-      userContent = "";
-      withExternalGnupg = true;
+  config.hm = lib.mkIf config.programs.thunderbird.enable {
+    xdg.mimeApps.defaultApplications = {
+      mailto = ["thunderbird.desktop"];
+    };
+    programs.thunderbird = {
+      enable = true;
+      package =
+        if pkgs.system == "x86_64-linux"
+        then pkgs.thunderbird-bin
+        else pkgs.thunderbird;
+      profiles.default = {
+        isDefault = true;
+        settings = {};
+        userChrome = "";
+        userContent = "";
+        withExternalGnupg = true;
+      };
     };
   };
 }
