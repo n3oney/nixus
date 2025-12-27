@@ -61,7 +61,7 @@ in {
         proton-ge.enable = true;
       };
       minecraft.enable = true;
-      xonotic.enable = true;
+      # xonotic.enable = true;
     };
     kicad.enable = true;
     webstorm.enable = true;
