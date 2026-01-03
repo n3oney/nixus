@@ -13,21 +13,22 @@
   # Use raw display resolution for wallpaper dimensions
   displayWidth = cfg.monitors.main.width;
   displayHeight = cfg.monitors.main.height;
-  
-  animatedWallpaper = pkgs.runCommand "animated-wallpaper" {
-    nativeBuildInputs = [ pkgs.ffmpeg ];
-    src = ../../wallpapers/animated.mp4;
-  } ''
-    mkdir -p $out
-    # Scale to cover display maintaining aspect ratio, then crop to exact dimensions
-    # force_original_aspect_ratio=increase ensures it covers the entire area
-    ffmpeg -i $src -vf "scale=${toString displayWidth}:${toString displayHeight}:force_original_aspect_ratio=increase:flags=lanczos,crop=${toString displayWidth}:${toString displayHeight},palettegen=stats_mode=full" palette.png
-    # Create GIF with exact dimensions
-    ffmpeg -i $src -i palette.png -lavfi "scale=${toString displayWidth}:${toString displayHeight}:force_original_aspect_ratio=increase:flags=lanczos,crop=${toString displayWidth}:${toString displayHeight},paletteuse=dither=sierra2_4a" $out/animated.gif
-    # Extract first frame at exact dimensions
-    ffmpeg -i $src -vf "scale=${toString displayWidth}:${toString displayHeight}:force_original_aspect_ratio=increase:flags=lanczos,crop=${toString displayWidth}:${toString displayHeight}" -vframes 1 -q:v 2 $out/paused.png
-    rm palette.png
-  '';
+
+  animatedWallpaper =
+    pkgs.runCommand "animated-wallpaper" {
+      nativeBuildInputs = [pkgs.ffmpeg];
+      src = ../../wallpapers/animated.mp4;
+    } ''
+      mkdir -p $out
+      # Scale to cover display maintaining aspect ratio, then crop to exact dimensions
+      # force_original_aspect_ratio=increase ensures it covers the entire area
+      ffmpeg -i $src -vf "scale=${toString displayWidth}:${toString displayHeight}:force_original_aspect_ratio=increase:flags=lanczos,crop=${toString displayWidth}:${toString displayHeight},palettegen=stats_mode=full" palette.png
+      # Create GIF with exact dimensions
+      ffmpeg -i $src -i palette.png -lavfi "scale=${toString displayWidth}:${toString displayHeight}:force_original_aspect_ratio=increase:flags=lanczos,crop=${toString displayWidth}:${toString displayHeight},paletteuse=dither=sierra2_4a" $out/animated.gif
+      # Extract first frame at exact dimensions
+      ffmpeg -i $src -vf "scale=${toString displayWidth}:${toString displayHeight}:force_original_aspect_ratio=increase:flags=lanczos,crop=${toString displayWidth}:${toString displayHeight}" -vframes 1 -q:v 2 $out/paused.png
+      rm palette.png
+    '';
 
   awwwPkg = inputs.awww.packages.${pkgs.system}.default;
 
@@ -82,8 +83,6 @@ in {
       # };
       # });
     };
-
-
 
     monitors = {
       main = {
@@ -229,11 +228,11 @@ in {
           awwwCtl = pkgs.writeShellScript "awww-power" ''
             DAEMON_PID=$(${pkgs.procps}/bin/pgrep -x awww-daemon)
             [ -z "$DAEMON_PID" ] && exit 0
-            
+
             USER=$(${pkgs.procps}/bin/ps -o user= -p "$DAEMON_PID")
             USER_ID=$(${pkgs.coreutils}/bin/id -u "$USER")
             WAYLAND_DISPLAY=$(${pkgs.gnugrep}/bin/grep -z WAYLAND_DISPLAY /proc/$DAEMON_PID/environ | ${pkgs.coreutils}/bin/cut -d= -f2)
-            
+
             case "$1" in
               on)
                 ${pkgs.su}/bin/su "$USER" -c "XDG_RUNTIME_DIR=/run/user/$USER_ID WAYLAND_DISPLAY=$WAYLAND_DISPLAY ${awwwPkg}/bin/awww img ${animatedWallpaper}/animated.gif --transition-type fade --no-resize"
@@ -339,13 +338,14 @@ in {
                     "hyprctl setcursor ${cursor.name} ${toString cursor.size}"
                     "${pkgs.playerctl}/bin/playerctld & mako"
 
-                    (if cfg.wallpaper.pauseOnBattery
+                    (
+                      if cfg.wallpaper.pauseOnBattery
                       then ''awww-daemon && sleep 1 && awww img ${animatedWallpaper}/$(cat /sys/class/power_supply/*/online 2>/dev/null | grep -q 1 && echo 'animated.gif' || echo 'paused.png') --transition-type fade --no-resize''
-                      else ''awww-daemon && sleep 1 && awww img ${animatedWallpaper}/animated.gif --transition-type fade --no-resize'')
+                      else ''awww-daemon && sleep 1 && awww img ${animatedWallpaper}/animated.gif --transition-type fade --no-resize''
+                    )
 
                     "zen &"
                     "${lib.getExe config.programs.discord.finalPackage} &"
-                    "cinny &"
                     # "${lib.getExe pkgs.caprine-bin} &"
 
                     "wlsunset -l 52.2 -L 21 &"
@@ -591,13 +591,6 @@ in {
                     then "18"
                     else "8"
                   }, match:class ^(Caprine)$"
-
-                  # Cinny workspace
-                  "workspace ${
-                    if cfg.monitors.secondary.name != null
-                    then "19"
-                    else "9"
-                  }, match:class ^(cinny)$"
 
                   # Vesktop workspace
                   "workspace ${
