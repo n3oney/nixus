@@ -10,7 +10,7 @@ jobs:
     if: >
       contains(github.event.check_run.name, 'nixosConfig yen') &&
       github.event.check_run.conclusion == 'success' &&
-      github.event.check_run.app.slug == 'garnix-io'
+      github.event.check_run.app.slug == 'garnix-ci'
     
     steps:
       - uses: actions/checkout@v4
