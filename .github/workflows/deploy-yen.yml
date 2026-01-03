@@ -25,6 +25,7 @@ jobs:
         env:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
           TARGET_HOST: ${{ secrets.YEN_IP }}
+          NIX_SSHOPTS: "-o ServerAliveInterval=30 -o ServerAliveCountMax=100 -o ConnectTimeout=60"
         run: |
           # 1. Setup SSH
           mkdir -p ~/.ssh
@@ -33,6 +34,8 @@ jobs:
           
           ssh-keyscan $TARGET_HOST >> ~/.ssh/known_hosts
 
-          nix run nixpkgs#nixos-rebuild -- switch \
-            --flake .#yen \
-            --target-host root@$TARGET_HOST
+          for i in {1..3}; do
+            nix run nixpkgs#nixos-rebuild -- switch \
+              --flake .#yen \
+              --target-host root@$TARGET_HOST && break || sleep 15
+          done
