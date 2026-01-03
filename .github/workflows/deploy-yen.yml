@@ -1,0 +1,38 @@
+name: Deploy Yen
+
+on:
+  check_run:
+    types: [completed]
+
+jobs:
+  deploy-yen:
+    runs-on: ubuntu-latest
+    if: >
+      contains(github.event.check_run.name, 'nixosConfig yen') &&
+      github.event.check_run.conclusion == 'success' &&
+      github.event.check_run.app.slug == 'garnix-io'
+    
+    steps:
+      - uses: actions/checkout@v4
+      
+      - uses: cachix/install-nix-action@v2
+        with:
+          extra_nix_config: |
+            trusted-public-keys = cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY= cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g=
+            substituters = https://cache.nixos.org https://cache.garnix.io
+
+      - name: Deploy to Yen
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+          TARGET_HOST: ${{ secrets.YEN_IP }}
+        run: |
+          # 1. Setup SSH
+          mkdir -p ~/.ssh
+          echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_ed25519
+          chmod 600 ~/.ssh/id_ed25519
+          
+          ssh-keyscan $TARGET_HOST >> ~/.ssh/known_hosts
+
+          nix run nixpkgs#nixos-rebuild -- switch \
+            --flake .#yen \
+            --target-host root@$TARGET_HOST
