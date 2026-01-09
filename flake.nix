@@ -58,6 +58,7 @@
     rust-overlay.url = "github:oxalica/rust-overlay";
     shadower.url = "github:n3oney/shadower";
     zen-browser-flake.url = "github:youwen5/zen-browser-flake";
+    jj-starship.url = "github:dmmulroy/jj-starship";
     nvf.url = "github:NotAShelf/nvf";
     quickshell = {
       url = "git+https://git.outfoxxed.me/outfoxxed/quickshell";
