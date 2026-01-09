@@ -42,7 +42,7 @@
     chrome.enable = true;
     datagrip.enable = true;
     discord.enable = true;
-    ags.enable = true;
+    # ags.enable = true;
     quickshell.enable = true;
     # firefox.enable = true;
     foot.enable = true;
