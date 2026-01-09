@@ -14,7 +14,7 @@
   boot.kernelModules = ["kvm-amd"];
 
   boot.initrd.luks.devices."cryptroot" = {
-    device = "/dev/disk/by-label/NIXROOT";
+    device = "/dev/nvme0n1p5";
     preLVM = true;
     # For fingerprint unlock (after enrolling with systemd-cryptenroll):
     # cryptTabOptions = ["fido2-device=auto"];
