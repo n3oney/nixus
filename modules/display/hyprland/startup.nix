@@ -7,23 +7,26 @@
   cfg = config.display;
   inherit (lib) mkIf;
 
-  # Helper to wrap commands with uwsm app
-  uwsm = cmd: "uwsm app -- ${cmd}";
+  # Helpers to wrap commands with uwsm-app
+  # -s a = app-graphical.slice (GUI apps)
+  # -s b = background-graphical.slice (daemons)
+  app = cmd: "uwsm-app -- ${cmd}";
+  background = cmd: "uwsm-app -s b -- ${cmd}";
 in {
   config = mkIf cfg.enable {
     hm.wayland.windowManager.hyprland.settings = {
       exec-once =
         [
           "dbus-update-activation-environment --systemd --all"
-          "${pkgs.playerctl}/bin/playerctld"
-          (uwsm "zen")
-          (uwsm (lib.getExe config.programs.discord.finalPackage))
+          (background "${pkgs.playerctl}/bin/playerctld")
+          (app "zen")
+          (app (lib.getExe config.programs.discord.finalPackage))
 
-          (uwsm "wlsunset -l 52.2 -L 21")
+          (background "wlsunset -l 52.2 -L 21")
 
           "systemctl --user restart xdg-desktop-portal xdg-desktop-portal-hyprland"
         ]
-        ++ (lib.optionals config.programs.ags.enable [(uwsm "ags")]);
+        ++ (lib.optionals config.programs.ags.enable [(app "ags")]);
     };
   };
 }
