@@ -73,20 +73,23 @@ in {
 
       programs.opencode = {
         package = inputs.nix-ai-tools.packages.${pkgs.system}.opencode.overrideAttrs (old: {
-          # patches = (old.patches or []) ++ [./0000-opencode.patch];
+          buildInputs = old.buildInputs ++ [pkgs.makeWrapper];
+          postInstall =
+            (old.postInstall or "")
+            + ''
+              wrapProgram "$out/bin/opencode" --set OPENCODE_EXPERIMENTAL_LSP_TOOL true
+            '';
         });
         enable = true;
         settings = {
           plugin = ["@franlol/opencode-md-table-formatter@0.0.3"];
+          permission.lsp = "allow";
           theme = "system";
           instructions = [".github/copilot-instructions.md"];
           model = "zai-coding-plan/glm-4.6";
           small_model = "zai-coding-plan/glm-4.5-air";
         };
       };
-
-      # Create skill directories in ~/.config/opencode/skills/
-      xdg.configFile = skillConfigFiles;
     };
   };
 }
