@@ -16,6 +16,8 @@ in {
     ./hyprland/monitors.nix
     ./hyprland/packages.nix
     ./hyprland/startup.nix
+    ./hyprland/idle.nix
+    ./hyprland/lock.nix
   ];
 
   options.display = {
@@ -81,8 +83,6 @@ in {
       };
 
       services.logind.settings.Login = {
-        IdleActionSec = "7min";
-        IdleAction = "suspend";
         HandleLidSwitch = "suspend";
       };
     };

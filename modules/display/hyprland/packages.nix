@@ -30,8 +30,6 @@ in {
         hyprpicker
         grimblast
 
-        swayidle
-
         jaq
         shadower
 
