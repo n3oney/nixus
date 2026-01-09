@@ -7,6 +7,7 @@
       enable = true;
       settings = {
         aliases = {
+          ins = ["new" "--insert-after"];
           pull = ["git" "fetch"];
           push = ["git" "push"];
           tug = ["bookmark" "move" "--from" "closest_bookmark(@-)" "--to" "@-"];
