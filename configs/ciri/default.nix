@@ -12,8 +12,6 @@
   display = {
     enable = true;
 
-    wallpaper.pauseOnBattery = true;
-
     monitors = {
       main = {
         name = "eDP-1";

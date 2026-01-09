@@ -13,8 +13,8 @@
 
   boot.extraModulePackages = with config.boot.kernelPackages; [v4l2loopback.out];
   boot.initrd.kernelModules = [];
-  boot.kernelPackages = pkgs.linuxPackages_xanmod_latest;
-  boot.kernelModules = ["kvm-amd" "amdgpu"];
+  boot.kernelPackages = pkgs.linuxPackages;
+  boot.kernelModules = ["kvm-amd" "amdgpu" "iptable_nat" "iptable_filter"];
   boot.kernelParams = ["acpi_enforce_resources=lax"];
 
   fileSystems = let

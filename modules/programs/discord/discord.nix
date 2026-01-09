@@ -29,6 +29,8 @@ in {
   config.impermanence.userDirs = lib.mkIf cfg.enable [".config/vesktop"];
 
   config.hm = mkIf cfg.enable {
+    services.arrpc.enable = true;
+
     home.packages = [
       cfg.finalPackage
     ];
