@@ -61,6 +61,10 @@ in {
         variant = {};
         favorite = [
           {
+            providerID = "google";
+            modelID = "gemini-3-pro-preview";
+          }
+          {
             providerID = "github-copilot";
             modelID = "claude-opus-4.5";
           }
@@ -70,6 +74,49 @@ in {
           }
         ];
       };
+
+      xdg.configFile =
+        skillConfigFiles
+        // {
+          "opencode/dcp.jsonc".text = builtins.toJSON {
+            enabled = true;
+            debug = false;
+            pruneNotification = "minimal";
+            turnProtection = {
+              enabled = true;
+              turns = 5;
+            };
+
+            tools = {
+              settings = {
+                nudgeEnabled = true;
+                nudgeFrequency = 10;
+                protectedTools = [];
+              };
+              discard = {
+                enabled = true;
+              };
+              extract = {
+                enabled = true;
+                showDistillation = true;
+              };
+            };
+            strategies = {
+              deduplication = {
+                enabled = true;
+                protectedTools = [];
+              };
+              supersedeWrites = {
+                enabled = true;
+              };
+              purgeErrors = {
+                enabled = true;
+                turns = 4;
+                protectedTools = [];
+              };
+            };
+          };
+        };
 
       programs.opencode = {
         package = inputs.nix-ai-tools.packages.${pkgs.system}.opencode.overrideAttrs (old: {
@@ -82,11 +129,12 @@ in {
         });
         enable = true;
         settings = {
-          plugin = ["@franlol/opencode-md-table-formatter@0.0.3"];
           permission.lsp = "allow";
+          provider.google.options.projectId = "gen-lang-client-0105823012";
+          plugin = ["@mohak34/opencode-notifier@latest" "@nick-vi/opencode-type-inject" "opencode-gemini-auth@latest" "@franlol/opencode-md-table-formatter@0.0.3" "@tarquinen/opencode-dcp@latest"];
           theme = "system";
           instructions = [".github/copilot-instructions.md"];
-          model = "zai-coding-plan/glm-4.6";
+          model = "google/gemini-3-pro-preview";
           small_model = "zai-coding-plan/glm-4.5-air";
         };
       };
