@@ -53,12 +53,17 @@
     nix-index-database.url = "github:nix-community/nix-index-database";
     nix-index-database.inputs.nixpkgs.follows = "nixpkgs";
 
+    nixos-hardware.url = "github:NixOS/nixos-hardware/master";
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     nur.url = "github:nix-community/NUR";
     rust-overlay.url = "github:oxalica/rust-overlay";
     shadower.url = "github:n3oney/shadower";
     zen-browser-flake.url = "github:youwen5/zen-browser-flake";
     jj-starship.url = "github:dmmulroy/jj-starship";
+    lanzaboote = {
+      url = "github:nix-community/lanzaboote/v0.4.2";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     nvf.url = "github:NotAShelf/nvf";
     quickshell = {
       url = "git+https://git.outfoxxed.me/outfoxxed/quickshell";
@@ -132,6 +137,19 @@
             ./modules
             ./hosts/max
             ./configs/max
+          ];
+        };
+      };
+
+      # Tablet (Minisforum V3)
+      prism = combinedManager.nixosSystem {
+        inherit inputs;
+        configuration = {
+          system = "x86_64-linux";
+          modules = [
+            ./modules
+            ./hosts/prism
+            ./configs/prism
           ];
         };
       };
