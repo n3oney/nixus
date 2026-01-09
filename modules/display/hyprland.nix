@@ -18,6 +18,7 @@ in {
     ./hyprland/startup.nix
     ./hyprland/idle.nix
     ./hyprland/lock.nix
+    ./hyprland/gyro.nix
   ];
 
   options.display = {
