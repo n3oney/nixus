@@ -19,7 +19,10 @@ ShellRoot {
             
             // Find the Hyprland monitor matching this screen
             property var hyprlandMonitor: Hyprland.monitors.values.find(m => m.name === modelData.name)
-            property bool isWorkspaceOne: hyprlandMonitor?.activeWorkspace?.id === 1
+            property var activeWorkspace: hyprlandMonitor?.activeWorkspace
+            property bool isWorkspaceOne: activeWorkspace?.id === 1
+            property bool isSingleWindow: (activeWorkspace?.toplevels?.values?.length ?? 0) === 1
+            property bool isFullSize: isWorkspaceOne || isSingleWindow
 
             WlrLayershell.namespace: "bar"
 
@@ -34,7 +37,7 @@ ShellRoot {
 
             Bar {
                 panelWindow: barWindow
-                isWorkspaceOne: barWindow.isWorkspaceOne
+                isWorkspaceOne: barWindow.isFullSize
             }
         }
     }
