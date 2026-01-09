@@ -5,7 +5,8 @@
   inputs,
   ...
 }: {
-  osModules = [./hardware-configuration.nix
+  osModules = [
+    ./hardware-configuration.nix
     inputs.lanzaboote.nixosModules.lanzaboote
     inputs.nixos-hardware.nixosModules.minisforum-v3
   ];
@@ -23,12 +24,12 @@
     networking = {
       hostName = "prism";
       wireless = {
-        enable = false;
-        iwd.enable = true;
+        enable = true;
+        # iwd.enable = true;
       };
       networkmanager = {
         enable = true;
-        wifi.backend = "iwd";
+        # wifi.backend = "iwd";
         plugins = lib.mkForce [];
       };
       nameservers = [
