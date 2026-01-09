@@ -176,7 +176,7 @@ in {
         SupportHelper.enabled = true;
         TimeBarAllActivities.enabled = false;
         TypingIndicator.enabled = true;
-        TypingTweaks.enabled = true;
+        TypingTweaks.enabled = false;
         Unindent.enabled = true;
         ReactErrorDecoder.enabled = false;
         UrbanDictionary.enabled = false;
