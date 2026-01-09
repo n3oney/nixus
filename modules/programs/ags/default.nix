@@ -3,6 +3,7 @@
   config,
   lib,
   inputs,
+  hmConfig,
   ...
 }: {
   options.programs.ags = {
@@ -32,6 +33,21 @@
     xdg.configFile."ags" = {
       source = ./config;
       recursive = true;
+    };
+    systemd.user.services.ags = {
+      Unit = {
+        Description = "Aylur's GTK Shell";
+        PartOf = ["graphical-session.target"];
+        After = ["graphical-session.target"];
+      };
+      Service = {
+        ExecStart = "${hmConfig.programs.ags.package}/bin/ags";
+        Restart = "on-failure";
+        RestartSec = 3;
+      };
+      Install = {
+        WantedBy = ["graphical-session.target"];
+      };
     };
   };
 }

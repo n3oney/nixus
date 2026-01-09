@@ -25,8 +25,7 @@ in {
           (background "wlsunset -l 52.2 -L 21")
 
           "systemctl --user restart xdg-desktop-portal xdg-desktop-portal-hyprland"
-        ]
-        ++ (lib.optionals config.programs.ags.enable [(app "ags")]);
+        ];
     };
   };
 }
