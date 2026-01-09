@@ -52,9 +52,25 @@ in {
     impermanence.userDirs = [
       ".local/share/opencode"
       ".cache/opencode"
+      ".local/state/opencode"
     ];
 
     hm = {
+      home.file.".local/state/opencode/model.json".text = builtins.toJSON {
+        recent = [];
+        variant = {};
+        favorite = [
+          {
+            providerID = "github-copilot";
+            modelID = "claude-opus-4.5";
+          }
+          {
+            providerID = "github-copilot";
+            modelID = "claude-sonnet-4.5";
+          }
+        ];
+      };
+
       programs.opencode = {
         package = inputs.nix-ai-tools.packages.${pkgs.system}.opencode.overrideAttrs (old: {
           # patches = (old.patches or []) ++ [./0000-opencode.patch];
