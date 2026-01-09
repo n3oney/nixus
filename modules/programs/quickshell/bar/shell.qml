@@ -1,5 +1,5 @@
 //@ pragma UseQApplication
-//@ pragma IconTheme Adwaita-dark
+//@ pragma IconTheme breeze-dark
 
 import Quickshell
 import Quickshell.Wayland

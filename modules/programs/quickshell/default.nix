@@ -55,6 +55,13 @@ in {
     xdg.configFile."quickshell/bar/widgets/IdleInhibit.qml".source = ./bar/widgets/IdleInhibit.qml;
     xdg.configFile."quickshell/bar/widgets/Sunset.qml".source = ./bar/widgets/Sunset.qml;
 
+    # System tray menu components
+    xdg.configFile."quickshell/bar/widgets/systray/MenuCheckBox.qml".source = ./bar/widgets/systray/MenuCheckBox.qml;
+    xdg.configFile."quickshell/bar/widgets/systray/MenuRadioButton.qml".source = ./bar/widgets/systray/MenuRadioButton.qml;
+    xdg.configFile."quickshell/bar/widgets/systray/MenuChildrenRevealer.qml".source = ./bar/widgets/systray/MenuChildrenRevealer.qml;
+    xdg.configFile."quickshell/bar/widgets/systray/MenuItem.qml".source = ./bar/widgets/systray/MenuItem.qml;
+    xdg.configFile."quickshell/bar/widgets/systray/MenuView.qml".source = ./bar/widgets/systray/MenuView.qml;
+
     # Generated config with colors - hot-reloadable
     xdg.configFile."quickshell/bar/config.js".text = ''
       .pragma library
@@ -110,6 +117,9 @@ in {
         ExecStart = "${cfg.package}/bin/quickshell -c bar";
         Restart = "on-failure";
         RestartSec = 3;
+        Environment = [
+          "QS_ICON_THEME=breeze"
+        ];
       };
       Install = {
         WantedBy = ["graphical-session.target"];
