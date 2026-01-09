@@ -144,6 +144,8 @@
       - `deployment/*.md` - Deployment guides
       - Any other project-specific documentation referenced in `activeContext.md`
 
+      These files are not physical files in the workspace, they are only available from within the memory bank tools.
+
       ## Commands You Will Receive
 
       The user will issue one of these commands:
