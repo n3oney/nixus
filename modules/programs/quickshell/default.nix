@@ -100,8 +100,8 @@ in {
       const fontFamily = "sans";
       const gap = ${toString gap};
       const rounding = ${toString rounding};
-      const secondaryMonitor = "${secondaryMonitor}";
-
+      const secondaryMonitor = "${if secondaryMonitor == null then "null" else secondaryMonitor}";
+ 
       // Animation (matches Hyprland workspace animation)
       const animationDuration = ${animationSpeed} * 100;
       const animationBezier = ${bezierValues};
