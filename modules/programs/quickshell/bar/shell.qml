@@ -1,25 +1,27 @@
-import Quickshell // for PanelWindow
-import Quickshell.Io
-import QtQuick // for Text
+//@ pragma UseQApplication
+//@ pragma IconTheme Adwaita-dark
+
+import Quickshell
 import Quickshell.Wayland
-import QtQuick.Layouts
+import Quickshell.Hyprland
+import QtQuick
 
 import "/home/neoney/.config/quickshell/bar/config.js" as Config
 
-Scope {
-    id: root
-    property string time
-
+ShellRoot {
     Variants {
-        model: Quickshell.screens
+        model: Quickshell.screens.filter(s => s.name !== Config.secondaryMonitor)
 
         PanelWindow {
+            id: barWindow
             required property var modelData
             screen: modelData
+            
+            // Find the Hyprland monitor matching this screen
+            property var hyprlandMonitor: Hyprland.monitors.values.find(m => m.name === modelData.name)
+            property bool isWorkspaceOne: hyprlandMonitor?.activeWorkspace?.id === 1
 
-            WlrLayershell.namespace: "bar-0"
-
-            color: Config.backgroundColor
+            WlrLayershell.namespace: "bar"
 
             anchors {
                 top: true
@@ -27,45 +29,13 @@ Scope {
                 right: true
             }
 
-            implicitHeight: 50
+            implicitHeight: Config.barHeight + 2
+            color: "transparent"
 
-            ColumnLayout {
-                anchors.centerIn: parent
-                spacing: 20
-
-                Text {
-                    anchors.centerIn: parent
-                    text: root.time
-                    color: "white"
-                    font.family: "monospace"
-                    font.pointSize: 14
-                    font.weight: 500
-                }
-
-                Text {
-                    anchors.centerIn: parent
-                    text: "Witam"
-                    font.pointSize: 10
-                    font.weight: 500
-                    color: "#80ffffff"
-                }
+            Bar {
+                panelWindow: barWindow
+                isWorkspaceOne: barWindow.isWorkspaceOne
             }
         }
-    }
-
-    Process {
-        id: dateProc
-        command: ["date", "+%H:%M:%S"]
-        running: true
-        stdout: StdioCollector {
-            onStreamFinished: root.time = this.text
-        }
-    }
-
-    Timer {
-        interval: 1000
-        running: true
-        repeat: true
-        onTriggered: dateProc.running = true
     }
 }

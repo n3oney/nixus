@@ -50,7 +50,8 @@ in {
     btop.enable = true;
     chrome.enable = true;
     discord.enable = true;
-    ags.enable = true;
+    ags.enable = false;
+    quickshell.enable = true;
     firefox.enable = false;
     foot.enable = true;
     gaming = {

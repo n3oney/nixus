@@ -73,8 +73,11 @@ in {
       ];
 
       layerrule = [
+        (mkLayerRule "blur on" "bar")
+        (mkLayerRule "no_anim on" "bar")
         (mkLayerRule "blur on" "bar-0")
         (mkLayerRule "ignore_alpha 0" "bar-0")
+        (mkLayerRule "no_anim on" "bar-0")
         (mkLayerRule "blur on" "gtk-layer-shell")
         (mkLayerRule "ignore_alpha 0" "gtk-layer-shell")
         (mkLayerRule "blur on" "anyrun")
