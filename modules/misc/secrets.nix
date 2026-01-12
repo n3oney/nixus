@@ -40,11 +40,11 @@ in {
 
       hm = {
         age.secrets = lib.mkMerge [
-          (secretForHostnames ["miko" "ciri"] ../../secrets/ha_assist_config.age "ha_assist_config" {})
-          (secretForHostnames ["miko" "ciri"] ../../secrets/gh_notifications_key.age "gh_notifications_key" {})
-          (secretForHostnames ["miko" "ciri" "yen" "max"] ../../secrets/ssh_hosts.age "ssh_hosts" {})
-          (secretForHostnames ["miko" "ciri" "yen" "max"] ../../secrets/ngrok.age "ngrok" {})
-          (secretForHostnames ["miko" "ciri"] ../../secrets/mcp.age "mcp" {})
+          (secretForHostnames ["miko" "ciri" "prism"] ../../secrets/ha_assist_config.age "ha_assist_config" {})
+          (secretForHostnames ["miko" "ciri" "prism"] ../../secrets/gh_notifications_key.age "gh_notifications_key" {})
+          (secretForHostnames ["miko" "ciri" "yen" "max" "prism"] ../../secrets/ssh_hosts.age "ssh_hosts" {})
+          (secretForHostnames ["miko" "ciri" "yen" "max" "prism"] ../../secrets/ngrok.age "ngrok" {})
+          (secretForHostnames ["miko" "ciri" "prism"] ../../secrets/mcp.age "mcp" {})
         ];
         age.identityPaths = ["/home/neoney/.ssh/id_ed25519_agenix"];
       };
