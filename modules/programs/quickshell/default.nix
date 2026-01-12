@@ -13,6 +13,8 @@
   gap = hyprlandSettings.general.gaps_out;
   rounding = hyprlandSettings.decoration.rounding;
   secondaryMonitor = config.display.monitors.secondary.name or "";
+  hasSecondary = config.display.monitors.secondary.name != null;
+  chatWorkspaceId = if hasSecondary then 19 else 9;
 
   # Parse workspace animation: "workspaces, 1, 7, fluent_decel, slide"
   workspaceAnim = builtins.filter (a: lib.hasPrefix "workspaces," a) hyprlandSettings.animations.animation;
@@ -101,6 +103,7 @@ in {
       const gap = ${toString gap};
       const rounding = ${toString rounding};
       const secondaryMonitor = "${if secondaryMonitor == null then "null" else secondaryMonitor}";
+      const noRoundingWorkspaces = [1, ${toString chatWorkspaceId}];
  
       // Animation (matches Hyprland workspace animation)
       const animationDuration = ${animationSpeed} * 100;
