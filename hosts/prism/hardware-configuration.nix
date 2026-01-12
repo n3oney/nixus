@@ -22,8 +22,7 @@
 
   fileSystems = let
     generalOptions = ["noatime" "discard" "ssd" "compress=zstd"];
-    # TODO: Set your btrfs UUID after install
-    btrfsDevice = "/dev/mapper/cryptroot";    
+    btrfsDevice = "/dev/mapper/cryptroot";
   in {
     "/" = {
       device = "none";
