@@ -13,7 +13,7 @@ Item {
     implicitHeight: Config.barHeight
     
     property var device: UPower.displayDevice
-    property int percentage: device ? Math.round(device.percentage) : 0
+    property int percentage: device ? Math.round(device.percentage * 100) : 0
     property bool isCharging: device ? device.state === UPowerDeviceState.Charging : false
     property bool isCharged: device ? device.state === UPowerDeviceState.FullyCharged : false
     
