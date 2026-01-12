@@ -1677,6 +1677,22 @@
         "type": "github"
       }
     },
+    "nixpkgs-howdy": {
+      "locked": {
+        "lastModified": 1767880725,
+        "narHash": "sha256-vwDNKILG8oLa+l7/n7z3R/XxXGRr7uVfCoGvSiZLlB0=",
+        "owner": "fufexan",
+        "repo": "nixpkgs",
+        "rev": "57764dce861ac3174aaeaefe43317a32050d09cd",
+        "type": "github"
+      },
+      "original": {
+        "owner": "fufexan",
+        "ref": "howdy",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "nixpkgs-lib": {
       "locked": {
         "dir": "lib",
@@ -2227,6 +2243,7 @@
         "nix-index-database": "nix-index-database",
         "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs_16",
+        "nixpkgs-howdy": "nixpkgs-howdy",
         "nur": "nur",
         "nvf": "nvf",
         "orcaslicer": "orcaslicer",

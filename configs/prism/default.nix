@@ -81,6 +81,7 @@
     # uxplay.enable = true;
     # warp.enable = true;
     kondo.enable = true;
+    howdy.enable = true;
   };
 
   keyring.enable = true;

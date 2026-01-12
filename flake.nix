@@ -64,6 +64,7 @@
       url = "github:nix-community/lanzaboote/v0.4.2";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nixpkgs-howdy.url = "github:fufexan/nixpkgs/howdy";
     nvf.url = "github:NotAShelf/nvf";
     quickshell = {
       url = "git+https://git.outfoxxed.me/outfoxxed/quickshell";
