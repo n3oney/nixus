@@ -49,7 +49,10 @@ in {
     bottles.enable = true;
     btop.enable = true;
     chrome.enable = true;
-    discord.enable = true;
+    discord = {
+      enable = true;
+      useDissent = true;
+    };
     ags.enable = false;
     quickshell.enable = true;
     firefox.enable = false;
