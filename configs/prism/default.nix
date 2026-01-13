@@ -39,7 +39,7 @@
     # waydroid.enable = true;
     anyrun.enable = true;
     btop.enable = true;
-    bricscad.enable = true;
+    # bricscad.enable = true;
     chrome.enable = true;
     datagrip.enable = true;
     discord = {
