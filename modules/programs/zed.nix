@@ -58,25 +58,15 @@
               model = "glm-4.6";
             };
           };
-          language_models = {
-            anthropic = {
-              api_url = "https://api.z.ai/api/anthropic";
-
-              available_models = [
-                {
-                  name = "glm-4.6";
-                  display_name = "GLM 4.6";
-                  max_tokens = 131072; #128k
-                  mode.type = "thinking";
-                }
-              ];
-            };
-          };
           load_direnv = "direct";
           vim_mode = true;
           theme = "Catppuccin Mocha (Blur) [Light]";
           ui_font_size = 14;
           buffer_font_size = 14;
+          lsp.omnisharp.binary = {
+            path = "${pkgs.omnisharp-roslyn}/bin/OmniSharp";
+            arguments = ["-lsp"];
+          };
           languages = {
             TypeScript = {
               language_servers = [
