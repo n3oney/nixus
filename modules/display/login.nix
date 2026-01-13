@@ -26,7 +26,7 @@
         hmConfig.lib.generators.toHyprconf {
           importantPrefixes = ["$" "bezier" "name" "output"];
           attrs = {
-            inherit (hyprlandCfg) input general monitorv2 decoration animations dwindle misc;
+            inherit (hyprlandCfg) input general monitor decoration animations dwindle misc;
 
             # Use GTK theme from ./gtk.nix
             env =

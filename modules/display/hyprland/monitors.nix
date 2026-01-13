@@ -48,21 +48,11 @@ in {
 
   config = mkIf cfg.enable {
     hm.wayland.windowManager.hyprland.settings = {
-      monitorv2 = let
-        mainConfig = {
-          output = mainMonitor;
-          mode = "${toString cfg.monitors.main.width}x${toString cfg.monitors.main.height}@${toString cfg.monitors.main.refreshRate}";
-          position = "0x0";
-          scale = cfg.monitors.main.scale;
-          transform = cfg.monitors.main.transform;
-        };
-        secondaryConfig = {
-          output = secondaryMonitor;
-          mode = "${toString cfg.monitors.secondary.width}x${toString cfg.monitors.secondary.height}@60";
-          position = "auto-right";
-          scale = "auto";
-          transform = "0";
-        };
+      # Legacy monitor syntax: name, resolution@rate, position, scale, transform:N
+      monitor = let
+        mainScale = toString cfg.monitors.main.scale;
+        mainConfig = "${mainMonitor}, ${toString cfg.monitors.main.width}x${toString cfg.monitors.main.height}@${toString cfg.monitors.main.refreshRate}, 0x0, ${mainScale}, transform, ${cfg.monitors.main.transform}";
+        secondaryConfig = "${secondaryMonitor}, ${toString cfg.monitors.secondary.width}x${toString cfg.monitors.secondary.height}@60, auto-right, auto";
       in
         [mainConfig] ++ (optionals hasSecondary [secondaryConfig]);
 
