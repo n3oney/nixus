@@ -98,11 +98,8 @@ in {
           ", XF86AudioLowerVolume, exec, pactl set-sink-volume @DEFAULT_SINK@ -5%"
 
           # Brightness
-
-          "ALT, XF86MonBrightnessUp, exec, ${lib.getExe pkgs.brightnessctl} -c leds --device \"kbd_backlight\" set +5%"
-          "ALT, XF86MonBrightnessDown, exec, ${lib.getExe pkgs.brightnessctl} -c leds --device \"kbd_backlight\" set 5%-"
-          ", XF86MonBrightnessUp, exec, ${lib.getExe pkgs.brightnessctl} --device \"apple-panel-bl\" set +5%"
-          ", XF86MonBrightnessDown, exec, ${lib.getExe pkgs.brightnessctl} --device \"apple-panel-bl\" set 5%-"
+          ", XF86MonBrightnessUp, exec, ${lib.getExe pkgs.brightnessctl} set +5%"
+          ", XF86MonBrightnessDown, exec, ${lib.getExe pkgs.brightnessctl} set 5%-"
         ]
         ++ (lib.optionals (cfg.secondarySink != null) ["ALT, XF86AudioRaiseVolume, exec, pactl set-sink-volume ${cfg.secondarySink} +5%" "ALT, XF86AudioLowerVolume, exec, pactl set-sink-volume ${cfg.secondarySink} -5%"]);
 
