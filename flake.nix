@@ -13,7 +13,6 @@
       url = "github:n3oney/anyrun-nixos-options/v2.0.0";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    apple-silicon-support.url = "github:nix-community/nixos-apple-silicon";
     awww.url = "git+https://codeberg.org/LGFae/awww";
 
     btop-rose-pine = {
@@ -34,19 +33,12 @@
       inputs.nixpkgs.follows = "nixpkgs";
       url = "github:hyprwm/contrib";
     };
-    orcaslicer = {
-      url = "github:SoftFever/OrcaSlicer";
-      flake = false;
-    };
     hyprland.url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
     hyprgrass = {
       url = "github:horriblename/hyprgrass";
       inputs.hyprland.follows = "hyprland";
     };
     hyprland-qtutils.url = "github:hyprwm/hyprland-qtutils";
-    hyprpaper.url = "github:hyprwm/hyprpaper";
-    hyprpicker.url = "github:hyprwm/hyprpicker";
-    impermanence.url = "github:nix-community/impermanence";
     preservation.url = "github:nix-community/preservation";
     nh = {
       inputs.nixpkgs.follows = "nixpkgs";
@@ -54,14 +46,11 @@
     };
     nix-ai-tools.url = "github:numtide/nix-ai-tools";
     nix-colors.url = "github:Misterio77/nix-colors";
-
     nix-index-database.url = "github:nix-community/nix-index-database";
     nix-index-database.inputs.nixpkgs.follows = "nixpkgs";
-
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     nur.url = "github:nix-community/NUR";
-    rust-overlay.url = "github:oxalica/rust-overlay";
     shadower.url = "github:n3oney/shadower";
     zen-browser-flake.url = "github:youwen5/zen-browser-flake";
     jj-starship.url = "github:dmmulroy/jj-starship";
