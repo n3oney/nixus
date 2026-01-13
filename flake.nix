@@ -21,6 +21,7 @@
       url = "github:rose-pine/btop";
     };
     degra-ical.url = "github:n3oney/degra-ical";
+    dissent.url = "github:diamondburned/dissent";
     EffectPatterns = {
       url = "github:PauljPhilp/EffectPatterns";
       flake = false;

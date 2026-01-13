@@ -39,9 +39,13 @@
     # waydroid.enable = true;
     anyrun.enable = true;
     btop.enable = true;
+    bricscad.enable = true;
     chrome.enable = true;
     datagrip.enable = true;
-    discord.enable = true;
+    discord = {
+      enable = true;
+      useDissent = true;
+    };
     # ags.enable = true;
     quickshell.enable = true;
     # firefox.enable = true;

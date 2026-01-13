@@ -26,9 +26,9 @@ in {
     };
   };
 
-  config.impermanence.userDirs = lib.mkIf cfg.enable [".config/vesktop"];
+  config.impermanence.userDirs = lib.mkIf (cfg.enable && !cfg.useDissent) [".config/vesktop"];
 
-  config.hm = mkIf cfg.enable {
+  config.hm = mkIf (cfg.enable && !cfg.useDissent) {
     services.arrpc.enable = true;
 
     home.packages = [
