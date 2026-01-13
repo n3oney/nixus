@@ -13,6 +13,19 @@
   boot.initrd.kernelModules = ["dm-snapshot"];
   boot.kernelModules = ["kvm-amd"];
 
+  # Custom EDID for eDP panel with extended VRR range (36-165Hz instead of stock 60-165Hz)
+  # This enables lower refresh rates for better battery life when idle
+  hardware.firmware = [
+    (pkgs.runCommandNoCC "edid-edp-vrr" {} ''
+      mkdir -p $out/lib/firmware/edid
+      cp ${./firmware/edid/edp-vrr-36-165.bin} $out/lib/firmware/edid/edp-vrr-36-165.bin
+    '')
+  ];
+  boot.kernelParams = [
+    "drm.edid_firmware=eDP-1:edid/edp-vrr-36-165.bin"
+    "amdgpu.freesync_video=1" # Enable FreeSync/VRR support
+  ];
+
   boot.initrd.luks.devices."cryptroot" = {
     device = "/dev/nvme0n1p5";
     preLVM = true;
