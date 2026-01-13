@@ -109,20 +109,7 @@
         };
       };
 
-      # Laptop
-      ciri = combinedManager.nixosSystem {
-        inherit inputs;
-        configuration = {
-          system = "aarch64-linux";
-          modules = [
-            ./modules
-            ./hosts/ciri
-            ./configs/ciri
-          ];
-        };
-      };
-
-      # # VPS
+      # VPS
       yen = combinedManager.nixosSystem {
         inherit inputs;
         configuration = {
