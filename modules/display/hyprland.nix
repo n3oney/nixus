@@ -19,6 +19,7 @@ in {
     ./hyprland/idle.nix
     ./hyprland/lock.nix
     ./hyprland/gyro.nix
+    ./hyprland/gestures.nix
   ];
 
   options.display = {
