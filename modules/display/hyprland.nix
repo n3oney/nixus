@@ -144,7 +144,7 @@ in {
           misc = {
             disable_hyprland_logo = true;
             vfr = true;
-            vrr = 1;
+            vrr = 1; # 0=off, 1=on (always), 2=fullscreen only, 3=fullscreen video/game
             animate_manual_resizes = true;
             animate_mouse_windowdragging = true;
           };

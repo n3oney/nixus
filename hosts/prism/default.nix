@@ -52,6 +52,7 @@
       networkmanager = {
         enable = true;
         # wifi.backend = "iwd";
+        wifi.powersave = true;
         plugins = lib.mkForce [];
       };
       nameservers = [
