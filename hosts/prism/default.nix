@@ -102,7 +102,7 @@
     system.stateVersion = "24.11";
   };
 
-  fingerprint.enable = true;
+  biometricAuth.fingerprint.enable = true;
 
   hm.home.stateVersion = "24.11";
 }

@@ -81,6 +81,9 @@
     # uxplay.enable = true;
     # warp.enable = true;
     kondo.enable = true;
+  };
+
+  biometricAuth = {
     howdy.enable = true;
   };
 
