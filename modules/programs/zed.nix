@@ -63,9 +63,13 @@
           theme = "Catppuccin Mocha (Blur) [Light]";
           ui_font_size = 14;
           buffer_font_size = 14;
-          lsp.omnisharp.binary = {
-            path = "${pkgs.omnisharp-roslyn}/bin/OmniSharp";
-            arguments = ["-lsp"];
+          lsp = {
+            omnisharp.binary = {
+              path = "${pkgs.omnisharp-roslyn}/bin/OmniSharp";
+              arguments = ["-lsp"];
+            };
+            nil.binary.path = "${pkgs.nil}/bin/nil";
+            nixd.binary.path = "${pkgs.nixd}/bin/nixd";
           };
           languages = {
             TypeScript = {

@@ -35,6 +35,9 @@
     };
   };
 
+
+  applications.discord.defaultWorskpace = 9;
+
   programs = {
     # waydroid.enable = true;
     anyrun.enable = true;
