@@ -25,6 +25,8 @@
     })
     mdxFiles;
 
+  geminiAuthPlugin = import ./gemini-auth.nix {inherit pkgs;};
+
   # Flatten all pattern files
   allPatternFiles = builtins.concatMap getPatternFiles patternDirs;
 
@@ -131,7 +133,7 @@ in {
         settings = {
           permission.lsp = "allow";
           provider.google.options.projectId = "gen-lang-client-0105823012";
-          plugin = ["@mohak34/opencode-notifier@latest" "@nick-vi/opencode-type-inject" "opencode-gemini-auth@latest" "@franlol/opencode-md-table-formatter@0.0.3" "@tarquinen/opencode-dcp@latest"];
+          plugin = ["@mohak34/opencode-notifier@latest" "@nick-vi/opencode-type-inject" "file://${geminiAuthPlugin}" "@franlol/opencode-md-table-formatter@0.0.3" "@tarquinen/opencode-dcp@latest"];
           theme = "system";
           instructions = [".github/copilot-instructions.md"];
           model = "google/gemini-3-pro-preview";
