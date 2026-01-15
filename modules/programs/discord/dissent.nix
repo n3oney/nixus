@@ -13,7 +13,7 @@
     applications.discord = {
       autostart = true;
       binaryPath = lib.getExe package;
-      defaultWorkspace = 19;
+      defaultWorkspace = lib.mkDefault 19;
       windowClass = "so.libdb.dissent";
     };
 

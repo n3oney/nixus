@@ -35,8 +35,7 @@
     };
   };
 
-
-  applications.discord.defaultWorskpace = 9;
+  applications.discord.defaultWorkspace = 9;
 
   programs = {
     # waydroid.enable = true;
