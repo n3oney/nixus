@@ -1,5 +1,4 @@
 {
-  config,
   lib,
   pkgs,
   modulesPath,
@@ -16,7 +15,7 @@
   # Custom EDID for eDP panel with extended VRR range (36-165Hz instead of stock 60-165Hz)
   # This enables lower refresh rates for better battery life when idle
   hardware.firmware = [
-    (pkgs.runCommandNoCC "edid-edp-vrr" {} ''
+    (pkgs.runCommand "edid-edp-vrr" {} ''
       mkdir -p $out/lib/firmware/edid
       cp ${./firmware/edid/edp-vrr-36-165.bin} $out/lib/firmware/edid/edp-vrr-36-165.bin
     '')

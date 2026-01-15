@@ -1,20 +1,14 @@
 {
   lib,
   pkgs,
-  inputs,
   ...
 }: {
-  # inputs.helix.url = "github:helix-editor/helix";
-
   hm = {
     home.sessionVariables.EDITOR = "hx";
 
     programs.helix = {
       enable = true;
-      package = let
-        # packages = inputs.helix.packages.${pkgs.system};
-      in
-        pkgs.helix;
+      package = pkgs.helix;
       settings = {
         theme = "catppuccin_mocha";
 

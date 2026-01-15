@@ -8,7 +8,7 @@
   options.programs.zenBrowser.enable = lib.mkEnableOption "Zen Browser";
 
   config = lib.mkIf config.programs.zenBrowser.enable (let
-    zenBrowser = inputs.zen-browser-flake.packages.${pkgs.system}.zen-browser;
+    zenBrowser = inputs.zen-browser-flake.packages.${pkgs.stdenv.hostPlatform.system}.zen-browser;
   in {
     applications.zen = {
       autostart = true;

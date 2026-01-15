@@ -18,7 +18,7 @@
     in {
       enable = true;
 
-      package = inputs.ags.packages.${pkgs.system}.default.overrideAttrs (_: {
+      package = inputs.ags.packages.${pkgs.stdenv.hostPlatform.system}.default.overrideAttrs (_: {
         postFixup = ''
           wrapProgram $out/bin/ags \
             --prefix PATH : "${builtins.concatStringsSep ":" (builtins.map (v: "${v}/bin") agsPathPackages)}"

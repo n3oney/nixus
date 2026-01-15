@@ -1,4 +1,8 @@
-{pkgs, inputs, ...}: {
+{
+  pkgs,
+  inputs,
+  ...
+}: {
   hm.programs.starship = {
     enable = true;
     # enableFishIntegration = true; I'd set it to true, but instead I'm doing it manually, since enable_transience is being broken
@@ -69,6 +73,6 @@
   };
 
   hm.home.packages = [
-    inputs.jj-starship.packages.${pkgs.system}.default
+    inputs.jj-starship.packages.${pkgs.stdenv.hostPlatform.system}.default
   ];
 }

@@ -6,7 +6,7 @@
   ...
 }: let
   cfg = config.display;
-  inherit (lib) mkIf getExe;
+  inherit (lib) mkIf;
 
   # Toggle squeekboard visibility via DBus
   toggleSqueekboard = pkgs.writeShellScript "toggle-squeekboard" ''
@@ -24,14 +24,14 @@ in {
       systemd.user.services.squeekboard = {
         Unit = {
           Description = "Squeekboard on-screen keyboard";
-          PartOf = [ "graphical-session.target" ];
-          After = [ "graphical-session.target" ];
+          PartOf = ["graphical-session.target"];
+          After = ["graphical-session.target"];
         };
         Service = {
-          ExecStart = getExe pkgs.squeekboard;
+          ExecStart = "${pkgs.squeekboard}/bin/squeekboard";
           Restart = "on-failure";
         };
-        Install.WantedBy = [ "graphical-session.target" ];
+        Install.WantedBy = ["graphical-session.target"];
       };
 
       wayland.windowManager.hyprland = {
@@ -71,7 +71,7 @@ in {
         };
 
         plugins = [
-          inputs.hyprgrass.packages.${pkgs.system}.default
+          inputs.hyprgrass.packages.${pkgs.stdenv.hostPlatform.system}.default
         ];
       };
     };

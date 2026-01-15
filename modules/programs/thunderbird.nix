@@ -14,10 +14,7 @@
     };
     programs.thunderbird = {
       enable = true;
-      package =
-        if pkgs.system == "x86_64-linux"
-        then pkgs.thunderbird-bin
-        else pkgs.thunderbird;
+      package = pkgs.thunderbird-bin;
       profiles.default = {
         isDefault = true;
         settings = {};

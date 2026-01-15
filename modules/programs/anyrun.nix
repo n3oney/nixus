@@ -43,11 +43,11 @@
           hidePluginInfo = true;
           showResultsImmediately = true;
           maxEntries = 10;
-          plugins = with inputs.anyrun.packages.${pkgs.system}; [
+          plugins = with inputs.anyrun.packages.${pkgs.stdenv.hostPlatform.system}; [
             applications
             rink
-            inputs.anyrun-ha-assist.packages.${pkgs.system}.default
-            inputs.anyrun-nixos-options.packages.${pkgs.system}.default
+            inputs.anyrun-ha-assist.packages.${pkgs.stdenv.hostPlatform.system}.default
+            inputs.anyrun-nixos-options.packages.${pkgs.stdenv.hostPlatform.system}.default
             translate
           ];
         };
@@ -56,7 +56,7 @@
 
         extraConfigFiles."nixos-options.ron".text = let
           nixos-options = osConfig.system.build.manual.optionsJSON + "/share/doc/nixos/options.json";
-          hm-options = inputs.home-manager.packages.${pkgs.system}.docs-json + "/share/doc/home-manager/options.json";
+          hm-options = inputs.home-manager.packages.${pkgs.stdenv.hostPlatform.system}.docs-json + "/share/doc/home-manager/options.json";
           options = builtins.toJSON {
             ":nix" = [nixos-options];
             ":hm" = [hm-options];

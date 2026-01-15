@@ -11,9 +11,9 @@ in {
   config = mkIf cfg.enable {
     hm = {
       home.packages = with pkgs;
-      with inputs.hyprcontrib.packages.${pkgs.system};
-      with inputs.shadower.packages.${pkgs.system}; [
-        inputs.hyprland-qtutils.packages.${pkgs.system}.hyprland-qtutils
+      with inputs.hyprcontrib.packages.${pkgs.stdenv.hostPlatform.system};
+      with inputs.shadower.packages.${pkgs.stdenv.hostPlatform.system}; [
+        inputs.hyprland-qtutils.packages.${pkgs.stdenv.hostPlatform.system}.hyprland-qtutils
         pulseaudio
 
         wl-clipboard

@@ -6,7 +6,7 @@
   ...
 }: let
   cfg = config.biometricAuth;
-  howdyPkgs = inputs.nixpkgs-howdy.legacyPackages.${pkgs.system};
+  howdyPkgs = inputs.nixpkgs-howdy.legacyPackages.${pkgs.stdenv.hostPlatform.system};
 
   # PAM rule generators
   mkHowdyRule = order: {
@@ -42,21 +42,22 @@
   # Build PAM services config based on enabled features
   mkPamServices = services: orderPreset:
     lib.listToAttrs (map (svc: {
-      name = svc;
-      value.rules.auth = lib.mkMerge [
-        (lib.mkIf cfg.howdy.enable {
-          howdy = mkHowdyRule orderPreset.howdy;
-        })
-        (lib.mkIf cfg.fingerprint.enable {
-          fprintd = mkFprintdRule orderPreset.fprintd;
-        })
-      ];
-    }) services);
+        name = svc;
+        value.rules.auth = lib.mkMerge [
+          (lib.mkIf cfg.howdy.enable {
+            howdy = mkHowdyRule orderPreset.howdy;
+          })
+          (lib.mkIf cfg.fingerprint.enable {
+            fprintd = mkFprintdRule orderPreset.fprintd;
+          })
+        ];
+      })
+      services);
 in {
   options.biometricAuth = {
     howdy = {
       enable = lib.mkEnableOption "Howdy facial authentication";
-      
+
       biometricsFirst = lib.mkOption {
         type = lib.types.listOf lib.types.str;
         default = ["sudo" "polkit-1"];
@@ -121,7 +122,8 @@ in {
 
     # Fingerprint-only (no howdy) - use default NixOS fprintd PAM behavior
     (lib.mkIf (cfg.fingerprint.enable && !cfg.howdy.enable) {
-      os.security.pam.services = mkPamServices
+      os.security.pam.services =
+        mkPamServices
         ["sudo" "polkit-1" "greetd" "hyprlock" "login"]
         biometricsFirstOrders;
     })

@@ -14,20 +14,26 @@
   rounding = hyprlandSettings.decoration.rounding;
   secondaryMonitor = config.display.monitors.secondary.name or "";
   hasSecondary = config.display.monitors.secondary.name != null;
-  chatWorkspaceId = if hasSecondary then 19 else 9;
+  chatWorkspaceId =
+    if hasSecondary
+    then 19
+    else 9;
 
   # Parse workspace animation: "workspaces, 1, 7, fluent_decel, slide"
   workspaceAnim = builtins.filter (a: lib.hasPrefix "workspaces," a) hyprlandSettings.animations.animation;
-  animationSpeed = if workspaceAnim != []
+  animationSpeed =
+    if workspaceAnim != []
     then builtins.elemAt (lib.splitString ", " (builtins.head workspaceAnim)) 2
     else "7";
-  animationBezierName = if workspaceAnim != []
+  animationBezierName =
+    if workspaceAnim != []
     then builtins.elemAt (lib.splitString ", " (builtins.head workspaceAnim)) 3
     else "fluent_decel";
 
   # Find the bezier curve definition
   bezierDefs = builtins.filter (b: lib.hasPrefix "${animationBezierName}," b) hyprlandSettings.animations.bezier;
-  bezierValues = if bezierDefs != []
+  bezierValues =
+    if bezierDefs != []
     then let
       parts = lib.splitString ", " (builtins.head bezierDefs);
     in "[${builtins.elemAt parts 1}, ${builtins.elemAt parts 2}, ${builtins.elemAt parts 3}, ${builtins.elemAt parts 4}]"
@@ -37,13 +43,13 @@ in {
     enable = lib.mkEnableOption "quickshell";
     package = lib.mkOption {
       type = lib.types.package;
-      default = inputs.quickshell.packages.${pkgs.system}.quickshell;
+      default = inputs.quickshell.packages.${pkgs.stdenv.hostPlatform.system}.quickshell;
       description = "The package to use for quickshell";
     };
   };
 
   config.hm = lib.mkIf cfg.enable {
-    home.packages = [ cfg.package ];
+    home.packages = [cfg.package];
 
     # Copy all QML files
     xdg.configFile."quickshell/bar/shell.qml".source = ./bar/shell.qml;
@@ -102,9 +108,13 @@ in {
       const fontFamily = "sans";
       const gap = ${toString gap};
       const rounding = ${toString rounding};
-      const secondaryMonitor = "${if secondaryMonitor == null then "null" else secondaryMonitor}";
+      const secondaryMonitor = "${
+        if secondaryMonitor == null
+        then "null"
+        else secondaryMonitor
+      }";
       const noRoundingWorkspaces = [1, ${toString chatWorkspaceId}];
- 
+
       // Animation (matches Hyprland workspace animation)
       const animationDuration = ${animationSpeed} * 100;
       const animationBezier = ${bezierValues};

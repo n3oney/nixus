@@ -38,7 +38,7 @@
         serviceConfig = {
           Restart = "on-failure";
           RestartSec = "5s";
-          ExecStart = "${inputs.degra-ical.packages.${pkgs.system}.default}/bin/degra-ical";
+          ExecStart = "${inputs.degra-ical.packages.${pkgs.stdenv.hostPlatform.system}.default}/bin/degra-ical";
         };
       };
     };

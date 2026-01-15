@@ -1,11 +1,10 @@
 {
   inputs,
-  lib,
   pkgs,
   ...
 }: {
   os.environment = {
-    systemPackages = [inputs.nh.packages.${pkgs.system}.default];
+    systemPackages = [inputs.nh.packages.${pkgs.stdenv.hostPlatform.system}.default];
     sessionVariables.NH_FLAKE = "/home/neoney/nixus";
   };
 

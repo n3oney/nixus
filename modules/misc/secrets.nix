@@ -35,7 +35,7 @@ in {
           (secretForHostnames ["yen"] ../../secrets/librechat.age "librechat" {
             })
         ];
-        environment.systemPackages = [inputs.agenix.packages.${pkgs.system}.default];
+        environment.systemPackages = [inputs.agenix.packages.${pkgs.stdenv.hostPlatform.system}.default];
       };
 
       hm = {
