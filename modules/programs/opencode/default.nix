@@ -5,8 +5,10 @@
   inputs,
   ...
 }: let
+  geminiAuthPlugin = import ./gemini-auth.nix {inherit pkgs;};
+  # effect-patterns repo seems to be in a weird state
+  /*
   effectPatternsPath = "${inputs.EffectPatterns}/content/published/patterns";
-
   # Get all pattern directories
   patternDirs = builtins.attrNames (
     lib.filterAttrs (_: v: v == "directory") (builtins.readDir effectPatternsPath)
@@ -25,7 +27,6 @@
     })
     mdxFiles;
 
-  geminiAuthPlugin = import ./gemini-auth.nix {inherit pkgs;};
 
   # Flatten all pattern files
   allPatternFiles = builtins.concatMap getPatternFiles patternDirs;
@@ -47,6 +48,7 @@
     })
     allPatternFiles
   );
+  */
 in {
   options.programs.opencode.enable = lib.mkEnableOption "opencode";
 
@@ -78,8 +80,11 @@ in {
       };
 
       xdg.configFile =
-        skillConfigFiles
-        // {
+        /*
+          skillConfigFiles
+        //
+        */
+        {
           "opencode/dcp.jsonc".text = builtins.toJSON {
             enabled = true;
             debug = false;
@@ -121,7 +126,7 @@ in {
         };
 
       programs.opencode = {
-        package = inputs.nix-ai-tools.packages.${pkgs.system}.opencode.overrideAttrs (old: {
+        package = inputs.nix-ai-tools.packages.${pkgs.stdenv.hostPlatform.system}.opencode.overrideAttrs (old: {
           buildInputs = old.buildInputs ++ [pkgs.makeWrapper];
           postInstall =
             (old.postInstall or "")
