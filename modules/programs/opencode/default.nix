@@ -6,6 +6,34 @@
   ...
 }: let
   geminiAuthPlugin = import ./gemini-auth.nix {inherit pkgs;};
+  anthropicAuthPlugin = import ./anthropic-auth.nix {inherit pkgs;};
+
+  opencode = inputs.nix-ai-tools.packages.${pkgs.stdenv.hostPlatform.system}.opencode.overrideAttrs (old: {
+    # Enable the LSP tool
+    buildInputs = old.buildInputs ++ [pkgs.makeWrapper];
+    postInstall =
+      (old.postInstall or "")
+      + ''
+        TARGET="$out/bin/.opencode-wrapped"
+        # We replace the Anthropic plugin with the Copilot plugin name (plus padding).
+        # The app code explicitly ignores plugins with this name, so it will
+        # skip the installation logic entirely without crashing.
+        # Length: 29 characters.
+        SEARCH="opencode-anthropic-auth@0.0.9"
+        REPLACE="opencode-copilot-auth        "
+
+        # 1. Safety Check: Ensure we aren't patching blindly
+        if ! grep -Fq "$SEARCH" "$TARGET"; then
+            echo "ERROR: Could not find string '$SEARCH' in $TARGET"
+            exit 1
+        fi
+
+        # 2. Perform the surgery
+        sed -i "s/$SEARCH/$REPLACE/g" "$TARGET"
+
+        wrapProgram "$out/bin/opencode" --set OPENCODE_EXPERIMENTAL_LSP_TOOL true
+      '';
+  });
   # effect-patterns repo seems to be in a weird state
   /*
   effectPatternsPath = "${inputs.EffectPatterns}/content/published/patterns";
@@ -69,12 +97,16 @@ in {
             modelID = "gemini-3-pro-preview";
           }
           {
-            providerID = "github-copilot";
-            modelID = "claude-opus-4.5";
+            providerID = "anthropic";
+            modelID = "claude-opus-4-5";
           }
           {
-            providerID = "github-copilot";
-            modelID = "claude-sonnet-4.5";
+            providerID = "anthropic";
+            modelID = "claude-sonnet-4-5";
+          }
+          {
+            providerID = "anthropic";
+            modelID = "claude-haiku-4-5";
           }
         ];
       };
@@ -126,19 +158,18 @@ in {
         };
 
       programs.opencode = {
-        package = inputs.nix-ai-tools.packages.${pkgs.stdenv.hostPlatform.system}.opencode.overrideAttrs (old: {
-          buildInputs = old.buildInputs ++ [pkgs.makeWrapper];
-          postInstall =
-            (old.postInstall or "")
-            + ''
-              wrapProgram "$out/bin/opencode" --set OPENCODE_EXPERIMENTAL_LSP_TOOL true
-            '';
-        });
+        package = opencode;
         enable = true;
         settings = {
+          agent = {
+            plan.model = "anthropic/claude-opus-4-5";
+            build.model = "anthropic/claude-sonnet-4-5";
+            explore.model = "anthropic/claude-haiku-4-5";
+            general.model = "anthropic/claude-sonnet-4-5";
+          };
           permission.lsp = "allow";
           provider.google.options.projectId = "gen-lang-client-0105823012";
-          plugin = ["@mohak34/opencode-notifier@latest" "@nick-vi/opencode-type-inject" "file://${geminiAuthPlugin}" "@franlol/opencode-md-table-formatter@0.0.3" "@tarquinen/opencode-dcp@latest"];
+          plugin = ["@mohak34/opencode-notifier@latest" "@nick-vi/opencode-type-inject" "file://${geminiAuthPlugin}" "file://${anthropicAuthPlugin}" "@franlol/opencode-md-table-formatter@0.0.3" "@tarquinen/opencode-dcp@latest"];
           theme = "system";
           instructions = [".github/copilot-instructions.md"];
           model = "google/gemini-3-pro-preview";
