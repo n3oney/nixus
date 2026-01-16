@@ -63,24 +63,30 @@
 
     systemd.services.NetworkManager-wait-online.enable = false;
 
-    services.pipewire = {
-      enable = true;
-      alsa.enable = true;
-      pulse.enable = true;
-      wireplumber.extraConfig."10-alsa-soft-mixer" = {
-        "monitor.alsa.rules" = [
-          {
-            matches = [{ "device.name" = "alsa_card.pci-0000_c4_00.6"; }];
-            actions.update-props."api.alsa.soft-mixer" = true;
-          }
-          {
-            matches = [
-              { "device.name" = "~alsa_card.*"; "node.name" = "~alsa_input.*"; }
-            ];
-            actions.update-props."api.alsa.soft-mixer" = false;
-          }
-        ];
+    boot.extraModprobeConfig = ''
+      # Swap the order: First detected device (HDMI) gets index 1
+      # Second detected device (Analog) gets index 0
+      options snd_hda_intel index=1,0
+    '';
+
+    systemd.services.restore-audio-levels = {
+      description = "Unmute and max out speakers on boot";
+      wantedBy = ["multi-user.target"];
+      after = ["sound.target"];
+      serviceConfig = {
+        Type = "oneshot";
+        User = "root";
       };
+      script = ''
+        # Wait a moment for devices to settle
+        ${pkgs.coreutils}/bin/sleep 2
+
+        # Force Card 0 (Analog) Master, Speaker, and Headphone to 100%
+        amixer="${pkgs.alsa-utils}/bin/amixer"
+        $amixer -c 0 sset Master 100% unmute || true
+        $amixer -c 0 sset Speaker 100% unmute || true
+        $amixer -c 0 sset Headphone 100% unmute || true
+      '';
     };
 
     services.tailscale.enable = true;
