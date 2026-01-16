@@ -78,6 +78,8 @@
     zoxide.enable = true;
   };
 
+  wayscriber.enable = true;
+
   services = {
     syncthing.enable = true;
     mcp.enable = true;
