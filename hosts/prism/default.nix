@@ -22,25 +22,70 @@
       timeout = 3;
     };
 
-    boot.plymouth = {
+    # overlay because the module in nixpkgs incorrectly uses pkgs.buffybox instead of cfg.package
+    nixpkgs.overlays = [
+      (_: prev: {
+        buffybox = prev.buffybox.overrideAttrs (old: {
+          patches = (old.patches or []) ++ [./unl0kr-performance.patch];
+        });
+      })
+    ];
+
+    # On-screen keyboard for touchscreen LUKS unlock
+    boot.initrd.unl0kr = {
+      allowVendorDrivers = true;
       enable = true;
-      theme = "rings";
-      themePackages = [
-        (pkgs.adi1090x-plymouth-themes.override {
-          selected_themes = ["rings"];
-        })
-      ];
+      settings = {
+        general = {
+          backend = "drm";
+          animations = "false";
+        };
+        theme.default = "pmos-dark";
+      };
+    };
+    boot.initrd.systemd.enable = true; # Required for unl0kr
+
+    # Make unl0kr wait for DRM device (amdgpu) to be ready and force high performance
+    boot.initrd.systemd.services.unl0kr-agent = {
+      serviceConfig = {
+        ExecStartPre = [
+          # Wait for card0
+          "/bin/sh -c 'timeout=100; while [ ! -e /dev/dri/card0 ] && [ $timeout -gt 0 ]; do sleep 0.1; timeout=$((timeout-1)); done; [ -e /dev/dri/card0 ] || exit 1'"
+          # Wait for power control
+          "/bin/sh -c 'timeout=100; while [ ! -w /sys/class/drm/card0/device/power_dpm_force_performance_level ] && [ $timeout -gt 0 ]; do sleep 0.1; timeout=$((timeout-1)); done'"
+          # Force high performance
+          "/bin/sh -c 'echo high > /sys/class/drm/card0/device/power_dpm_force_performance_level || echo \"Failed to set GPU high\"'"
+          # Log clock state for verification
+          "/bin/sh -c 'echo \"GPU Clock State:\"; cat /sys/class/drm/card0/device/pp_dpm_sclk || true'"
+        ];
+      };
     };
 
-    # Silent boot
+    # Plymouth conflicts with unl0kr - must be disabled
+    # See: https://github.com/NixOS/nixpkgs/issues/291935
+    boot.plymouth.enable = lib.mkForce false;
+    # boot.plymouth = {
+    #   enable = true;
+    #   theme = "rings";
+    #   themePackages = [
+    #     (pkgs.adi1090x-plymouth-themes.override {
+    #       selected_themes = ["rings"];
+    #     })
+    #   ];
+    # };
+
+    # Silent boot (splash removed - conflicts with unl0kr)
     boot.consoleLogLevel = 3;
     boot.initrd.verbose = false;
     boot.kernelParams = [
       "quiet"
-      "splash"
+      # "splash"  # Removed - conflicts with unl0kr
       "boot.shell_on_fail"
       "udev.log_priority=3"
       "rd.systemd.show_status=auto"
+      "initcall_blacklist=sysfb_init" # Prevent simple-framebuffer platform device creation
+      "video=simplefb:off" # Additional safety: disable simplefb driver
+      "amdgpu.ppfeaturemask=0xffffffff" # Enable all power features
     ];
 
     networking = {

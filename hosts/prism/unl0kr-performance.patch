@@ -1,0 +1,264 @@
+diff --git a/buffyboard/lv_conf.h b/buffyboard/lv_conf.h
+index 6c6570c067..674dfe00d2 100644
+--- a/buffyboard/lv_conf.h
++++ b/buffyboard/lv_conf.h
+@@ -87,7 +87,7 @@
+  *====================*/
+ 
+ /** Default display refresh, input device read and animation step period. */
+-#define LV_DEF_REFR_PERIOD  33      /**< [ms] */
++#define LV_DEF_REFR_PERIOD  16      /**< [ms] */
+ 
+ /** Default Dots Per Inch. Used to initialize default sizes such as widgets sized, style paddings.
+  * (Not so important, you can adjust it to modify default sizes and spaces.) */
+diff --git a/shared/indev.c b/shared/indev.c
+index 6bbee4a9c9..82a54b8f05 100644
+--- a/shared/indev.c
++++ b/shared/indev.c
+@@ -56,11 +56,28 @@
+     enum input_device_type type;
+ };
+ 
++/* Key event queue for buffering keyboard input */
++#define KEY_QUEUE_SIZE 16
++
++struct key_event {
++    uint32_t key;
++    lv_indev_state_t state;
++};
++
++struct key_queue {
++    struct key_event events[KEY_QUEUE_SIZE];
++    uint8_t head;
++    uint8_t tail;
++    uint8_t count;
++    uint32_t last_pressed_key;      /* What LVGL thinks is currently pressed */
++    bool pending_synthetic_release; /* Need to inject release before next press */
++};
++
+ /* The analog of lv_indev_data_t, but without unused fields */
+ struct indev_ext {
+     union {
+         lv_point_t point;
+-        uint32_t key;
++        struct key_queue keys;
+     };
+     lv_indev_state_t state;
+ };
+@@ -115,10 +132,55 @@
+ #ifndef BBX_APP_BUFFYBOARD
+ static void read_keypad(lv_indev_t *indev, lv_indev_data_t *data) {
+     struct indev_ext* ext = lv_indev_get_user_data(indev);
+-
+-    data->key = ext->key;
+-    data->state = ext->state;
+-}
++    struct key_queue* q = &ext->keys;
++
++    /* If we need to send synthetic release first */
++    if (q->pending_synthetic_release) {
++        data->key = q->last_pressed_key;
++        data->state = LV_INDEV_STATE_RELEASED;
++        q->pending_synthetic_release = false;
++        q->last_pressed_key = 0;
++        return;
++    }
++
++    /* Queue empty */
++    if (q->count == 0) {
++        data->state = LV_INDEV_STATE_RELEASED;
++        data->key = 0;
++        return;
++    }
++
++    struct key_event* ev = &q->events[q->tail];
++
++    /* New key press while another key is held? Inject synthetic release first */
++    if (ev->state == LV_INDEV_STATE_PRESSED &&
++        q->last_pressed_key != 0 &&
++        q->last_pressed_key != ev->key) {
++        q->pending_synthetic_release = true;
++        data->key = q->last_pressed_key;
++        data->state = LV_INDEV_STATE_RELEASED;
++        return;  /* Don't dequeue yet, will process on next read */
++    }
++
++    /* Normal dequeue */
++    data->key = ev->key;
++    data->state = ev->state;
++
++    /* Track what LVGL thinks is pressed */
++    if (ev->state == LV_INDEV_STATE_PRESSED)
++        q->last_pressed_key = ev->key;
++    else if (ev->key == q->last_pressed_key)
++        q->last_pressed_key = 0;
++
++    q->tail = (q->tail + 1) % KEY_QUEUE_SIZE;
++    q->count--;
++}
++
++#ifndef BBX_APP_BUFFYBOARD
++static bool key_queue_has_pending(struct key_queue* q) {
++    return q->count > 0 || q->pending_synthetic_release;
++}
++#endif
+ #endif
+ 
+ static void read_pointer(lv_indev_t * indev, lv_indev_data_t * data) {
+@@ -204,8 +266,8 @@
+             goto failure2;
+         }
+ 
+-        data->key = 0;
+-        data->state = LV_INDEV_STATE_RELEASED;
++        /* Initialize key queue */
++        memset(&data->keys, 0, sizeof(data->keys));
+ 
+         lv_indev_set_type(ext->keypad, LV_INDEV_TYPE_KEYPAD);
+         lv_indev_set_mode(ext->keypad, LV_INDEV_MODE_EVENT);
+@@ -333,6 +395,10 @@
+ static void on_input_event() {
+     libinput_dispatch(context_libinput);
+ 
++#ifndef BBX_APP_BUFFYBOARD
++    bool had_keyboard_event = false;
++#endif
++
+     struct libinput_event * event;
+     while ((event = libinput_get_event(context_libinput))) {
+         struct libinput_device* device = libinput_event_get_device(event);
+@@ -388,49 +454,49 @@
+         case LIBINPUT_EVENT_KEYBOARD_KEY: {
+             struct libinput_event_keyboard *kb_event = libinput_event_get_keyboard_event(event);
+ 
+-            struct indev_ext *data = lv_indev_get_user_data(ext->keypad);
+             uint32_t key = libinput_event_keyboard_get_key(kb_event);
+             bool pressed = libinput_event_keyboard_get_key_state(kb_event) == LIBINPUT_KEY_STATE_PRESSED;
+             xkb_keycode_t keycode = key + 8;
+             bool ignore = false;
++            uint32_t translated_key = 0;
+ 
+             switch (key) {
+             case KEY_UP:
+-                data->key = LV_KEY_UP;
++                translated_key = LV_KEY_UP;
+                 break;
+             case KEY_DOWN:
+-                data->key = LV_KEY_DOWN;
++                translated_key = LV_KEY_DOWN;
+                 break;
+             case KEY_RIGHT:
+-                data->key = LV_KEY_RIGHT;
++                translated_key = LV_KEY_RIGHT;
+                 break;
+             case KEY_LEFT:
+-                data->key = LV_KEY_LEFT;
++                translated_key = LV_KEY_LEFT;
+                 break;
+             case KEY_ESC:
+-                data->key = LV_KEY_ESC;
++                translated_key = LV_KEY_ESC;
+                 break;
+             case KEY_DELETE:
+-                data->key = LV_KEY_DEL;
++                translated_key = LV_KEY_DEL;
+                 break;
+             case KEY_BACKSPACE:
+-                data->key = LV_KEY_BACKSPACE;
++                translated_key = LV_KEY_BACKSPACE;
+                 break;
+             case KEY_ENTER:
+-                data->key = LV_KEY_ENTER;
++                translated_key = LV_KEY_ENTER;
+                 break;
+             case KEY_NEXT:
+             case KEY_TAB:
+-                data->key = LV_KEY_NEXT;
++                translated_key = LV_KEY_NEXT;
+                 break;
+             case KEY_PREVIOUS:
+-                data->key = LV_KEY_PREV;
++                translated_key = LV_KEY_PREV;
+                 break;
+             case KEY_HOME:
+-                data->key = LV_KEY_HOME;
++                translated_key = LV_KEY_HOME;
+                 break;
+             case KEY_END:
+-                data->key = LV_KEY_END;
++                translated_key = LV_KEY_END;
+                 break;
+             case KEY_POWER:
+                 if (pressed && on_key_power_cb)
+@@ -448,7 +514,7 @@
+                     ignore = true;
+                     break;
+                 }
+-                data->key = *((uint32_t*) buffer);
++                translated_key = *((uint32_t*) buffer);
+                 break;
+             }}
+ 
+@@ -458,9 +524,22 @@
+             if (ignore)
+                 break;
+ 
+-            data->state = pressed ? LV_INDEV_STATE_PRESSED : LV_INDEV_STATE_RELEASED;
++            /* Enqueue the key event */
++            struct indev_ext *data = lv_indev_get_user_data(ext->keypad);
++            struct key_queue* q = &data->keys;
++
++            if (q->count < KEY_QUEUE_SIZE) {
++                struct key_event* ev = &q->events[q->head];
++                ev->key = translated_key;
++                ev->state = pressed ? LV_INDEV_STATE_PRESSED : LV_INDEV_STATE_RELEASED;
++                q->head = (q->head + 1) % KEY_QUEUE_SIZE;
++                q->count++;
++            } else {
++                bbx_log(BBX_LOG_LEVEL_WARNING, "Key queue overflow, dropping event");
++            }
+ 
+             lv_indev_read(ext->keypad);
++            had_keyboard_event = true;
+             break;
+         }
+ #endif
+@@ -593,6 +672,25 @@
+ 
+         libinput_event_destroy(event);
+     }
++
++#ifndef BBX_APP_BUFFYBOARD
++    /* Drain key queues - process any remaining buffered key events
++       This handles synthetic releases and queued events.
++       Only run if we actually had keyboard events to avoid overhead on mouse-only movement */
++    if (had_keyboard_event) {
++        lv_indev_t* indev = NULL;
++        while ((indev = lv_indev_get_next(indev)) != NULL) {
++            if (lv_indev_get_type(indev) != LV_INDEV_TYPE_KEYPAD)
++                continue;
++            struct indev_ext* ext = lv_indev_get_user_data(indev);
++            if (!ext)
++                continue;
++            while (key_queue_has_pending(&ext->keys)) {
++                lv_indev_read(indev);
++            }
++        }
++    }
++#endif
+ }
+ 
+ 
+diff --git a/unl0kr/lv_conf.h b/unl0kr/lv_conf.h
+index 0efd1b9b4d..2db0d28f62 100644
+--- a/unl0kr/lv_conf.h
++++ b/unl0kr/lv_conf.h
+@@ -87,7 +87,7 @@
+  *====================*/
+ 
+ /** Default display refresh, input device read and animation step period. */
+-#define LV_DEF_REFR_PERIOD  33      /**< [ms] */
++#define LV_DEF_REFR_PERIOD  16      /**< [ms] */
+ 
+ /** Default Dots Per Inch. Used to initialize default sizes such as widgets sized, style paddings.
+  * (Not so important, you can adjust it to modify default sizes and spaces.) */
