@@ -9,7 +9,10 @@
   ];
 
   boot.initrd.availableKernelModules = ["nvme" "xhci_pci" "thunderbolt" "usb_storage" "sd_mod"];
-  boot.initrd.kernelModules = ["dm-snapshot"];
+  boot.initrd.kernelModules = [
+    "dm-snapshot"
+    "amdgpu"
+  ];
   boot.kernelModules = ["kvm-amd"];
 
   # Custom EDID for eDP panel with extended VRR range (36-165Hz instead of stock 60-165Hz)
@@ -27,9 +30,6 @@
 
   boot.initrd.luks.devices."cryptroot" = {
     device = "/dev/nvme0n1p5";
-    preLVM = true;
-    # For fingerprint unlock (after enrolling with systemd-cryptenroll):
-    # cryptTabOptions = ["fido2-device=auto"];
   };
 
   fileSystems = let
