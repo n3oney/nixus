@@ -3,6 +3,8 @@
   # inputs,
   ...
 }: {
+  security.lanzaboote.enable = true;
+
   users.main = "neoney";
 
   rebuildCommand = "nh os switch $argv -- --impure";
