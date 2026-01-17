@@ -118,7 +118,7 @@ in {
         */
         {
           "opencode/dcp.jsonc".text = builtins.toJSON {
-            enabled = true;
+            enabled = false; # disabled for now - breaks caching on anthropic
             debug = false;
             pruneNotification = "minimal";
             turnProtection = {
@@ -166,6 +166,7 @@ in {
             build.model = "anthropic/claude-sonnet-4-5";
             explore.model = "anthropic/claude-haiku-4-5";
             general.model = "anthropic/claude-sonnet-4-5";
+            compaction.model = "anthropic/claude-haiku-4-5";
           };
           permission.lsp = "allow";
           provider.google.options.projectId = "gen-lang-client-0105823012";
