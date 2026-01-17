@@ -49,6 +49,7 @@
         ${pkgs.hyprland}/bin/hyprctl keyword monitor "$MONITOR, $MODE, 0x0, $SCALE, transform, $orient" > /dev/null
         # Also rotate touch input to match display
         ${pkgs.hyprland}/bin/hyprctl keyword input:touchdevice:transform "$orient" > /dev/null
+        ${pkgs.hyprland}/bin/hyprctl keyword input:tablet:transform "$orient" > /dev/null
         last_orient=$orient
       fi
       sleep 0.5
