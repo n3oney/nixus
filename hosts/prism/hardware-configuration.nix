@@ -17,11 +17,25 @@
 
   # Custom EDID for eDP panel with extended VRR range (36-165Hz instead of stock 60-165Hz)
   # This enables lower refresh rates for better battery life when idle
+  #
+  # ALC245 audio fix: inv_jack_detect hint inverts jack detection logic.
+  # Combined with nixos-hardware's alc256-asus-aio quirk for proper audio functionality.
   hardware.firmware = [
     (pkgs.runCommand "edid-edp-vrr" {} ''
       mkdir -p $out/lib/firmware/edid
       cp ${./firmware/edid/edp-vrr-36-165.bin} $out/lib/firmware/edid/edp-vrr-36-165.bin
     '')
+    (pkgs.writeTextFile {
+      name = "alc245-internal-mic-patch";
+      destination = "/lib/firmware/alc245-internal-mic.fw";
+      text = ''
+        [codec]
+        0x10ec0245 0x1f4ce001 0
+
+        [hint]
+        inv_jack_detect = yes
+      '';
+    })
   ];
   boot.kernelParams = [
     "drm.edid_firmware=eDP-1:edid/edp-vrr-36-165.bin"

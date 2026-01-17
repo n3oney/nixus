@@ -23,6 +23,7 @@ in {
         extraGroups = [
           "wheel"
           "video"
+          "audio"
           "networkmanager"
           "lp"
           "pulse-access"

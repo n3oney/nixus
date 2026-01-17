@@ -1,8 +1,9 @@
 {
-  # osConfig,
+  config,
   pkgs,
   lib,
   inputs,
+  osConfig,
   ...
 }: {
   osModules = [
@@ -108,30 +109,30 @@
 
     systemd.services.NetworkManager-wait-online.enable = false;
 
+    # ALC245 audio fix:
+    # - index=1,0 swaps card order so analog (ALC245) is card 0, HDMI is card 1
+    # - Patch file (alc245-internal-mic.fw) applies inv_jack_detect hint
+    # - Works with nixos-hardware's alc256-asus-aio quirk
+    # Note: comma prefix skips first card (HDMI), applies patch to second card (ALC245)
     boot.extraModprobeConfig = ''
-      # Swap the order: First detected device (HDMI) gets index 1
-      # Second detected device (Analog) gets index 0
-      options snd_hda_intel index=1,0
+      options snd-hda-intel index=1,0 patch=,alc245-internal-mic.fw
     '';
 
-    systemd.services.restore-audio-levels = {
-      description = "Unmute and max out speakers on boot";
-      wantedBy = ["multi-user.target"];
-      after = ["sound.target"];
+    # Unmute speakers after WirePlumber settles (user service)
+    systemd.user.services.unmute-speakers = {
+      description = "Unmute speakers after WirePlumber settles";
+      wantedBy = ["wireplumber.service"];
+      after = ["wireplumber.service"];
       serviceConfig = {
         Type = "oneshot";
-        User = "root";
+        RemainAfterExit = true;
+        ExecStartPre = "${pkgs.coreutils}/bin/sleep 5";
+        ExecStart = "${pkgs.alsa-utils}/bin/amixer -c 0 sset Speaker 100% unmute";
+        ExecStartPost = [
+          "${pkgs.alsa-utils}/bin/amixer -c 0 sset Headphone 100% unmute"
+          "${pkgs.alsa-utils}/bin/amixer -c 0 sset 'Bass Speaker' unmute"
+        ];
       };
-      script = ''
-        # Wait a moment for devices to settle
-        ${pkgs.coreutils}/bin/sleep 2
-
-        # Force Card 0 (Analog) Master, Speaker, and Headphone to 100%
-        amixer="${pkgs.alsa-utils}/bin/amixer"
-        $amixer -c 0 sset Master 100% unmute || true
-        $amixer -c 0 sset Speaker 100% unmute || true
-        $amixer -c 0 sset Headphone 100% unmute || true
-      '';
     };
 
     services.tailscale.enable = true;
@@ -227,7 +228,7 @@
       # configure the PAM stack correctly for keyring auto-unlock
       # Explicitly disable fprintd for greetd only
       greetd.rules.auth.fprintd.enable = lib.mkForce false;
-      
+
       # login/hyprlock: Keep biometric fallback with fingerprint
       login.rules.auth = passwordFirstWithBiometrics;
       hyprlock.rules.auth = passwordFirstWithBiometrics;
