@@ -2,6 +2,7 @@
   pkgs,
   lib,
   config,
+  inputs,
   ...
 }: let
   cfg = config.wayscriber;
@@ -9,15 +10,17 @@
 in {
   options.wayscriber.enable = lib.mkEnableOption "Wayscriber";
 
-  config = lib.mkIf cfg.enable {
+  config = lib.mkIf cfg.enable (let
+    package = inputs.wayscriber.packages.${pkgs.stdenv.hostPlatform.system}.default;
+  in {
     applications.wayscriber = {
       autostart = true;
-      binaryPath = "${pkgs.wayscriber}/bin/wayscriber -d";
+      binaryPath = "${package}/bin/wayscriber -d";
       type = "daemon";
     };
 
     hm = {
-      home.packages = [pkgs.wayscriber];
+      home.packages = [package];
 
       xdg.configFile."wayscriber/config.toml".source = tomlFormat.generate "wayscriber-config" {
         performance = {
@@ -36,5 +39,5 @@ in {
         "SUPER SHIFT, XF86TouchpadToggle, exec, pkill -SIGUSR1 wayscriber"
       ];
     };
-  };
+  });
 }
