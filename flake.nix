@@ -25,6 +25,7 @@
       url = "github:PauljPhilp/EffectPatterns";
       flake = false;
     };
+    fcitx-virtualkeyboard-adapter.url = "github:horriblename/fcitx-virtualkeyboard-adapter";
     home-manager = {
       inputs.nixpkgs.follows = "nixpkgs";
       url = "github:nix-community/home-manager";

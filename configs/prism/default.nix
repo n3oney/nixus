@@ -84,6 +84,7 @@
   wayscriber.enable = true;
 
   services = {
+    fcitx5.enable = true;
     syncthing.enable = true;
     mcp.enable = true;
     tlp.enable = true;

@@ -7,33 +7,9 @@
 }: let
   cfg = config.display;
   inherit (lib) mkIf;
-
-  # Toggle squeekboard visibility via DBus
-  toggleSqueekboard = pkgs.writeShellScript "toggle-squeekboard" ''
-    visible=$(busctl get-property --user sm.puri.OSK0 /sm/puri/OSK0 sm.puri.OSK0 Visible 2>/dev/null | cut -d' ' -f2)
-    if [ "$visible" = "true" ]; then
-      busctl call --user sm.puri.OSK0 /sm/puri/OSK0 sm.puri.OSK0 SetVisible b false
-    else
-      busctl call --user sm.puri.OSK0 /sm/puri/OSK0 sm.puri.OSK0 SetVisible b true
-    fi
-  '';
 in {
   config = mkIf cfg.enable {
     hm = {
-      # Squeekboard systemd user service
-      systemd.user.services.squeekboard = {
-        Unit = {
-          Description = "Squeekboard on-screen keyboard";
-          PartOf = ["graphical-session.target"];
-          After = ["graphical-session.target"];
-        };
-        Service = {
-          ExecStart = "${pkgs.squeekboard}/bin/squeekboard";
-          Restart = "on-failure";
-        };
-        Install.WantedBy = ["graphical-session.target"];
-      };
-
       wayland.windowManager.hyprland = {
         settings = {
           gestures = {
@@ -56,7 +32,7 @@ in {
               # Swipe up from bottom edge → toggle squeekboard
               hyprgrass-bind = [
                 ", edge:u:d, exec, uwsm app -- anyrun"
-                ", edge:d:u, exec, ${toggleSqueekboard}"
+                # ", edge:d:u, exec, ${toggleSqueekboard}"
                 ", swipe:4:d, killactive"
                 ", tap:3, togglefloating"
               ];
