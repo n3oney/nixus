@@ -2,7 +2,8 @@
   pkgs,
   # inputs,
   ...
-}: {
+}:
+{
   security.lanzaboote.enable = true;
 
   users.main = "neoney";
@@ -93,9 +94,7 @@
     kondo.enable = true;
   };
 
-  biometricAuth = {
-    howdy.enable = true;
-  };
+  biometricAuth.howdy.enable = true;
 
   keyring.enable = true;
   nur.enable = true;
@@ -120,5 +119,5 @@
   os.programs.nm-applet.enable = true;
   os.programs.nix-ld.enable = true;
 
-  os.environment.systemPackages = [pkgs.wget];
+  os.environment.systemPackages = [ pkgs.wget ];
 }
