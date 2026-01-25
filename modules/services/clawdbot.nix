@@ -10,6 +10,9 @@
   
   # Generate config file
   clawdbotConfig = {
+    gateway = {
+      mode = "local";
+    };
     agents = {
       defaults = {
         workspace = "/var/lib/clawdbot/workspace";
