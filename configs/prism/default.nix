@@ -52,7 +52,6 @@
       useDissent = true;
     };
     gns3.enable = true;
-    # ags.enable = true;
     quickshell.enable = true;
     # firefox.enable = true;
     foot.enable = true;

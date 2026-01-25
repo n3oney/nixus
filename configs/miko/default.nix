@@ -53,7 +53,6 @@ in {
       enable = true;
       useDissent = true;
     };
-    ags.enable = false;
     quickshell.enable = true;
     firefox.enable = false;
     foot.enable = true;

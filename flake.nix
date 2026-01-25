@@ -3,7 +3,6 @@
 
   inputs = {
     agenix.url = "github:ryantm/agenix";
-    ags.url = "github:Aylur/ags/v1.9.0";
     anyrun.url = "github:kirottu/anyrun/25367153f225a59c5ce5746583e39a71ff052f09";
     anyrun-ha-assist = {
       url = "github:n3oney/anyrun-ha-assist";
@@ -160,12 +159,6 @@
 
             # quickshell lsp
             kdePackages.qtdeclarative
-
-            # AGS configuring stuff
-            nodejs
-            nodePackages.typescript-language-server
-            nodePackages.prettier
-            eslint
           ];
         }
     );
