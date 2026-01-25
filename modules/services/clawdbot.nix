@@ -50,8 +50,15 @@
         dmPolicy = "pairing";
         tokenFile = osConfig.age.secrets.clawdbot_telegram.path;
         allowFrom = [ 951651146 7844967025 ];
-        groups."*".requireMention = true;
         groupPolicy = "allowlist";
+        groups = {
+          "-1002572622593" = {
+            requireMention = true;
+          };
+          "-5056149787" = {
+            requireMention = true;
+          };
+        };
         streamMode = "partial";
       };
     };
