@@ -12,13 +12,27 @@
   clawdbotConfig = {
     gateway = {
       mode = "local";
+      port = 18789;
+      bind = "loopback";
+      tailscale = {
+        mode = "off";
+        resetOnExit = false;
+      };
     };
     agents = {
       defaults = {
         workspace = "/var/lib/clawdbot/workspace";
-        model.primary = "zai/glm-4.7";
+        model.primary = "anthropic/claude-sonnet-4-5";
         maxConcurrent = 4;
         subagents.maxConcurrent = 8;
+        models = {
+          "anthropic/claude-sonnet-4-5" = {
+            alias = "sonnet";
+          };
+          "zai/glm-4.7" = {
+            alias = "glm";
+          };
+        };
       };
     };
     commands = {
@@ -43,6 +57,32 @@
       entries = {
         telegram = {
           enabled = true;
+        };
+      };
+    };
+    auth = {
+      profiles = {
+        "anthropic:default" = {
+          provider = "anthropic";
+          mode = "token";
+        };
+      };
+    };
+    skills = {
+      install = {
+        nodeManager = "pnpm";
+      };
+    };
+    hooks = {
+      internal = {
+        enabled = true;
+        entries = {
+          "boot-md" = {
+            enabled = true;
+          };
+          "session-memory" = {
+            enabled = true;
+          };
         };
       };
     };
