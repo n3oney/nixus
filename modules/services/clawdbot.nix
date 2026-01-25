@@ -342,6 +342,7 @@ in {
         group = "clawdbot";
         home = "/var/lib/clawdbot";
         createHome = true;
+        shell = pkgs.bash;
       };
 
       users.groups.clawdbot = {};
