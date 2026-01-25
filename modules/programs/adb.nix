@@ -1,12 +1,13 @@
 {
   config,
   lib,
+  pkgs,
   ...
 }: {
   options.programs.adb.enable = lib.mkEnableOption "adb";
 
   config.os = lib.mkIf config.programs.adb.enable {
-    programs.adb.enable = true;
+    environment.systemPackages = [pkgs.android-tools];
     users.users.neoney.extraGroups = ["adbusers"];
   };
 }
