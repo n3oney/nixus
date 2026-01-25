@@ -44,9 +44,6 @@
         telegram = {
           enabled = true;
         };
-        anthropic = {
-          enabled = true;
-        };
       };
     };
   };
