@@ -1,0 +1,26 @@
+From 4ee07dd5972f197fde072ed1606eb756b625c4a7 Mon Sep 17 00:00:00 2001
+From: Patch Generator <patch@clawdbot.local>
+Date: Mon, 26 Jan 2026 13:26:06 +0000
+Subject: [PATCH] Ignore message_thread_id in buildTelegramGroupPeerId to
+ prevent session fragmentation
+
+---
+ src/telegram/bot/helpers.ts | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/src/telegram/bot/helpers.ts b/src/telegram/bot/helpers.ts
+index f2e1eff24..b2b1f1270 100644
+--- a/src/telegram/bot/helpers.ts
++++ b/src/telegram/bot/helpers.ts
+@@ -59,7 +59,8 @@ export function resolveTelegramStreamMode(
+ }
+ 
+ export function buildTelegramGroupPeerId(chatId: number | string, messageThreadId?: number) {
+-  return messageThreadId != null ? `${chatId}:topic:${messageThreadId}` : String(chatId);
++  // Ignore messageThreadId to prevent creating separate sessions for each forum topic
++  return String(chatId);
+ }
+ 
+ export function buildTelegramGroupFrom(chatId: number | string, messageThreadId?: number) {
+-- 
+2.52.0

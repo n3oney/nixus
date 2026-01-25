@@ -7,6 +7,9 @@
   ...
 }: let
   cfg = config.services.clawdbot;
+  clawdbotPkg = inputs.nix-clawdbot.packages.${pkgs.system}.clawdbot-gateway.overrideAttrs (old: {
+    patches = (old.patches or []) ++ [./ignore-thread-id.patch];
+  });
   
   # Generate config file
   clawdbotConfig = {
@@ -37,12 +40,38 @@
           every = "30m";
           target = "last";
         };
+        memorySearch = {
+          enabled = true;
+          provider = "gemini";
+          model = "text-embedding-004";
+          query = {
+            hybrid = {
+              enabled = true;
+              vectorWeight = 0.7;
+              textWeight = 0.3;
+            };
+          };
+          sync = {
+            watch = true;
+          };
+        };
       };
     };
     commands = {
       native = "auto";
       nativeSkills = "auto";
       restart = true;
+    };
+    browser = {
+      executablePath = "${pkgs.chromium}/bin/chromium";
+      headless = true;
+      defaultProfile = "clawd";
+      profiles = {
+        clawd = {
+          cdpPort = 18800;
+          color = "#FF4500";
+        };
+      };
     };
     channels = {
       telegram = {
@@ -343,6 +372,7 @@ in {
         home = "/var/lib/clawdbot";
         createHome = true;
         shell = pkgs.bash;
+        packages = [ pkgs.gogcli pkgs.chromium pkgs.jq clawdbotPkg ];
       };
 
       users.groups.clawdbot = {};
@@ -362,14 +392,17 @@ in {
             "CLAWDBOT_CONFIG_PATH=${configFile}"
             "CLAWDBOT_STATE_DIR=/var/lib/clawdbot"
             "CLAWDBOT_NIX_MODE=1"
+            "XDG_CONFIG_HOME=/var/lib/clawdbot/.config"
+            "PATH=${pkgs.gogcli}/bin:${pkgs.chromium}/bin:${clawdbotPkg}/bin:${pkgs.coreutils}/bin:${pkgs.bash}/bin:/run/current-system/sw/bin"
           ];
           ExecStartPre = [
             "${pkgs.coreutils}/bin/mkdir -p /var/lib/clawdbot/workspace"
             "${pkgs.coreutils}/bin/mkdir -p /var/lib/clawdbot/agents/main/sessions"
             "${pkgs.coreutils}/bin/mkdir -p /var/lib/clawdbot/credentials"
+            "${pkgs.coreutils}/bin/mkdir -p /var/lib/clawdbot/.config"
             "${pkgs.bash}/bin/bash -c '${pkgs.coreutils}/bin/cp -rf ${documents}/* /var/lib/clawdbot/workspace/ || true'"
           ];
-          ExecStart = "${inputs.nix-clawdbot.packages.${pkgs.system}.clawdbot-gateway}/bin/clawdbot gateway";
+          ExecStart = "${clawdbotPkg}/bin/clawdbot gateway";
           Restart = "on-failure";
           RestartSec = "10s";
         };

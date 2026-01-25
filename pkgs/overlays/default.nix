@@ -5,4 +5,5 @@ _: prev: {
   proton-ge-custom = prev.callPackage ./proton-ge-custom {};
   horizontallyspinningrat = prev.callPackage ./horizontallyspinningrat {};
   mxw = prev.callPackage ./mxw.nix {};
+  gogcli = prev.callPackage ./gogcli {};
 }
