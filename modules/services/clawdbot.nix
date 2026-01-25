@@ -33,18 +33,23 @@
             alias = "glm";
           };
         };
+        heartbeat = {
+          every = "30m";
+          target = "last";
+        };
       };
     };
     commands = {
       native = "auto";
       nativeSkills = "auto";
+      restart = true;
     };
     channels = {
       telegram = {
         enabled = true;
         dmPolicy = "pairing";
         tokenFile = osConfig.age.secrets.clawdbot_telegram.path;
-        allowFrom = [ 951651146 ];
+        allowFrom = [ 951651146 7844967025 ];
         groups."*".requireMention = true;
         groupPolicy = "allowlist";
         streamMode = "partial";
@@ -118,6 +123,15 @@ EOF
 # TOOLS.md
 
 Plugin report appended below.
+EOF
+
+    cat > $out/HEARTBEAT.md << 'EOF'
+# Heartbeat checklist
+
+- Quick scan: anything urgent or pending?
+- If it's daytime, do a lightweight check-in if nothing else is pending.
+- If a task is blocked, note what is missing and ask next time.
+- If nothing needs attention, reply HEARTBEAT_OK.
 EOF
   '';
 in {
