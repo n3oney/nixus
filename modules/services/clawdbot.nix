@@ -85,7 +85,7 @@ in {
           ];
           ExecStartPre = [
             "${pkgs.coreutils}/bin/mkdir -p /var/lib/clawdbot/workspace"
-            "${pkgs.coreutils}/bin/cp -rf ${documents}/* /var/lib/clawdbot/workspace/ || true"
+            "${pkgs.bash}/bin/bash -c '${pkgs.coreutils}/bin/cp -rf ${documents}/* /var/lib/clawdbot/workspace/ || true'"
           ];
           ExecStart = "${inputs.nix-clawdbot.packages.${pkgs.system}.clawdbot-gateway}/bin/clawdbot gateway";
           Restart = "on-failure";
