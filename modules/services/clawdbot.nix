@@ -101,6 +101,11 @@ Principles:
 - Treat this workspace as the system of record.
 - Prefer explicit, deterministic changes.
 - NEVER send any message without explicit user confirmation.
+
+# Time Awareness
+- Current year is 2026
+- When scheduling cron jobs or any time-based tasks, always verify the year is correct
+- Today's date can be confirmed by checking system time if uncertain
 EOF
 
     cat > $out/SOUL.md << 'EOF'
