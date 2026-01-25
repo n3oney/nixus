@@ -123,6 +123,192 @@ EOF
 # TOOLS.md
 
 Plugin report appended below.
+
+---
+
+# Cron - Reminders and Scheduled Tasks
+
+## Basics
+
+Cron is used for precise task scheduling. There are two main modes:
+- **isolated session** - dedicated agent turn, direct delivery
+- **main session** - system event in main session, delivered via heartbeat
+
+---
+
+## Isolated Session (RECOMMENDED for reminders)
+
+**When to use:**
+- Simple reminders
+- Reliable delivery without heartbeat dependency
+- Tasks that can work without main session context
+
+**Structure:**
+```javascript
+{
+  "name": "Reminder name",
+  "schedule": {"kind": "at", "atMs": "2026-01-25T12:30:00Z"},
+  "sessionTarget": "isolated",
+  "payload": {
+    "kind": "agentTurn",
+    "message": "Reminder content",
+    "deliver": true,
+    "channel": "telegram",     // telegram/webchat/whatsapp/discord/signal
+    "to": "-5056149787"        // chat_id/phone/user_id
+  },
+  "deleteAfterRun": true,      // auto-delete after execution
+  "enabled": true
+}
+```
+
+**Advantages:**
+- ✅ Delivers directly to channel (not via heartbeat)
+- ✅ Doesn't require `heartbeat.target` configuration
+- ✅ Works reliably
+
+---
+
+## Main Session (for contextual tasks)
+
+**When to use:**
+- Task requires main session context
+- You want the reminder to be part of conversation history
+- Heartbeat is properly configured
+
+**Structure:**
+```javascript
+{
+  "name": "Reminder name",
+  "schedule": {"kind": "at", "atMs": "2026-01-25T12:30:00Z"},
+  "sessionTarget": "main",
+  "payload": {
+    "kind": "systemEvent",
+    "text": "Reminder content"
+  },
+  "wakeMode": "now",          // immediate heartbeat wake
+  "deleteAfterRun": true,
+  "enabled": true
+}
+```
+
+**Wakemode:**
+- `"now"` - immediate wake after job execution (for reminders)
+- `"next-heartbeat"` - waits for next scheduled heartbeat (default)
+
+---
+
+## Schedule Types
+
+**One-shot (reminder):**
+```javascript
+"schedule": {"kind": "at", "atMs": "2026-01-25T12:30:00Z"}
+```
+
+**Recurring (every X time):**
+```javascript
+"schedule": {"kind": "every", "everyMs": 3600000}  // every hour
+```
+
+**Cron expression:**
+```javascript
+"schedule": {
+  "kind": "cron", 
+  "expr": "0 9 * * 1-5",  // 9:00 on weekdays
+  "tz": "Europe/Warsaw"   // optional timezone
+}
+```
+
+---
+
+## Timestamps
+
+**ISO 8601 (preferred):**
+- `"2026-01-25T12:30:00Z"` - UTC
+- `"2026-01-25T13:30:00+01:00"` - with timezone
+- Gateway automatically converts to milliseconds
+
+**Unix timestamp (ms):**
+- `1769343420000` - milliseconds since epoch
+
+---
+
+## Important Details
+
+**Auto-delete:**
+```javascript
+"deleteAfterRun": true  // removes job after successful execution
+```
+
+**Always verify timestamp is in the future.**
+
+**Delivery channels:**
+- `telegram`: requires chat_id (e.g. `"-5056149787"`)
+- `webchat`: requires session/user id
+- `whatsapp`: requires phone number
+- `discord`: requires channel/user id
+- `signal`: requires phone number
+
+---
+
+## Status Commands
+
+**List jobs:**
+```javascript
+cron.list
+```
+
+**Execution history:**
+```javascript
+cron.runs(jobId, limit)
+```
+
+**Remove job:**
+```javascript
+cron.remove(jobId)
+```
+
+---
+
+## Examples
+
+**Reminder in 5 minutes:**
+```javascript
+{
+  "name": "Feed the cat",
+  "schedule": {"kind": "at", "atMs": "2026-01-25T12:35:00Z"},
+  "sessionTarget": "isolated",
+  "payload": {
+    "kind": "agentTurn",
+    "message": "Reminder: feed the cat",
+    "deliver": true,
+    "channel": "telegram",
+    "to": "-5056149787"
+  },
+  "deleteAfterRun": true,
+  "enabled": true
+}
+```
+
+**Daily report at 9:00:**
+```javascript
+{
+  "name": "Daily report",
+  "schedule": {
+    "kind": "cron",
+    "expr": "0 9 * * *",
+    "tz": "Europe/Warsaw"
+  },
+  "sessionTarget": "isolated",
+  "payload": {
+    "kind": "agentTurn",
+    "message": "Generate daily report",
+    "deliver": true,
+    "channel": "telegram",
+    "to": "-5056149787"
+  },
+  "enabled": true
+}
+```
 EOF
 
     cat > $out/HEARTBEAT.md << 'EOF'
