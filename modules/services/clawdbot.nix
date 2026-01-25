@@ -84,6 +84,11 @@
       install = {
         nodeManager = "npm";
       };
+      entries = {
+        gog = {
+          enabled = true;
+        };
+      };
     };
     hooks = {
       internal = {
