@@ -70,7 +70,7 @@
     };
     skills = {
       install = {
-        nodeManager = "pnpm";
+        nodeManager = "npm";
       };
     };
     hooks = {
