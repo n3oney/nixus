@@ -32,7 +32,6 @@ in {
             group = "zigbee2mqtt";
             mode = "770";
           })
-          (secretForHostnames ["yen"] ../../secrets/librechat.age "librechat" {})
           (secretForHostnames ["yen"] ../../secrets/clawdbot_telegram.age "clawdbot_telegram" {
             owner = "clawdbot";
           })
