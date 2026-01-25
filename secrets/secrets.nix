@@ -27,4 +27,7 @@ in {
   "mcp.age".publicKeys = miko ++ prism;
 
   "librechat.age".publicKeys = miko ++ yen ++ prism;
+
+  "clawdbot_telegram.age".publicKeys = miko ++ prism ++ yen;
+  "clawdbot_zai.age".publicKeys = miko ++ prism ++ yen;
 }

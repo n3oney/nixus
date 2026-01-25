@@ -32,8 +32,13 @@ in {
             group = "zigbee2mqtt";
             mode = "770";
           })
-          (secretForHostnames ["yen"] ../../secrets/librechat.age "librechat" {
-            })
+          (secretForHostnames ["yen"] ../../secrets/librechat.age "librechat" {})
+          (secretForHostnames ["yen"] ../../secrets/clawdbot_telegram.age "clawdbot_telegram" {
+            owner = "clawdbot";
+          })
+          (secretForHostnames ["yen"] ../../secrets/clawdbot_zai.age "clawdbot_zai" {
+            owner = "clawdbot";
+          })
         ];
         environment.systemPackages = [inputs.agenix.packages.${pkgs.stdenv.hostPlatform.system}.default];
       };
