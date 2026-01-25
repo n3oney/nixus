@@ -17,14 +17,33 @@
       defaults = {
         workspace = "/var/lib/clawdbot/workspace";
         model.primary = "zai/glm-4.7";
+        maxConcurrent = 4;
+        subagents.maxConcurrent = 8;
       };
+    };
+    commands = {
+      native = "auto";
+      nativeSkills = "auto";
     };
     channels = {
       telegram = {
         enabled = true;
+        dmPolicy = "pairing";
         tokenFile = osConfig.age.secrets.clawdbot_telegram.path;
         allowFrom = [ 951651146 ];
         groups."*".requireMention = true;
+        groupPolicy = "allowlist";
+        streamMode = "partial";
+      };
+    };
+    messages = {
+      ackReactionScope = "group-mentions";
+    };
+    plugins = {
+      entries = {
+        telegram = {
+          enabled = true;
+        };
       };
     };
   };
@@ -88,6 +107,8 @@ in {
           ];
           ExecStartPre = [
             "${pkgs.coreutils}/bin/mkdir -p /var/lib/clawdbot/workspace"
+            "${pkgs.coreutils}/bin/mkdir -p /var/lib/clawdbot/agents/main/sessions"
+            "${pkgs.coreutils}/bin/mkdir -p /var/lib/clawdbot/credentials"
             "${pkgs.bash}/bin/bash -c '${pkgs.coreutils}/bin/cp -rf ${documents}/* /var/lib/clawdbot/workspace/ || true'"
           ];
           ExecStart = "${inputs.nix-clawdbot.packages.${pkgs.system}.clawdbot-gateway}/bin/clawdbot gateway";
