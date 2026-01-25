@@ -78,11 +78,16 @@ in {
           Group = "clawdbot";
           WorkingDirectory = "/var/lib/clawdbot";
           EnvironmentFile = osConfig.age.secrets.clawdbot_zai.path;
-          ExecStartPre = ''
-            ${pkgs.coreutils}/bin/mkdir -p /var/lib/clawdbot/workspace
-            ${pkgs.coreutils}/bin/cp -r ${documents}/* /var/lib/clawdbot/workspace/
-          '';
-          ExecStart = "${inputs.nix-clawdbot.packages.${pkgs.system}.clawdbot-gateway}/bin/clawdbot --config ${configFile}";
+          Environment = [
+            "CLAWDBOT_CONFIG_PATH=${configFile}"
+            "CLAWDBOT_STATE_DIR=/var/lib/clawdbot"
+            "CLAWDBOT_NIX_MODE=1"
+          ];
+          ExecStartPre = [
+            "${pkgs.coreutils}/bin/mkdir -p /var/lib/clawdbot/workspace"
+            "${pkgs.coreutils}/bin/cp -rf ${documents}/* /var/lib/clawdbot/workspace/ || true"
+          ];
+          ExecStart = "${inputs.nix-clawdbot.packages.${pkgs.system}.clawdbot-gateway}/bin/clawdbot gateway";
           Restart = "on-failure";
           RestartSec = "10s";
         };
