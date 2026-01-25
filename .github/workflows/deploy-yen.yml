@@ -3,14 +3,16 @@ name: Deploy Yen
 on:
   check_run:
     types: [completed]
+  workflow_dispatch:
 
 jobs:
   deploy-yen:
     runs-on: ubuntu-24.04-arm
     if: >
-      contains(github.event.check_run.name, 'nixosConfig yen') &&
-      github.event.check_run.conclusion == 'success' &&
-      github.event.check_run.app.slug == 'garnix-ci'
+      github.event_name == 'workflow_dispatch' ||
+      (contains(github.event.check_run.name, 'nixosConfig yen') &&
+       github.event.check_run.conclusion == 'success' &&
+       github.event.check_run.app.slug == 'garnix-ci')
     
     steps:
       - uses: actions/checkout@v4
