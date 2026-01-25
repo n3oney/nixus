@@ -76,6 +76,7 @@
 
     # webstorm.enable = true;
 
+    vivaldi.enable = true;
     zenBrowser.enable = true;
     zed.enable = true;
     zoxide.enable = true;
