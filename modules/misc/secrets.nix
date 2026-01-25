@@ -35,7 +35,7 @@ in {
           (secretForHostnames ["yen"] ../../secrets/clawdbot_telegram.age "clawdbot_telegram" {
             owner = "clawdbot";
           })
-          (secretForHostnames ["yen"] ../../secrets/clawdbot_zai.age "clawdbot_zai" {
+          (secretForHostnames ["yen"] ../../secrets/clawdbot.age "clawdbot" {
             owner = "clawdbot";
           })
         ];

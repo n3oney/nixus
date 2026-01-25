@@ -344,7 +344,7 @@ in {
           User = "clawdbot";
           Group = "clawdbot";
           WorkingDirectory = "/var/lib/clawdbot";
-          EnvironmentFile = osConfig.age.secrets.clawdbot_zai.path;
+          EnvironmentFile = osConfig.age.secrets.clawdbot.path;
           Environment = [
             "CLAWDBOT_CONFIG_PATH=${configFile}"
             "CLAWDBOT_STATE_DIR=/var/lib/clawdbot"
