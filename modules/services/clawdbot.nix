@@ -49,7 +49,7 @@
         enabled = true;
         dmPolicy = "pairing";
         tokenFile = osConfig.age.secrets.clawdbot_telegram.path;
-        allowFrom = [ 951651146 7844967025 ];
+        allowFrom = [ 951651146 7844967025 7899575189 ];
         groupPolicy = "allowlist";
         groups = {
           "-1002572622593" = {
