@@ -18,11 +18,27 @@
   # Helper for workspace matching (applies only to tiled windows for styling)
   mkTiledWorkspaceRule = rule: workspaceId: mkRule rule "workspace ${toString workspaceId}, match:float false";
 
-  hasSecondary = cfg.monitors.secondary.name != null;
-  chatWorkspaceId =
-    if hasSecondary
-    then 19
-    else 9;
+  # Normalize workspace entry (int or submodule -> consistent attrs)
+  normalizeWs = ws:
+    if builtins.isInt ws
+    then {
+      id = ws;
+      default = false;
+      gapsIn = null;
+      gapsOut = null;
+      border = null;
+    }
+    else ws;
+
+  # Compute list of workspaces with no gaps (gapsIn == 0 or gapsOut == 0)
+  noGapWorkspaces = lib.flatten (map (monitor:
+      map (ws: (normalizeWs ws).id)
+        (lib.filter (ws: let
+            w = normalizeWs ws;
+          in
+            (w.gapsIn or null) == 0 || (w.gapsOut or null) == 0)
+          monitor.workspaces))
+    cfg.monitors);
 
   appsToAssignToWorkspaces =
     lib.filterAttrs (
@@ -64,14 +80,6 @@ in {
           (mkTitleRule "idle_inhibit focus" "YouTube on TV.*")
           (mkClassRule "idle_inhibit fullscreen" ".*")
 
-          # Workspace 1 styling (nogap)
-          (mkTiledWorkspaceRule "rounding 0" 1)
-          (mkTiledWorkspaceRule "border_size 1" 1)
-
-          # Chat workspace styling (tiled windows)
-          (mkTiledWorkspaceRule "rounding 0" chatWorkspaceId)
-          (mkTiledWorkspaceRule "border_size 1" chatWorkspaceId)
-
           # Pauseshot
           (mkTitleRule "no_anim on" "PAUSESHOT")
           (mkTitleRule "fullscreen on" "PAUSESHOT")
@@ -79,6 +87,12 @@ in {
           # Remove max size limits from all windows
           (mkClassRule "no_max_size on" ".*")
         ]
+        # Apply no-gap workspace styling (rounding 0, border_size 1) to tiled windows
+        ++ (lib.flatten (map (wsId: [
+              (mkTiledWorkspaceRule "rounding 0" wsId)
+              (mkTiledWorkspaceRule "border_size 1" wsId)
+            ])
+            noGapWorkspaces))
         ++ appWorkspaceRules
         ++ appHyprlandWindowRules;
 

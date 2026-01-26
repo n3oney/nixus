@@ -12,12 +12,37 @@
   hyprlandSettings = hmConfig.wayland.windowManager.hyprland.settings;
   gap = hyprlandSettings.general.gaps_out;
   rounding = hyprlandSettings.decoration.rounding;
-  secondaryMonitor = config.display.monitors.secondary.name or "";
-  hasSecondary = config.display.monitors.secondary.name != null;
-  chatWorkspaceId =
-    if hasSecondary
-    then 19
-    else 9;
+
+  # Monitor access
+  monitors = config.display.monitors;
+  mainMonitor = lib.findFirst (m: m.isMain) (builtins.head monitors) monitors;
+  secondaryMonitor =
+    if builtins.length monitors > 1
+    then (builtins.elemAt monitors 1).name
+    else "";
+  hasSecondary = builtins.length monitors > 1;
+
+  # Normalize workspace entry (int or submodule -> consistent attrs)
+  normalizeWs = ws:
+    if builtins.isInt ws
+    then {
+      id = ws;
+      default = false;
+      gapsIn = null;
+      gapsOut = null;
+      border = null;
+    }
+    else ws;
+
+  # Compute list of workspaces with no gaps (gapsIn == 0 or gapsOut == 0)
+  noGapWorkspaces = lib.flatten (map (monitor:
+      map (ws: (normalizeWs ws).id)
+        (lib.filter (ws: let
+            w = normalizeWs ws;
+          in
+            (w.gapsIn or null) == 0 || (w.gapsOut or null) == 0)
+          monitor.workspaces))
+    monitors);
 
   # Parse workspace animation: "workspaces, 1, 7, fluent_decel, slide"
   workspaceAnim = builtins.filter (a: lib.hasPrefix "workspaces," a) hyprlandSettings.animations.animation;
@@ -108,12 +133,13 @@ in {
       const fontFamily = "sans";
       const gap = ${toString gap};
       const rounding = ${toString rounding};
+      const mainMonitor = "${mainMonitor.name}";
       const secondaryMonitor = "${
-        if secondaryMonitor == null
+        if secondaryMonitor == ""
         then "null"
         else secondaryMonitor
       }";
-      const noRoundingWorkspaces = [1, ${toString chatWorkspaceId}];
+      const noRoundingWorkspaces = [${lib.concatMapStringsSep ", " toString noGapWorkspaces}];
 
       // Animation (matches Hyprland workspace animation)
       const animationDuration = ${animationSpeed} * 100;

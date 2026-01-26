@@ -1,5 +1,7 @@
 {
+  config,
   pkgs,
+  lib,
   # inputs,
   ...
 }:
@@ -15,15 +17,41 @@
   display = {
     enable = true;
 
-    monitors = {
-      main = {
+    monitors = [
+      {
         name = "eDP-1";
         width = 2560;
         height = 1600;
         refreshRate = 165;
         scale = 1.333333;
-      };
-    };
+        isMain = true;
+        workspaces = [
+          {
+            id = 1;
+            gapsIn = 0;
+            gapsOut = 0;
+          }
+          {
+            id = 2;
+            default = true;
+          }
+          3
+          4
+          5
+          6
+          7
+          8
+          {
+            id = 9;
+            gapsIn = 0;
+            gapsOut = 0;
+          }
+          10
+        ];
+        workspaceMod = "SUPER";
+        workspaceKey = id: toString (lib.mod id 10);
+      }
+    ];
 
     keyboards = [
       "logitech-g915-tkl-lightspeed-wireless-rgb-mechanical-gaming-keyboard"

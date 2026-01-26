@@ -53,11 +53,6 @@
       (windowSwitchBind "up" "u" "Move to window above")
       (windowSwitchBind "down" "d" "Move to window below")
     ]
-    # switch workspaces 1-10
-    ++ (builtins.map (n: mkBind "${mainMod}, ${toString (lib.mod n 10)}" "workspace, ${toString n}" null) (lib.range 1 10))
-    ++ (builtins.map (n: mkBind "${mainMod} SHIFT, ${toString (lib.mod n 10)}" "movetoworkspace, ${toString n}" null) (lib.range 1 10))
-    # switch workspaces 11 - 20
-    ++ (lib.optionals (cfg.monitors.secondary.name != null) (builtins.map (n: mkBind "${mainMod} ALT, ${toString (lib.mod (n - 10) 10)}" "workspace, ${toString n}" null) (lib.range 11 20)) ++ (builtins.map (n: mkBind "${mainMod} ALT SHIFT, ${toString (lib.mod (n - 10) 10)}" "movetoworkspace, ${toString n}" null) (lib.range 11 20)))
     # Screenshots
     ++ (lib.optionals (cfg.screenshotKeybinds.active != null) [(mkBind cfg.screenshotKeybinds.active "exec, grimblast save active - | shadower -r ${builtins.toString (let c = hmConfig.wayland.windowManager.hyprland.settings; in c.decoration.rounding + 2 * c.general.border_size)} | wl-copy -t image/png && ${pkgs.dunst}/bin/dunstify 'Screenshot taken' --expire-time 1000" "Take screenshot of active window")])
     ++ (lib.optionals (cfg.screenshotKeybinds.area != null) [(mkBind cfg.screenshotKeybinds.area "exec, pauseshot | shadower | wl-copy -t image/png && ${pkgs.dunst}/bin/dunstify 'Screenshot taken' --expire-time 1000" "Take screenshot of an area")])

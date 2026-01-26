@@ -1,4 +1,8 @@
-{pkgs, ...}: let
+{
+  pkgs,
+  lib,
+  ...
+}: let
   secondarySink = "tunnel.max.local.alsa_output.usb-Logitech_PRO_X_000000000000-00.analog-stereo";
 in {
   users.main = "neoney";
@@ -10,20 +14,75 @@ in {
 
     enableTearing = true;
 
-    monitors = {
-      main = {
+    monitors = [
+      {
         name = "DP-1";
         width = 2560;
         height = 1440;
         refreshRate = 144;
-        # transform = ",transform,1";
-      };
-      secondary = {
+        position = "0x0";
+        isMain = true;
+        workspaces = [
+          {
+            id = 1;
+            gapsIn = 0;
+            gapsOut = 0;
+          }
+          {
+            id = 2;
+            default = true;
+          }
+          3
+          4
+          5
+          6
+          7
+          8
+          9
+          10
+        ];
+        workspaceMod = "SUPER";
+        workspaceKey = id: toString (lib.mod id 10);
+      }
+      {
         name = "DP-3";
         width = 1920;
         height = 1080;
-      };
-    };
+        position = "2560x360";
+        workspaces = [
+          11
+          12
+          13
+          14
+          15
+          16
+          17
+          18
+          {
+            id = 19;
+            default = true;
+            gapsIn = 0;
+            gapsOut = 0;
+          }
+          20
+        ];
+        workspaceMod = "SUPER ALT";
+        workspaceKey = id: toString (lib.mod (id - 10) 10);
+      }
+      {
+        name = "HDMI-A-1";
+        width = 2560;
+        height = 1600;
+        scale = 1.33;
+        position = "317x1440";
+        workspaces = [
+          {
+            id = 21;
+            default = true;
+          }
+        ];
+      }
+    ];
 
     inherit secondarySink;
     keyboards = [

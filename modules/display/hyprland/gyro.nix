@@ -7,12 +7,15 @@
   cfg = config.display;
   inherit (lib) mkIf;
 
+  # Find the main monitor
+  mainMonitor = lib.findFirst (m: m.isMain) (builtins.head cfg.monitors) cfg.monitors;
+
   # Monitor config values
-  monitorName = cfg.monitors.main.name;
-  monitorWidth = toString cfg.monitors.main.width;
-  monitorHeight = toString cfg.monitors.main.height;
-  monitorRefresh = toString cfg.monitors.main.refreshRate;
-  monitorScale = toString cfg.monitors.main.scale;
+  monitorName = mainMonitor.name;
+  monitorWidth = toString mainMonitor.width;
+  monitorHeight = toString mainMonitor.height;
+  monitorRefresh = toString mainMonitor.refreshRate;
+  monitorScale = toString mainMonitor.scale;
 
   # Simple rotation script that polls accelerometer and rotates via hyprctl
   rotateScript = pkgs.writeShellScript "auto-rotate" ''

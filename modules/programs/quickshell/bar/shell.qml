@@ -10,7 +10,7 @@ import "/home/neoney/.config/quickshell/bar/config.js" as Config
 
 ShellRoot {
     Variants {
-        model: Quickshell.screens.filter(s => s.name !== Config.secondaryMonitor)
+        model: Quickshell.screens.filter(s => s.name === Config.mainMonitor)
 
         PanelWindow {
             id: barWindow
