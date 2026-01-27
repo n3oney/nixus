@@ -1,7 +1,7 @@
 {
   lib,
   config,
-  pkgs,
+  hmConfig,
   ...
 }: {
   options.programs.vivaldi.enable = lib.mkEnableOption "Vivaldi";
@@ -9,7 +9,7 @@
   config = lib.mkIf config.programs.vivaldi.enable {
     applications.vivaldi = {
       autostart = true;
-      binaryPath = "${pkgs.vivaldi}/bin/vivaldi";
+      binaryPath = lib.getExe hmConfig.programs.vivaldi.finalPackage;
       defaultWorkspace = 2;
       windowClass = "vivaldi-stable";
     };
@@ -17,6 +17,7 @@
     impermanence.userDirs = [
       ".config/vivaldi"
       ".cache/vivaldi"
+      ".local/lib/vivaldi"
     ];
 
     hm = {
