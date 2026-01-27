@@ -1,11 +1,9 @@
 {
-  config,
   pkgs,
   lib,
   # inputs,
   ...
-}:
-{
+}: {
   security.lanzaboote.enable = true;
 
   users.main = "neoney";
@@ -73,13 +71,11 @@
     anyrun.enable = true;
     btop.enable = true;
     # bricscad.enable = true;
-    chrome.enable = true;
     datagrip.enable = true;
     discord = {
       enable = true;
-      useDissent = true;
     };
-    gns3.enable = true;
+    gns3.enable = false;
     quickshell.enable = true;
     # firefox.enable = true;
     foot.enable = true;
@@ -150,5 +146,5 @@
   os.programs.nm-applet.enable = true;
   os.programs.nix-ld.enable = true;
 
-  os.environment.systemPackages = [ pkgs.wget ];
+  os.environment.systemPackages = [pkgs.wget];
 }
