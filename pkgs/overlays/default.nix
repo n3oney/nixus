@@ -1,4 +1,5 @@
 _: prev: {
+  bird = prev.callPackage ./bird {};
   leveldb-cli = prev.callPackage ./leveldb-cli {};
   gg-sans = prev.callPackage ./gg-sans {};
   zed-plex-mono = prev.callPackage ./zed-plex {};

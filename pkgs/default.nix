@@ -1,4 +1,5 @@
 {pkgs, ...}: {
+  bird = pkgs.callPackage ./overlays/bird {};
   leveldb-cli = pkgs.callPackage ./overlays/leveldb-cli {};
   gg-sans = pkgs.callPackage ./overlays/gg-sans {};
   proton-ge-custom = pkgs.callPackage ./overlays/proton-ge-custom {};
