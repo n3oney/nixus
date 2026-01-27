@@ -118,19 +118,21 @@
       options snd-hda-intel index=1,0 patch=,alc245-internal-mic.fw
     '';
 
-    # Unmute speakers after WirePlumber settles (user service)
-    systemd.user.services.unmute-speakers = {
-      description = "Unmute speakers after WirePlumber settles";
+    # Unmute audio (speakers + microphone) after WirePlumber settles (user service)
+    systemd.user.services.unmute-audio = {
+      description = "Unmute audio after WirePlumber settles";
       wantedBy = ["wireplumber.service"];
       after = ["wireplumber.service"];
       serviceConfig = {
         Type = "oneshot";
         RemainAfterExit = true;
         ExecStartPre = "${pkgs.coreutils}/bin/sleep 5";
-        ExecStart = "${pkgs.alsa-utils}/bin/amixer -c 0 sset Speaker 100% unmute";
+        ExecStart = "${pkgs.alsa-utils}/bin/amixer -c 0 sset Master 100% unmute";
         ExecStartPost = [
+          "${pkgs.alsa-utils}/bin/amixer -c 0 sset Speaker 100% unmute"
           "${pkgs.alsa-utils}/bin/amixer -c 0 sset Headphone 100% unmute"
           "${pkgs.alsa-utils}/bin/amixer -c 0 sset 'Bass Speaker' unmute"
+          "${pkgs.alsa-utils}/bin/amixer -c 0 sset Capture 80% cap"
         ];
       };
     };
