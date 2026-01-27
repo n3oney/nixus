@@ -8,9 +8,23 @@
 }: let
   cfg = config.services.clawdbot;
   clawdbotPkg = inputs.nix-clawdbot.packages.${pkgs.system}.clawdbot-gateway.overrideAttrs (old: {
-    patches = (old.patches or []) ++ [./ignore-thread-id.patch];
+    src = inputs.moltbot-src;
+    pnpmDeps = pkgs.pnpm_10.fetchDeps {
+      pname = old.pname;
+      version = old.version;
+      src = inputs.moltbot-src;
+      hash = "sha256-7627rdKZopr2oStPDYNhkKCKySx2rf9v5rcauJ4DhWw=";
+      fetcherVersion = 2;
+      nativeBuildInputs = [pkgs.git];
+    };
+    patches =
+      (old.patches or [])
+      ++ [
+        ./ignore-thread-id.patch
+        ./better-telegram-requiremention.patch
+      ];
   });
-  
+
   # Generate config file
   clawdbotConfig = {
     gateway = {
@@ -24,33 +38,53 @@
     };
     agents = {
       defaults = {
+        contextTokens = 200000;
         workspace = "/var/lib/clawdbot/workspace";
         model.primary = "anthropic/claude-sonnet-4-5";
+        model.fallbacks = ["zai/glm-4.7"];
+
+        blockStreamingCoalesce = {
+          minChars = 10000;
+          maxChars = 10000;
+          idleMs = 5000;
+        };
+
+        contextPruning = {
+          mode = "cache-ttl";
+          ttl = "1h";
+        };
+
         maxConcurrent = 4;
         subagents.maxConcurrent = 8;
         models = {
           "anthropic/claude-sonnet-4-5" = {
             alias = "sonnet";
+            # cacheControlTtl = "1h";
           };
           "zai/glm-4.7" = {
             alias = "glm";
           };
         };
         heartbeat = {
-          every = "30m";
+          every = "1h";
           target = "last";
         };
         memorySearch = {
           enabled = true;
           provider = "gemini";
-          model = "text-embedding-004";
-          query = {
-            hybrid = {
-              enabled = true;
-              vectorWeight = 0.7;
-              textWeight = 0.3;
-            };
+          model = "gemini-embedding-001";
+
+          sources = ["memory" "sessions"];
+          experimental.sessionMemory = true;
+
+          query.hybrid = {
+            enabled = true;
+            vectorWeight = 0.7;
+            textWeight = 0.3;
           };
+
+          remote.batch.enabled = false;
+
           sync = {
             watch = true;
           };
@@ -75,20 +109,23 @@
     };
     channels = {
       telegram = {
+        mediaMaxMb = 20;
+
         enabled = true;
         dmPolicy = "pairing";
         tokenFile = osConfig.age.secrets.clawdbot_telegram.path;
-        allowFrom = [ 951651146 7844967025 7899575189 ];
+        allowFrom = [951651146 7844967025 7899575189];
         groupPolicy = "allowlist";
         groups = {
           "-1002572622593" = {
             requireMention = true;
           };
-          "-5056149787" = {
+          "-1003744090593" = {
             requireMention = true;
           };
         };
-        streamMode = "partial";
+        streamMode = "off";
+        blockStreaming = true;
       };
     };
     messages = {
@@ -133,235 +170,239 @@
       };
     };
   };
-  
+
   configFile = pkgs.writeText "clawdbot.json" (builtins.toJSON clawdbotConfig);
-  
+
   # Document files
   documents = pkgs.runCommand "clawdbot-documents" {} ''
-    mkdir -p $out
-    cat > $out/AGENTS.md << 'EOF'
-# AGENTS.md
+        mkdir -p $out
+        cat > $out/AGENTS.md << 'EOF'
+    # AGENTS.md
 
-Principles:
-- Be concise in chat; write long output to files.
-- Treat this workspace as the system of record.
-- Prefer explicit, deterministic changes.
-- NEVER send any message without explicit user confirmation.
+    Principles:
+    - Be concise in chat; write long output to files.
+    - Treat this workspace as the system of record.
+    - Prefer explicit, deterministic changes.
+    - NEVER send any message without explicit user confirmation.
 
-# Time Awareness
-- Current year is 2026
-- When scheduling cron jobs or any time-based tasks, always verify the year is correct
-- Today's date can be confirmed by checking system time if uncertain
-EOF
+    # Time Awareness
+    - Current year is 2026
+    - When scheduling cron jobs or any time-based tasks, always verify the year is correct
+    - Today's date can be confirmed by checking system time if uncertain
+    EOF
 
-    cat > $out/SOUL.md << 'EOF'
-# SOUL.md
+        cat > $out/SOUL.md << 'EOF'
+    # SOUL.md
 
-Clawdbot exists to do useful work reliably with minimal friction.
-EOF
+    Clawdbot exists to do useful work reliably with minimal friction.
+    EOF
 
-    cat > $out/TOOLS.md << 'EOF'
-# TOOLS.md
+        cat > $out/TOOLS.md << 'EOF'
+    # TOOLS.md
 
-Plugin report appended below.
+    Plugin report appended below.
 
----
+    ---
 
-# Cron - Reminders and Scheduled Tasks
+    # Cron - Reminders and Scheduled Tasks
 
-## Basics
+    ## Basics
 
-Cron is used for precise task scheduling. There are two main modes:
-- **isolated session** - dedicated agent turn, direct delivery
-- **main session** - system event in main session, delivered via heartbeat
+    Cron is used for precise task scheduling. There are two main modes:
+    - **isolated session** - dedicated agent turn, direct delivery
+    - **main session** - system event in main session, delivered via heartbeat
 
----
+    ---
 
-## Isolated Session (RECOMMENDED for reminders)
+    ## Isolated Session (RECOMMENDED for reminders)
 
-**When to use:**
-- Simple reminders
-- Reliable delivery without heartbeat dependency
-- Tasks that can work without main session context
+    **When to use:**
+    - Simple reminders
+    - Reliable delivery without heartbeat dependency
+    - Tasks that can work without main session context
 
-**Structure:**
-```javascript
-{
-  "name": "Reminder name",
-  "schedule": {"kind": "at", "atMs": "2026-01-25T12:30:00Z"},
-  "sessionTarget": "isolated",
-  "payload": {
-    "kind": "agentTurn",
-    "message": "Reminder content",
-    "deliver": true,
-    "channel": "telegram",     // telegram/webchat/whatsapp/discord/signal
-    "to": "-5056149787"        // chat_id/phone/user_id
-  },
-  "deleteAfterRun": true,      // auto-delete after execution
-  "enabled": true
-}
-```
+    **Structure:**
+    ```javascript
+    {
+      "name": "Reminder name",
+      "schedule": {"kind": "at", "atMs": "2026-01-25T12:30:00Z"},
+      "sessionTarget": "isolated",
+      "payload": {
+        "kind": "agentTurn",
+        "message": "Reminder content",
+        "deliver": true,
+        "channel": "telegram",     // telegram/webchat/whatsapp/discord/signal
+        "to": "-5056149787"        // chat_id/phone/user_id
+      },
+      "deleteAfterRun": true,      // auto-delete after execution
+      "enabled": true
+    }
+    ```
 
-**Advantages:**
-- ✅ Delivers directly to channel (not via heartbeat)
-- ✅ Doesn't require `heartbeat.target` configuration
-- ✅ Works reliably
+    **Advantages:**
+    - ✅ Delivers directly to channel (not via heartbeat)
+    - ✅ Doesn't require `heartbeat.target` configuration
+    - ✅ Works reliably
 
----
+    ---
 
-## Main Session (for contextual tasks)
+    ## Main Session (for contextual tasks)
 
-**When to use:**
-- Task requires main session context
-- You want the reminder to be part of conversation history
-- Heartbeat is properly configured
+    **When to use:**
+    - Task requires main session context
+    - You want the reminder to be part of conversation history
+    - Heartbeat is properly configured
 
-**Structure:**
-```javascript
-{
-  "name": "Reminder name",
-  "schedule": {"kind": "at", "atMs": "2026-01-25T12:30:00Z"},
-  "sessionTarget": "main",
-  "payload": {
-    "kind": "systemEvent",
-    "text": "Reminder content"
-  },
-  "wakeMode": "now",          // immediate heartbeat wake
-  "deleteAfterRun": true,
-  "enabled": true
-}
-```
+    **Structure:**
+    ```javascript
+    {
+      "name": "Reminder name",
+      "schedule": {"kind": "at", "atMs": "2026-01-25T12:30:00Z"},
+      "sessionTarget": "main",
+      "payload": {
+        "kind": "systemEvent",
+        "text": "Reminder content"
+      },
+      "wakeMode": "now",          // immediate heartbeat wake
+      "deleteAfterRun": true,
+      "enabled": true
+    }
+    ```
 
-**Wakemode:**
-- `"now"` - immediate wake after job execution (for reminders)
-- `"next-heartbeat"` - waits for next scheduled heartbeat (default)
+    **Wakemode:**
+    - `"now"` - immediate wake after job execution (for reminders)
+    - `"next-heartbeat"` - waits for next scheduled heartbeat (default)
 
----
+    ---
 
-## Schedule Types
+    ## Schedule Types
 
-**One-shot (reminder):**
-```javascript
-"schedule": {"kind": "at", "atMs": "2026-01-25T12:30:00Z"}
-```
+    **One-shot (reminder):**
+    ```javascript
+    "schedule": {"kind": "at", "atMs": "2026-01-25T12:30:00Z"}
+    ```
 
-**Recurring (every X time):**
-```javascript
-"schedule": {"kind": "every", "everyMs": 3600000}  // every hour
-```
+    **Recurring (every X time):**
+    ```javascript
+    "schedule": {"kind": "every", "everyMs": 3600000}  // every hour
+    ```
 
-**Cron expression:**
-```javascript
-"schedule": {
-  "kind": "cron", 
-  "expr": "0 9 * * 1-5",  // 9:00 on weekdays
-  "tz": "Europe/Warsaw"   // optional timezone
-}
-```
+    **Cron expression:**
+    ```javascript
+    "schedule": {
+      "kind": "cron",
+      "expr": "0 9 * * 1-5",  // 9:00 on weekdays
+      "tz": "Europe/Warsaw"   // optional timezone
+    }
+    ```
 
----
+    ---
 
-## Timestamps
+    ## Timestamps
 
-**ISO 8601 (preferred):**
-- `"2026-01-25T12:30:00Z"` - UTC
-- `"2026-01-25T13:30:00+01:00"` - with timezone
-- Gateway automatically converts to milliseconds
+    **ISO 8601 (preferred):**
+    - `"2026-01-25T12:30:00Z"` - UTC
+    - `"2026-01-25T13:30:00+01:00"` - with timezone
+    - Gateway automatically converts to milliseconds
 
-**Unix timestamp (ms):**
-- `1769343420000` - milliseconds since epoch
+    **Unix timestamp (ms):**
+    - `1769343420000` - milliseconds since epoch
 
----
+    ---
 
-## Important Details
+    ## Important Details
 
-**Auto-delete:**
-```javascript
-"deleteAfterRun": true  // removes job after successful execution
-```
+    **Auto-delete:**
+    ```javascript
+    "deleteAfterRun": true  // removes job after successful execution
+    ```
 
-**Always verify timestamp is in the future.**
+    **Always verify timestamp is in the future.**
 
-**Delivery channels:**
-- `telegram`: requires chat_id (e.g. `"-5056149787"`)
-- `webchat`: requires session/user id
-- `whatsapp`: requires phone number
-- `discord`: requires channel/user id
-- `signal`: requires phone number
+    **Delivery channels:**
+    - `telegram`: requires chat_id (e.g. `"-5056149787"`)
+    - `webchat`: requires session/user id
+    - `whatsapp`: requires phone number
+    - `discord`: requires channel/user id
+    - `signal`: requires phone number
 
----
+    ---
 
-## Status Commands
+    ## Status Commands
 
-**List jobs:**
-```javascript
-cron.list
-```
+    **List jobs:**
+    ```javascript
+    cron.list
+    ```
 
-**Execution history:**
-```javascript
-cron.runs(jobId, limit)
-```
+    **Execution history:**
+    ```javascript
+    cron.runs(jobId, limit)
+    ```
 
-**Remove job:**
-```javascript
-cron.remove(jobId)
-```
+    **Remove job:**
+    ```javascript
+    cron.remove(jobId)
+    ```
 
----
+    ---
 
-## Examples
+    ## Examples
 
-**Reminder in 5 minutes:**
-```javascript
-{
-  "name": "Feed the cat",
-  "schedule": {"kind": "at", "atMs": "2026-01-25T12:35:00Z"},
-  "sessionTarget": "isolated",
-  "payload": {
-    "kind": "agentTurn",
-    "message": "Reminder: feed the cat",
-    "deliver": true,
-    "channel": "telegram",
-    "to": "-5056149787"
-  },
-  "deleteAfterRun": true,
-  "enabled": true
-}
-```
+    **Reminder in 5 minutes:**
+    ```javascript
+    {
+      "name": "Feed the cat",
+      "schedule": {"kind": "at", "atMs": "2026-01-25T12:35:00Z"},
+      "sessionTarget": "isolated",
+      "payload": {
+        "kind": "agentTurn",
+        "message": "Reminder: feed the cat",
+        "deliver": true,
+        "channel": "telegram",
+        "to": "-5056149787"
+      },
+      "deleteAfterRun": true,
+      "enabled": true
+    }
+    ```
 
-**Daily report at 9:00:**
-```javascript
-{
-  "name": "Daily report",
-  "schedule": {
-    "kind": "cron",
-    "expr": "0 9 * * *",
-    "tz": "Europe/Warsaw"
-  },
-  "sessionTarget": "isolated",
-  "payload": {
-    "kind": "agentTurn",
-    "message": "Generate daily report",
-    "deliver": true,
-    "channel": "telegram",
-    "to": "-5056149787"
-  },
-  "enabled": true
-}
-```
-EOF
+    **Daily report at 9:00:**
+    ```javascript
+    {
+      "name": "Daily report",
+      "schedule": {
+        "kind": "cron",
+        "expr": "0 9 * * *",
+        "tz": "Europe/Warsaw"
+      },
+      "sessionTarget": "isolated",
+      "payload": {
+        "kind": "agentTurn",
+        "message": "Generate daily report",
+        "deliver": true,
+        "channel": "telegram",
+        "to": "-5056149787"
+      },
+      "enabled": true
+    }
+    ```
+    EOF
 
-    cat > $out/HEARTBEAT.md << 'EOF'
-# Heartbeat checklist
+        cat > $out/HEARTBEAT.md << 'EOF'
+    # Heartbeat checklist
 
-- Quick scan: anything urgent or pending?
-- If it's daytime, do a lightweight check-in if nothing else is pending.
-- If a task is blocked, note what is missing and ask next time.
-- If nothing needs attention, reply HEARTBEAT_OK.
-EOF
+    - Quick scan: anything urgent or pending?
+    - If it's daytime, do a lightweight check-in if nothing else is pending.
+    - If a task is blocked, note what is missing and ask next time.
+    - If nothing needs attention, reply HEARTBEAT_OK.
+    EOF
   '';
 in {
+  imports = [
+    ./whisper.nix
+  ];
+
   options.services.clawdbot.enable = lib.mkEnableOption "Clawdbot AI gateway";
 
   config = lib.mkIf cfg.enable {
@@ -372,15 +413,15 @@ in {
         home = "/var/lib/clawdbot";
         createHome = true;
         shell = pkgs.bash;
-        packages = [ pkgs.gogcli pkgs.chromium pkgs.jq clawdbotPkg ];
+        packages = [pkgs.ffmpeg pkgs.python3 pkgs.bird pkgs.gogcli pkgs.chromium pkgs.jq clawdbotPkg pkgs.coreutils pkgs.bash];
       };
 
       users.groups.clawdbot = {};
 
       systemd.services.clawdbot = {
         description = "Clawdbot AI Gateway";
-        wantedBy = [ "multi-user.target" ];
-        after = [ "network.target" ];
+        wantedBy = ["multi-user.target"];
+        after = ["network.target"];
 
         serviceConfig = {
           Type = "simple";
@@ -393,14 +434,14 @@ in {
             "CLAWDBOT_STATE_DIR=/var/lib/clawdbot"
             "CLAWDBOT_NIX_MODE=1"
             "XDG_CONFIG_HOME=/var/lib/clawdbot/.config"
-            "PATH=${pkgs.gogcli}/bin:${pkgs.chromium}/bin:${clawdbotPkg}/bin:${pkgs.coreutils}/bin:${pkgs.bash}/bin:/run/current-system/sw/bin"
+            "PATH=/run/current-system/sw/bin:/etc/profiles/per-user/clawdbot/bin"
           ];
           ExecStartPre = [
             "${pkgs.coreutils}/bin/mkdir -p /var/lib/clawdbot/workspace"
             "${pkgs.coreutils}/bin/mkdir -p /var/lib/clawdbot/agents/main/sessions"
             "${pkgs.coreutils}/bin/mkdir -p /var/lib/clawdbot/credentials"
             "${pkgs.coreutils}/bin/mkdir -p /var/lib/clawdbot/.config"
-            "${pkgs.bash}/bin/bash -c '${pkgs.coreutils}/bin/cp -rf ${documents}/* /var/lib/clawdbot/workspace/ || true'"
+            "${pkgs.bash}/bin/bash -c '${pkgs.coreutils}/bin/cp -n ${documents}/* /var/lib/clawdbot/workspace/ || true'"
           ];
           ExecStart = "${clawdbotPkg}/bin/clawdbot gateway";
           Restart = "on-failure";

@@ -21,6 +21,10 @@
     degra-ical.url = "github:n3oney/degra-ical";
     nix-clawdbot.url = "github:das-monki/nix-clawdbot/nixos-aarch64-support";
     dissent.url = "github:diamondburned/dissent";
+    moltbot-src = {
+      url = "github:moltbot/moltbot";
+      flake = false;
+    };
     EffectPatterns = {
       url = "github:PauljPhilp/EffectPatterns";
       flake = false;

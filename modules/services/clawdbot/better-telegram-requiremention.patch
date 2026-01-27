@@ -1,0 +1,25 @@
+diff --git a/src/telegram/bot-message-context.ts b/src/telegram/bot-message-context.ts
+index d90b6ffea..fe2c3ec7b 100644
+--- a/src/telegram/bot-message-context.ts
++++ b/src/telegram/bot-message-context.ts
+@@ -363,19 +363,7 @@ export const buildTelegramMessageContext = async ({
+   if (isGroup && requireMention && canDetectMention) {
+     if (mentionGate.shouldSkip) {
+       logger.info({ chatId, reason: "no-mention" }, "skipping group message");
+-      recordPendingHistoryEntryIfEnabled({
+-        historyMap: groupHistories,
+-        historyKey: historyKey ?? "",
+-        limit: historyLimit,
+-        entry: historyKey
+-          ? {
+-              sender: buildSenderLabel(msg, senderId || chatId),
+-              body: rawBody,
+-              timestamp: msg.date ? msg.date * 1000 : undefined,
+-              messageId: typeof msg.message_id === "number" ? String(msg.message_id) : undefined,
+-            }
+-          : null,
+-      });
++      // Patch: Don't record ambient messages when requireMention is active
+       return null;
+     }
+   }
