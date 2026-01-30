@@ -137,6 +137,7 @@ in {
     spotify.enable = true;
     swappy.enable = true;
     thunderbird.enable = true;
+    vivaldi.enable = true;
     vscode.enable = true;
     zed.enable = true;
     zenBrowser.enable = true;
