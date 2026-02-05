@@ -7,6 +7,13 @@
   options.services.smarthome.cloudflared.enable = lib.mkEnableOption "cloudflared" // {default = config.services.smarthome.enable;};
 
   config.os = lib.mkIf config.services.smarthome.cloudflared.enable {
+    users.users.cloudflared = {
+      group = "cloudflared";
+      isSystemUser = true;
+    };
+
+    users.groups.cloudflared = {};
+
     services.cloudflared = {
       enable = true;
 
