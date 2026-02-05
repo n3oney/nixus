@@ -110,7 +110,7 @@ in {
     chrome.enable = true;
     discord = {
       enable = true;
-      useDissent = true;
+      # useDissent = true;
     };
     quickshell.enable = true;
     firefox.enable = false;
