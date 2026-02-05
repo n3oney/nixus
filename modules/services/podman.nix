@@ -7,6 +7,7 @@
 
   config = lib.mkIf config.services.podman.enable {
     impermanence.userDirs = [".local/share/containers"];
+    os.users.users.neoney.extraGroups = ["podman"];
     os.virtualisation.podman = {
       enable = true;
       dockerCompat = true;
