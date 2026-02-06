@@ -170,7 +170,7 @@
       # Biometrics-first: face → fingerprint → password
       # For services without a password prompt UI (sudo, polkit)
       biometricsFirstAuth = {
-        howdy = {
+        howdy-custom = {
           enable = true;
           control = "sufficient";
           modulePath = "${howdy}/lib/security/pam_howdy.so";
@@ -222,18 +222,33 @@
         };
       };
     in {
-      sudo.rules.auth = biometricsFirstAuth;
-      polkit-1.rules.auth = biometricsFirstAuth;
+      sudo = {
+        howdy.enable = lib.mkForce false;
+        rules.auth = biometricsFirstAuth;
+      };
+      polkit-1 = {
+        howdy.enable = lib.mkForce false;
+        rules.auth = biometricsFirstAuth;
+      };
 
       # greetd: Use default NixOS PAM with enableGnomeKeyring (set in login.nix)
       # This avoids the "no password is available" issue by letting NixOS
       # configure the PAM stack correctly for keyring auto-unlock
-      # Explicitly disable fprintd for greetd only
-      greetd.rules.auth.fprintd.enable = lib.mkForce false;
+      # Explicitly disable howdy and fprintd for greetd only
+      greetd = {
+        howdy.enable = lib.mkForce false;
+        rules.auth.fprintd.enable = lib.mkForce false;
+      };
 
       # login/hyprlock: Keep biometric fallback with fingerprint
-      login.rules.auth = passwordFirstWithBiometrics;
-      hyprlock.rules.auth = passwordFirstWithBiometrics;
+      login = {
+        howdy.enable = lib.mkForce false;
+        rules.auth = passwordFirstWithBiometrics;
+      };
+      hyprlock = {
+        howdy.enable = lib.mkForce false;
+        rules.auth = passwordFirstWithBiometrics;
+      };
     };
   };
 

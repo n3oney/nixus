@@ -6,34 +6,9 @@
   ...
 }: let
   geminiAuthPlugin = import ./gemini-auth.nix {inherit pkgs;};
-  anthropicAuthPlugin = import ./anthropic-auth.nix {inherit pkgs;};
+  # anthropicAuthPlugin = import ./anthropic-auth.nix {inherit pkgs;};
 
-  opencode = inputs.nix-ai-tools.packages.${pkgs.stdenv.hostPlatform.system}.opencode.overrideAttrs (old: {
-    # Enable the LSP tool
-    buildInputs = old.buildInputs ++ [pkgs.makeWrapper];
-    postInstall =
-      (old.postInstall or "")
-      + ''
-        TARGET="$out/bin/.opencode-wrapped"
-        # We replace the Anthropic plugin with the Copilot plugin name (plus padding).
-        # The app code explicitly ignores plugins with this name, so it will
-        # skip the installation logic entirely without crashing.
-        # Length: 29 characters.
-        SEARCH="opencode-anthropic-auth@0.0.9"
-        REPLACE="opencode-copilot-auth        "
-
-        # 1. Safety Check: Ensure we aren't patching blindly
-        if ! grep -Fq "$SEARCH" "$TARGET"; then
-            echo "ERROR: Could not find string '$SEARCH' in $TARGET"
-            exit 1
-        fi
-
-        # 2. Perform the surgery
-        sed -i "s/$SEARCH/$REPLACE/g" "$TARGET"
-
-        wrapProgram "$out/bin/opencode" --set OPENCODE_EXPERIMENTAL_LSP_TOOL true
-      '';
-  });
+  opencode = inputs.nix-ai-tools.packages.${pkgs.stdenv.hostPlatform.system}.opencode;
   # effect-patterns repo seems to be in a weird state
   /*
   effectPatternsPath = "${inputs.EffectPatterns}/content/published/patterns";
@@ -176,7 +151,7 @@ in {
             #"@nick-vi/opencode-type-inject"
 
             "file://${geminiAuthPlugin}"
-            "file://${anthropicAuthPlugin}"
+            # "file://${anthropicAuthPlugin}"
             "@franlol/opencode-md-table-formatter@0.0.3"
             "@tarquinen/opencode-dcp@latest"
           ];

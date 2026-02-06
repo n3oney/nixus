@@ -19,7 +19,7 @@
       url = "github:rose-pine/btop";
     };
     degra-ical.url = "github:n3oney/degra-ical";
-    nix-clawdbot.url = "github:das-monki/nix-clawdbot/nixos-aarch64-support";
+    nix-openclaw.url = "github:openclaw/nix-openclaw";
     dissent.url = "github:diamondburned/dissent";
     moltbot-src = {
       url = "github:moltbot/moltbot";
@@ -66,7 +66,6 @@
       url = "github:nix-community/lanzaboote/v1.0.0";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    nixpkgs-howdy.url = "github:fufexan/nixpkgs/howdy";
     nvf.url = "github:NotAShelf/nvf";
     quickshell = {
       url = "git+https://git.outfoxxed.me/outfoxxed/quickshell";

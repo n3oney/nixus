@@ -7,23 +7,20 @@
   ...
 }: let
   cfg = config.services.clawdbot;
-  clawdbotPkg = inputs.nix-clawdbot.packages.${pkgs.system}.clawdbot-gateway.overrideAttrs (old: {
-    src = inputs.moltbot-src;
-    pnpmDeps = pkgs.pnpm_10.fetchDeps {
-      pname = old.pname;
-      version = old.version;
-      src = inputs.moltbot-src;
-      hash = "sha256-7627rdKZopr2oStPDYNhkKCKySx2rf9v5rcauJ4DhWw=";
-      fetcherVersion = 2;
-      nativeBuildInputs = [pkgs.git];
-    };
-    patches =
-      (old.patches or [])
-      ++ [
-        ./ignore-thread-id.patch
-        ./better-telegram-requiremention.patch
-      ];
-  });
+  clawdbotPkg =
+    (pkgs.callPackage "${inputs.nix-openclaw}/nix/packages/openclaw-gateway.nix" {
+      sourceInfo = {
+        pnpmDepsHash = "sha256-gM5/JvzzqDnnZlTNg+LQNcb1CMNds/c1AOjEr+/8/cs=";
+      };
+      gatewaySrc = inputs.moltbot-src;
+    }).overrideAttrs (old: {
+      patches =
+        (old.patches or [])
+        ++ [
+          ./ignore-thread-id.patch
+          ./better-telegram-requiremention.patch
+        ];
+    });
 
   # Generate config file
   clawdbotConfig = {
@@ -109,6 +106,7 @@
     };
     channels = {
       telegram = {
+        actions.sticker = true;
         mediaMaxMb = 20;
 
         enabled = true;
@@ -443,7 +441,7 @@ in {
             "${pkgs.coreutils}/bin/mkdir -p /var/lib/clawdbot/.config"
             "${pkgs.bash}/bin/bash -c '${pkgs.coreutils}/bin/cp -n ${documents}/* /var/lib/clawdbot/workspace/ || true'"
           ];
-          ExecStart = "${clawdbotPkg}/bin/clawdbot gateway";
+          ExecStart = "${clawdbotPkg}/bin/openclaw gateway";
           Restart = "on-failure";
           RestartSec = "10s";
         };

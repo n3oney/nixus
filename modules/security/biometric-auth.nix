@@ -6,13 +6,12 @@
   ...
 }: let
   cfg = config.biometricAuth;
-  howdyPkgs = inputs.nixpkgs-howdy.legacyPackages.${pkgs.stdenv.hostPlatform.system};
 in {
   options.biometricAuth = {
     howdy = {
       enable = lib.mkEnableOption "Howdy facial authentication";
       package = lib.mkOption {
-        default = howdyPkgs.howdy;
+        default = pkgs.howdy;
       };
 
       biometricsFirst = lib.mkOption {
@@ -77,14 +76,19 @@ in {
         lib.listToAttrs (
           map (svc: {
             name = svc;
-            value.rules.auth = lib.mkMerge [
-              (lib.mkIf cfg.howdy.enable {
-                howdy = mkHowdyRule orderPreset.howdy;
-              })
-              (lib.mkIf cfg.fingerprint.enable {
-                fprintd = mkFprintdRule orderPreset.fprintd;
-              })
-            ];
+            value = {
+              # Disable upstream howdy PAM integration since we manage it manually with custom ordering
+              howdy.enable = lib.mkForce false;
+              
+              rules.auth = lib.mkMerge [
+                (lib.mkIf cfg.howdy.enable {
+                  howdy-custom = mkHowdyRule orderPreset.howdy;
+                })
+                (lib.mkIf cfg.fingerprint.enable {
+                  fprintd = mkFprintdRule orderPreset.fprintd;
+                })
+              ];
+            };
           })
           services
         );
@@ -92,11 +96,6 @@ in {
       lib.mkMerge [
         # Howdy service configuration
         (lib.mkIf cfg.howdy.enable {
-          osModules = [
-            "${inputs.nixpkgs-howdy}/nixos/modules/services/security/howdy"
-            "${inputs.nixpkgs-howdy}/nixos/modules/services/misc/linux-enable-ir-emitter.nix"
-          ];
-
           os = {
             services.howdy = {
               enable = true;
@@ -104,7 +103,7 @@ in {
             };
             services.linux-enable-ir-emitter = {
               enable = true;
-              package = howdyPkgs.linux-enable-ir-emitter;
+              package = pkgs.linux-enable-ir-emitter;
             };
 
             security.pam.services = lib.mkMerge [
