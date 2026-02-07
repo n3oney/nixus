@@ -14,6 +14,11 @@
 
   impermanence.systemDirs = ["/etc/NetworkManager"];
 
+  windowsBoot = {
+    enable = true;
+    bootEntry = "0004";
+  };
+
   os = {
     nixpkgs.config.allowUnfree = true;
 
