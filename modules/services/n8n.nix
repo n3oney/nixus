@@ -1,6 +1,7 @@
 {
   lib,
   config,
+  pkgs,
   ...
 }: {
   options.services.n8n.enable = lib.mkEnableOption "n8n";
@@ -16,10 +17,13 @@
       };
     };
 
-    systemd.services.n8n.environment = {
-      N8N_PORT = builtins.toString port;
-      N8N_PROXY_HOPS = "1";
-      WEBHOOK_URL = "https://${host}/";
+    systemd.services.n8n = {
+      path = [pkgs.nodejs pkgs.gnutar pkgs.gzip];
+      environment = {
+        N8N_PORT = builtins.toString port;
+        N8N_PROXY_HOPS = "1";
+        WEBHOOK_URL = "https://${host}/";
+      };
     };
 
     services.caddy = {
