@@ -73,11 +73,11 @@ in {
           }
           {
             providerID = "anthropic";
-            modelID = "claude-opus-4-5";
+            modelID = "claude-opus-4-6";
           }
           {
             providerID = "anthropic";
-            modelID = "claude-sonnet-4-5";
+            modelID = "claude-sonnet-4-6";
           }
           {
             providerID = "anthropic";
@@ -137,10 +137,10 @@ in {
         enable = true;
         settings = {
           agent = {
-            plan.model = "anthropic/claude-opus-4-5";
-            build.model = "anthropic/claude-sonnet-4-5";
+            plan.model = "anthropic/claude-opus-4-6";
+            build.model = "anthropic/claude-sonnet-4-6";
             explore.model = "anthropic/claude-haiku-4-5";
-            general.model = "anthropic/claude-sonnet-4-5";
+            general.model = "anthropic/claude-sonnet-4-6";
             compaction.model = "anthropic/claude-haiku-4-5";
           };
           permission.lsp = "allow";
