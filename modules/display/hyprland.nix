@@ -46,6 +46,12 @@ in {
       type = types.float;
       default = 0;
     };
+
+    deviceOverrides = mkOption {
+      type = types.listOf (types.attrsOf types.anything);
+      default = [];
+      description = "Per-device input overrides (e.g., sensitivity)";
+    };
   };
 
   config = mkIf cfg.enable {
@@ -129,7 +135,7 @@ in {
               name = "ydotoold-virtual-device-1";
               sensitivity = 0;
             }
-          ];
+          ] ++ cfg.deviceOverrides;
 
           gesture = [
             "3, horizontal, workspace"

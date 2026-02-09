@@ -58,6 +58,17 @@
     ];
     mouseSensitivity = 0.00;
 
+    deviceOverrides = [
+      {
+        name = "corne-mouse";
+        sensitivity = -0.7;
+      }
+      {
+        name = "zmk-project-corne-mouse";
+        sensitivity = -0.7;
+      }
+    ];
+
     screenshotKeybinds = {
       active = ", Print";
       area = "SHIFT, Print";
