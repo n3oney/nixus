@@ -87,9 +87,10 @@
 
     programs.git = {
       enable = true;
-      userName = name;
-      userEmail = email;
-      extraConfig = {
+      settings = {
+        user = {
+          inherit name email;
+        };
         url."git@github.com:".insteadOf = "https://github.com/";
         user.signingkey = "/home/neoney/.ssh/id_ed25519_sk.pub";
         gpg.format = "ssh";
@@ -97,15 +98,16 @@
         init.defaultBranch = "main";
         push.autoSetupRemote = true;
       };
-      difftastic = {
-        enable = true;
-        enableAsDifftool = true;
-        background = "dark";
-      };
     };
 
     programs.difftastic = {
-      git.enable = true;
+      options = {
+        background = "dark";
+      };
+      git = {
+        diffToolMode = true;
+        enable = true;
+      };
       enable = true;
     };
 
