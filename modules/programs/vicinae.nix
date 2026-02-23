@@ -10,6 +10,19 @@
   config = lib.mkIf config.programs.vicinae.enable {
     impermanence.userDirs = [".local/share/vicinae"];
 
+    # Native messaging host for Vivaldi browser integration
+    hm.xdg.configFile."vivaldi/NativeMessagingHosts/com.vicinae.vicinae.json" = lib.mkIf config.programs.vivaldi.enable {
+      text = builtins.toJSON {
+        name = "com.vicinae.vicinae";
+        description = "Vicinae browser integration";
+        path = "${hmConfig.programs.vicinae.package}/bin/vicinae";
+        type = "stdio";
+        allowed_origins = [
+          "chrome-extension://kcmipingpfbohfjckomimmahknoddnke/"
+        ];
+      };
+    };
+
     hm.programs.vicinae = {
       enable = true;
 
