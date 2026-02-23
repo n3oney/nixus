@@ -29,7 +29,7 @@
       systemd = {
         enable = true;
         autoStart = true;
-        target = "hyprland-session.target";
+        target = "graphical-session.target";
       };
 
       useLayerShell = true;
