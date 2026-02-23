@@ -283,11 +283,11 @@
         "nixpkgs": "nixpkgs_7"
       },
       "locked": {
-        "lastModified": 1760726025,
-        "narHash": "sha256-82FCrbLY6X19Rpw5t39R6it+oyWSLIb40r0TB4q3ikk=",
+        "lastModified": 1771919786,
+        "narHash": "sha256-wkE0gVnOAz6qqAEp25dAEUeWh8bmAIBCQ7sAHuqiUUE=",
         "owner": "n3oney",
         "repo": "degra-ical",
-        "rev": "841c9b0ea1d83e6413d75da6cc712fc35d0b7260",
+        "rev": "944417df979d75db7aa703548a61b777b1b15d18",
         "type": "github"
       },
       "original": {
