@@ -22,7 +22,7 @@
       (mkBind "${mainMod}, M" "exit," "Close Hyprland")
       (mkBind "${mainMod}, P" "exec, hyprpicker -a" "Open color picker")
       (mkBind "${mainMod}, S" "togglefloating," "Toggle floating")
-      (mkBind "${mainMod}, space" "exec, uwsm app -- anyrun" "Open application launcher")
+      (mkBind "${mainMod}, space" "exec, vicinae toggle" "Open application launcher")
       (mkBind "${mainMod}, T" "togglesplit," "Toggle split direction")
       (mkBind "${mainMod}, Q" "togglespecialworkspace," "Toggle special workspace")
       (mkBind "${mainMod}, C" "movetoworkspace, special" "Move window to special workspace")

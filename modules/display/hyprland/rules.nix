@@ -104,9 +104,9 @@ in {
         (mkLayerRule "no_anim on" "bar-0")
         (mkLayerRule "blur on" "gtk-layer-shell")
         (mkLayerRule "ignore_alpha 0" "gtk-layer-shell")
-        (mkLayerRule "blur on" "anyrun")
-        (mkLayerRule "ignore_alpha 0.2" "anyrun")
-        (mkLayerRule "no_anim on" "anyrun")
+        (mkLayerRule "blur on" "vicinae")
+        (mkLayerRule "ignore_alpha 0.2" "vicinae")
+        (mkLayerRule "no_anim on" "vicinae")
         (mkLayerRule "blur on" "notifications")
         (mkLayerRule "ignore_alpha 0" "notifications")
 

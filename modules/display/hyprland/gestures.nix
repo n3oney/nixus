@@ -33,12 +33,12 @@ in {
               emulate_touchpad_swipe = true;
 
               # Custom gesture bindings
-              # Swipe down from top edge → open anyrun
+              # Swipe down from top edge → open vicinae
               # 4-finger swipe down → close window
               # 3-finger tap → toggle floating
               # Swipe up from bottom edge → toggle squeekboard
               hyprgrass-bind = [
-                ", edge:u:d, exec, uwsm app -- anyrun"
+                ", edge:u:d, exec, vicinae toggle"
                 # ", edge:d:u, exec, ${toggleSqueekboard}"
                 ", swipe:4:d, killactive"
                 ", tap:3, togglefloating"

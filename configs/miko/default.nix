@@ -104,7 +104,8 @@ in {
   programs = {
     adb.enable = true;
     waydroid.enable = true;
-    anyrun.enable = true;
+    anyrun.enable = false;
+    vicinae.enable = true;
     bottles.enable = true;
     btop.enable = true;
     chrome.enable = true;
