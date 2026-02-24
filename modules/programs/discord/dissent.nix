@@ -15,6 +15,7 @@
       binaryPath = "${package}/bin/dissent";
       defaultWorkspace = lib.mkDefault 19;
       windowClass = "so.libdb.dissent";
+      blockFromScreencast = true;
     };
 
     impermanence.userDirs = [".config/dissent"];

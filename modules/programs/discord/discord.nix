@@ -31,8 +31,10 @@ in {
       autostart = true;
       binaryPath = lib.getExe cfg.finalPackage;
       defaultWorkspace = lib.mkDefault 19;
+      defaultColumnWidth = 0.75;
       windowClass = "vesktop";
       type = "app";
+      blockFromScreencast = true;
     };
 
     impermanence.userDirs =  [".config/vesktop"];
