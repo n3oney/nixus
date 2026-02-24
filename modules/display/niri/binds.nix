@@ -82,6 +82,9 @@ in {
         # App launcher
         "Mod+Space".action.spawn = ["vicinae" "toggle"];
 
+        # Lock
+        "Mod+L".action.spawn = ["loginctl" "lock-session"];
+
         # Color picker
         "Mod+P".action.spawn = ["hyprpicker" "-a"];
 
