@@ -52,7 +52,7 @@ in {
           lock_cmd = "${lockScript}";
           unlock_cmd = "/run/wrappers/bin/physlock -Ld";
           before_sleep_cmd = "loginctl lock-session";
-          after_sleep_cmd = "hyprctl dispatch dpms on";
+          after_sleep_cmd = "hyprctl dispatch dpms on || niri msg action power-on-monitors";
           ignore_dbus_inhibit = false;
         };
 
@@ -63,8 +63,8 @@ in {
           }
           {
             timeout = 360; # 6min
-            on-timeout = "hyprctl dispatch dpms off";
-            on-resume = "hyprctl dispatch dpms on";
+            on-timeout = "hyprctl dispatch dpms off || niri msg action power-off-monitors";
+            on-resume = "hyprctl dispatch dpms on || niri msg action power-on-monitors";
           }
           {
             timeout = 420; # 7min
