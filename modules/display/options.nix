@@ -111,6 +111,12 @@ in {
       description = "List of monitors";
     };
 
+    niri.cornerRadius = mkOption {
+      type = types.float;
+      default = 20.0;
+      description = "Corner radius for niri windows (used for window rounding and screenshot shadow radius)";
+    };
+
     screenshotKeybinds = {
       active = mkOption {
         type = types.nullOr types.str;
