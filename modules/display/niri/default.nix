@@ -123,9 +123,9 @@ in {
             (leaf "blur" true)
           ])
         ])
-        # Blur notifications, bar, and vicinae layer surfaces
+        # Blur notifications and bar layer surfaces
         (plain "layer-rule" [
-          (leaf "match" {namespace = "^(notifications|bar|vicinae)$";})
+          (leaf "match" {namespace = "^(notifications|bar)$";})
           (plain "background-effect" [
             (leaf "blur" true)
           ])

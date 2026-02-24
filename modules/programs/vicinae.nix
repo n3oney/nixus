@@ -3,6 +3,7 @@
   lib,
   config,
   hmConfig,
+  inputs,
   ...
 }: {
   options.programs.vicinae.enable = lib.mkEnableOption "vicinae";
@@ -98,6 +99,8 @@
 
     hm.programs.vicinae = {
       enable = true;
+
+      package = inputs.vicinae.packages.${pkgs.stdenv.hostPlatform.system}.default;
 
       systemd = {
         enable = true;
