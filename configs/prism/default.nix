@@ -75,6 +75,15 @@
 
   applications.discord.defaultWorkspace = 9;
 
+  applications.telegram = {
+    autostart = true;
+    binaryPath = lib.getExe pkgs.telegram-desktop;
+    defaultWorkspace = 9;
+    defaultColumnWidth = 0.75;
+    windowClass = "org.telegram.desktop";
+    blockFromScreencast = true;
+  };
+
   programs = {
     # waydroid.enable = true;
     anyrun.enable = false;

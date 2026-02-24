@@ -168,6 +168,15 @@
   nur.enable = true;
   agenix.enable = true;
 
+  applications.telegram = {
+    autostart = true;
+    binaryPath = lib.getExe pkgs.telegram-desktop;
+    defaultWorkspace = 19;
+    defaultColumnWidth = 0.75;
+    windowClass = "org.telegram.desktop";
+    blockFromScreencast = true;
+  };
+
   hm.home.packages = with pkgs; [
     cloudflared
     horizontallyspinningrat
