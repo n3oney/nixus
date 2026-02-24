@@ -52,8 +52,6 @@
     ];
 
     keyboards = [
-      "logitech-g915-tkl-lightspeed-wireless-rgb-mechanical-gaming-keyboard"
-      "logitech-usb-receiver-keyboard"
       "corne-keyboard"
     ];
     mouseSensitivity = 0.00;

@@ -2,9 +2,7 @@
   pkgs,
   lib,
   ...
-}: let
-  secondarySink = "tunnel.max.local.alsa_output.usb-Logitech_PRO_X_000000000000-00.analog-stereo";
-in {
+}: {
   users.main = "neoney";
 
   bluetooth.enable = true;
@@ -84,14 +82,21 @@ in {
       }
     ];
 
-    inherit secondarySink;
     keyboards = [
-      "logitech-g915-tkl-lightspeed-wireless-rgb-mechanical-gaming-keyboard"
-      "logitech-usb-receiver-keyboard"
       "logitech-k400-plus"
       "corne-keyboard"
     ];
     mouseSensitivity = -0.76;
+    deviceOverrides = [
+      {
+        name = "glorious-model-o-wireless";
+        sensitivity = -0.76;
+      }
+      {
+        name = "ydotoold-virtual-device-1";
+        sensitivity = 0;
+      }
+    ];
 
     screenshotKeybinds = {
       active = ", Print";

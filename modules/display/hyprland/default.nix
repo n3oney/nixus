@@ -7,50 +7,30 @@
 }: let
   cfg = config.display;
   inherit (lib) mkEnableOption mkOption types mkIf;
+  # Note: display.enable, monitors, keyboards, mouseSensitivity, deviceOverrides,
+  # screenshotKeybinds are defined in ../options.nix
 in {
   imports = [
-    ./hyprland/binds.nix
-    ./hyprland/rules.nix
-    ./hyprland/appearance.nix
-    ./hyprland/wallpaper.nix
-    ./hyprland/monitors.nix
-    ./hyprland/packages.nix
-    ./hyprland/startup.nix
-    ./hyprland/idle.nix
-    ./hyprland/lock.nix
-    ./hyprland/gyro.nix
-    ./hyprland/gestures.nix
+    ./binds.nix
+    ./rules.nix
+    ./appearance.nix
+    ./wallpaper.nix
+    ./monitors.nix
+    ./packages.nix
+    ./startup.nix
+    ./idle.nix
+    ./lock.nix
+    ./gyro.nix
+    ./gestures.nix
   ];
 
   options.display = {
-    enable = mkEnableOption "Display";
-
+    # Hyprland-specific options (compositor-agnostic options are in ../options.nix)
     enableTearing = mkEnableOption "Tearing";
 
     package = mkOption {
       type = types.package;
       default = pkgs.hyprland;
-    };
-
-    secondarySink = mkOption {
-      type = types.nullOr types.str;
-      default = null;
-    };
-
-    keyboards = mkOption {
-      type = types.listOf types.str;
-      default = [];
-    };
-
-    mouseSensitivity = mkOption {
-      type = types.float;
-      default = 0;
-    };
-
-    deviceOverrides = mkOption {
-      type = types.listOf (types.attrsOf types.anything);
-      default = [];
-      description = "Per-device input overrides (e.g., sensitivity)";
     };
   };
 
@@ -126,16 +106,7 @@ in {
             };
           };
 
-          device = [
-            {
-              name = "glorious-model-o-wireless";
-              sensitivity = -0.76;
-            }
-            {
-              name = "ydotoold-virtual-device-1";
-              sensitivity = 0;
-            }
-          ] ++ cfg.deviceOverrides;
+          device = cfg.deviceOverrides;
 
           gesture = [
             "3, horizontal, workspace"

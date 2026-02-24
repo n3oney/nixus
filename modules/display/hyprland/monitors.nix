@@ -4,7 +4,7 @@
   ...
 }: let
   cfg = config.display;
-  inherit (lib) mkOption types mkIf optional optionals concatStringsSep;
+  inherit (lib) mkIf optional optionals concatStringsSep;
 
   # Normalize workspace entry (int or submodule -> consistent attrs)
   normalizeWs = ws:
@@ -64,99 +64,6 @@
   # Generate all workspace keybinds
   workspaceBinds = lib.flatten (map (monitor: lib.flatten (map (mkWorkspaceBinds monitor) monitor.workspaces)) cfg.monitors);
 in {
-  options.display = {
-    monitors = mkOption {
-      type = types.listOf (types.submodule {
-        options = {
-          name = mkOption {
-            type = types.str;
-            description = "Monitor name (e.g., DP-1, HDMI-A-1)";
-          };
-          width = mkOption {
-            type = types.int;
-            description = "Monitor width in pixels";
-          };
-          height = mkOption {
-            type = types.int;
-            description = "Monitor height in pixels";
-          };
-          refreshRate = mkOption {
-            type = types.int;
-            default = 60;
-            description = "Monitor refresh rate in Hz";
-          };
-          scale = mkOption {
-            type = types.float;
-            default = 1.0;
-            description = "Monitor scale factor";
-          };
-          position = mkOption {
-            type = types.str;
-            default = "auto";
-            description = "Monitor position (e.g., '0x0', 'auto-right', '317x1440')";
-          };
-          transform = mkOption {
-            type = types.str;
-            default = "0";
-            description = "Monitor transform (rotation)";
-          };
-          isMain = mkOption {
-            type = types.bool;
-            default = false;
-            description = "Whether this is the main monitor";
-          };
-
-          workspaces = mkOption {
-            type = types.listOf (types.either types.int (types.submodule {
-              options = {
-                id = mkOption {
-                  type = types.int;
-                  description = "Workspace ID";
-                };
-                default = mkOption {
-                  type = types.bool;
-                  default = false;
-                  description = "Whether this is the default workspace for this monitor";
-                };
-                gapsIn = mkOption {
-                  type = types.nullOr types.int;
-                  default = null;
-                  description = "Inner gaps override for this workspace";
-                };
-                gapsOut = mkOption {
-                  type = types.nullOr types.int;
-                  default = null;
-                  description = "Outer gaps override for this workspace";
-                };
-                border = mkOption {
-                  type = types.nullOr types.bool;
-                  default = null;
-                  description = "Border override for this workspace";
-                };
-              };
-            }));
-            default = [];
-            description = "List of workspaces assigned to this monitor";
-          };
-
-          workspaceMod = mkOption {
-            type = types.nullOr types.str;
-            default = null;
-            description = "Modifier keys for workspace keybinds (e.g., 'SUPER', 'SUPER ALT'). If null, no keybinds are generated.";
-          };
-
-          workspaceKey = mkOption {
-            type = types.nullOr (types.functionTo types.str);
-            default = null;
-            description = "Function: workspace id -> key string (e.g., '1', '0'). Used with workspaceMod to generate keybinds.";
-          };
-        };
-      });
-      default = [];
-      description = "List of monitors";
-    };
-  };
-
   config = mkIf cfg.enable {
     hm.wayland.windowManager.hyprland.settings = {
       monitor = monitorConfigs;

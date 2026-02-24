@@ -6,7 +6,6 @@
   ...
 }: let
   cfg = config.display;
-  inherit (lib) mkOption types;
   mainMod = "SUPER";
   mkBind = bind: action: comment: {inherit bind action comment;};
   windowSwitchBind = bind: direction: comment: mkBind "${mainMod}, ${bind}" "exec, hyprctl activewindow -j | $(jaq -r \"if .fullscreen != 0 then \\\"hyprctl dispatch focusmonitor ${direction}\\\" else \\\"hyprctl dispatch movefocus ${direction}\\\" end\")" comment;
@@ -58,30 +57,8 @@
     ++ (lib.optionals (cfg.screenshotKeybinds.area != null) [(mkBind cfg.screenshotKeybinds.area "exec, pauseshot | shadower | wl-copy -t image/png && ${pkgs.dunst}/bin/dunstify 'Screenshot taken' --expire-time 1000" "Take screenshot of an area")])
     ++ (lib.optionals (cfg.screenshotKeybinds.all != null) [(mkBind cfg.screenshotKeybinds.all "exec, grimblast copy && ${pkgs.dunst}/bin/dunstify 'Screenshot taken' --expire-time 1000" "Take screenshot of everything")])
     ++ (lib.optionals (cfg.screenshotKeybinds.monitor != null) [(mkBind cfg.screenshotKeybinds.monitor "exec, grimblast copy output && ${pkgs.dunst}/bin/dunstify 'Screenshot taken' --expire-time 1000" "Take screenshot of current monitor")])
-    # mute for secondary
-    ++ (lib.optionals (cfg.secondarySink != null) [(mkBind "ALT, XF86AudioMute" "exec, pactl set-sink-mute ${cfg.secondarySink} toggle" null)]);
+    ;
 in {
-  options.display = {
-    screenshotKeybinds = {
-      active = mkOption {
-        type = types.nullOr types.str;
-        default = null;
-      };
-      area = mkOption {
-        type = types.nullOr types.str;
-        default = null;
-      };
-      all = mkOption {
-        type = types.nullOr types.str;
-        default = null;
-      };
-      monitor = mkOption {
-        type = types.nullOr types.str;
-        default = null;
-      };
-    };
-  };
-
   config = lib.mkIf cfg.enable {
     hm.wayland.windowManager.hyprland.settings = {
       bind = builtins.map (b: b.bind + "," + b.action) binds;
@@ -96,7 +73,7 @@ in {
           ", XF86MonBrightnessUp, exec, ${lib.getExe pkgs.brightnessctl} set +5%"
           ", XF86MonBrightnessDown, exec, ${lib.getExe pkgs.brightnessctl} set 5%-"
         ]
-        ++ (lib.optionals (cfg.secondarySink != null) ["ALT, XF86AudioRaiseVolume, exec, pactl set-sink-volume ${cfg.secondarySink} +5%" "ALT, XF86AudioLowerVolume, exec, pactl set-sink-volume ${cfg.secondarySink} -5%"]);
+        ;
 
       # Move/resize windows with mainMod + LMB/RMB and dragging
       bindm = [
