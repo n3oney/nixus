@@ -53,6 +53,7 @@ in {
     hm.programs.niri.package = pkgs.niri-unstable;
 
     hm.programs.niri.settings = {
+      xwayland-satellite.path = lib.getExe pkgs.xwayland-satellite;
       prefer-no-csd = true;
 
       hotkey-overlay.skip-at-startup = true;
