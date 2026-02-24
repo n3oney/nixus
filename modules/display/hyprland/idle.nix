@@ -16,8 +16,29 @@
   '';
 
   # Suspend script with CPU check
+  # 10 Mbps in bytes/sec
+  netThreshold = 1250000;
+
   suspendScript = pkgs.writeShellScript "suspend-script" ''
-    if [ "$(${pkgs.sysstat}/bin/mpstat -o JSON 1 1 | ${lib.getExe pkgs.jaq} -r '.sysstat.hosts[0].statistics[0]["cpu-load"][0].usr | floor')" -lt 80 ]; then
+    cpu=$(${pkgs.sysstat}/bin/mpstat -o JSON 1 1 | ${lib.getExe pkgs.jaq} -r '.sysstat.hosts[0].statistics[0]["cpu-load"][0].usr | floor')
+
+    # Sum rx_bytes across all non-lo interfaces, wait 1s, compare
+    get_rx() {
+      local total=0
+      for f in /sys/class/net/*/statistics/rx_bytes; do
+        iface=$(echo "$f" | cut -d/ -f5)
+        [ "$iface" = "lo" ] && continue
+        total=$((total + $(cat "$f")))
+      done
+      echo "$total"
+    }
+
+    rx1=$(get_rx)
+    sleep 1
+    rx2=$(get_rx)
+    net_bps=$((rx2 - rx1))
+
+    if [ "$cpu" -lt 80 ] && [ "$net_bps" -lt ${toString netThreshold} ]; then
       systemctl suspend
     fi
   '';
