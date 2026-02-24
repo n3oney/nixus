@@ -32,6 +32,7 @@ in {
           "render"
           "kvm"
           "plugdev"
+          "systemd-journal"
         ];
       };
       users.mutableUsers = false;
