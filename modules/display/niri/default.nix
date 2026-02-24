@@ -74,6 +74,7 @@ in {
         touchpad = {
           tap = true;
           natural-scroll = true;
+          accel-profile = "flat";
           drag-lock = true;
           click-method = "clickfinger";
           dwt = true;
