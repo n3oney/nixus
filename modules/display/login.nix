@@ -45,7 +45,6 @@
           };
         }
       );
-
     in {
       # Make session files available in /run/current-system/sw/share/
       environment.pathsToLink = [
@@ -84,7 +83,7 @@
       systemd.tmpfiles.rules = [
         "d /var/cache/nwg-hello 0755 greeter greeter -"
         "C /var/cache/nwg-hello/cache.json 0644 greeter greeter - ${pkgs.writeText "nwg-hello-cache" (builtins.toJSON {
-          sessions.neoney = "uwsm start -e -D Hyprland hyprland.desktop";
+          sessions.neoney = "niri-session";
           user = "neoney";
         })}"
       ];
