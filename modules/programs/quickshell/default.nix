@@ -146,6 +146,25 @@ in {
       const animationBezier = ${bezierValues};
     '';
 
+    # niri-offscreen-indicator
+    xdg.configFile."quickshell/niri-offscreen-indicator/shell.qml".source = ./niri-offscreen-indicator/shell.qml;
+
+    systemd.user.services.quickshell-niri-offscreen-indicator = {
+      Unit = {
+        Description = "Quickshell Niri Offscreen Indicator";
+        PartOf = ["graphical-session.target"];
+        After = ["graphical-session.target"];
+      };
+      Service = {
+        ExecStart = "${cfg.package}/bin/quickshell -c niri-offscreen-indicator";
+        Restart = "on-failure";
+        RestartSec = 3;
+      };
+      Install = {
+        WantedBy = ["graphical-session.target"];
+      };
+    };
+
     systemd.user.services.quickshell = {
       Unit = {
         Description = "Quickshell";
