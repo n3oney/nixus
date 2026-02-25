@@ -34,7 +34,7 @@
       text = builtins.toJSON {
         name = "com.vicinae.vicinae";
         description = "Vicinae browser integration";
-        path = "${hmConfig.programs.vicinae.package}/bin/vicinae";
+        path = "${hmConfig.programs.vicinae.package}/libexec/vicinae/vicinae-browser-link";
         type = "stdio";
         allowed_origins = [
           "chrome-extension://kcmipingpfbohfjckomimmahknoddnke/"
