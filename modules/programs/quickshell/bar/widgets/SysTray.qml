@@ -30,6 +30,7 @@ RowLayout {
             id: trayItem
             required property SystemTrayItem modelData
             property bool menuOpen: false
+            property real menuX: 0
             
             implicitWidth: 28
             implicitHeight: 28
@@ -47,6 +48,7 @@ RowLayout {
                 
                 onClicked: (mouse) => {
                     if (mouse.button === Qt.RightButton && modelData.hasMenu) {
+                        trayItem.menuX = trayItem.mapToItem(root.panelWindow.contentItem, 0, 0).x
                         trayItem.menuOpen = !trayItem.menuOpen
                     } else if (mouse.button === Qt.MiddleButton) {
                         modelData.secondaryActivate()
@@ -66,7 +68,7 @@ RowLayout {
                 id: menuPopup
                 visible: trayItem.menuOpen
                 anchor.window: root.panelWindow
-                anchor.rect.x: trayItem.mapToItem(root.panelWindow.contentItem, 0, 0).x
+                anchor.rect.x: trayItem.menuX
                 anchor.rect.y: root.panelWindow.height
                 
                 implicitWidth: menuRect.implicitWidth
