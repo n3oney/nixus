@@ -78,6 +78,7 @@ in {
           drag-lock = true;
           click-method = "clickfinger";
           dwt = true;
+          scroll-factor = 0.3;
         };
         focus-follows-mouse.enable = true;
         warp-mouse-to-focus.enable = true;
