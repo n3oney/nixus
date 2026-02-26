@@ -19,6 +19,7 @@ in {
           Description = "Animated wallpaper daemon";
           PartOf = ["graphical-session.target"];
           After = ["graphical-session.target"];
+          Wants = ["awww-wallpaper.service"];
         };
         Service = {
           ExecStart = "${awwwPkg}/bin/awww-daemon";
@@ -40,7 +41,6 @@ in {
           ExecStart = "${awwwPkg}/bin/awww img ${wallpaper} --transition-type fade";
           RemainAfterExit = true;
         };
-        Install.WantedBy = ["graphical-session.target"];
       };
     };
   };
