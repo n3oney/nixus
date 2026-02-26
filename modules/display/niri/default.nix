@@ -80,6 +80,7 @@ in {
           dwt = true;
         };
         focus-follows-mouse.enable = true;
+        warp-mouse-to-focus.enable = true;
       };
 
       layout = {
