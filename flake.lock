@@ -3,11 +3,11 @@
     "EffectPatterns": {
       "flake": false,
       "locked": {
-        "lastModified": 1770323399,
-        "narHash": "sha256-DSXIe5eHt4pqrKSP87sKa6kgt/M/ftZydRwmNe+kFJo=",
+        "lastModified": 1772487806,
+        "narHash": "sha256-9L5FRL6Ex5U8iPcqFm00Yj3F3ASN7MQpPuEj0lqc//0=",
         "owner": "PauljPhilp",
         "repo": "EffectPatterns",
-        "rev": "75f3e6d087d04250a98a2f1154ed5142fb1f422e",
+        "rev": "bb640f8a69d2c2633aa0b9a8def4b21775726f7c",
         "type": "github"
       },
       "original": {
