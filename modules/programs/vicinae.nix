@@ -135,6 +135,11 @@
           rev = "3de88e0dd8da8fedcd414c6b16dba81412f04d83";
           sha256 = "sha256-hyIS8KYTONLDsn/p8MU9eWKoRYfRVlCzStnSzfUqb6s=";
         })
+        (hmConfig.lib.vicinae.mkRayCastExtension {
+          name = "reclaim-ai";
+          rev = "3de88e0dd8da8fedcd414c6b16dba81412f04d83";
+          sha256 = "sha256-CXcvFMJQpCur33Poq//aqWaXR9rnDkLMTlaUbfhMkpQ=";
+        })
       ];
     };
   };
