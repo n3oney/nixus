@@ -184,7 +184,7 @@
 
     neofetch
     wl-clipboard
-    pavucontrol
+    lxqt.pavucontrol-qt
     telegram-desktop
     xdg-utils
 
