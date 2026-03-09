@@ -114,16 +114,8 @@
 
     systemd.services.NetworkManager-wait-online.enable = false;
 
-    # ALC245 audio fix:
-    # - index=1,0 swaps card order so analog (ALC245) is card 0, HDMI is card 1
-    # - Patch file (alc245-internal-mic.fw) applies inv_jack_detect hint
-    # - Works with nixos-hardware's alc256-asus-aio quirk
-    # Note: comma prefix skips first card (HDMI), applies patch to second card (ALC245)
-    boot.extraModprobeConfig = ''
-      options snd-hda-intel index=1,0 patch=,alc245-internal-mic.fw
-    '';
-
-    # Unmute audio (speakers + microphone) after WirePlumber settles (user service)
+    # Unmute ALSA controls after WirePlumber settles.
+    # ALC245 defaults to muted on boot; find the card dynamically by codec name.
     systemd.user.services.unmute-audio = {
       description = "Unmute audio after WirePlumber settles";
       wantedBy = ["wireplumber.service"];
@@ -131,14 +123,15 @@
       serviceConfig = {
         Type = "oneshot";
         RemainAfterExit = true;
-        ExecStartPre = "${pkgs.coreutils}/bin/sleep 5";
-        ExecStart = "${pkgs.alsa-utils}/bin/amixer -c 0 sset Master 100% unmute";
-        ExecStartPost = [
-          "${pkgs.alsa-utils}/bin/amixer -c 0 sset Speaker 100% unmute"
-          "${pkgs.alsa-utils}/bin/amixer -c 0 sset Headphone 100% unmute"
-          "${pkgs.alsa-utils}/bin/amixer -c 0 sset 'Bass Speaker' unmute"
-          "${pkgs.alsa-utils}/bin/amixer -c 0 sset Capture 80% cap"
-        ];
+        ExecStart = pkgs.writeShellScript "unmute-audio" ''
+          sleep 5
+          card=$(grep -rl "ALC245" /proc/asound/card*/codec* 2>/dev/null | grep -o 'card[0-9]*' | head -1 | grep -o '[0-9]*')
+          if [ -z "$card" ]; then exit 1; fi
+          ${pkgs.alsa-utils}/bin/amixer -c "$card" sset Master 100% unmute
+          ${pkgs.alsa-utils}/bin/amixer -c "$card" sset Headphone 100% unmute
+          ${pkgs.alsa-utils}/bin/amixer -c "$card" sset 'Bass Speaker' unmute
+          ${pkgs.alsa-utils}/bin/amixer -c "$card" sset Capture 80% cap
+        '';
       };
     };
 
