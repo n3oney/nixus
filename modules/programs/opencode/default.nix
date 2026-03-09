@@ -9,49 +9,83 @@
   # anthropicAuthPlugin = import ./anthropic-auth.nix {inherit pkgs;};
 
   opencode = inputs.nix-ai-tools.packages.${pkgs.stdenv.hostPlatform.system}.opencode;
-  # effect-patterns repo seems to be in a weird state
-  /*
-  effectPatternsPath = "${inputs.EffectPatterns}/content/published/patterns";
-  # Get all pattern directories
-  patternDirs = builtins.attrNames (
-    lib.filterAttrs (_: v: v == "directory") (builtins.readDir effectPatternsPath)
+
+  # Build a derivation that generates SKILL.md files from all EffectPatterns MDX files.
+  # Uses a bash script to handle arbitrary nesting depth (schema/ has subdirs).
+  effectPatternsSkills = pkgs.runCommand "effect-patterns-skills" {} ''
+    mkdir -p $out
+
+    find ${inputs.EffectPatterns}/content/published/patterns -name '*.mdx' | while read -r mdx; do
+      # Extract id and summary from YAML frontmatter
+      id=$(${pkgs.gawk}/bin/awk '/^---$/ { count++; next } count == 1 && /^id:/ { sub(/^id: */, ""); print; exit }' "$mdx")
+      # Handle both single-line and multi-line (>-) summary values
+      summary=$(${pkgs.gawk}/bin/awk '
+        /^---$/ { count++; next }
+        count >= 2 { exit }
+        count == 1 && /^summary:/ {
+          sub(/^summary: */, "")
+          # Check for >- or > (folded block scalar)
+          if ($0 == ">-" || $0 == ">") {
+            summary = ""
+            while (getline > 0) {
+              if (/^[^ ]/ && !/^  /) break
+              sub(/^  /, "")
+              if (summary != "") summary = summary " "
+              summary = summary $0
+            }
+            print summary
+          } else {
+            # Remove surrounding quotes if present
+            gsub(/^\x27/, ""); gsub(/\x27$/, "")
+            gsub(/^"/, ""); gsub(/"$/, "")
+            print
+          }
+          exit
+        }
+      ' "$mdx")
+
+      if [ -z "$id" ]; then
+        echo "WARNING: No id found in $mdx, skipping"
+        continue
+      fi
+
+      if [ -z "$summary" ]; then
+        summary="Effect pattern: $id"
+      fi
+
+      # Truncate description to 1024 chars (OpenCode limit)
+      summary="''${summary:0:1024}"
+
+      # Extract body (everything after the closing --- of frontmatter)
+      body=$(${pkgs.gawk}/bin/awk '
+        /^---$/ { count++; if (count == 2) { found=1; next } next }
+        found { print }
+      ' "$mdx")
+
+      # Create skill directory and SKILL.md
+      skillDir="$out/$id"
+      mkdir -p "$skillDir"
+      cat > "$skillDir/SKILL.md" << SKILL_EOF
+---
+name: $id
+description: $summary
+---
+$body
+SKILL_EOF
+    done
+  '';
+
+  # Generate xdg.configFile entries from the built skill derivation
+  skillDirs = builtins.attrNames (
+    lib.filterAttrs (_: v: v == "directory") (builtins.readDir effectPatternsSkills)
   );
-
-  # For each pattern directory, get all .mdx files and create skill entries
-  getPatternFiles = patternName: let
-    patternPath = "${effectPatternsPath}/${patternName}";
-    files = builtins.attrNames (builtins.readDir patternPath);
-    mdxFiles = builtins.filter (f: lib.hasSuffix ".mdx" f) files;
-  in
-    builtins.map (fileName: {
-      inherit patternName fileName;
-      skillName = lib.removeSuffix ".mdx" fileName;
-      content = builtins.readFile "${patternPath}/${fileName}";
-    })
-    mdxFiles;
-
-
-  # Flatten all pattern files
-  allPatternFiles = builtins.concatMap getPatternFiles patternDirs;
-
-  # Create xdg.configFile entries for each skill
-  # Structure: effect-patterns/<skill-name>/SKILL.md
   skillConfigFiles = builtins.listToAttrs (
-    builtins.map (file: let
-      # Flatten "rule:\n  " to bring description to top level
-      content = builtins.replaceStrings ["rule:\n  "] [""] file.content;
-      lines = lib.splitString "\n" content;
-      # Insert `name:` after the first line (the opening ---)
-      skillContent = builtins.concatStringsSep "\n" (
-        [(builtins.head lines) "name: ${file.skillName}"] ++ (builtins.tail lines)
-      );
-    in {
-      name = "opencode/skill/effect-patterns-${file.skillName}/SKILL.md";
-      value.text = skillContent;
+    builtins.map (skillName: {
+      name = "opencode/skills/${skillName}/SKILL.md";
+      value.source = "${effectPatternsSkills}/${skillName}/SKILL.md";
     })
-    allPatternFiles
+    skillDirs
   );
-  */
 in {
   options.programs.opencode.enable = lib.mkEnableOption "opencode";
 
@@ -87,11 +121,8 @@ in {
       };
 
       xdg.configFile =
-        /*
-          skillConfigFiles
-        //
-        */
-        {
+        skillConfigFiles
+        // {
           "opencode/dcp.jsonc".text = builtins.toJSON {
             enabled = false; # disabled for now - breaks caching on anthropic
             debug = false;
