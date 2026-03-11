@@ -1,6 +1,7 @@
 {
   config,
   lib,
+  sources,
   ...
 }: {
   options.services.smarthome.enable = lib.mkEnableOption "Smart Home";
@@ -30,7 +31,8 @@
       containers.homeassistant = {
         volumes = ["/etc/home-assistant:/config" "/var/lib/home-assistant-media:/media"];
         environment.TZ = "Europe/Warsaw";
-        image = "ghcr.io/home-assistant/home-assistant:2026.2";
+        image = "homeassistant/home-assistant:${sources.home-assistant.version}";
+        imageFile = sources.home-assistant.src;
         extraOptions = [
           "--network=host"
         ];

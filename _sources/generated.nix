@@ -3,6 +3,7 @@
   fetchgit,
   fetchurl,
   fetchFromGitHub,
+  dockerTools,
 }:
 {
   helium = {
@@ -11,6 +12,16 @@
     src = fetchurl {
       url = "https://github.com/imputnet/helium-linux/releases/download/0.9.4.1/helium-0.9.4.1-x86_64.AppImage";
       sha256 = "sha256-N5gdWuxOrIudJx/4nYo4/SKSxakpTFvL4zzByv6Cnug=";
+    };
+  };
+  home-assistant = {
+    pname = "home-assistant";
+    version = "2026.3.1";
+    src = dockerTools.pullImage {
+      imageName = "homeassistant/home-assistant";
+      imageDigest = "sha256:0e091dfce3068339c3e1d14382e6c34141e05cd589a1972ebd4d9a8e6b5d8969";
+      sha256 = "sha256-cfeaCMgFl1hO3QMQLzkUhwKjILZwVz2L9IowrZSmtNk=";
+      finalImageTag = "2026.3.1";
     };
   };
 }

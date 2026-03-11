@@ -13,5 +13,25 @@
             "url": "https://github.com/imputnet/helium-linux/releases/download/0.9.4.1/helium-0.9.4.1-x86_64.AppImage"
         },
         "version": "0.9.4.1"
+    },
+    "home-assistant": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "home-assistant",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "arch": null,
+            "finalImageName": null,
+            "finalImageTag": null,
+            "imageDigest": "sha256:0e091dfce3068339c3e1d14382e6c34141e05cd589a1972ebd4d9a8e6b5d8969",
+            "imageName": "homeassistant/home-assistant",
+            "imageTag": "2026.3.1",
+            "os": null,
+            "sha256": "sha256-cfeaCMgFl1hO3QMQLzkUhwKjILZwVz2L9IowrZSmtNk=",
+            "tlsVerify": null
+        },
+        "version": "2026.3.1"
     }
 }
