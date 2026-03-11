@@ -5,6 +5,10 @@
   inputs,
   ...
 }: let
+  opencodeNotifierPlugin = import ./opencode-notifier.nix {
+    inherit pkgs;
+    src = inputs.opencode-notifier;
+  };
 
   opencode = inputs.nix-ai-tools.packages.${pkgs.stdenv.hostPlatform.system}.opencode;
 
@@ -128,7 +132,7 @@ in {
           };
           permission.lsp = "allow";
           plugin = [
-            "@mohak34/opencode-notifier@latest"
+            "file://${opencodeNotifierPlugin}"
 
             #"@nick-vi/opencode-type-inject"
           ];
