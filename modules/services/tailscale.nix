@@ -10,6 +10,7 @@
       services.tailscale.enable = true;
       networking.nameservers = lib.mkForce ["100.100.100.100" "1.1.1.1" "1.0.0.1"];
       networking.search = ["forest-piano.ts.net"];
+      networking.firewall.allowedUDPPorts = [41641];
     };
     impermanence.systemDirs = ["/var/lib/tailscale"];
   };
