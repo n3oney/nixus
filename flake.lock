@@ -1522,11 +1522,11 @@
     "niri-blur": {
       "flake": false,
       "locked": {
-        "lastModified": 1771749270,
-        "narHash": "sha256-ZJCM1XOHIdud6Jfpl4jYQOzbOJId9wmXT+hNJ1IPBIY=",
+        "lastModified": 1772873838,
+        "narHash": "sha256-pFh7J2fBqsZvZrD26zfOj30qTM8+7PLZsNSLX+VOcUA=",
         "owner": "niri-wm",
         "repo": "niri",
-        "rev": "734d86ec061d15d1980c5b940b2f4dc9aee80cf5",
+        "rev": "5393902dd22e9d540438ee178775f1e488eea724",
         "type": "github"
       },
       "original": {
