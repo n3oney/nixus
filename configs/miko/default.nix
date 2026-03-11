@@ -143,6 +143,7 @@
     spotify.enable = true;
     swappy.enable = true;
     thunderbird.enable = true;
+    helium.enable = true;
     vivaldi.enable = true;
     vscode.enable = true;
     zed.enable = true;

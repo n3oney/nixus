@@ -119,6 +119,7 @@
 
     # webstorm.enable = true;
 
+    helium.enable = true;
     vivaldi.enable = true;
     wireshark.enable = true;
     # zenBrowser.enable = true;

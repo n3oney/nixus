@@ -68,6 +68,12 @@
     };
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     nur.url = "github:nix-community/NUR";
+
+    opencode-notifier = {
+      url = "github:mohak34/opencode-notifier";
+      flake = false;
+    };
+
     shadower.url = "github:n3oney/shadower";
     zen-browser-flake.url = "github:youwen5/zen-browser-flake";
     jj-starship.url = "github:dmmulroy/jj-starship";
@@ -108,6 +114,7 @@
         inherit inputs;
         configuration = {
           system = "x86_64-linux";
+          specialArgs = {sources = nixpkgs.legacyPackages.x86_64-linux.callPackage ./_sources/generated.nix {};};
           modules = [
             ./modules
             ./hosts/miko
@@ -121,6 +128,7 @@
         inherit inputs;
         configuration = {
           system = "aarch64-linux";
+          specialArgs = {sources = nixpkgs.legacyPackages.aarch64-linux.callPackage ./_sources/generated.nix {};};
           modules = [
             ./modules
             ./hosts/yen
@@ -133,6 +141,7 @@
         inherit inputs;
         configuration = {
           system = "x86_64-linux";
+          specialArgs = {sources = nixpkgs.legacyPackages.x86_64-linux.callPackage ./_sources/generated.nix {};};
           modules = [
             ./modules
             ./hosts/max
@@ -146,6 +155,7 @@
         inherit inputs;
         configuration = {
           system = "x86_64-linux";
+          specialArgs = {sources = nixpkgs.legacyPackages.x86_64-linux.callPackage ./_sources/generated.nix {};};
           modules = [
             ./modules
             ./hosts/prism
@@ -169,6 +179,8 @@
         pkgs.mkShell {
           buildInputs = with pkgs; [
             alejandra
+
+            nvfetcher
 
             # quickshell lsp
             kdePackages.qtdeclarative

@@ -42,6 +42,19 @@
       };
     };
 
+    # Native messaging host for Helium browser integration
+    hm.xdg.configFile."net.imput.helium/NativeMessagingHosts/com.vicinae.vicinae.json" = lib.mkIf config.programs.helium.enable {
+      text = builtins.toJSON {
+        name = "com.vicinae.vicinae";
+        description = "Vicinae browser integration";
+        path = "${hmConfig.programs.vicinae.package}/libexec/vicinae/vicinae-browser-link";
+        type = "stdio";
+        allowed_origins = [
+          "chrome-extension://kcmipingpfbohfjckomimmahknoddnke/"
+        ];
+      };
+    };
+
     # Declarative settings as a read-only import file.
     # vicinae reads this via the imports key in settings.json.
     # Keeping it separate from settings.json lets vicinae freely write runtime
