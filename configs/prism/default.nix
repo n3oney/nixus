@@ -120,7 +120,7 @@
     # webstorm.enable = true;
 
     helium.enable = true;
-    vivaldi.enable = true;
+    # vivaldi.enable = true;
     wireshark.enable = true;
     # zenBrowser.enable = true;
     zed.enable = true;
@@ -134,7 +134,7 @@
     fcitx5.enable = true;
     syncthing.enable = true;
     mcp.enable = true;
-    ollama.enable = true;
+    ollama.enable = false;
     tlp.enable = true;
     yubikey-touch-detector.enable = true;
     podman.enable = true;
