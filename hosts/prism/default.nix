@@ -28,6 +28,11 @@
       timeout = 3;
     };
 
+    # Apply ALC245 firmware patch (skip HDMI card with leading comma)
+    boot.extraModprobeConfig = ''
+      options snd-hda-intel patch=,alc245-internal-mic.fw
+    '';
+
     # overlay because the module in nixpkgs incorrectly uses pkgs.buffybox instead of cfg.package
     nixpkgs.overlays = [
       (_: prev: {
@@ -113,6 +118,21 @@
     };
 
     systemd.services.NetworkManager-wait-online.enable = false;
+
+    # Only allow power button (PNP0C0C) to wake from sleep/hibernate.
+    # Disables all other wakeup sources: lid, AC adapter, RTC, USB,
+    # touchscreen, keyboard controller, thunderbolt, etc.
+    services.udev.extraRules = ''
+      ACTION=="add", SUBSYSTEM=="acpi", KERNEL=="PNP0C0D:00", ATTR{power/wakeup}="disabled"
+      ACTION=="add", SUBSYSTEM=="acpi", KERNEL=="PNP0C0A:00", ATTR{power/wakeup}="disabled"
+      ACTION=="add", SUBSYSTEM=="platform", KERNEL=="ACPI0003:00", ATTR{power/wakeup}="disabled"
+      ACTION=="add", SUBSYSTEM=="platform", KERNEL=="AMDI0010:00", ATTR{power/wakeup}="disabled"
+      ACTION=="add", SUBSYSTEM=="pnp", KERNEL=="00:01", ATTR{power/wakeup}="disabled"
+      ACTION=="add", SUBSYSTEM=="serio", KERNEL=="serio0", ATTR{power/wakeup}="disabled"
+      ACTION=="add", SUBSYSTEM=="pci", ATTR{power/wakeup}="disabled"
+      ACTION=="add", SUBSYSTEM=="usb", ATTR{power/wakeup}="disabled"
+      ACTION=="add", SUBSYSTEM=="thunderbolt", ATTR{power/wakeup}="disabled"
+    '';
 
     # Unmute ALSA controls after WirePlumber settles.
     # ALC245 defaults to muted on boot; find the card dynamically by codec name.

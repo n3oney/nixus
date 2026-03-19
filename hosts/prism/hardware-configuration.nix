@@ -22,6 +22,18 @@
       mkdir -p $out/lib/firmware/edid
       cp ${./firmware/edid/edp-vrr-36-165.bin} $out/lib/firmware/edid/edp-vrr-36-165.bin
     '')
+    # ALC245 internal mic fix: invert jack detection so internal mic is recognized
+    (pkgs.writeTextFile {
+      name = "alc245-internal-mic-patch";
+      destination = "/lib/firmware/alc245-internal-mic.fw";
+      text = ''
+        [codec]
+        0x10ec0245 0x1f4ce001 0
+
+        [hint]
+        inv_jack_detect = yes
+      '';
+    })
   ];
   boot.kernelParams = [
     "drm.edid_firmware=eDP-1:edid/edp-vrr-36-165.bin"
