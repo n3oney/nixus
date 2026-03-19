@@ -11,7 +11,7 @@
       enable = true;
       settings = {
         main = {
-          font = "monospace:size=11";
+          font = "monospace:size=10";
           pad = "8x8 center";
         };
 
