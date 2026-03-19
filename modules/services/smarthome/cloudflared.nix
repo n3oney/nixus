@@ -24,6 +24,7 @@
             ${config.services.sage.host} = "http://localhost:${toString config.services.sage.port}";
             "home-assistant.neoney.dev" = "http://localhost:8123";
             "jackett.neoney.dev" = "http://localhost:9117";
+            ${config.services.smarthome.music-assistant.host} = "http://localhost:8095";
           };
           default = "http_status:404";
         };
