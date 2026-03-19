@@ -102,6 +102,36 @@
         autoApprove = ["grep_repomix_output" "pack_codebase"];
       };
 
+      postgresReadOnly = {
+        command = "${pkgs.podman}/bin/podman";
+        args = [
+          "run"
+          "-i"
+          "--rm"
+          "-e"
+          "DATABASE_URI"
+          "docker.io/crystaldba/postgres-mcp"
+          "--access-mode=restricted"
+        ];
+
+        environment.DATABASE_URI = "{env:DATABASE_URI}";
+      };
+
+      postgresMutable = {
+        command = "${pkgs.podman}/bin/podman";
+        args = [
+          "run"
+          "-i"
+          "--rm"
+          "-e"
+          "DATABASE_URI"
+          "docker.io/crystaldba/postgres-mcp"
+          "--access-mode=unrestricted"
+        ];
+
+        environment.DATABASE_URI = "{env:DATABASE_URI}";
+      };
+
       tavily =
         (withEnv npx [
           "-y"
