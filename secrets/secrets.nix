@@ -25,4 +25,6 @@ in {
   "z2m.age".publicKeys = miko ++ max ++ prism;
 
   "mcp.age".publicKeys = miko ++ prism;
+
+  "norish.age".publicKeys = miko ++ prism ++ max;
 }

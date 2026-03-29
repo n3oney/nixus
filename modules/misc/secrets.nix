@@ -27,6 +27,7 @@ in {
           (secretForHostnames ["max"] ../../secrets/cloudflared.age "cloudflared" {
             owner = "cloudflared";
           })
+          (secretForHostnames ["max"] ../../secrets/norish.age "norish" {})
           (secretForHostnames ["max"] ../../secrets/z2m.age "z2m.yaml" {
             owner = "zigbee2mqtt";
             group = "zigbee2mqtt";

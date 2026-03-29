@@ -1,4 +1,4 @@
-_: {
+{pkgs, ...}: {
   osModules = [./hardware-configuration.nix];
 
   os = {
@@ -12,6 +12,7 @@ _: {
 
     boot.kernel.sysctl."net.ipv4.ip_forward" = 1;
     boot.kernel.sysctl."net.ipv6.conf.all.forwarding" = 1;
+    boot.kernelParams = ["amdgpu.cik_support=1" "radeon.cik_support=0"];
 
     networking = {
       hostName = "max";
@@ -57,6 +58,16 @@ _: {
 
     networking.firewall.allowedTCPPorts = [4713];
     networking.firewall.allowedUDPPorts = [4713];
+
+    hardware.firmware = [pkgs.linux-firmware];
+
+    hardware.graphics = {
+      enable = true;
+      extraPackages = [
+        pkgs.rocmPackages.clr.icd
+        pkgs.libva-utils
+      ];
+    };
 
     time.timeZone = "Europe/Warsaw";
 
