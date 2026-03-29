@@ -46,7 +46,7 @@
         name = "DP-3";
         width = 1920;
         height = 1080;
-        position = "2560x190";
+        position = "-1920x190";
         workspaces = [
           11
           12
