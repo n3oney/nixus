@@ -30,6 +30,8 @@
 
   services.spoolman.enable = true;
 
+  services.norish.enable = true;
+
   #services.sage.enable = true;
 
   hm.home.packages = with pkgs; [
