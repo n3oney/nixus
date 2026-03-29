@@ -22,6 +22,15 @@
       imageDigest = "sha256:0e091dfce3068339c3e1d14382e6c34141e05cd589a1972ebd4d9a8e6b5d8969";
       sha256 = "sha256-cfeaCMgFl1hO3QMQLzkUhwKjILZwVz2L9IowrZSmtNk=";
       finalImageTag = "2026.3.1";
+  };
+  norish = {
+    pname = "norish";
+    version = "v0.17.3-beta";
+    src = dockerTools.pullImage {
+      imageName = "norishapp/norish";
+      imageDigest = "sha256:09ca93226afadf93cf9538335b032857c28c4ad704004cc34f36cb16ae51ab14";
+      sha256 = "sha256-SS8ST5kDC5NT3+RCFYOm/AuUaAnEPjw+7+q6yWNjoQw=";
+      finalImageTag = "v0.17.3-beta";
     };
   };
 }
