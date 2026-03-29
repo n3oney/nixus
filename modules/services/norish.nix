@@ -113,7 +113,7 @@ in {
       '';
     };
 
-    # Allow the norish bridge network to reach host services (e.g. clewdr)
+    # Allow the norish bridge network to reach host services (e.g. local llm later :P)
     networking.firewall.extraCommands = ''
       iptables -I INPUT -s 10.93.0.0/24 -j ACCEPT
     '';
