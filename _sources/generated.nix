@@ -8,20 +8,21 @@
 {
   helium = {
     pname = "helium";
-    version = "0.9.4.1";
+    version = "0.10.9.1";
     src = fetchurl {
-      url = "https://github.com/imputnet/helium-linux/releases/download/0.9.4.1/helium-0.9.4.1-x86_64.AppImage";
-      sha256 = "sha256-N5gdWuxOrIudJx/4nYo4/SKSxakpTFvL4zzByv6Cnug=";
+      url = "https://github.com/imputnet/helium-linux/releases/download/0.10.9.1/helium-0.10.9.1-x86_64.AppImage";
+      sha256 = "sha256-FMO4gB2zOjhgmjfE/T0XdDb0NMDKsQFuzy/Org1iD48=";
     };
   };
   home-assistant = {
     pname = "home-assistant";
-    version = "2026.3.1";
+    version = "2026.4.1";
     src = dockerTools.pullImage {
       imageName = "homeassistant/home-assistant";
-      imageDigest = "sha256:0e091dfce3068339c3e1d14382e6c34141e05cd589a1972ebd4d9a8e6b5d8969";
-      sha256 = "sha256-cfeaCMgFl1hO3QMQLzkUhwKjILZwVz2L9IowrZSmtNk=";
-      finalImageTag = "2026.3.1";
+      imageDigest = "sha256:8848691147f01a6eee7753de2ade21b04d6168fcd2e2a7089f6f84e3b7b86960";
+      sha256 = "sha256-mBYDzQZycQw+Nv8kepUJvkwbLkQdGmoBkl3oMqzqf5Q=";
+      finalImageTag = "2026.4.1";
+    };
   };
   norish = {
     pname = "norish";
