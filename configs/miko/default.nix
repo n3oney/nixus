@@ -129,6 +129,7 @@
       minecraft.enable = true;
       # xonotic.enable = true;
     };
+    helium.enable = true;
     kicad.enable = true;
     webstorm.enable = true;
     neovim.enable = true;
@@ -143,11 +144,8 @@
     spotify.enable = true;
     swappy.enable = true;
     thunderbird.enable = true;
-    helium.enable = true;
-    vivaldi.enable = true;
     vscode.enable = true;
     zed.enable = true;
-    zenBrowser.enable = true;
     zoxide.enable = true;
   };
 
