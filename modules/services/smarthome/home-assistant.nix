@@ -29,7 +29,7 @@
       systemd.tmpfiles.rules = [
         "d /etc/home-assistant 0775 root home-assistant -"
         "d /var/lib/home-assistant-media 0775 root home-assistant -"
-        "d /var/lib/matter-server 0755 root root -"
+        "d /var/lib/matter-server 0755 1000 1000 -"
       ];
 
       networking.firewall.allowedTCPPorts = [
@@ -56,7 +56,7 @@
           ];
         };
         containers.matter-server = {
-          image = "ghcr.io/home-assistant-libs/python-matter-server:stable";
+          image = "ghcr.io/matter-js/matterjs-server:0.5.15";
           volumes = ["/var/lib/matter-server:/data"];
           extraOptions = [
             "--network=host"
