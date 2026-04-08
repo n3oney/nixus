@@ -1,0 +1,25 @@
+diff --git a/crates/nh-remote/src/remote.rs b/crates/nh-remote/src/remote.rs
+index f1d1485054..32ccb9d90b 100644
+--- a/crates/nh-remote/src/remote.rs
++++ b/crates/nh-remote/src/remote.rs
+@@ -1035,7 +1035,7 @@
+   let mut cmd = Exec::cmd("nix")
+     .args(&flake_flags)
+     .args(["copy", "--to"])
+-    .arg(format!("ssh://{}", host.ssh_host()));
++    .arg(format!("ssh-ng://{}", host.ssh_host()));
+ 
+   if use_substitutes {
+     cmd = cmd.arg("--substitute-on-destination");
+@@ -1087,9 +1087,9 @@
+   let mut cmd = Exec::cmd("nix")
+     .args(&flake_flags)
+     .args(["copy", "--from"])
+-    .arg(format!("ssh://{}", from_host.ssh_host()))
++    .arg(format!("ssh-ng://{}", from_host.ssh_host()))
+     .arg("--to")
+-    .arg(format!("ssh://{}", to_host.ssh_host()));
++    .arg(format!("ssh-ng://{}", to_host.ssh_host()));
+ 
+   if use_substitutes {
+     cmd = cmd.arg("--substitute-on-destination");
