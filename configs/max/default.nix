@@ -17,6 +17,10 @@
     enable = true;
     home-assistant.host = "hass.max.local:80";
     wyoming.enable = false;
+    otbr = {
+      enable = true;
+      backboneIf = "enp1s0";
+    };
   };
 
   services.tailscale.enable = true;
