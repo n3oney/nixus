@@ -48,6 +48,7 @@ in {
     boot.kernel.sysctl = {
       "net.ipv6.conf.all.forwarding" = lib.mkForce 1;
       "net.ipv4.conf.all.forwarding" = lib.mkForce 1;
+      "net.ipv6.conf.enp1s0.accept_ra" = lib.mkForce 2;
     };
 
     services.avahi = {
