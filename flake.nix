@@ -10,12 +10,7 @@
       url = "github:rose-pine/btop";
     };
     degra-ical.url = "github:n3oney/degra-ical";
-    nix-openclaw.url = "github:openclaw/nix-openclaw";
     dissent.url = "github:diamondburned/dissent";
-    moltbot-src = {
-      url = "github:moltbot/moltbot";
-      flake = false;
-    };
     EffectPatterns = {
       url = "github:PauljPhilp/EffectPatterns";
       flake = false;

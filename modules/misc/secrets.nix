@@ -32,12 +32,6 @@ in {
             group = "zigbee2mqtt";
             mode = "770";
           })
-          (secretForHostnames ["yen"] ../../secrets/clawdbot_telegram.age "clawdbot_telegram" {
-            owner = "clawdbot";
-          })
-          (secretForHostnames ["yen"] ../../secrets/clawdbot.age "clawdbot" {
-            owner = "clawdbot";
-          })
         ];
         environment.systemPackages = [inputs.agenix.packages.${pkgs.stdenv.hostPlatform.system}.default];
       };

@@ -23,7 +23,6 @@
 
   services.vaultwarden.enable = true;
   services.tailscale.enable = true;
-  services.clawdbot.enable = false;
 
   programs.zoxide.enable = true;
 

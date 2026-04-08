@@ -25,7 +25,4 @@ in {
   "z2m.age".publicKeys = miko ++ max ++ prism;
 
   "mcp.age".publicKeys = miko ++ prism;
-
-  "clawdbot_telegram.age".publicKeys = miko ++ prism ++ yen;
-  "clawdbot.age".publicKeys = miko ++ prism ++ yen;
 }
