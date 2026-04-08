@@ -86,7 +86,6 @@
 
   programs = {
     # waydroid.enable = true;
-    anyrun.enable = false;
     vicinae.enable = true;
     btop.enable = true;
     # bricscad.enable = true;

@@ -3,15 +3,6 @@
 
   inputs = {
     agenix.url = "github:ryantm/agenix";
-    anyrun.url = "github:kirottu/anyrun/25367153f225a59c5ce5746583e39a71ff052f09";
-    anyrun-ha-assist = {
-      url = "github:n3oney/anyrun-ha-assist";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    anyrun-nixos-options = {
-      url = "github:n3oney/anyrun-nixos-options/v2.0.0";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     awww.url = "git+https://codeberg.org/LGFae/awww";
 
     btop-rose-pine = {
