@@ -29,6 +29,7 @@
       systemd.tmpfiles.rules = [
         "d /etc/home-assistant 0775 root home-assistant -"
         "d /var/lib/home-assistant-media 0775 root home-assistant -"
+        "d /var/lib/matter-server 0755 root root -"
       ];
 
       networking.firewall.allowedTCPPorts = [
@@ -52,6 +53,14 @@
           imageFile = sources.home-assistant.src;
           extraOptions = [
             "--network=host"
+          ];
+        };
+        containers.matter-server = {
+          image = "ghcr.io/home-assistant-libs/python-matter-server:stable";
+          volumes = ["/var/lib/matter-server:/data"];
+          extraOptions = [
+            "--network=host"
+            "--privileged"
           ];
         };
       };
