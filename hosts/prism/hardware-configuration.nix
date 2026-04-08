@@ -22,13 +22,20 @@
       mkdir -p $out/lib/firmware/edid
       cp ${./firmware/edid/edp-vrr-36-165.bin} $out/lib/firmware/edid/edp-vrr-36-165.bin
     '')
-    # ALC245 internal mic fix: invert jack detection so internal mic is recognized
+    # ALC245 internal mic fix:
+    # - Mark ext mic jack (0x19) as not-connected so the driver never routes
+    #   capture to it. Without this, jack detection is unreliable and the driver
+    #   randomly routes capture to the empty external mic pin, producing silence.
+    # - inv_jack_detect hint kept as defense-in-depth.
     (pkgs.writeTextFile {
       name = "alc245-internal-mic-patch";
       destination = "/lib/firmware/alc245-internal-mic.fw";
       text = ''
         [codec]
         0x10ec0245 0x1f4ce001 0
+
+        [pincfg]
+        0x19 0x411111f0
 
         [hint]
         inv_jack_detect = yes

@@ -153,6 +153,7 @@
           card=$(grep -rl "ALC245" /proc/asound/card*/codec* 2>/dev/null | grep -o 'card[0-9]*' | head -1 | grep -o '[0-9]*')
           if [ -z "$card" ]; then exit 1; fi
           ${pkgs.alsa-utils}/bin/amixer -c "$card" sset Master 100% unmute
+          ${pkgs.alsa-utils}/bin/amixer -c "$card" sset Speaker 100% unmute
           ${pkgs.alsa-utils}/bin/amixer -c "$card" sset Headphone 100% unmute
           ${pkgs.alsa-utils}/bin/amixer -c "$card" sset 'Bass Speaker' unmute
           ${pkgs.alsa-utils}/bin/amixer -c "$card" sset Capture 80% cap
