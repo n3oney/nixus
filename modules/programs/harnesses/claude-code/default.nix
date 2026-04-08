@@ -42,7 +42,8 @@ in {
           hmConfig.lib.dag.entryAfter ["writeBoundary"] ''
             claude_json="$HOME/.claude.json"
             if [ -f "$claude_json" ]; then
-              merged=$(${jq} -s '.[0] * .[1]' "$claude_json" ${mcpConfigFile})
+              existing=$(cat "$claude_json")
+              merged=$(printf '%s' "''${existing:-"{}"}" | ${jq} -s '.[0] * .[1]' - ${mcpConfigFile})
               printf '%s\n' "$merged" > "$claude_json"
             else
               cp ${mcpConfigFile} "$claude_json"
