@@ -22,6 +22,11 @@
   os = {
     nixpkgs.config.allowUnfree = true;
 
+    services.avahi = {
+      enable = true;
+      nssmdns4 = true;
+    };
+
     boot.loader = {
       systemd-boot.enable = true;
       efi.canTouchEfiVariables = true;
