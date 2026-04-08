@@ -19,8 +19,6 @@
     wyoming.enable = false;
   };
 
-  services.clewdr.enable = true;
-
   services.tailscale.enable = true;
 
   # services.librespot.enable = true;

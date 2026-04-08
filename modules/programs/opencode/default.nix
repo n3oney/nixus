@@ -123,44 +123,7 @@ in {
         package = opencode;
         enable = true;
         settings = {
-          provider = {
-            clewdr = {
-              npm = "@ai-sdk/anthropic";
-              name = "ClewdR";
-              options.baseURL = "http://127.0.0.1:8484/code/v1";
-
-              models = {
-                "claude-sonnet-4-6-1M" = {
-                  name = "Claude Sonnet 4.6";
-                  limit = {
-                    context = 1000000;
-                    output = 65536;
-                  };
-                };
-                "claude-opus-4-6-1M" = {
-                  name = "Claude Opus 4.6";
-                  limit = {
-                    context = 1000000;
-                    output = 32768;
-                  };
-                };
-
-                "claude-opus-4-6-1M-thinking" = {
-                  name = "Claude Opus 4.6 (thinking)";
-                  limit = {
-                    context = 1000000;
-                    output = 32768;
-                  };
-                };
-              };
-            };
-          };
           agent = {
-            plan.model = "clewdr/claude-opus-4-6-1M-thinking";
-            build.model = "clewdr/claude-sonnet-4-6-1M";
-            # explore.model = "clewdr/claude-haiku-4-5";
-            general.model = "clewdr/claude-sonnet-4-6-1M";
-            compaction.model = "clewdr/claude-sonnet-4-6-1M";
           };
           permission = {
             lsp = "allow";

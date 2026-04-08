@@ -130,7 +130,6 @@
   wayscriber.enable = true;
 
   services = {
-    clewdr.enable = true;
     fcitx5.enable = true;
     syncthing.enable = true;
     mcp.enable = true;
