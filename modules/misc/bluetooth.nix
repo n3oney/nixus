@@ -40,12 +40,12 @@ in {
 
       # Auto-toggle Bluetooth when dock keyboard connects/disconnects
       # Dock keyboard: 05af:326a (Minisforum V3 keyboard dock)
-      services.udev.extraRules = ''
-        # Dock keyboard disconnected -> enable Bluetooth for Corne
-        ACTION=="remove", SUBSYSTEM=="usb", ENV{ID_VENDOR_ID}=="05af", ENV{ID_MODEL_ID}=="326a", RUN+="${pkgs.bluez}/bin/bluetoothctl power on"
-        # Dock keyboard connected -> disable Bluetooth only if no other devices (besides Corne) connected
-        ACTION=="add", SUBSYSTEM=="usb", ENV{ID_VENDOR_ID}=="05af", ENV{ID_MODEL_ID}=="326a", RUN+="${conditionalBtOff}"
-      '';
+      # services.udev.extraRules = ''
+      #   # Dock keyboard disconnected -> enable Bluetooth for Corne
+      #   ACTION=="remove", SUBSYSTEM=="usb", ENV{ID_VENDOR_ID}=="05af", ENV{ID_MODEL_ID}=="326a", RUN+="${pkgs.bluez}/bin/bluetoothctl power on"
+      #   # Dock keyboard connected -> disable Bluetooth only if no other devices (besides Corne) connected
+      #   ACTION=="add", SUBSYSTEM=="usb", ENV{ID_VENDOR_ID}=="05af", ENV{ID_MODEL_ID}=="326a", RUN+="${conditionalBtOff}"
+      # '';
     };
   };
 }
