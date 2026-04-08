@@ -9,6 +9,7 @@
 
   programs.btop.enable = true;
   programs.opencode.enable = true;
+  programs.claude-code.enable = true;
 
   programs.zoxide.enable = true;
 

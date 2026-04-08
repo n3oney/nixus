@@ -434,5 +434,20 @@
         })
       servers;
     };
+
+    programs.claude-code = {
+      memory.text = instructions;
+      mcpServers = lib.mapAttrs (name: value:
+        {
+          inherit (value) command args;
+        }
+        // lib.optionalAttrs (value ? environment) (
+          let
+            literalEnv = lib.filterAttrs (_: v: !(lib.isString v && lib.hasInfix "{env:" v)) value.environment;
+          in
+            lib.optionalAttrs (literalEnv != {}) {env = literalEnv;}
+        ))
+      servers;
+    };
   });
 }
