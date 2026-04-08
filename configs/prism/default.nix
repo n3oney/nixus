@@ -8,8 +8,6 @@
 
   users.main = "neoney";
 
-  rebuildCommand = "nh os switch $argv -- --impure";
-
   bluetooth.enable = true;
 
   display = {
