@@ -27,7 +27,7 @@
       users.users.neoney.extraGroups = ["home-assistant"];
 
       systemd.tmpfiles.rules = [
-        "d /etc/home-assistant 0775 root home-assistant -"
+        "d /etc/home-assistant 2775 root home-assistant -"
         "d /var/lib/home-assistant-media 0775 root home-assistant -"
         "d /var/lib/matter-server 0755 1000 1000 -"
       ];
