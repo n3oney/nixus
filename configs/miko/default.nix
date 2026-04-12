@@ -181,7 +181,7 @@
     horizontallyspinningrat
     unzip
 
-    neofetch
+    fastfetch
     wl-clipboard
     lxqt.pavucontrol-qt
     telegram-desktop

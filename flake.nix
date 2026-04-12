@@ -28,10 +28,6 @@
       url = "github:hyprwm/contrib";
     };
     hyprland.url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
-    hyprgrass = {
-      url = "github:horriblename/hyprgrass";
-      inputs.hyprland.follows = "hyprland";
-    };
     hyprland-qtutils.url = "github:hyprwm/hyprland-qtutils";
     preservation.url = "github:nix-community/preservation";
     nh = {

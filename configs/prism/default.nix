@@ -151,7 +151,7 @@
   hm.home.packages = with pkgs; [
     horizontallyspinningrat
 
-    neofetch
+    fastfetch
     wl-clipboard
     lxqt.pavucontrol-qt
     telegram-desktop

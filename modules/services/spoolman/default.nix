@@ -24,6 +24,14 @@ in {
   };
 
   config.os = lib.mkIf cfg.enable {
+    nixpkgs.overlays = [
+      (_final: prev: {
+        spoolman = prev.spoolman.overridePythonAttrs (_old: {
+          pythonRelaxDeps = ["websockets" "hishel"];
+        });
+      })
+    ];
+
     services.spoolman = {
       enable = true;
       inherit (cfg) openFirewall listen;

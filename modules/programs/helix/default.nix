@@ -40,7 +40,7 @@
           };
           clangd.command = "${pkgs.llvmPackages.clang-unwrapped}/bin/clangd";
           typescript-language-server = {
-            command = lib.getExe pkgs.nodePackages.typescript-language-server;
+            command = lib.getExe pkgs.typescript-language-server;
             args = ["--stdio"];
             config.hostInfo = "helix";
             config.documentFormatting = false;

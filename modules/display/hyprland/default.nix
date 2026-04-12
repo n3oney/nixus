@@ -44,7 +44,7 @@ in {
       ];
 
       environment.sessionVariables.NIXOS_OZONE_WL = "1";
-      nixpkgs.overlays = [inputs.hyprland.overlays.default];
+      nixpkgs.overlays = [inputs.hyprland.overlays.hyprland-packages inputs.hyprland.overlays.hyprland-extras];
 
       programs.uwsm = {
         enable = true;

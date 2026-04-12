@@ -14,6 +14,8 @@
     remoteControl = ["/etc/home-assistant"];
   };
 
+  services.mcp.enable = true;
+
   programs.zoxide.enable = true;
 
   services.smarthome = {

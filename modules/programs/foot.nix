@@ -15,7 +15,7 @@
           pad = "8x8 center";
         };
 
-        colors = let
+        colors-dark = let
           colors = config.colors.colorScheme.palette;
         in {
           alpha = config.colors.backgroundAlpha;
