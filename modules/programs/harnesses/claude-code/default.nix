@@ -18,6 +18,12 @@ in {
       default = {};
       description = "MCP servers to merge into ~/.claude.json via activation script";
     };
+
+    remoteControl = lib.mkOption {
+      type = lib.types.listOf lib.types.str;
+      default = [];
+      description = "List of directories in which to run `claude remote-control` as user services.";
+    };
   };
 
   config = lib.mkIf config.programs.claude-code.enable {
@@ -28,6 +34,21 @@ in {
     ];
 
     impermanence.userFiles = [".claude.json"];
+
+    hm.systemd.user.services = lib.mkIf (config.programs.claude-code.remoteControl != []) (
+      lib.listToAttrs (lib.imap0 (i: dir:
+        lib.nameValuePair "claude-remote-control-${toString i}" {
+          Unit.Description = "Claude remote control in ${dir}";
+          Install.WantedBy = ["default.target"];
+          Service = {
+            ExecStart = "${lib.getExe pkgs.bash} -lc '${lib.getExe hmConfig.programs.claude-code.package} remote-control --name %H:${dir}'";
+            WorkingDirectory = dir;
+            Restart = "on-failure";
+            RestartSec = 5;
+          };
+        })
+      config.programs.claude-code.remoteControl)
+    );
 
     hm = {
       home.packages = [pkgs.sox];

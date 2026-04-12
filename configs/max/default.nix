@@ -9,7 +9,10 @@
 
   programs.btop.enable = true;
   programs.opencode.enable = true;
-  programs.claude-code.enable = true;
+  programs.claude-code = {
+    enable = true;
+    remoteControl = ["/etc/home-assistant"];
+  };
 
   programs.zoxide.enable = true;
 
