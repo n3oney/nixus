@@ -42,5 +42,5 @@
   ];
 
   os.environment.systemPackages = [pkgs.wget];
-  os.boot.kernelPackages = lib.mkForce pkgs.linuxPackages-rt_latest;
+  os.boot.kernelPackages = lib.mkForce pkgs.linuxPackages_latest;
 }
