@@ -41,6 +41,7 @@
       ];
     in {
       neoney.openssh.authorizedKeys.keys = keys;
+      neoney.linger = true;
       root.openssh.authorizedKeys.keys = keys;
     };
 
