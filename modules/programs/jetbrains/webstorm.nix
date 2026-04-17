@@ -7,7 +7,7 @@
   options.programs.webstorm.enable = lib.mkEnableOption "WebStorm";
 
   config = lib.mkIf config.programs.webstorm.enable {
-    hm.home.packages = [
+    h.packages = [
       ((pkgs.jetbrains.webstorm.override {jdk = pkgs.openjdk21;}).overrideAttrs (old: {
         postFixup =
           (old.postFixup or "")

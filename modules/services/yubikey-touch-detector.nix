@@ -6,9 +6,9 @@
 }: {
   options.services.yubikey-touch-detector.enable = lib.mkEnableOption "YubiKey Touch Detector";
 
-  config.hm.systemd.user.services.yubikey-touch-detector = lib.mkIf config.services.yubikey-touch-detector.enable {
-    Unit.Description = "YubiKey touch detector";
-    Install.WantedBy = ["graphical-session.target"];
-    Service.ExecStart = "${lib.getExe pkgs.yubikey-touch-detector} --libnotify";
+  config.h.systemd.services.yubikey-touch-detector = lib.mkIf config.services.yubikey-touch-detector.enable {
+    description = "YubiKey touch detector";
+    wantedBy = ["graphical-session.target"];
+    serviceConfig.ExecStart = "${lib.getExe pkgs.yubikey-touch-detector} --libnotify";
   };
 }

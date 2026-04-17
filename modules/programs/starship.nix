@@ -72,7 +72,7 @@
     };
   };
 
-  hm.home.packages = [
+  h.packages = [
     inputs.jj-starship.packages.${pkgs.stdenv.hostPlatform.system}.default
   ];
 }

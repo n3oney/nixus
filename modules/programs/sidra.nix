@@ -10,7 +10,7 @@ in {
   options.programs.sidra.enable = lib.mkEnableOption "Sidra";
 
   config = lib.mkIf cfg.enable {
-    hm.home.packages = [
+    h.packages = [
       inputs.sidra.packages.${pkgs.stdenv.hostPlatform.system}.default
     ];
 

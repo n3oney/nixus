@@ -16,24 +16,20 @@ in {
     };
   };
 
-  config.hm = lib.mkIf cfg.enable {
-    home.packages = [cfg.package];
+  config.h = lib.mkIf cfg.enable {
+    packages = [cfg.package];
 
-    xdg.configFile."quickshell/niri-offscreen-indicator/shell.qml".source = ./niri-offscreen-indicator/shell.qml;
+    xdg.config.files."quickshell/niri-offscreen-indicator/shell.qml".source = ./niri-offscreen-indicator/shell.qml;
 
-    systemd.user.services.quickshell-niri-offscreen-indicator = {
-      Unit = {
-        Description = "Quickshell Niri Offscreen Indicator";
-        PartOf = ["graphical-session.target"];
-        After = ["graphical-session.target"];
-      };
-      Service = {
+    systemd.services.quickshell-niri-offscreen-indicator = {
+      description = "Quickshell Niri Offscreen Indicator";
+      partOf = ["graphical-session.target"];
+      after = ["graphical-session.target"];
+      wantedBy = ["graphical-session.target"];
+      serviceConfig = {
         ExecStart = "${cfg.package}/bin/quickshell -c niri-offscreen-indicator";
         Restart = "on-failure";
         RestartSec = 3;
-      };
-      Install = {
-        WantedBy = ["graphical-session.target"];
       };
     };
   };

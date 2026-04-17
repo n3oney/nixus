@@ -7,8 +7,8 @@
   cfg = config.display;
   inherit (lib) mkIf;
 in {
-  config.hm = mkIf cfg.enable {
-    home.packages = [
+  config.h = mkIf cfg.enable {
+    packages = [
       pkgs.wl-clipboard
       pkgs.jaq
       (pkgs.writeShellScriptBin "jq" ''

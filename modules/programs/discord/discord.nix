@@ -39,14 +39,14 @@ in {
 
     impermanence.userDirs = [".config/vesktop"];
 
-    hm = {
-      services.arrpc.enable = true;
+    hm.services.arrpc.enable = true;
 
-      home.packages = [
+    h = {
+      packages = [
         cfg.finalPackage
       ];
 
-      xdg.configFile."vesktop/settings.json".text = builtins.toJSON {
+      xdg.config.files."vesktop/settings.json".text = builtins.toJSON {
         discordBranch = "canary";
         firstLaunch = false;
         arRPC = "on";
@@ -57,7 +57,7 @@ in {
         transparencyOption = "I love NixOS";
       };
 
-      xdg.configFile."vesktop/settings/settings.json".text = builtins.toJSON {
+      xdg.config.files."vesktop/settings/settings.json".text = builtins.toJSON {
         notifyAboutUpdates = false;
         autoUpdate = false;
         autoUpdateNotification = false;

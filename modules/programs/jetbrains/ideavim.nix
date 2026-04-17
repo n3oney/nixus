@@ -4,7 +4,7 @@
   ...
 }: {
   config = lib.mkIf (config.programs.rider.enable || config.programs.webstorm.enable) {
-    hm.home.file.".ideavimrc".text = ''
+    h.files.".ideavimrc".text = ''
       set clipboard^=unnamedplus
     '';
   };

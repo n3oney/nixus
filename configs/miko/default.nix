@@ -187,7 +187,7 @@
     blockFromScreencast = true;
   };
 
-  hm.home.packages = with pkgs; [
+  h.packages = with pkgs; [
     cloudflared
     horizontallyspinningrat
     unzip

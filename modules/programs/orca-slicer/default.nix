@@ -39,8 +39,6 @@
   in {
     impermanence.userDirs = [".config/OrcaSlicer" ".local/share/orca-slicer"];
 
-    hm = {
-      home.packages = [orcaslicer];
-    };
+    h.packages = [orcaslicer];
   });
 }

@@ -19,27 +19,30 @@ in {
       type = "daemon";
     };
 
-    hm = {
-      home.packages = [package];
+    h = {
+      packages = [package];
 
-      xdg.configFile."wayscriber/config.toml".source = tomlFormat.generate "wayscriber-config" {
-        performance = {
-          buffer_count = 2;
-          enable_vsync = true;
-        };
-        tablet = {
-          enabled = true;
-          pressure_enabled = true;
-          min_thickness = 1.0;
-          max_thickness = 8.0;
+      xdg.config.files."wayscriber/config.toml" = {
+        generator = tomlFormat.generate "wayscriber-config";
+        value = {
+          performance = {
+            buffer_count = 2;
+            enable_vsync = true;
+          };
+          tablet = {
+            enabled = true;
+            pressure_enabled = true;
+            min_thickness = 1.0;
+            max_thickness = 8.0;
+          };
         };
       };
-
-      programs.niri.settings.binds."Mod+Shift+XF86TouchpadToggle".action.spawn = [
-        "${pkgs.procps}/bin/pkill"
-        "-SIGUSR1"
-        "wayscriber"
-      ];
     };
+
+    hm.programs.niri.settings.binds."Mod+Shift+XF86TouchpadToggle".action.spawn = [
+      "${pkgs.procps}/bin/pkill"
+      "-SIGUSR1"
+      "wayscriber"
+    ];
   });
 }

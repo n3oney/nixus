@@ -7,7 +7,7 @@
   options.programs.datagrip.enable = lib.mkEnableOption "DataGrip";
 
   config = lib.mkIf config.programs.datagrip.enable {
-    hm.home.packages = [
+    h.packages = [
       (
         (
           pkgs.jetbrains.datagrip

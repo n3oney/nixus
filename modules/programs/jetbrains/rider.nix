@@ -9,7 +9,7 @@
   config = lib.mkIf config.programs.rider.enable {
     # Need to update
     # nixpkgs-notify #460906
-    hm.home.packages = [
+    h.packages = [
       ((
           pkgs.jetbrains.rider
           /*

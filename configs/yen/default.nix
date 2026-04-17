@@ -21,7 +21,7 @@
 
   programs.zoxide.enable = true;
 
-  hm.home.packages = with pkgs; [
+  h.packages = with pkgs; [
     ripgrep
   ];
 

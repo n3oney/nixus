@@ -9,7 +9,7 @@
   config = lib.mkIf config.programs.obs-studio.enable {
     impermanence.userDirs = [".config/obs-studio"];
 
-    hm.home.packages = [
+    h.packages = [
       (pkgs.wrapOBS {
         plugins = [];
       })

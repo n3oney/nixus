@@ -159,7 +159,7 @@
 
   impermanence.enable = true;
 
-  hm.home.packages = with pkgs; [
+  h.packages = with pkgs; [
     horizontallyspinningrat
 
     fastfetch
