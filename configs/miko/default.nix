@@ -148,6 +148,7 @@
   };
 
   services = {
+    sunshine.enable = true;
     kde_connect.enable = true;
     podman.enable = true;
     openrgb.enable = true;
