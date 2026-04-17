@@ -14,8 +14,8 @@
           sync = [
             "rebase"
             "--source"
-            "all:roots(trunk()..mutable())"
-            "--destination"
+            "roots(trunk()..mutable())"
+            "--onto"
             "trunk()"
           ];
           ps = ["util" "exec" "--" "sh" "-c" "jj pull && jj sync"];
