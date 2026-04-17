@@ -27,4 +27,6 @@ in {
   "mcp.age".publicKeys = miko ++ prism;
 
   "norish.age".publicKeys = miko ++ prism ++ max;
+
+  "binary-cache-miko.age".publicKeys = miko;
 }

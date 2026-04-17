@@ -160,6 +160,8 @@
     syncthing.enable = true;
     yubikey-touch-detector.enable = true;
     # uxplay.enable = true;
+
+    binary-cache.server.enable = true;
   };
 
   impermanence.enable = true;
