@@ -59,13 +59,21 @@
     model = "/var/lib/whisper-cpp/ggml-large-v3-turbo.bin";
   };
 
-  services.llama-cpp = {
+  services.llama-cpp.instances.chat = {
+    host = "0.0.0.0";
+    openFirewall = true;
+    contextSize = 16384;
+    model = "/var/lib/llama-cpp-chat/Qwen3.5-9B-Q6_K.gguf";
+    # mmproj = "/var/lib/llama-cpp-chat/mmproj-gemma-4-E4B-it-F16.gguf";
+  };
+
+  services.omnivoice = {
     enable = true;
     host = "0.0.0.0";
     openFirewall = true;
-    contextSize = 32768;
-    model = "/var/lib/llama-cpp/Qwen3.5-9B-Q6_K.gguf";
-    # mmproj = "/var/lib/llama-cpp/mmproj-gemma-4-E4B-it-F16.gguf";
+    model = "/var/lib/omnivoice/omnivoice-base-Q4_K_M.gguf";
+    codec = "/var/lib/omnivoice/omnivoice-tokenizer-Q4_K_M.gguf";
+    defaultInstruct = "female, young adult, moderate pitch";
   };
 
   #services.sage.enable = true;
