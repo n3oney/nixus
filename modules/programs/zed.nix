@@ -29,6 +29,10 @@
               "ctrl-f" = "project_search::ToggleFocus";
             };
           }
+          {
+            context = "vim_mode == normal || vim_mode == visual";
+            bindings.s = "vim::HelixJumpToWord";
+          }
         ];
         userSettings = {
           file_scan_exclusions = [
