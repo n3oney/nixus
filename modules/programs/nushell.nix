@@ -64,7 +64,10 @@
 
             if ($params | length) == 1 { $params = [$params.0, []]; };
 
-            nh os switch ...$params.0 -- --impure ...$params.1
+            let p = $params;
+            with-env { NIX_SSHOPTS: "-o Compression=no" } {
+              nh os switch --use-substitutes ...$p.0 -- --impure ...$p.1
+            }
           }
 
           def --wrapped hx [...args] {
