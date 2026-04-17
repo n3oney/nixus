@@ -166,7 +166,6 @@
 
   impermanence.enable = true;
   keyring.enable = true;
-  nur.enable = true;
   agenix.enable = true;
 
   applications.telegram = {

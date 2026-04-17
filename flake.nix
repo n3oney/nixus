@@ -58,7 +58,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    nur.url = "github:nix-community/NUR";
 
     pyproject-nix = {
       url = "github:pyproject-nix/pyproject.nix";
