@@ -47,6 +47,8 @@
     };
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
+    orca-slicer-nightly.url = "github:skwort/orca-slicer-nightly";
+
     pyproject-nix = {
       url = "github:pyproject-nix/pyproject.nix";
       inputs.nixpkgs.follows = "nixpkgs";
