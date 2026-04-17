@@ -12,7 +12,7 @@
 
   windowsBoot = {
     enable = true;
-    bootEntry = "0032";
+    bootEntry = "0037";
   };
 
   os = {
