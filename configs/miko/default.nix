@@ -118,7 +118,6 @@
       # useDissent = true;
     };
     quickshell.enable = true;
-    firefox.enable = false;
     foot.enable = true;
     gaming = {
       alvr.enable = true;
