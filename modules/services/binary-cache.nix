@@ -28,6 +28,7 @@ in {
         bindAddress = "0.0.0.0";
         port = 5000;
       };
+      os.systemd.services.nix-serve.environment.HOME = "/var/empty";
       os.networking.firewall.allowedTCPPorts = [5000];
     })
 
