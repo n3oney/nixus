@@ -14,8 +14,6 @@ in {
 
       xdg.configFile."gh/hosts.yml".source =
         hmConfig.lib.file.mkOutOfStoreSymlink "/run/user/1000/agenix/gh_token";
-
-      age.secrets.gh_token.file = ../../secrets/gh_token.age;
     };
   };
 }
