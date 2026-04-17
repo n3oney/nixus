@@ -19,7 +19,7 @@ in {
 
     host = lib.mkOption {
       type = lib.types.str;
-      default = "127.0.0.1";
+      default = "0.0.0.0";
     };
 
     port = lib.mkOption {
@@ -66,9 +66,12 @@ in {
             "--language ${cfg.language}"
             "--inference-path /v1/audio/transcriptions"
             "--convert"
+            "--vad"
+            "--vad-model /var/lib/whisper-cpp/ggml-silero-v5.1.2.bin"
           ]
           ++ cfg.extraArgs);
         DynamicUser = true;
+        SupplementaryGroups = ["render" "video"];
         StateDirectory = "whisper-cpp";
         # --convert writes temp WAVs to CWD; point it at the state dir.
         WorkingDirectory = "%S/whisper-cpp";
