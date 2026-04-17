@@ -1,4 +1,6 @@
 {pkgs, ...}: {
+  impermanence.userDirs = [".config/jj/repos"];
+
   hm = let
     name = "n3oney";
     email = "neo@neoney.dev";
