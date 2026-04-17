@@ -32,7 +32,8 @@
 
     accept-flake-config = true;
 
-    extra-experimental-features = ["flakes" "nix-command"];
+    extra-experimental-features = ["flakes" "nix-command" "lazy-trees"];
+    lazy-trees = true;
 
     substituters = [
       "https://cache.nixos.org"
