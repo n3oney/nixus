@@ -9,6 +9,16 @@
   jsonFormat = pkgs.formats.json {};
   effectPatterns = import ../effect-patterns-skills.nix {inherit pkgs lib inputs;};
   skills = lib.genAttrs effectPatterns.skillDirs (name: "${effectPatterns.drv}/${name}");
+  gitToJjHook = pkgs.writeShellApplication {
+    name = "claude-git-to-jj";
+    runtimeInputs = [pkgs.bun];
+    text = "exec bun ${./git-to-jj-hook.ts}";
+  };
+  preferNxHook = pkgs.writeShellApplication {
+    name = "claude-prefer-nx";
+    runtimeInputs = [pkgs.bun];
+    text = "exec bun ${./prefer-nx-hook.ts}";
+  };
 in {
   options.programs.claude-code = {
     enable = lib.mkEnableOption "claude-code";
@@ -166,6 +176,33 @@ in {
             ];
             ask = ["mcp__postgresMutable"];
           };
+
+          hooks.PreToolUse = [
+            # Steer git usage toward jujutsu: read-only git is transparently
+            # redirected to its jj equivalent; everything else is denied with a
+            # jj hint. See ./git-to-jj-hook.ts.
+            {
+              matcher = "Bash";
+              hooks = [
+                {
+                  type = "command";
+                  command = lib.getExe gitToJjHook;
+                }
+              ];
+            }
+            # In an nx workspace, deny workspace-filtered package-manager runs
+            # (pnpm --filter / yarn workspace / npm -w) in favour of nx. Bypass
+            # with a NO_NX=1 prefix. See ./prefer-nx-hook.ts.
+            {
+              matcher = "Bash";
+              hooks = [
+                {
+                  type = "command";
+                  command = lib.getExe preferNxHook;
+                }
+              ];
+            }
+          ];
         };
       };
     };
