@@ -127,8 +127,8 @@
         extensionsSrc = pkgs.fetchFromGitHub {
           owner = "vicinaehq";
           repo = "extensions";
-          rev = "cf30b80f619282d45b1748eb76e784a4f875bb01";
-          sha256 = "sha256-KwNv+THKbNUey10q26NZPDMSzYTObRHaSDr81QP9CPY=";
+          rev = "62bcab8ca590d37c8443cb2aee2e83ef656e389f";
+          sha256 = "sha256-j3g10f7sHHPbcN6tQIJmKatyOANJzHc5o9zAQlNrnOw=";
         };
       in [
         (hmConfig.lib.vicinae.mkExtension {
@@ -139,19 +139,24 @@
           name = "bluetooth";
           src = extensionsSrc + "/extensions/bluetooth";
         })
-        (hmConfig.lib.vicinae.mkExtension {
-          name = "github";
-          src = extensionsSrc + "/extensions/github";
-        })
+        # (hmConfig.lib.vicinae.mkExtension {
+        #   name = "github";
+        #   src = extensionsSrc + "/extensions/github";
+        # })
         (hmConfig.lib.vicinae.mkRayCastExtension {
           name = "linear";
-          rev = "3de88e0dd8da8fedcd414c6b16dba81412f04d83";
-          sha256 = "sha256-hyIS8KYTONLDsn/p8MU9eWKoRYfRVlCzStnSzfUqb6s=";
+          rev = "951f060b12e47ea6ce29e8a77cb851fa21d37c89";
+          sha256 = "sha256-GHOGUH2hpQ8qNnjbvZjxCiBEdySITF3tGMuuZifMfZg=";
         })
         (hmConfig.lib.vicinae.mkRayCastExtension {
           name = "reclaim-ai";
-          rev = "3de88e0dd8da8fedcd414c6b16dba81412f04d83";
-          sha256 = "sha256-CXcvFMJQpCur33Poq//aqWaXR9rnDkLMTlaUbfhMkpQ=";
+          rev = "951f060b12e47ea6ce29e8a77cb851fa21d37c89";
+          sha256 = "sha256-+BTbyi721XLW1wm38gOn9iBEr50jP8cluh3gWdTWDmM=";
+        })
+        (hmConfig.lib.vicinae.mkRayCastExtension {
+          name = "github";
+          rev = "951f060b12e47ea6ce29e8a77cb851fa21d37c89";
+          sha256 = "sha256-xblJdbFWAqBxW1R1vmDUZgUgrU5FCmEPJCWHD6QlIJw=";
         })
       ];
     };
