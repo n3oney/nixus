@@ -18,8 +18,6 @@ in {
     ./monitors.nix
     ./packages.nix
     ./startup.nix
-    ./idle.nix
-    ./lock.nix
     ./gestures.nix
   ];
 
