@@ -31,6 +31,11 @@
           }
         ];
         userSettings = {
+          file_scan_exclusions = [
+            "**/.git"
+            "**/.jj"
+            "**/node_modules"
+          ];
           project_panel.dock = "right";
 
           minimap = {
