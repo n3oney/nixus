@@ -35,7 +35,10 @@
       url = "github:viperML/nh";
     };
     nix-ai-tools.url = "github:numtide/nix-ai-tools";
-    llama-cpp.url = "github:ggml-org/llama.cpp";
+    llama-cpp = {
+      url = "github:ggml-org/llama.cpp";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     nix-colors.url = "github:Misterio77/nix-colors";
     nix-index-database.url = "github:nix-community/nix-index-database";
     nix-index-database.inputs.nixpkgs.follows = "nixpkgs";
