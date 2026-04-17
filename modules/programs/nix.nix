@@ -24,6 +24,9 @@
 
     warn-dirty = false;
 
+    connect-timeout = 2;
+    download-attempts = 2;
+    fallback = true;
     # maximum number of parallel TCP connections used to fetch imports and binary caches, 0 means no limit
     http-connections = 0;
 
