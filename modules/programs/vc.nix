@@ -39,6 +39,7 @@
           backend = "ssh";
           key = "/home/neoney/.ssh/id_ed25519_sk.pub";
         };
+        remotes.origin.auto-track-created-bookmarks = "*";
         git.sign-on-push = true;
         ui = {
           default-command = "log";
@@ -62,9 +63,19 @@
             patterns = ["glob:'**/*.nix'"];
           };
 
-          # Prettier from PATH (some projects use this)
+          # Prettier from PATH (some projects use this); skipped when oxfmt is on PATH
           prettier = {
-            command = ["sh" "-c" "prettier --stdin-filepath=$path 2>/dev/null || cat"];
+            command = [
+              "sh"
+              "-c"
+              ''
+                if command -v oxfmt >/dev/null 2>&1; then
+                  cat
+                  exit 0
+                fi
+                prettier --stdin-filepath=$path 2>/dev/null || cat
+              ''
+            ];
             patterns = [
               "glob:'**/*.ts'"
               "glob:'**/*.tsx'"
@@ -79,15 +90,34 @@
             ];
           };
 
-          # Biome from PATH (some projects use this)
-          biome = {
-            command = ["sh" "-c" "biome format --stdin-file-path=$path 2>/dev/null || cat"];
+          # oxfmt from PATH (some projects use this)
+          oxfmt = {
+            command = ["sh" "-c" "oxfmt --stdin-filepath=$path 2>/dev/null || cat"];
             patterns = [
               "glob:'**/*.ts'"
               "glob:'**/*.tsx'"
               "glob:'**/*.js'"
               "glob:'**/*.jsx'"
+              "glob:'**/*.mjs'"
+              "glob:'**/*.cjs'"
+              "glob:'**/*.mts'"
+              "glob:'**/*.cts'"
               "glob:'**/*.json'"
+              "glob:'**/*.jsonc'"
+              "glob:'**/*.json5'"
+              "glob:'**/*.yaml'"
+              "glob:'**/*.yml'"
+              "glob:'**/*.toml'"
+              "glob:'**/*.html'"
+              "glob:'**/*.vue'"
+              "glob:'**/*.css'"
+              "glob:'**/*.scss'"
+              "glob:'**/*.less'"
+              "glob:'**/*.md'"
+              "glob:'**/*.mdx'"
+              "glob:'**/*.graphql'"
+              "glob:'**/*.gql'"
+              "glob:'**/*.hbs'"
             ];
           };
         };
