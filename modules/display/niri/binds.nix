@@ -118,8 +118,7 @@ in {
         msg = cmd: {action.spawn = [noctalia "msg"] ++ cmd;};
       in {
         "Mod+V" = msg ["panel-toggle" "clipboard"];
-        # v5 has no standalone notification-history panel; control-center holds it.
-        "Mod+N" = msg ["panel-toggle" "control-center"];
+        "Mod+N" = msg ["panel-toggle" "control-center" "notifications"];
 
         # Route audio + brightness through noctalia so its state/OSD stay
         # authoritative. (brightness is a no-op on miko — kept for the laptop.)
