@@ -23,6 +23,10 @@ in {
       hmModules = [inputs.agenix.homeManagerModules.default];
 
       os = {
+        age.identityPaths = lib.mkIf config.impermanence.enable [
+          "/persist/etc/ssh/ssh_host_ed25519_key"
+          "/persist/etc/ssh/ssh_host_rsa_key"
+        ];
         age.secrets = lib.mkMerge [
           (secretForHostnames ["max"] ../../secrets/cloudflared.age "cloudflared" {
             owner = "cloudflared";
