@@ -38,6 +38,23 @@
 
   services.cyan-skillfish-governor.enable = true;
 
+  os.hardware.fancontrol = {
+    enable = true;
+    config = ''
+      INTERVAL=5
+      DEVPATH=hwmon0=devices/pci0000:00/0000:00:08.1/0000:01:00.0 hwmon2=devices/platform/nct6687.2592
+      DEVNAME=hwmon0=amdgpu hwmon2=nct6686
+      FCTEMPS=hwmon2/pwm2=hwmon0/temp1_input
+      FCFANS=hwmon2/pwm2=hwmon2/fan2_input
+      MINTEMP=hwmon2/pwm2=60
+      MAXTEMP=hwmon2/pwm2=80
+      MINSTART=hwmon2/pwm2=120
+      MINSTOP=hwmon2/pwm2=60
+      MINPWM=hwmon2/pwm2=50
+      MAXPWM=hwmon2/pwm2=255
+    '';
+  };
+
   services.whisper-cpp = {
     enable = true;
     model = "/var/lib/whisper-cpp/ggml-large-v3-turbo.bin";
