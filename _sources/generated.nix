@@ -16,12 +16,12 @@
   };
   home-assistant = {
     pname = "home-assistant";
-    version = "2026.6.1";
+    version = "2026.7.0.dev202606200319";
     src = dockerTools.pullImage {
       imageName = "homeassistant/home-assistant";
-      imageDigest = "sha256:59aa8824955c9db491b75d2eebe42bd68494f80c2ec69ec0d66d9dae37d37514";
-      sha256 = "sha256-GbloWNeCck4JVNrn+0WdCFJf2l48uOFEy9uIPeWWCW0=";
-      finalImageTag = "2026.6.1";
+      imageDigest = "sha256:e554a98b176ffb4d15d25d3689f7097941934190bd6cdb60d205314d4f46c5e1";
+      sha256 = "sha256-mkV/ciuCH6gP+1a5lkchjOjPEhcwFCO7Mfd0zLJydiM=";
+      finalImageTag = "2026.7.0.dev202606200319";
     };
   };
   music-assistant = {

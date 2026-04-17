@@ -4,7 +4,7 @@ fetch.url = "https://github.com/imputnet/helium-linux/releases/download/$ver/hel
 
 [home-assistant]
 src.container = "homeassistant/home-assistant"
-src.include_regex = "\\d+\\.\\d+\\.\\d+$"
+src.include_regex = "\\d+\\.\\d+\\.\\d+\\.dev\\d+$"
 fetch.docker = "homeassistant/home-assistant"
 
 
