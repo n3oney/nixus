@@ -88,5 +88,17 @@
         patch = ../../hosts/endurance/bc250-freq-range.patch;
       }
     ];
+    kernelParams = [
+      "amdgpu.bc250_cc_write_mode=3"
+
+      # Disable inherited panic-on-soft-issue policies
+      # so KIQ wedges don't take down the whole machine
+      "softlockup_panic=0"
+      "hung_task_panic=0"
+
+      # Cleaner amdgpu defaults
+      "amdgpu.vm_update_mode=0" # was 3, was forcing redundant CPU+SDMA VM updates
+      "amdgpu.noretry=1" # disable XNACK retry, removes one TLB-flush trigger
+    ];
   };
 }
