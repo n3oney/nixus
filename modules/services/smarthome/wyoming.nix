@@ -10,14 +10,19 @@
       openwakeword = {
         uri = "tcp://0.0.0.0:10400";
         enable = true;
-        preloadModels = ["ok_nabu"];
+        extraArgs = ["--preload-model" "ok_nabu"];
       };
-      faster-whisper.servers.polish = {
-        uri = "tcp://0.0.0.0:10300";
-        model = "base-int8";
-        language = "en";
-        enable = true;
-        extraArgs = [];
+      piper.servers = {
+        gosia = {
+          uri = "tcp://0.0.0.0:10200";
+          voice = "pl_PL-gosia-medium";
+          enable = true;
+        };
+        lessac = {
+          uri = "tcp://0.0.0.0:10201";
+          voice = "en_US-lessac-medium";
+          enable = true;
+        };
       };
     };
   };
