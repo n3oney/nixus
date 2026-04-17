@@ -8,4 +8,5 @@ _: prev: {
   mxw = prev.callPackage ./mxw.nix {};
   gogcli = prev.callPackage ./gogcli {};
   cyan-skillfish-governor-smu = prev.callPackage ./cyan-skillfish-governor-smu {};
+  omnivoice-cpp = prev.callPackage ./omnivoice-cpp {};
 }
