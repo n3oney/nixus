@@ -50,8 +50,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    orca-slicer-nightly.url = "github:skwort/orca-slicer-nightly";
-
     pivo.url = "path:/home/neoney/code/pivo";
 
     pyproject-nix = {
