@@ -12,6 +12,7 @@
 
   display = {
     enable = true;
+    noctalia.enable = true;
 
     monitors = [
       {

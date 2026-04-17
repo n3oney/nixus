@@ -3,7 +3,6 @@
 
   inputs = {
     agenix.url = "github:ryantm/agenix";
-    awww.url = "git+https://codeberg.org/LGFae/awww";
 
     btop-rose-pine = {
       flake = false;
@@ -46,6 +45,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    noctalia = {
+      url = "github:noctalia-dev/noctalia";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     orca-slicer-nightly.url = "github:skwort/orca-slicer-nightly";
 

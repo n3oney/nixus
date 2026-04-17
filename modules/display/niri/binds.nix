@@ -112,6 +112,23 @@ in {
       // mkScreenshotBind cfg.screenshotKeybinds.area {screenshot = {};}
       // mkScreenshotBind cfg.screenshotKeybinds.active {screenshot-window = {};}
       // mkScreenshotBind cfg.screenshotKeybinds.monitor {screenshot-screen = {};}
+      # noctalia panels / IPC (only where noctalia drives the shell)
+      // lib.optionalAttrs cfg.noctalia.enable (let
+        noctalia = "${hmConfig.programs.noctalia.package}/bin/noctalia";
+        msg = cmd: {action.spawn = [noctalia "msg"] ++ cmd;};
+      in {
+        "Mod+V" = msg ["panel-toggle" "clipboard"];
+        # v5 has no standalone notification-history panel; control-center holds it.
+        "Mod+N" = msg ["panel-toggle" "control-center"];
+
+        # Route audio + brightness through noctalia so its state/OSD stay
+        # authoritative. (brightness is a no-op on miko — kept for the laptop.)
+        "XF86AudioRaiseVolume" = msg ["volume-up"];
+        "XF86AudioLowerVolume" = msg ["volume-down"];
+        "XF86AudioMute" = msg ["volume-mute"];
+        "XF86MonBrightnessUp" = msg ["brightness-up"];
+        "XF86MonBrightnessDown" = msg ["brightness-down"];
+      })
       # Workspace keybinds from monitor config
       // lib.listToAttrs (
         lib.flatten (

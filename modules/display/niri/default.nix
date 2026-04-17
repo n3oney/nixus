@@ -18,7 +18,6 @@ in {
   imports = [
     ./monitors.nix
     ./binds.nix
-    ./wallpaper.nix
     ./startup.nix
     ./rules.nix
     ./screenshot.nix
@@ -55,6 +54,7 @@ in {
       hotkey-overlay.skip-at-startup = true;
 
       # screenshot-path = "/tmp/niri-screenshot-%Y-%m-%d_%H-%M-%S.png"; # TODO: restore when shadower daemon is set up
+      #
 
       input = {
         keyboard = {

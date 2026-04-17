@@ -36,7 +36,6 @@ in {
           };
         };
       };
-      services.blueman.enable = true;
 
       # Auto-toggle Bluetooth when dock keyboard connects/disconnects
       # Dock keyboard: 05af:326a (Minisforum V3 keyboard dock)
