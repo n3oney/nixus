@@ -30,7 +30,6 @@
   services.tailscale.enable = true;
 
   # services.librespot.enable = true;
-  # services.klipper.enable = true;
 
   services.spoolman.enable = true;
 
