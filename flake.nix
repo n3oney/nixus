@@ -77,6 +77,7 @@
     };
     vicinae.url = "github:vicinaehq/vicinae";
     wayscriber.url = "github:devmobasa/wayscriber";
+    xonsh.url = "github:xonsh/xonsh";
   };
 
   outputs = inputs @ {nixpkgs, ...}: let

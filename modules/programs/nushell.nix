@@ -6,11 +6,7 @@
   ...
 }: {
   config = {
-    os = {
-      environment.systemPackages = [pkgs.nushell];
-
-      users.defaultUserShell = hmConfig.programs.nushell.package;
-    };
+    os.environment.systemPackages = [pkgs.nushell];
 
     impermanence.userFiles = [".config/nushell/history.txt"];
 
