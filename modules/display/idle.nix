@@ -2,7 +2,7 @@
   pkgs,
   lib,
   config,
-  hmConfig,
+  osConfig,
   ...
 }: let
   cfg = config.display;
@@ -13,7 +13,7 @@
     /run/wrappers/bin/physlock -ldms && ${lib.getExe pkgs.hyprlock} --no-fade-in && ${pkgs.systemd}/bin/loginctl unlock-session
   '';
 
-  niri = "${hmConfig.programs.niri.package}/bin/niri";
+  niri = "${osConfig.programs.niri.package}/bin/niri";
   loginctl = "${pkgs.systemd}/bin/loginctl";
 
   # Suspend script with CPU check
@@ -45,43 +45,33 @@
   '';
 in {
   config = mkIf cfg.enable {
-    hm.services.swayidle = {
+    hm.services.hypridle = {
       enable = true;
 
-      events = [
-        {
-          event = "before-sleep";
-          command = "${loginctl} lock-session";
-        }
-        {
-          event = "after-resume";
-          command = "${niri} msg action power-on-monitors";
-        }
-        {
-          event = "lock";
-          command = "${lockScript}";
-        }
-        {
-          event = "unlock";
-          command = "/run/wrappers/bin/physlock -Ld";
-        }
-      ];
+      settings = {
+        general = {
+          lock_cmd = "${lockScript}";
+          unlock_cmd = "/run/wrappers/bin/physlock -Ld";
+          before_sleep_cmd = "${loginctl} lock-session";
+          after_sleep_cmd = "${niri} msg action power-on-monitors";
+        };
 
-      timeouts = [
-        {
-          timeout = 300; # 5min
-          command = "${loginctl} lock-session";
-        }
-        {
-          timeout = 360; # 6min
-          command = "${niri} msg action power-off-monitors";
-          resumeCommand = "${niri} msg action power-on-monitors";
-        }
-        {
-          timeout = 420; # 7min
-          command = "${suspendScript}";
-        }
-      ];
+        listener = [
+          {
+            timeout = 300; # 5min
+            on-timeout = "${loginctl} lock-session";
+          }
+          {
+            timeout = 360; # 6min
+            on-timeout = "${niri} msg action power-off-monitors";
+            on-resume = "${niri} msg action power-on-monitors";
+          }
+          {
+            timeout = 420; # 7min
+            on-timeout = "${suspendScript}";
+          }
+        ];
+      };
     };
   };
 }

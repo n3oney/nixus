@@ -28,7 +28,6 @@ in {
       };
 
       programs.hyprlock.enable = true;
-      services.hypridle.enable = lib.mkForce false;
     };
 
     hm = {
