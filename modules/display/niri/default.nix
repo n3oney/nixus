@@ -42,12 +42,19 @@ in {
     hmModules = [inputs.niri-flake.homeModules.config];
 
     os = {
+      environment.sessionVariables.NIXOS_OZONE_WL = "1";
+
       nixpkgs.overlays = [inputs.niri-flake.overlays.niri];
       programs.niri.enable = true;
       programs.niri.package = pkgs.niri-unstable;
 
-      # niri provides its own portal config; disable the wlr portal
-      xdg.portal.wlr.enable = lib.mkForce false;
+      xdg.portal = {
+        enable = true;
+        # niri provides its own portal config; disable the wlr portal
+        wlr.enable = lib.mkForce false;
+        extraPortals = [pkgs.xdg-desktop-portal-gtk];
+        xdgOpenUsePortal = true;
+      };
     };
 
     hm.programs.niri.package = pkgs.niri-unstable;

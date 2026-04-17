@@ -20,7 +20,15 @@ in {
         };
       };
 
+      # locker on sleep
+      systemd.services.locker = {
+        before = ["sleep.target"];
+        wantedBy = ["sleep.target"];
+        script = "${pkgs.systemd}/bin/loginctl lock-sessions";
+      };
+
       programs.hyprlock.enable = true;
+      services.hypridle.enable = lib.mkForce false;
     };
 
     hm = {
@@ -113,20 +121,6 @@ in {
               valign = "top";
 
               shadow_passes = 1;
-            }
-            {
-              monitor = "";
-              text = "$LAYOUT[!,pl]";
-              font_size = 24;
-              font_family = "$font";
-
-              color = "rgb(200, 200, 200)";
-
-              onclick = "hyprctl switchxkblayout all next";
-
-              position = "250, -20";
-              halign = "center";
-              valign = "center";
             }
           ];
         };

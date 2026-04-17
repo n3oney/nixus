@@ -20,6 +20,10 @@
   };
 
   os = {
+    services.logind.settings.Login = {
+      HandleLidSwitch = "suspend";
+    };
+
     nixpkgs.config.allowUnfree = true;
 
     services.avahi = {

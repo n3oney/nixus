@@ -2,18 +2,19 @@
   pkgs,
   lib,
   config,
+  hmConfig,
   ...
 }: let
   cfg = config.display;
   inherit (lib) mkIf;
-  
-  # Lock command using physlock and hyprlock
-  # We trigger unlock-session after hyprlock exits to fire the unlock_cmd
-  # flags: --no-fade-in (disable fade in animation)
-  # Note: physlock must use the setuid wrapper at /run/wrappers/bin/physlock
+
+  # physlock must use the setuid wrapper at /run/wrappers/bin/physlock
   lockScript = pkgs.writeShellScript "lock-script" ''
     /run/wrappers/bin/physlock -ldms && ${lib.getExe pkgs.hyprlock} --no-fade-in && ${pkgs.systemd}/bin/loginctl unlock-session
   '';
+
+  niri = "${hmConfig.programs.niri.package}/bin/niri";
+  loginctl = "${pkgs.systemd}/bin/loginctl";
 
   # Suspend script with CPU check
   # 10 Mbps in bytes/sec
@@ -44,34 +45,43 @@
   '';
 in {
   config = mkIf cfg.enable {
-    hm.services.hypridle = {
+    hm.services.swayidle = {
       enable = true;
-      
-      settings = {
-        general = {
-          lock_cmd = "${lockScript}";
-          unlock_cmd = "/run/wrappers/bin/physlock -Ld";
-          before_sleep_cmd = "loginctl lock-session";
-          after_sleep_cmd = "hyprctl dispatch dpms on || niri msg action power-on-monitors";
-          ignore_dbus_inhibit = false;
-        };
 
-        listener = [
-          {
-            timeout = 300; # 5min
-            on-timeout = "loginctl lock-session";
-          }
-          {
-            timeout = 360; # 6min
-            on-timeout = "hyprctl dispatch dpms off || niri msg action power-off-monitors";
-            on-resume = "hyprctl dispatch dpms on || niri msg action power-on-monitors";
-          }
-          {
-            timeout = 420; # 7min
-            on-timeout = "${suspendScript}";
-          }
-        ];
-      };
+      events = [
+        {
+          event = "before-sleep";
+          command = "${loginctl} lock-session";
+        }
+        {
+          event = "after-resume";
+          command = "${niri} msg action power-on-monitors";
+        }
+        {
+          event = "lock";
+          command = "${lockScript}";
+        }
+        {
+          event = "unlock";
+          command = "/run/wrappers/bin/physlock -Ld";
+        }
+      ];
+
+      timeouts = [
+        {
+          timeout = 300; # 5min
+          command = "${loginctl} lock-session";
+        }
+        {
+          timeout = 360; # 6min
+          command = "${niri} msg action power-off-monitors";
+          resumeCommand = "${niri} msg action power-on-monitors";
+        }
+        {
+          timeout = 420; # 7min
+          command = "${suspendScript}";
+        }
+      ];
     };
   };
 }

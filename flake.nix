@@ -27,12 +27,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
       url = "github:nix-community/home-manager";
     };
-    hyprcontrib = {
-      inputs.nixpkgs.follows = "nixpkgs";
-      url = "github:hyprwm/contrib";
-    };
-    hyprland.url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
-    hyprland-qtutils.url = "github:hyprwm/hyprland-qtutils";
     preservation.url = "github:nix-community/preservation";
     nh = {
       inputs.nixpkgs.follows = "nixpkgs";
@@ -42,7 +36,7 @@
       url = "github:ggml-org/llama.cpp";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    nix-ai-tools.url = "github:numtide/nix-ai-tools/92ee3558f5da4e6af64e9486269c62a1f0552d55";
+    nix-ai-tools.url = "github:numtide/nix-ai-tools";
     nix-colors.url = "github:Misterio77/nix-colors";
     nix-index-database.url = "github:nix-community/nix-index-database";
     nix-index-database.inputs.nixpkgs.follows = "nixpkgs";
@@ -73,10 +67,8 @@
       inputs.uv2nix.follows = "uv2nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
     shadower.url = "github:n3oney/shadower";
     sidra.url = "github:wimpysworld/sidra";
-    zen-browser-flake.url = "github:youwen5/zen-browser-flake";
     jj-spr.url = "github:jennings/jj-spr/11cf7d864b244d2718dd998d1f39937f26d6f11f";
     jj-starship.url = "github:dmmulroy/jj-starship";
     lanzaboote = {

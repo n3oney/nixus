@@ -35,8 +35,10 @@ in {
         };
       };
 
-      wayland.windowManager.hyprland.settings.bind = [
-        "SUPER SHIFT, XF86TouchpadToggle, exec, pkill -SIGUSR1 wayscriber"
+      programs.niri.settings.binds."Mod+Shift+XF86TouchpadToggle".action.spawn = [
+        "${pkgs.procps}/bin/pkill"
+        "-SIGUSR1"
+        "wayscriber"
       ];
     };
   });

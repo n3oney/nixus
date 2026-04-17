@@ -10,8 +10,6 @@
   display = {
     enable = true;
 
-    enableTearing = true;
-
     monitors = [
       {
         name = "DP-1";

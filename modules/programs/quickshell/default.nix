@@ -9,9 +9,8 @@
   cfg = config.programs.quickshell;
   palette = config.colors.colorScheme.palette;
   alphaHex = lib.toHexString (builtins.floor (config.colors.backgroundAlpha * 255));
-  hyprlandSettings = hmConfig.wayland.windowManager.hyprland.settings;
-  gap = hyprlandSettings.general.gaps_out;
-  rounding = hyprlandSettings.decoration.rounding;
+  gap = hmConfig.programs.niri.settings.layout.gaps;
+  rounding = config.display.niri.cornerRadius;
 
   # Monitor access
   monitors = config.display.monitors;
@@ -36,33 +35,14 @@
 
   # Compute list of workspaces with no gaps (gapsIn == 0 or gapsOut == 0)
   noGapWorkspaces = lib.flatten (map (monitor:
-      map (ws: (normalizeWs ws).id)
-        (lib.filter (ws: let
-            w = normalizeWs ws;
-          in
-            (w.gapsIn or null) == 0 || (w.gapsOut or null) == 0)
-          monitor.workspaces))
-    monitors);
+    map (ws: (normalizeWs ws).id)
+    (lib.filter (ws: let
+      w = normalizeWs ws;
+    in
+      (w.gapsIn or null) == 0 || (w.gapsOut or null) == 0)
+    monitor.workspaces))
+  monitors);
 
-  # Parse workspace animation: "workspaces, 1, 7, fluent_decel, slide"
-  workspaceAnim = builtins.filter (a: lib.hasPrefix "workspaces," a) hyprlandSettings.animations.animation;
-  animationSpeed =
-    if workspaceAnim != []
-    then builtins.elemAt (lib.splitString ", " (builtins.head workspaceAnim)) 2
-    else "7";
-  animationBezierName =
-    if workspaceAnim != []
-    then builtins.elemAt (lib.splitString ", " (builtins.head workspaceAnim)) 3
-    else "fluent_decel";
-
-  # Find the bezier curve definition
-  bezierDefs = builtins.filter (b: lib.hasPrefix "${animationBezierName}," b) hyprlandSettings.animations.bezier;
-  bezierValues =
-    if bezierDefs != []
-    then let
-      parts = lib.splitString ", " (builtins.head bezierDefs);
-    in "[${builtins.elemAt parts 1}, ${builtins.elemAt parts 2}, ${builtins.elemAt parts 3}, ${builtins.elemAt parts 4}]"
-    else "[0.1, 1, 0, 1]";
 in {
   options.programs.quickshell = {
     enable = lib.mkEnableOption "quickshell";
@@ -141,9 +121,8 @@ in {
       }";
       const noRoundingWorkspaces = [${lib.concatMapStringsSep ", " toString noGapWorkspaces}];
 
-      // Animation (matches Hyprland workspace animation)
-      const animationDuration = ${animationSpeed} * 100;
-      const animationBezier = ${bezierValues};
+      const animationDuration = 700;
+      const animationBezier = [0.1, 1, 0, 1];
     '';
 
     # niri-offscreen-indicator

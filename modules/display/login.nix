@@ -72,7 +72,6 @@
       ];
 
       environment.etc."greetd/environments".text = ''
-        uwsm start hyprland-uwsm.desktop
         niri-session
       '';
     };

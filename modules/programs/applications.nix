@@ -25,10 +25,6 @@ with types; {
           default = "app";
         };
         blockFromScreencast = mkEnableOption "block window from screencasts";
-        hyprlandWindowRules = mkOption {
-          type = listOf str;
-          default = [];
-        };
       };
     });
   };

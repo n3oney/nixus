@@ -36,8 +36,9 @@ in {
       groups = ["wheel"];
     }];
     
-    hm.wayland.windowManager.hyprland.settings.bind = [
-      "SUPER, XF86Launch9, exec, sudo ${cfg.finalPackage}/bin/windows"
+    hm.programs.niri.settings.binds."Mod+XF86Launch9".action.spawn = [
+      "sudo"
+      "${cfg.finalPackage}/bin/windows"
     ];
   };
 }
