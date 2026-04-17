@@ -11,6 +11,11 @@
 
   envFile = "/run/user/1000/agenix/mcp";
 
+  # Quote args for bash double-quoted context so $VAR expansion still works.
+  # lib.escapeShellArgs single-quotes, which would pass `$LINEAR_AUTH_TOKEN` through literally.
+  escapeDQ = builtins.replaceStrings ["\\" "\"" "`"] ["\\\\" "\\\"" "\\`"];
+  quoteArgs = args: lib.concatMapStringsSep " " (a: ''"${escapeDQ a}"'') args;
+
   withEnv = command: args: {
     command = "${pkgs.bash}/bin/bash";
     args = [
@@ -19,7 +24,7 @@
         set -a
         source ${envFile}
         set +a
-        exec ${command} ${lib.escapeShellArgs args}
+        exec ${command} ${quoteArgs args}
       ''
     ];
   };
@@ -104,20 +109,12 @@
         autoApprove = ["tavily-search" "tavily-extract"];
       };
 
-    memoryBank = {
-      command = npx;
-      args = ["-y" "@allpepper/memory-bank-mcp@latest"];
-      environment.MEMORY_BANK_ROOT = "/home/neoney/.local/share/memory-bank";
-    };
-
     context7 = {
       command = npx;
       args = ["-y" "@upstash/context7-mcp"];
       autoApprove = ["resolve-library-id" "get-library-docs"];
     };
   };
-
-  instructions = builtins.readFile ./instructions.md;
 
   toOpencodeServer = _: value:
     {
@@ -146,16 +143,10 @@ in {
 
   config.impermanence.userDirs = lib.mkIf config.services.mcp.enable [
     ".npm/_npx"
-    ".local/share/memory-bank"
   ];
 
   config.hm = lib.mkIf config.services.mcp.enable {
-    programs.opencode.settings = {
-      instructions = [(pkgs.writeText "instructions.md" instructions)];
-      mcp = lib.mapAttrs toOpencodeServer servers;
-    };
-
-    programs.claude-code.memory.text = instructions;
+    programs.opencode.settings.mcp = lib.mapAttrs toOpencodeServer servers;
   };
 
   config.programs.claude-code.mcpServers = lib.mkIf config.services.mcp.enable (
