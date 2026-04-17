@@ -76,5 +76,17 @@
   ];
 
   os.environment.systemPackages = [pkgs.wget];
-  os.boot.kernelPackages = lib.mkForce pkgs.linuxPackages_latest;
+  os.boot = {
+    kernelPackages = lib.mkForce pkgs.linuxPackages_latest;
+    kernelPatches = [
+      {
+        name = "bc250-40cu-unlock";
+        patch = ../../hosts/endurance/bc250-40cu-amdgpu.patch;
+      }
+      {
+        name = "bc250-freq-range";
+        patch = ../../hosts/endurance/bc250-freq-range.patch;
+      }
+    ];
+  };
 }
