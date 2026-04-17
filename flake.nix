@@ -31,6 +31,9 @@
       inputs.nixpkgs.follows = "nixpkgs";
       url = "github:viperML/nh";
     };
+
+    nix-cachyos-kernel.url = "github:xddxdd/nix-cachyos-kernel/release";
+
     llama-cpp = {
       url = "github:ggml-org/llama.cpp";
       inputs.nixpkgs.follows = "nixpkgs";
