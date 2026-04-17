@@ -16,12 +16,12 @@
   };
   home-assistant = {
     pname = "home-assistant";
-    version = "2026.4.1";
+    version = "2026.6.1";
     src = dockerTools.pullImage {
       imageName = "homeassistant/home-assistant";
-      imageDigest = "sha256:8848691147f01a6eee7753de2ade21b04d6168fcd2e2a7089f6f84e3b7b86960";
-      sha256 = "sha256-mBYDzQZycQw+Nv8kepUJvkwbLkQdGmoBkl3oMqzqf5Q=";
-      finalImageTag = "2026.4.1";
+      imageDigest = "sha256:59aa8824955c9db491b75d2eebe42bd68494f80c2ec69ec0d66d9dae37d37514";
+      sha256 = "sha256-GbloWNeCck4JVNrn+0WdCFJf2l48uOFEy9uIPeWWCW0=";
+      finalImageTag = "2026.6.1";
     };
   };
   norish = {
