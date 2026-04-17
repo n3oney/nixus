@@ -119,7 +119,7 @@
     quickshell.enable = true;
     foot.enable = true;
     gaming = {
-      alvr.enable = true;
+      # alvr.enable = true;
       steam = {
         enable = true;
         proton-ge.enable = true;
