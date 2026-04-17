@@ -2,6 +2,61 @@
   osModules = [./hardware-configuration.nix];
 
   os = {
+    # build rocm stuff for gfx1010
+    nixpkgs.overlays = [
+      (
+        _final: prev: {
+          rocmPackages = prev.rocmPackages.overrideScope (rocmFinal: rocmPrev: {
+            clr = rocmPrev.clr.overrideAttrs (old: {
+              passthru =
+                (old.passthru or {})
+                // {
+                  localGpuTargets = ["gfx1010"];
+                  gpuTargets = ["gfx1010"];
+                };
+            });
+            miopen = rocmPrev.miopen.override {withComposableKernel = false;};
+          });
+
+          pythonPackagesExtensions =
+            (prev.pythonPackagesExtensions or [])
+            ++ [
+              (pyFinal: pyPrev: {
+                torch = pyPrev.torch.override {gpuTargets = ["gfx1010"];};
+                vllm = pyPrev.vllm.overrideAttrs (o: {
+                  postPatch =
+                    (o.postPatch or "")
+                    + ''
+                      substituteInPlace CMakeLists.txt \
+                        --replace-fail \
+                          'set(HIP_SUPPORTED_ARCHS "gfx906;gfx908;gfx90a;gfx942;gfx950;gfx1030;gfx1100;gfx1101;gfx1200;gfx1201;gfx1150;gfx1151")' \
+                          'set(HIP_SUPPORTED_ARCHS "gfx1010")'
+                    '';
+                });
+              })
+            ];
+        }
+      )
+    ];
+
+    nixpkgs.config.problems.handlers = {
+      composable_kernel.broken = "warn";
+    };
+
+    nixpkgs.config.rocmSupport = true;
+
+    environment.systemPackages = [
+      (pkgs.python3.withPackages (ps: [ps.torch ps.transformers ps.accelerate ps.vllm ps.diffusers]))
+    ];
+
+    # for rocm
+    environment.variables = {
+      AMDGCN_USE_BUFFER_OPS = "0";
+      HSA_OVERRIDE_GFX_VERSION = "10.1.0";
+      GPU_PINNED_MIN_XFER_SIZE = "16384";
+      HSA_ENABLE_SDMA = "0";
+    };
+
     nixpkgs.config.allowUnfree = true;
 
     boot.loader = {
