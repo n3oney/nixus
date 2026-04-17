@@ -39,6 +39,10 @@ in {
         gpu.set-method = "smu";
         dbus.enabled = true;
         frequency-thresholds.adjust = 10;
+        frequency-range = {
+          min = 350;
+          max = 2230;
+        };
         load-target = {
           upper = 0.80;
           lower = 0.65;
@@ -49,32 +53,20 @@ in {
         };
         safe-points = [
           {
-            frequency = 1000;
+            frequency = 350;
             voltage = 700;
           }
           {
-            frequency = 1175;
-            voltage = 700;
-          }
-          {
-            frequency = 1400;
-            voltage = 750;
-          }
-          {
-            frequency = 1600;
-            voltage = 800;
-          }
-          {
-            frequency = 1700;
-            voltage = 850;
-          }
-          {
-            frequency = 1850;
+            frequency = 1500;
             voltage = 900;
           }
           {
             frequency = 2000;
-            voltage = 950;
+            voltage = 1000;
+          }
+          {
+            frequency = 2230;
+            voltage = 1035;
           }
         ];
       };
