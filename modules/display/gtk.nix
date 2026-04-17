@@ -69,10 +69,10 @@
       pkgs.qt6.qtwayland
       pkgs.kdePackages.breeze
       pkgs.kdePackages.breeze-icons
-      pkgs.qt6.qtsvg  # needed to load breeze icons
+      pkgs.qt6.qtsvg # needed to load breeze icons
       pkgs.kdePackages.qqc2-desktop-style
       pkgs.kdePackages.kirigami
-      pkgs.qt6Packages.qt6ct  # patched qt6ct with kiconthemes
+      pkgs.qt6Packages.qt6ct # patched qt6ct with kiconthemes
     ];
 
     qt = {
@@ -92,25 +92,29 @@
     };
 
     # Patched qt6ct with kiconthemes support for proper icon theme lookup
-    nixpkgs.overlays = [(final: prev: {
-      qt6Packages = prev.qt6Packages.overrideScope (qfinal: qprev: {
-        qt6ct = qprev.qt6ct.overrideAttrs (ctprev: {
-          src = pkgs.fetchFromGitLab {
-            domain = "www.opencode.net";
-            owner = "ilya-fedin";
-            repo = "qt6ct";
-            rev = "9d64a13ff6c376380901ef855f3c5e6a1f7afc0d";
-            sha256 = "vOq5LC5TPRkBfFYzsqyd8wGIzAa6jT7PwWsEj5Dqrqs=";
-          };
+    nixpkgs.overlays = [
+      (final: prev: {
+        qt6Packages = prev.qt6Packages.overrideScope (qfinal: qprev: {
+          qt6ct = qprev.qt6ct.overrideAttrs (ctprev: {
+            src = pkgs.fetchFromGitLab {
+              domain = "www.opencode.net";
+              owner = "trialuser";
+              repo = "qt6ct";
+              rev = "00823e41aa60e8fe266d5aee328e82ad1ad94348";
+              sha256 = "sha256-aQmqLpM0vogMsYaDS9OeKVI3N53uY4NBC4FF10hK8Uw=";
+            };
 
-          buildInputs = ctprev.buildInputs ++ (with final.kdePackages; [
-            kconfig
-            kcolorscheme
-            kiconthemes
-          ]);
-          cmakeFlags = [ "-DPLUGINDIR=${placeholder "out"}/lib/qt-6/plugins"];
+            buildInputs =
+              ctprev.buildInputs
+              ++ (with final.kdePackages; [
+                kconfig
+                kcolorscheme
+                kiconthemes
+              ]);
+            cmakeFlags = ["-DPLUGINDIR=${placeholder "out"}/lib/qt-6/plugins"];
+          });
         });
-      });
-    })];
+      })
+    ];
   };
 }
