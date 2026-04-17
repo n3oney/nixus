@@ -13,7 +13,10 @@
     remoteControl = ["/etc/home-assistant"];
   };
 
-  # services.mcp.enable = true;
+  services.mcp = {
+    enable = true;
+    servers = ["homeAssistant"];
+  };
 
   programs.zoxide.enable = true;
 

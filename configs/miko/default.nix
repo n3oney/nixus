@@ -152,7 +152,20 @@
     kde_connect.enable = true;
     podman.enable = true;
     openrgb.enable = true;
-    mcp.enable = true;
+    mcp = {
+      enable = true;
+      servers = [
+        "effect"
+        "linear"
+        "github"
+        "nx"
+        "repomix"
+        "postgresReadOnly"
+        "postgresMutable"
+        "tavily"
+        "context7"
+      ];
+    };
     tailscale.enable = true;
     kondo.enable = true;
     syncthing.enable = true;

@@ -36,6 +36,17 @@
       autoApprove = ["get_effect_doc" "effect_doc_search"];
     };
 
+    homeAssistant =
+      (withEnv "${pkgs.uv}/bin/uvx" [
+        "ha-mcp@latest"
+      ])
+      // {
+        environment = {
+          UV_PYTHON = "${pkgs.python314}/bin/python3";
+          UV_PYTHON_DOWNLOADS = "never";
+        };
+      };
+
     linear = withEnv npx [
       "-y"
       "mcp-remote"
@@ -129,13 +140,21 @@
       inherit (value) autoApprove;
     };
 in {
-  options.services.mcp.enable = lib.mkEnableOption "MCP";
+  options.services.mcp = {
+    enable = lib.mkEnableOption "MCP";
+
+    servers = lib.mkOption {
+      type = lib.types.listOf (lib.types.enum (lib.attrNames servers));
+      default = lib.attrNames servers;
+      description = "Which MCP servers to enable on this host.";
+    };
+  };
 
   config.impermanence.userDirs = lib.mkIf config.services.mcp.enable [
     ".npm/_npx"
   ];
 
   config.programs.claude-code.mcpServers = lib.mkIf config.services.mcp.enable (
-    lib.mapAttrs toClaudeServer servers
+    lib.mapAttrs toClaudeServer (lib.getAttrs config.services.mcp.servers servers)
   );
 }

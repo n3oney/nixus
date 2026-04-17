@@ -131,7 +131,20 @@
   services = {
     fcitx5.enable = true;
     syncthing.enable = true;
-    mcp.enable = true;
+    mcp = {
+      enable = true;
+      servers = [
+        "effect"
+        "linear"
+        "github"
+        "nx"
+        "repomix"
+        "postgresReadOnly"
+        "postgresMutable"
+        "tavily"
+        "context7"
+      ];
+    };
     tlp.enable = true;
     yubikey-touch-detector.enable = true;
     podman.enable = true;
