@@ -1,0 +1,11 @@
+--- a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
+@@ -969,7 +969,7 @@ static int gmc_v10_0_hw_init(struct amdgpu_ip_block *ip_block)
+ 	struct amdgpu_device *adev = ip_block->adev;
+ 	int r;
+ 
+-	adev->gmc.flush_pasid_uses_kiq = !amdgpu_emu_mode;
++	adev->gmc.flush_pasid_uses_kiq = false; /* gfx1013/BC-250: KIQ TLB flush wedges */
+ 
+ 	/* The sequence of these two function calls matters.*/
+ 	gmc_v10_0_init_golden_registers(adev);

@@ -94,6 +94,10 @@
         name = "bc250-freq-range";
         patch = ../../hosts/endurance/bc250-freq-range.patch;
       }
+      {
+        name = "bc260-disable-kiq";
+        patch = ../../hosts/endurance/bc250-disable-kiq.patch;
+      }
     ];
     kernelParams = [
       "amdgpu.bc250_cc_write_mode=3"
