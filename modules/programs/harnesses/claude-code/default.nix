@@ -51,7 +51,7 @@ in {
     );
 
     hm = {
-      home.packages = [pkgs.sox];
+      home.packages = [pkgs.sox pkgs.poppler-utils];
 
       home.activation.claudeMcpServers = let
         mcpConfigFile = jsonFormat.generate "claude-mcp-servers.json" {
