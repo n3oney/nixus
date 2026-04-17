@@ -51,7 +51,7 @@ in {
           Unit.Description = "Claude remote control in ${dir}";
           Install.WantedBy = ["default.target"];
           Service = {
-            ExecStart = "${lib.getExe pkgs.bash} -lc '${lib.getExe hmConfig.programs.claude-code.package} remote-control --name %H:${dir}'";
+            ExecStart = "${lib.getExe pkgs.bash} -lc '${lib.getExe hmConfig.programs.claude-code.package} remote-control --permission-mode auto --no-create-session-in-dir --name %H:${dir}'";
             WorkingDirectory = dir;
             Restart = "on-failure";
             RestartSec = 5;
