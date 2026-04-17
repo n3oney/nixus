@@ -26,12 +26,12 @@
   };
   norish = {
     pname = "norish";
-    version = "v0.17.3-beta";
+    version = "v0.18.3-beta";
     src = dockerTools.pullImage {
       imageName = "norishapp/norish";
-      imageDigest = "sha256:09ca93226afadf93cf9538335b032857c28c4ad704004cc34f36cb16ae51ab14";
-      sha256 = "sha256-SS8ST5kDC5NT3+RCFYOm/AuUaAnEPjw+7+q6yWNjoQw=";
-      finalImageTag = "v0.17.3-beta";
+      imageDigest = "sha256:3b133ada0ef7688520bf70dc94585312b29e6d518465f59c8f1cca63a0df3a13";
+      sha256 = "sha256-s3wNV/fA2PpIoEeKcF7zxUp0ya0argzbEMu9BZuzHQs=";
+      finalImageTag = "v0.18.3-beta";
     };
   };
   orca-slicer = {
