@@ -136,7 +136,6 @@
     ngrok.enable = true;
     gh.enable = true;
     obs-studio.enable = true;
-    opencode.enable = true;
     claude-code.enable = true;
     orcaSlicer.enable = true;
     platformio.enable = true;

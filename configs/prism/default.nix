@@ -98,7 +98,6 @@
     kicad.enable = true;
     neovim.enable = true;
     obs-studio.enable = true;
-    opencode.enable = true;
     claude-code.enable = true;
     platformio.enable = true;
     rider.enable = true;

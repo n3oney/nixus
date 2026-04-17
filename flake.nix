@@ -75,11 +75,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    opencode-notifier = {
-      url = "github:mohak34/opencode-notifier";
-      flake = false;
-    };
-
     shadower.url = "github:n3oney/shadower";
     sidra.url = "github:wimpysworld/sidra";
     zen-browser-flake.url = "github:youwen5/zen-browser-flake";

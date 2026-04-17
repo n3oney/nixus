@@ -116,16 +116,6 @@
     };
   };
 
-  toOpencodeServer = _: value:
-    {
-      enabled = true;
-      type = "local";
-      command = [value.command] ++ value.args;
-    }
-    // lib.optionalAttrs (value ? environment) {
-      inherit (value) environment;
-    };
-
   toClaudeServer = _: value: let
     literalEnv =
       lib.filterAttrs (_: v: !(lib.isString v && lib.hasInfix "{env:" v))
@@ -144,10 +134,6 @@ in {
   config.impermanence.userDirs = lib.mkIf config.services.mcp.enable [
     ".npm/_npx"
   ];
-
-  config.hm = lib.mkIf config.services.mcp.enable {
-    programs.opencode.settings.mcp = lib.mapAttrs toOpencodeServer servers;
-  };
 
   config.programs.claude-code.mcpServers = lib.mkIf config.services.mcp.enable (
     lib.mapAttrs toClaudeServer servers
