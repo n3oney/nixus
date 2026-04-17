@@ -19,7 +19,7 @@
 
   boot.extraModulePackages = with config.boot.kernelPackages; [v4l2loopback.out];
   boot.initrd.kernelModules = [];
-  boot.kernelPackages = pkgs.linuxPackages_6_12;
+  boot.kernelPackages = pkgs.linuxPackages_latest;
   boot.kernelModules = ["kvm-amd" "amdgpu" "iptable_nat" "iptable_filter"];
   boot.kernelParams = ["acpi_enforce_resources=lax"];
 
