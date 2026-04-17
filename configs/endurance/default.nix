@@ -48,7 +48,7 @@
     enable = true;
     host = "0.0.0.0";
     openFirewall = true;
-    contextSize = 65536;
+    contextSize = 32768;
     model = "/var/lib/llama-cpp/Qwen3.5-9B-Q6_K.gguf";
     # mmproj = "/var/lib/llama-cpp/mmproj-gemma-4-E4B-it-F16.gguf";
   };
