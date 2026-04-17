@@ -59,9 +59,15 @@
     done
   '';
 
-  skillDirs = builtins.attrNames (
-    lib.filterAttrs (_: v: v == "directory") (builtins.readDir drv)
+  patternsDir = "${inputs.EffectPatterns}/content/published/patterns";
+  mdxFiles = lib.filter (p: lib.hasSuffix ".mdx" (toString p)) (
+    lib.filesystem.listFilesRecursive patternsDir
   );
+  skillDirs = map (p:
+    builtins.unsafeDiscardStringContext (
+      lib.removeSuffix ".mdx" (baseNameOf (toString p))
+    ))
+  mdxFiles;
 in {
   inherit drv skillDirs;
 }
