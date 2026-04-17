@@ -12,6 +12,10 @@
     services.zigbee2mqtt = {
       enable = true;
       settings = {
+        availability = {
+          active.timeout = 60;
+          passive.timeout = 1500;
+        };
         serial = {
           port = "/dev/ttyUSB0";
           adapter = "ember";
