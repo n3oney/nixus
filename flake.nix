@@ -9,6 +9,10 @@
       flake = false;
       url = "github:rose-pine/btop";
     };
+    combined-manager = {
+      url = "github:flafydev/combined-manager";
+      flake = false;
+    };
     degra-ical.url = "github:n3oney/degra-ical";
     dissent.url = "github:diamondburned/dissent";
     EffectPatterns = {
@@ -99,11 +103,7 @@
       "aarch64-linux"
       "x86_64-linux"
     ];
-
-    combinedManager = import (builtins.fetchTarball {
-      url = "https://github.com/flafydev/combined-manager/archive/e7ba6d6b57ee03352022660fcd572c973b6b26db.tar.gz";
-      sha256 = "sha256:11raq3s4d7b0crihx8pilhfp74xp58syc36xrsx6hdscyiild1z7";
-    });
+    combinedManager = import inputs.combined-manager;
   in {
     packages = forAllSystems (
       system: let
