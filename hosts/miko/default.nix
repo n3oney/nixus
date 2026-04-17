@@ -58,6 +58,20 @@
           }
         ];
       };
+      wireplumber.extraConfig."51-audio-defaults"."monitor.alsa.rules" = [
+        {
+          matches = [{"node.name" = "alsa_output.pci-0000_0c_00.4.iec958-stereo";}];
+          actions.update-props."node.disabled" = true;
+        }
+        {
+          matches = [{"node.name" = "alsa_input.usb-Sunplus_IT_Co_HD_720P_webcam_AN20200706001-02.mono-fallback";}];
+          actions.update-props."node.disabled" = true;
+        }
+        {
+          matches = [{"node.name" = "alsa_input.usb-SM900_Microphon_SM900_Microphone_20190703-00.mono-fallback";}];
+          actions.update-props."priority.session" = 2000;
+        }
+      ];
     };
 
     services.avahi = {
