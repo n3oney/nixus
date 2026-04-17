@@ -23,6 +23,7 @@
     (lib.mkIf config.programs.gaming.steam.enable {
       programs.steam = {
         enable = true;
+        extest.enable = true;
         remotePlay.openFirewall = true;
         package = pkgs.steam.override {
           extraPkgs = pkgs: with pkgs; [gamescope libkrb5 keyutils nspr nss_latest];
