@@ -230,7 +230,7 @@
     ];
   };
 
-  programs.atuin.enable = true;
+  # programs.atuin.enable = true;
 
   os.system.activationScripts.binbash = {
     deps = ["binsh"];
