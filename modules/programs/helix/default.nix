@@ -3,9 +3,9 @@
   pkgs,
   ...
 }: {
-  hm = {
-    home.sessionVariables.EDITOR = "hx";
+  os.environment.variables.EDITOR = "hx";
 
+  hm = {
     programs.helix = {
       enable = true;
       package = pkgs.helix;
