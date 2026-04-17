@@ -83,6 +83,7 @@ in {
         settings = {
           voiceEnabled = true;
           theme = "dark";
+          tui = "fullscreen";
           permissions = {
             allow = [
               "mcp__lsp"
