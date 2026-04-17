@@ -9,7 +9,7 @@
     services.wyoming.openwakeword = {
       uri = "tcp://0.0.0.0:10400";
       enable = true;
-      extraArgs = ["--preload-model" "ok_nabu"];
+      extraArgs = ["--preload-model" "okay_nabu"];
     };
   };
 }
