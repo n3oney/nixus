@@ -29,6 +29,12 @@
         user = {
           inherit email name;
         };
+        signing = {
+          behavior = "drop";
+          backend = "ssh";
+          key = "/home/neoney/.ssh/id_ed25519_sk.pub";
+        };
+        git.sign-on-push = true;
         ui = {
           default-command = "log";
           diff-formatter = ["${pkgs.difftastic}/bin/difft" "--color=always" "$left" "$right"];
