@@ -7,11 +7,6 @@
 
   services.minecraft-server.enable = true;
 
-  services.arr = {
-    enable = false;
-    jackett.enable = false;
-  };
-
   services.syncthing = {
     enable = true;
     openToInternet = true;
