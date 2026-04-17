@@ -1,32 +1,16 @@
 {
   config,
   lib,
-  pkgs,
+  hmConfig,
   ...
 }: let
   cfg = config.display;
-
-  cursor = {
-    package = pkgs.catppuccin-cursors.macchiatoTeal;
-    name = "catppuccin-macchiato-teal-cursors";
-    size = 24;
-  };
+  inherit (hmConfig.home) pointerCursor;
 in {
   config = lib.mkIf cfg.enable {
-    hm.home.pointerCursor = {
-      gtk.enable = true;
-      inherit (cursor) name;
-      inherit (cursor) package;
-      inherit (cursor) size;
-      x11 = {
-        defaultCursor = cursor.name;
-        enable = true;
-      };
-    };
-
     hm.wayland.windowManager.hyprland.settings = {
       exec-once = [
-        "hyprctl setcursor ${cursor.name} ${toString cursor.size}"
+        "hyprctl setcursor ${pointerCursor.name} ${toString pointerCursor.size}"
       ];
 
       decoration = {
