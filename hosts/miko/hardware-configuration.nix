@@ -11,6 +11,12 @@
 
   boot.initrd.availableKernelModules = ["nvme" "xhci_pci" "ahci" "usbhid" "usb_storage" "sd_mod"];
 
+  boot.kernel.sysctl."vm.min_free_kbytes" = 524288;
+  powerManagement.resumeCommands = ''
+    ${pkgs.kmod}/bin/modprobe -r atlantic || true
+    ${pkgs.kmod}/bin/modprobe atlantic
+  '';
+
   boot.extraModulePackages = with config.boot.kernelPackages; [v4l2loopback.out];
   boot.initrd.kernelModules = [];
   boot.kernelPackages = pkgs.linuxPackages_6_12;
