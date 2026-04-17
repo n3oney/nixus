@@ -21,14 +21,6 @@
         shellAliases = {
           cd = "z";
           cat = "${lib.getExe pkgs.bat}";
-          # git change branch
-          gcb = "git checkout";
-          # git down
-          gd = "git pull";
-          # git up
-          gu = "git push";
-          gc = "git commit";
-          ga = "git add";
         };
 
         extraConfig = let
