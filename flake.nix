@@ -77,6 +77,7 @@
     };
 
     shadower.url = "github:n3oney/shadower";
+    sidra.url = "github:wimpysworld/sidra";
     zen-browser-flake.url = "github:youwen5/zen-browser-flake";
     jj-spr.url = "github:jennings/jj-spr/11cf7d864b244d2718dd998d1f39937f26d6f11f";
     jj-starship.url = "github:dmmulroy/jj-starship";

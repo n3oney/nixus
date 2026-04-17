@@ -142,6 +142,7 @@
     platformio.enable = true;
     rider.enable = true;
     datagrip.enable = true;
+    sidra.enable = true;
     spotify.enable = true;
     swappy.enable = true;
     thunderbird.enable = true;

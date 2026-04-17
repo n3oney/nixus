@@ -102,6 +102,7 @@
     claude-code.enable = true;
     platformio.enable = true;
     rider.enable = true;
+    sidra.enable = true;
     swappy.enable = true;
     orcaSlicer.enable = true;
     thunderbird.enable = true;
