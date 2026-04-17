@@ -132,7 +132,7 @@
         user = {
           inherit name email;
         };
-        url."git@github.com:".insteadOf = "https://github.com/";
+        # url."git@github.com:".insteadOf = "https://github.com/";
         user.signingkey = "/home/neoney/.ssh/id_ed25519_sk.pub";
         gpg.format = "ssh";
         pull.rebase = true;
