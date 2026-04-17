@@ -24,7 +24,7 @@
                 --suffix PATH : "${pkgs.nodejs_24}/bin"
             '';
         }))
-      pkgs.dotnet-sdk_9
+      pkgs.dotnet-sdk_8
     ];
 
     impermanence.userDirs = [".java/.userPrefs" ".config/JetBrains" ".local/share/JetBrains" ".cache/JetBrains"];
