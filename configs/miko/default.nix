@@ -110,7 +110,7 @@
     vicinae.enable = true;
     # bottles.enable = true;
     btop.enable = true;
-    chrome.enable = true;
+    # chrome.enable = true;
     discord = {
       enable = true;
       # useDissent = true;
@@ -128,7 +128,6 @@
     };
     helium.enable = true;
     kicad.enable = true;
-    webstorm.enable = true;
     neovim.enable = true;
     ngrok.enable = true;
     gh.enable = true;
@@ -148,7 +147,6 @@
   };
 
   services = {
-    # warp.enable = true;
     kde_connect.enable = true;
     podman.enable = true;
     openrgb.enable = true;
@@ -157,7 +155,6 @@
     kondo.enable = true;
     syncthing.enable = true;
     yubikey-touch-detector.enable = true;
-    # uxplay.enable = true;
 
     binary-cache.server.enable = true;
   };
