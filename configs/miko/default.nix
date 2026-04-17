@@ -110,7 +110,7 @@
     adb.enable = true;
     waydroid.enable = true;
     vicinae.enable = true;
-    bottles.enable = true;
+    # bottles.enable = true;
     btop.enable = true;
     chrome.enable = true;
     discord = {
