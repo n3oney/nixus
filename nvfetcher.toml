@@ -7,6 +7,12 @@ src.container = "homeassistant/home-assistant"
 src.include_regex = "\\d+\\.\\d+\\.\\d+$"
 fetch.docker = "homeassistant/home-assistant"
 
+
+[music-assistant]
+src.github_tag = "music-assistant/server"
+src.include_regex = "\\d+\\.\\d+\\.\\d+"
+fetch.url = "https://github.com/music-assistant/server/archive/refs/tags/$ver.tar.gz"
+
 [norish]
 src.container = "norishapp/norish"
 src.include_regex = "v\\d+\\.\\d+\\.\\d+-beta$"

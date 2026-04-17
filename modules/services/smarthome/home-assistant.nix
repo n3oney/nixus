@@ -88,7 +88,7 @@
       virtualisation.oci-containers = {
         backend = "podman";
         containers.music-assistant = {
-          image = "ghcr.io/music-assistant/server:2.7.11"; # updated manually - nvfetcher can't track GHCR
+          image = "ghcr.io/music-assistant/server:${sources.music-assistant.version}";
           volumes = [
             "/var/lib/music-assistant:/data"
             "/var/lib/home-assistant-media:/media"

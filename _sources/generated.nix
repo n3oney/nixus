@@ -24,6 +24,14 @@
       finalImageTag = "2026.6.1";
     };
   };
+  music-assistant = {
+    pname = "music-assistant";
+    version = "2.8.9";
+    src = fetchurl {
+      url = "https://github.com/music-assistant/server/archive/refs/tags/2.8.9.tar.gz";
+      sha256 = "sha256-z63ohOA2EiUk8WBDxaVPLZk7lGahZOzKJ5iepUXLIyk=";
+    };
+  };
   norish = {
     pname = "norish";
     version = "v0.18.3-beta";

@@ -34,6 +34,21 @@
         },
         "version": "2026.6.1"
     },
+    "music-assistant": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "music-assistant",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-z63ohOA2EiUk8WBDxaVPLZk7lGahZOzKJ5iepUXLIyk=",
+            "type": "url",
+            "url": "https://github.com/music-assistant/server/archive/refs/tags/2.8.9.tar.gz"
+        },
+        "version": "2.8.9"
+    },
     "norish": {
         "cargoLock": null,
         "date": null,
