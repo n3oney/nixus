@@ -131,7 +131,6 @@
     fcitx5.enable = true;
     syncthing.enable = true;
     mcp.enable = true;
-    ollama.enable = true;
     tlp.enable = true;
     yubikey-touch-detector.enable = true;
     podman.enable = true;
