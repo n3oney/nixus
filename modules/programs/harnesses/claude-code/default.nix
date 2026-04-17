@@ -64,7 +64,7 @@ in {
             claude_json="$HOME/.claude.json"
             if [ -f "$claude_json" ]; then
               existing=$(cat "$claude_json")
-              merged=$(printf '%s' "''${existing:-"{}"}" | ${jq} -s '.[0] * .[1]' - ${mcpConfigFile})
+              merged=$(printf '%s' "''${existing:-"{}"}" | ${jq} -s '.[0] + {mcpServers: .[1].mcpServers}' - ${mcpConfigFile})
               printf '%s\n' "$merged" > "$claude_json"
             else
               cp ${mcpConfigFile} "$claude_json"
