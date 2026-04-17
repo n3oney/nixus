@@ -26,7 +26,7 @@ in {
     };
   };
 
-  config = lib.mkIf (cfg.enable && !cfg.useDissent) {
+  config = mkIf (cfg.enable) {
     applications.discord = {
       autostart = true;
       binaryPath = lib.getExe cfg.finalPackage;
@@ -37,7 +37,7 @@ in {
       blockFromScreencast = true;
     };
 
-    impermanence.userDirs =  [".config/vesktop"];
+    impermanence.userDirs = [".config/vesktop"];
 
     hm = {
       services.arrpc.enable = true;
