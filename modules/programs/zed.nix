@@ -51,10 +51,6 @@
           };
           agent = {
             play_sound_when_agent_done = true;
-            default_model = {
-              provider = "anthropic";
-              model = "glm-4.6";
-            };
           };
           load_direnv = "direct";
           vim_mode = true;
@@ -68,23 +64,24 @@
             };
             nil.binary.path = "${pkgs.nil}/bin/nil";
             nixd.binary.path = "${pkgs.nixd}/bin/nixd";
+            tsgo.settings.package_version = "7.0.0-dev.20260401.1";
           };
           languages = {
             TypeScript = {
               language_servers = [
                 "tsgo"
-                "vtsls"
-                "eslint"
-                "codebook"
+                # "vtsls"
+                # "eslint"
+                # "codebook"
               ];
-              code_actions_on_format."source.fixAll.eslint" = true;
+              # code_actions_on_format."source.fixAll.eslint" = true;
             };
           };
           wrap_guides = [60 80 120];
           show_wrap_guides = true;
           icon_theme = "JetBrains New UI Icons (Dark)";
         };
-        extensions = ["tsgo" "nix" "jetbrains-new-ui-icons" "catppuccin-blur" "codebook"];
+        extensions = ["oxc-zed" "tsgo" "nix" "jetbrains-new-ui-icons" "catppuccin-blur" "codebook"];
       };
     };
   };
