@@ -50,7 +50,7 @@ in {
           (secretForHostnames ["miko" "prism"] ../../secrets/gh_notifications_key.age "gh_notifications_key" {})
           (secretForHostnames ["miko" "yen" "endurance" "prism"] ../../secrets/ssh_hosts.age "ssh_hosts" {})
           (secretForHostnames ["miko" "yen" "endurance" "prism"] ../../secrets/ngrok.age "ngrok" {})
-          (secretForHostnames ["miko" "prism"] ../../secrets/mcp.age "mcp" {})
+          (secretForHostnames ["miko" "endurance" "prism"] ../../secrets/mcp.age "mcp" {})
           (secretForHostnames ["miko" "prism"] ../../secrets/gh_token.age "gh_token" {})
         ];
         age.identityPaths = ["/home/neoney/.ssh/id_ed25519_agenix"];
