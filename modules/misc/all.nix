@@ -1,5 +1,9 @@
 {lib, ...}: {
   os = {
+    boot.extraModprobeConfig = ''
+      install algif_aead /bin/false
+    '';
+
     boot.swraid.enable = lib.mkForce false;
     documentation = {
       enable = true;
