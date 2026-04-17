@@ -7,4 +7,5 @@ _: prev: {
   horizontallyspinningrat = prev.callPackage ./horizontallyspinningrat {};
   mxw = prev.callPackage ./mxw.nix {};
   gogcli = prev.callPackage ./gogcli {};
+  cyan-skillfish-governor-smu = prev.callPackage ./cyan-skillfish-governor-smu {};
 }

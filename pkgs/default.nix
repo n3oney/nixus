@@ -7,4 +7,5 @@
   mxw = pkgs.callPackage ./overlays/mxw.nix {};
   zed-plex-mono = pkgs.callPackage ./overlays/zed-plex/default.nix {};
   gogcli = pkgs.callPackage ./overlays/gogcli {};
+  cyan-skillfish-governor-smu = pkgs.callPackage ./overlays/cyan-skillfish-governor-smu {};
 }
