@@ -192,6 +192,8 @@
 
   os.programs.nix-ld.enable = true;
 
+  programs.atuin.enable = true;
+
   os.system.activationScripts.binbash = {
     deps = ["binsh"];
     text = ''
