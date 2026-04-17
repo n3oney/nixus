@@ -88,6 +88,9 @@
     ripgrep
   ];
 
+  os.networking.hosts = {
+    "192.168.1.30" = ["miko"];
+  };
   os.environment.systemPackages = [pkgs.wget];
   os.boot = {
     kernelPackages = lib.mkForce pkgs.linuxPackages_latest;
