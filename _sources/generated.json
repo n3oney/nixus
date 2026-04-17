@@ -78,10 +78,10 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-aVMx1srTEVxyJiaDq7hYwnAYa1wwaGRnZZFhFnKOP9U=",
+            "sha256": "sha256-RlVhl9zC+1UUDgsecMKLTE2jII8SpKJSIBKDfJ137hA=",
             "type": "url",
-            "url": "https://github.com/OrcaSlicer/OrcaSlicer/releases/download/v2.4.0-alpha/OrcaSlicer_Linux_AppImage_Ubuntu2404_v2.4.0-alpha.AppImage"
+            "url": "https://github.com/OrcaSlicer/OrcaSlicer/releases/download/v2.4.0/OrcaSlicer_Linux_AppImage_Ubuntu2404_v2.4.0.AppImage"
         },
-        "version": "v2.4.0-alpha"
+        "version": "v2.4.0"
     }
 }
