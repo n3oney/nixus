@@ -20,7 +20,6 @@ in {
     ./startup.nix
     ./idle.nix
     ./lock.nix
-    ./gyro.nix
     ./gestures.nix
   ];
 
