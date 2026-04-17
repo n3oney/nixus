@@ -34,7 +34,7 @@
     networking = {
       hostName = "miko";
       networkmanager.enable = true;
-      interfaces.eno1.wakeOnLan.enable = true;
+      interfaces.enp6s0.wakeOnLan.enable = true;
       firewall.allowedTCPPorts = [2115];
       nameservers = [
         "1.1.1.1"
