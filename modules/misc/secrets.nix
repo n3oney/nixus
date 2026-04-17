@@ -28,11 +28,13 @@ in {
           "/persist/etc/ssh/ssh_host_rsa_key"
         ];
         age.secrets = lib.mkMerge [
-          (secretForHostnames ["max"] ../../secrets/cloudflared.age "cloudflared" {
+          (secretForHostnames ["endurance"] ../../secrets/cloudflared.age "cloudflared" {
             owner = "cloudflared";
           })
-          (secretForHostnames ["max"] ../../secrets/norish.age "norish" {})
-          (secretForHostnames ["max"] ../../secrets/z2m.age "z2m.yaml" {
+          (secretForHostnames ["endurance"] ../../secrets/norish.age "norish" {})
+          (secretForHostnames ["miko"] ../../secrets/binary-cache-miko.age "binary-cache-miko" {
+            })
+          (secretForHostnames ["endurance"] ../../secrets/z2m.age "z2m.yaml" {
             owner = "zigbee2mqtt";
             group = "zigbee2mqtt";
             mode = "770";
@@ -45,8 +47,8 @@ in {
         age.secrets = lib.mkMerge [
           (secretForHostnames ["miko" "prism"] ../../secrets/ha_assist_config.age "ha_assist_config" {})
           (secretForHostnames ["miko" "prism"] ../../secrets/gh_notifications_key.age "gh_notifications_key" {})
-          (secretForHostnames ["miko" "yen" "max" "prism"] ../../secrets/ssh_hosts.age "ssh_hosts" {})
-          (secretForHostnames ["miko" "yen" "max" "prism"] ../../secrets/ngrok.age "ngrok" {})
+          (secretForHostnames ["miko" "yen" "endurance" "prism"] ../../secrets/ssh_hosts.age "ssh_hosts" {})
+          (secretForHostnames ["miko" "yen" "endurance" "prism"] ../../secrets/ngrok.age "ngrok" {})
           (secretForHostnames ["miko" "prism"] ../../secrets/mcp.age "mcp" {})
         ];
         age.identityPaths = ["/home/neoney/.ssh/id_ed25519_agenix"];

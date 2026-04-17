@@ -35,6 +35,7 @@
       url = "github:viperML/nh";
     };
     nix-ai-tools.url = "github:numtide/nix-ai-tools";
+    llama-cpp.url = "github:ggml-org/llama.cpp";
     nix-colors.url = "github:Misterio77/nix-colors";
     nix-index-database.url = "github:nix-community/nix-index-database";
     nix-index-database.inputs.nixpkgs.follows = "nixpkgs";
@@ -119,15 +120,15 @@
         };
       };
 
-      max = combinedManager.nixosSystem {
+      endurance = combinedManager.nixosSystem {
         inherit inputs;
         configuration = {
           system = "x86_64-linux";
           specialArgs = {sources = nixpkgs.legacyPackages.x86_64-linux.callPackage ./_sources/generated.nix {};};
           modules = [
             ./modules
-            ./hosts/max
-            ./configs/max
+            ./hosts/endurance
+            ./configs/endurance
           ];
         };
       };

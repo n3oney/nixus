@@ -12,14 +12,15 @@
 
     boot.kernel.sysctl."net.ipv4.ip_forward" = 1;
     boot.kernel.sysctl."net.ipv6.conf.all.forwarding" = 1;
-    boot.kernelParams = ["amdgpu.cik_support=1" "radeon.cik_support=0"];
+    boot.kernelParams = ["ttm.pages_limit=4194304"];
+    boot.initrd.kernelModules = ["amdgpu"];
 
     networking = {
-      hostName = "max";
+      hostName = "endurance";
       networkmanager = {
         enable = true;
       };
-      interfaces.enp1s0.ipv4.addresses = [
+      interfaces.enp4s0.ipv4.addresses = [
         {
           address = "192.168.1.4";
           prefixLength = 24;
@@ -64,10 +65,7 @@
 
     hardware.graphics = {
       enable = true;
-      extraPackages = [
-        pkgs.rocmPackages.clr.icd
-        pkgs.libva-utils
-      ];
+      extraPackages = [pkgs.libva-utils];
     };
 
     time.timeZone = "Europe/Warsaw";

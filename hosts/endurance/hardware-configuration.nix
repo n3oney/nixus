@@ -4,8 +4,10 @@
   pkgs,
   ...
 }: {
-  boot.kernelModules = ["kvm-amd"];
+  boot.kernelModules = ["kvm-amd" "nct6687"];
   boot.initrd.availableKernelModules = ["xhci_pci" "ahci" "ohci_pci" "ehci_pci" "usb_storage" "usbhid" "sd_mod"];
+  boot.extraModulePackages = [config.boot.kernelPackages.nct6687d];
+  boot.blacklistedKernelModules = ["nct6683"];
 
   boot.kernelPackages = pkgs.linuxPackages_xanmod_latest;
 
