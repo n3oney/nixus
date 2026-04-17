@@ -1,0 +1,26 @@
+diff --git a/packages/@n8n/imap/src/imap-simple.ts b/packages/@n8n/imap/src/imap-simple.ts
+index 3494740e57..f8dc7f99a5 100644
+--- a/packages/@n8n/imap/src/imap-simple.ts
++++ b/packages/@n8n/imap/src/imap-simple.ts
+@@ -134,7 +134,7 @@
+ 				}
+ 
+ 				const data = result.parts[0].body as string;
+-				const encoding = part.encoding.toUpperCase();
++				const encoding = part.encoding?.toUpperCase() ?? '7BIT';
+ 				resolve(PartData.fromData(data, encoding));
+ 			};
+ 
+diff --git a/packages/nodes-base/nodes/EmailReadImap/v2/EmailReadImapV2.node.ts b/packages/nodes-base/nodes/EmailReadImap/v2/EmailReadImapV2.node.ts
+index bce9501f24..302a0fd912 100644
+--- a/packages/nodes-base/nodes/EmailReadImap/v2/EmailReadImapV2.node.ts
++++ b/packages/nodes-base/nodes/EmailReadImap/v2/EmailReadImapV2.node.ts
+@@ -299,7 +299,7 @@
+ 
+ 			const textParts = parts.filter((part) => {
+ 				return (
+-					part.type.toUpperCase() === 'TEXT' && part.subtype.toUpperCase() === subtype.toUpperCase()
++					part?.type?.toUpperCase() === 'TEXT' && part?.subtype?.toUpperCase() === subtype?.toUpperCase()
+ 				);
+ 			});
+ 

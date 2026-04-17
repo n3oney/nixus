@@ -11,6 +11,9 @@
     host = "n8n.neoney.dev";
   in {
     services.n8n = {
+      package = pkgs.n8n.overrideAttrs (old: {
+        patches = (old.patches or []) ++ [./apple-imap-fix.patch];
+      });
       enable = true;
       environment = {
         N8N_PORT = port;
