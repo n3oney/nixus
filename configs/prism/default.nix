@@ -92,7 +92,6 @@
     discord = {
       enable = true;
     };
-    gns3.enable = false;
     quickshell.enable = true;
     # firefox.enable = true;
     foot.enable = true;
