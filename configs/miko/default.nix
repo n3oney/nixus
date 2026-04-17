@@ -106,6 +106,7 @@
 
   programs = {
     adb.enable = true;
+    blender.enable = true;
     waydroid.enable = true;
     vicinae.enable = true;
     # bottles.enable = true;
