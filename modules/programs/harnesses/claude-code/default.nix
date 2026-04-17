@@ -80,6 +80,21 @@ in {
 
         inherit skills;
 
+        lspServers.tsgo = {
+          command = "node_modules/.bin/tsgo";
+          args = ["--lsp"]; # stdio is the only supported transport
+          extensionToLanguage = {
+            ".ts" = "typescript";
+            ".mts" = "typescript";
+            ".cts" = "typescript";
+            ".tsx" = "typescriptreact";
+            ".js" = "javascript";
+            ".mjs" = "javascript";
+            ".cjs" = "javascript";
+            ".jsx" = "javascriptreact";
+          };
+        };
+
         settings = {
           voiceEnabled = true;
           theme = "dark";
