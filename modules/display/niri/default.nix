@@ -3,7 +3,6 @@
   lib,
   inputs,
   config,
-  hmConfig,
   ...
 }: let
   cfg = config.display;
@@ -15,18 +14,6 @@
     if cfg.deviceOverrides != []
     then (builtins.head cfg.deviceOverrides).sensitivity or cfg.mouseSensitivity
     else cfg.mouseSensitivity;
-
-  # Import niri-flake internals to access settings.render, allowing us to keep
-  # programs.niri.settings while appending extra KDL nodes unsupported by the module.
-  call = pkgs.lib.flip import {
-    inherit inputs;
-    inherit (pkgs) lib;
-    kdl = call "${inputs.niri-flake}/kdl.nix";
-    binds = call "${inputs.niri-flake}/parse-binds.nix";
-    docs = call "${inputs.niri-flake}/generate-docs.nix";
-    settings = call "${inputs.niri-flake}/settings.nix";
-  };
-  niriSettings = call "${inputs.niri-flake}/settings.nix";
 in {
   imports = [
     ./monitors.nix
@@ -39,14 +26,14 @@ in {
 
   config = mkIf cfg.enable {
     # Inject niri-flake HM module so programs.niri.settings is available
-    hmModules = [inputs.niri-flake.homeModules.config];
+    hmModules = ["${inputs.niri-flake}/modules/experimental/home-manager/settings.nix"];
 
     os = {
       environment.sessionVariables.NIXOS_OZONE_WL = "1";
 
-      nixpkgs.overlays = [inputs.niri-flake.overlays.niri];
+      # nixpkgs.overlays = [inputs.niri-flake.overlays.niri];
       programs.niri.enable = true;
-      programs.niri.package = pkgs.niri-unstable;
+      programs.niri.package = pkgs.niri;
 
       xdg.portal = {
         enable = true;
@@ -57,9 +44,11 @@ in {
       };
     };
 
-    hm.programs.niri.package = pkgs.niri-unstable;
+    hm.programs.niri.settings-validation-package = null;
 
     hm.programs.niri.settings = {
+      includes = lib.mkAfter [./extras.kdl];
+
       xwayland-satellite.path = lib.getExe pkgs.xwayland-satellite;
       prefer-no-csd = true;
 
@@ -87,7 +76,6 @@ in {
           dwt = true;
           scroll-factor = 0.3;
         };
-        focus-follows-mouse.enable = false;
         warp-mouse-to-focus.enable = true;
       };
 
@@ -124,28 +112,5 @@ in {
         }
       ];
     };
-
-    hm.programs.niri.config = with inputs.niri-flake.lib.kdl;
-      (niriSettings.render hmConfig.programs.niri.settings)
-      ++ [
-        # Blur all windows
-        (plain "window-rule" [
-          (plain "background-effect" [
-            (leaf "blur" true)
-          ])
-        ])
-        # Blur notifications and bar layer surfaces
-        (plain "layer-rule" [
-          (leaf "match" {namespace = "^(notifications|bar)$";})
-          (plain "background-effect" [
-            (leaf "blur" true)
-          ])
-        ])
-        # Block notifications from screencast
-        (plain "layer-rule" [
-          (leaf "match" {namespace = "^notifications$";})
-          (leaf "block-out-from" "screencast")
-        ])
-      ];
   };
 }

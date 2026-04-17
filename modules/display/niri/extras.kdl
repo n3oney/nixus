@@ -1,0 +1,17 @@
+window-rule {
+    background-effect {
+        blur true
+    }
+}
+
+layer-rule {
+    match namespace="^(notifications|bar)$"
+    background-effect {
+        blur true
+    }
+}
+
+layer-rule {
+    match namespace="^notifications$"
+    block-out-from "screencast"
+}

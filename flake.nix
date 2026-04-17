@@ -41,13 +41,8 @@
     nix-index-database.url = "github:nix-community/nix-index-database";
     nix-index-database.inputs.nixpkgs.follows = "nixpkgs";
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
-    niri = {
-      url = "github:niri-wm/niri";
-      flake = false;
-    };
     niri-flake = {
-      url = "github:sodiboo/niri-flake";
-      inputs.niri-unstable.follows = "niri";
+      url = "github:sodiboo/niri-flake/very-refactor";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
