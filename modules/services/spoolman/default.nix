@@ -1,25 +1,14 @@
 {
   config,
+  inputs,
   lib,
   ...
 }: let
   cfg = config.services.spoolman;
 
-  pyproject-nix = import (builtins.fetchGit {
-    url = "https://github.com/pyproject-nix/pyproject.nix.git";
-  }) {
-    inherit lib;
-  };
-
-  uv2nix = import (builtins.fetchGit {
-    url = "https://github.com/pyproject-nix/uv2nix.git";
-  }) {
-    inherit pyproject-nix lib;
-  };
-
-  pyproject-build-systems = import (builtins.fetchGit {
-    url = "https://github.com/pyproject-nix/build-system-pkgs.git";
-  }) {
+  pyproject-nix = import inputs.pyproject-nix {inherit lib;};
+  uv2nix = import inputs.uv2nix {inherit pyproject-nix lib;};
+  pyproject-build-systems = import inputs.pyproject-build-systems {
     inherit pyproject-nix uv2nix lib;
   };
 in {
