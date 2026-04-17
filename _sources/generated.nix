@@ -34,4 +34,12 @@
       finalImageTag = "v0.17.3-beta";
     };
   };
+  orca-slicer = {
+    pname = "orca-slicer";
+    version = "v2.4.0-alpha";
+    src = fetchurl {
+      url = "https://github.com/OrcaSlicer/OrcaSlicer/releases/download/v2.4.0-alpha/OrcaSlicer_Linux_AppImage_Ubuntu2404_v2.4.0-alpha.AppImage";
+      sha256 = "sha256-aVMx1srTEVxyJiaDq7hYwnAYa1wwaGRnZZFhFnKOP9U=";
+    };
+  };
 }

@@ -53,5 +53,20 @@
             "tlsVerify": null
         },
         "version": "v0.17.3-beta"
+    },
+    "orca-slicer": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "orca-slicer",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-aVMx1srTEVxyJiaDq7hYwnAYa1wwaGRnZZFhFnKOP9U=",
+            "type": "url",
+            "url": "https://github.com/OrcaSlicer/OrcaSlicer/releases/download/v2.4.0-alpha/OrcaSlicer_Linux_AppImage_Ubuntu2404_v2.4.0-alpha.AppImage"
+        },
+        "version": "v2.4.0-alpha"
     }
 }

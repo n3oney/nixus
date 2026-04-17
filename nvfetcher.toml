@@ -11,3 +11,8 @@ fetch.docker = "homeassistant/home-assistant"
 src.container = "norishapp/norish"
 src.include_regex = "v\\d+\\.\\d+\\.\\d+-beta$"
 fetch.docker = "norishapp/norish"
+
+[orca-slicer]
+src.github_tag = "OrcaSlicer/OrcaSlicer"
+src.include_regex = "v.*"
+fetch.url = "https://github.com/OrcaSlicer/OrcaSlicer/releases/download/$ver/OrcaSlicer_Linux_AppImage_Ubuntu2404_$ver.AppImage"
