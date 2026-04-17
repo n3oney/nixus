@@ -14,11 +14,6 @@
 
   services.n8n.enable = true;
 
-  services.mssql = {
-    enable = true;
-    openFirewall = true;
-  };
-
   services.degra-ical.enable = true;
 
   services.vaultwarden.enable = true;
