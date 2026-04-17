@@ -1,8 +1,4 @@
-{
-  pkgs,
-  inputs,
-  ...
-}: {
+{pkgs, ...}: {
   hm = let
     name = "n3oney";
     email = "neo@neoney.dev";
@@ -11,7 +7,6 @@
       enable = true;
       settings = {
         aliases = {
-          spr = ["util" "exec" "--" "${inputs.jj-spr.packages.${pkgs.stdenv.hostPlatform.system}.default}/bin/jj-spr"];
           ins = ["new" "--insert-after"];
           pull = ["git" "fetch"];
           push = ["git" "push"];
