@@ -32,6 +32,7 @@ in {
             owner = "cloudflared";
           })
           (secretForHostnames ["endurance"] ../../secrets/norish.age "norish" {})
+          (secretForHostnames ["miko" "endurance" "prism"] ../../secrets/pivo.age "pivo" {})
           (secretForHostnames ["miko"] ../../secrets/binary-cache-miko.age "binary-cache-miko" {
             })
           (secretForHostnames ["endurance"] ../../secrets/z2m.age "z2m.yaml" {

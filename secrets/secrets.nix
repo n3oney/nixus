@@ -29,6 +29,7 @@ in {
 
   "norish.age".publicKeys = miko ++ prism ++ endurance;
 
+  "pivo.age".publicKeys = miko ++ endurance ++ prism;
 
   "binary-cache-miko.age".publicKeys = miko;
 }

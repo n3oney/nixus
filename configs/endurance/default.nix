@@ -24,6 +24,7 @@
     enable = true;
     home-assistant.host = "hass.endurance.local:80";
     wyoming.enable = true;
+    pivo.enable = true;
     otbr = {
       enable = true;
       backboneIf = "enp4s0";

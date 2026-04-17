@@ -52,6 +52,8 @@
 
     orca-slicer-nightly.url = "github:skwort/orca-slicer-nightly";
 
+    pivo.url = "path:/home/neoney/code/pivo";
+
     pyproject-nix = {
       url = "github:pyproject-nix/pyproject.nix";
       inputs.nixpkgs.follows = "nixpkgs";
