@@ -1,0 +1,41 @@
+{%- if messages[0]['role'] == 'system' -%}
+    {%- set system_message = messages[0]['content'] -%}
+    {%- set loop_messages = messages[1:] -%}
+{%- else -%}
+    {%- set loop_messages = messages -%}
+{%- endif -%}
+{%- if system_message is defined or tools -%}
+{{- '<|im_start|>system\n' -}}
+{%- if system_message is defined -%}
+{{- system_message -}}
+{%- endif -%}
+{%- if tools -%}
+{%- if system_message is defined %}
+
+{% endif -%}
+You are provided with tool signatures that you can use to assist with the user's query.
+You do not have to use a tool if you can respond adequately without it.
+Do not make assumptions about tool arguments. If required parameters are missing, ask a clarification question.
+
+If you decide to invoke a tool, you MUST respond with ONLY valid JSON in the following format:
+{"name":"<tool-name>","arguments":{...}}
+
+Below is a list of tools you can invoke (JSON):
+{{ tools | tojson }}
+{%- endif -%}
+{{- '<|im_end|>\n' -}}
+{%- endif -%}
+{%- for message in loop_messages -%}
+{%- if message['role'] == 'assistant' and message['tool_calls'] is defined and message['tool_calls'] -%}
+{{- '<|im_start|>assistant\n' -}}
+{%- for tc in message['tool_calls'] -%}
+{{- {'name': tc['function']['name'], 'arguments': tc['function']['arguments']} | tojson -}}
+{%- endfor -%}
+{{- '<|im_end|>\n' -}}
+{%- else -%}
+{{- '<|im_start|>' + message['role'] + '\n' + message['content'] + '<|im_end|>\n' -}}
+{%- endif -%}
+{%- endfor -%}
+{%- if add_generation_prompt -%}
+{{- '<|im_start|>assistant\n' -}}
+{%- endif -%}

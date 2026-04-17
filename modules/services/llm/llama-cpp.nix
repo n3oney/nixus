@@ -21,6 +21,15 @@
         description = "Optional multimodal projector GGUF (audio/vision). Chat instances only.";
       };
 
+      chatTemplate = lib.mkOption {
+        type = lib.types.nullOr lib.types.path;
+        default = null;
+        description = ''
+          Jinja chat-template file passed to --chat-template-file. Use when the
+          model's embedded GGUF template lacks tool-call support (e.g. Bielik).
+        '';
+      };
+
       vocoder = lib.mkOption {
         type = lib.types.nullOr lib.types.path;
         default = null;
@@ -59,6 +68,8 @@
     };
   };
 
+  # Model-agnostic chat-server flags. Sampling and chat template are
+  # model-specific and set per-instance (samplingArgs / chatTemplate).
   chatArgs = [
     "--ubatch-size 2048"
     "--flash-attn on"
@@ -70,13 +81,6 @@
     "--cache-ram 2048"
     "--ctx-checkpoints 16"
     "--cache-reuse 256"
-    ''--chat-template-kwargs {\"enable_thinking\":false}''
-    "--temp 0.7"
-    "--top-p 0.8"
-    "--top-k 20"
-    "--min-p 0.0"
-    "--presence-penalty 1.5"
-    "--repeat-penalty 1.0"
   ];
 
   mkUnit = name: icfg: let
@@ -105,6 +109,7 @@
           "-ngl 99"
         ]
         ++ lib.optionals (!isTts) chatArgs
+        ++ lib.optional (!isTts && icfg.chatTemplate != null) "--chat-template-file ${icfg.chatTemplate}"
         ++ lib.optional isTts "--model-vocoder ${icfg.vocoder}"
         ++ lib.optional (icfg.mmproj != null) "--mmproj ${icfg.mmproj}"
         ++ icfg.extraArgs);

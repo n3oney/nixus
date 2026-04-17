@@ -66,8 +66,10 @@
     host = "0.0.0.0";
     openFirewall = true;
     contextSize = 16384;
-    model = "/var/lib/llama-cpp-chat/Qwen3.5-9B-Q6_K.gguf";
+    model = "/var/lib/llama-cpp-chat/Bielik-11B-v3.0-Instruct.Q5_K_M.gguf";
     # mmproj = "/var/lib/llama-cpp-chat/mmproj-gemma-4-E4B-it-F16.gguf";
+    chatTemplate = ../../modules/services/llm/bielik-chat-template.jinja;
+    extraArgs = ["--temp 0.1"];
   };
 
   services.omnivoice = {
