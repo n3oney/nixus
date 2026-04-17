@@ -11,7 +11,7 @@
       info.enable = false;
       # dev.enable = lib.mkForce true;
       man = {
-        generateCaches = false;
+        cache.enable = false;
         man-db.enable = false;
         mandoc.enable = true;
       };
