@@ -130,7 +130,6 @@
     };
     helium.enable = true;
     kicad.enable = true;
-    neovim.enable = true;
     ngrok.enable = true;
     gh.enable = true;
     obs-studio.enable = true;

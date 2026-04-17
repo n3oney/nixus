@@ -97,7 +97,6 @@
     # firefox.enable = true;
     foot.enable = true;
     kicad.enable = true;
-    neovim.enable = true;
     obs-studio.enable = true;
     claude-code.enable = true;
     platformio.enable = true;
