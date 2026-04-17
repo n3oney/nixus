@@ -32,8 +32,8 @@
 
     accept-flake-config = true;
 
-    extra-experimental-features = ["flakes" "nix-command" "lazy-trees"];
-    lazy-trees = true;
+    extra-experimental-features = ["flakes" "nix-command"];
+    # lazy-trees = true;
 
     substituters = [
       "https://cache.nixos.org"
@@ -61,6 +61,8 @@
   };
 in {
   hm.nix.settings = nixSettings;
+
+  osModules = [inputs.determinate.nixosModules.default];
 
   os = {
     nixpkgs.overlays = [

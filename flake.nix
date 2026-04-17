@@ -14,6 +14,7 @@
       flake = false;
     };
     degra-ical.url = "github:n3oney/degra-ical";
+    determinate.url = "https://flakehub.com/f/DeterminateSystems/determinate/*";
     dissent.url = "github:diamondburned/dissent";
     EffectPatterns = {
       url = "github:PauljPhilp/EffectPatterns";
