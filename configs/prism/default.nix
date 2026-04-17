@@ -112,6 +112,7 @@
     };
 
     ngrok.enable = true;
+    gh.enable = true;
 
     vscode.enable = true;
 

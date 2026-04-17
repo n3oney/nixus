@@ -16,6 +16,7 @@ let
 in {
   "ha_assist_config.age".publicKeys = miko ++ prism;
   "gh_notifications_key.age".publicKeys = miko ++ prism;
+  "gh_token.age".publicKeys = miko ++ prism;
   "cloudflared.age".publicKeys = miko ++ endurance ++ prism;
 
   "ssh_hosts.age".publicKeys = miko ++ yen ++ endurance ++ prism;
