@@ -89,8 +89,7 @@ in {
     nix = let
       mappedRegistry = lib.mapAttrs (_: v: {flake = v;}) inputs;
     in {
-      package = pkgs.lixPackageSets.stable.lix;
-      # package = pkgs.nix-super;
+      # package = pkgs.lixPackageSets.stable.lix;
       registry =
         mappedRegistry
         // {
