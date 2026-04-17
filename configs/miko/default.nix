@@ -203,7 +203,33 @@
     mxw
   ];
 
-  os.programs.nix-ld.enable = true;
+  os.programs.nix-ld = {
+    enable = true;
+    libraries = [
+      pkgs.glib
+      pkgs.nss
+      pkgs.nspr
+      pkgs.dbus
+      pkgs.atk
+      pkgs.at-spi2-atk
+      pkgs.at-spi2-core
+      pkgs.cups
+      pkgs.libdrm
+      pkgs.expat
+      pkgs.libgbm
+      pkgs.libxkbcommon
+      pkgs.pango
+      pkgs.cairo
+      pkgs.alsa-lib
+      pkgs.libx11
+      pkgs.libxcomposite
+      pkgs.libxdamage
+      pkgs.libxext
+      pkgs.libxfixes
+      pkgs.libxrandr
+      pkgs.libxcb
+    ];
+  };
 
   programs.atuin.enable = true;
 
