@@ -1,5 +1,5 @@
 diff --git a/buffyboard/lv_conf.h b/buffyboard/lv_conf.h
-index 6c6570c067..674dfe00d2 100644
+index 1b65726fcd..1d1df36735 100644
 --- a/buffyboard/lv_conf.h
 +++ b/buffyboard/lv_conf.h
 @@ -87,7 +87,7 @@
@@ -12,10 +12,10 @@ index 6c6570c067..674dfe00d2 100644
  /** Default Dots Per Inch. Used to initialize default sizes such as widgets sized, style paddings.
   * (Not so important, you can adjust it to modify default sizes and spaces.) */
 diff --git a/shared/indev.c b/shared/indev.c
-index 6bbee4a9c9..82a54b8f05 100644
+index aaad3f51d5..e2d67b8d90 100644
 --- a/shared/indev.c
 +++ b/shared/indev.c
-@@ -56,11 +56,28 @@
+@@ -56,11 +56,29 @@
      enum input_device_type type;
  };
  
@@ -34,6 +34,7 @@ index 6bbee4a9c9..82a54b8f05 100644
 +    uint8_t count;
 +    uint32_t last_pressed_key;      /* What LVGL thinks is currently pressed */
 +    bool pending_synthetic_release; /* Need to inject release before next press */
++    uint32_t physical_key_held;     /* What key is actually physically held (0 = none) */
 +};
 +
  /* The analog of lv_indev_data_t, but without unused fields */
@@ -45,7 +46,7 @@ index 6bbee4a9c9..82a54b8f05 100644
      };
      lv_indev_state_t state;
  };
-@@ -115,10 +132,55 @@
+@@ -115,10 +133,61 @@
  #ifndef BBX_APP_BUFFYBOARD
  static void read_keypad(lv_indev_t *indev, lv_indev_data_t *data) {
      struct indev_ext* ext = lv_indev_get_user_data(indev);
@@ -66,8 +67,14 @@ index 6bbee4a9c9..82a54b8f05 100644
 +
 +    /* Queue empty */
 +    if (q->count == 0) {
-+        data->state = LV_INDEV_STATE_RELEASED;
-+        data->key = 0;
++        if (q->physical_key_held != 0 && q->last_pressed_key != 0) {
++            /* Key is physically held AND LVGL has seen the press - maintain pressed state for repeat */
++            data->key = q->last_pressed_key;
++            data->state = LV_INDEV_STATE_PRESSED;
++        } else {
++            data->state = LV_INDEV_STATE_RELEASED;
++            data->key = 0;
++        }
 +        return;
 +    }
 +
@@ -105,7 +112,7 @@ index 6bbee4a9c9..82a54b8f05 100644
  #endif
  
  static void read_pointer(lv_indev_t * indev, lv_indev_data_t * data) {
-@@ -204,8 +266,8 @@
+@@ -204,11 +273,11 @@
              goto failure2;
          }
  
@@ -115,8 +122,12 @@ index 6bbee4a9c9..82a54b8f05 100644
 +        memset(&data->keys, 0, sizeof(data->keys));
  
          lv_indev_set_type(ext->keypad, LV_INDEV_TYPE_KEYPAD);
-         lv_indev_set_mode(ext->keypad, LV_INDEV_MODE_EVENT);
-@@ -333,6 +395,10 @@
+-        lv_indev_set_mode(ext->keypad, LV_INDEV_MODE_EVENT);
++        lv_indev_set_mode(ext->keypad, LV_INDEV_MODE_TIMER);
+         lv_indev_set_user_data(ext->keypad, data);
+         lv_indev_set_read_cb(ext->keypad, read_keypad);
+         lv_indev_set_group(ext->keypad, keyboard_input_group);
+@@ -333,6 +402,10 @@
  static void on_input_event() {
      libinput_dispatch(context_libinput);
  
@@ -127,7 +138,7 @@ index 6bbee4a9c9..82a54b8f05 100644
      struct libinput_event * event;
      while ((event = libinput_get_event(context_libinput))) {
          struct libinput_device* device = libinput_event_get_device(event);
-@@ -388,49 +454,49 @@
+@@ -388,49 +461,60 @@
          case LIBINPUT_EVENT_KEYBOARD_KEY: {
              struct libinput_event_keyboard *kb_event = libinput_event_get_keyboard_event(event);
  
@@ -137,6 +148,17 @@ index 6bbee4a9c9..82a54b8f05 100644
              xkb_keycode_t keycode = key + 8;
              bool ignore = false;
 +            uint32_t translated_key = 0;
++
++            /* Get queue pointer early so we can track physical key state before ignore check */
++            struct indev_ext *data = lv_indev_get_user_data(ext->keypad);
++            struct key_queue* q = &data->keys;
++
++            /* Track physical key state using raw libinput key code (before translation/ignore) */
++            if (pressed) {
++                q->physical_key_held = key;
++            } else if (q->physical_key_held == key) {
++                q->physical_key_held = 0;
++            }
  
              switch (key) {
              case KEY_UP:
@@ -190,7 +212,20 @@ index 6bbee4a9c9..82a54b8f05 100644
                  break;
              case KEY_POWER:
                  if (pressed && on_key_power_cb)
-@@ -448,7 +514,7 @@
+@@ -442,13 +526,20 @@
+                     ignore = true;
+                     break;
+                 }
++                if (!pressed) {
++                    /* Ignore release events for character keys - we only care about press.
++                       xkb_state_key_get_utf8 would return the character even on release
++                       (because state hasn't been updated yet), causing double-typing. */
++                    ignore = true;
++                    break;
++                }
+                 char buffer[] = { 0, 0, 0, 0, 0 };
+                 int size = xkb_state_key_get_utf8(ext->xkb_state, keycode, buffer, sizeof(buffer));
+                 if (size == 0) {
                      ignore = true;
                      break;
                  }
@@ -199,14 +234,17 @@ index 6bbee4a9c9..82a54b8f05 100644
                  break;
              }}
  
-@@ -458,9 +524,22 @@
+@@ -458,17 +549,20 @@
              if (ignore)
                  break;
  
--            data->state = pressed ? LV_INDEV_STATE_PRESSED : LV_INDEV_STATE_RELEASED;
-+            /* Enqueue the key event */
-+            struct indev_ext *data = lv_indev_get_user_data(ext->keypad);
-+            struct key_queue* q = &data->keys;
+-            /* If a new key is pressed while the previous is still held (i.e. fast typers),
+-            synthesize a release so LVGL sees the required state transition and
+-            the new keypress is registered */
+-            if (pressed && data->state == LV_INDEV_STATE_PRESSED) {
+-                data->state = LV_INDEV_STATE_RELEASED;
+-                lv_indev_read(ext->keypad);
++            /* Enqueue the key event (data and q already retrieved earlier) */
 +
 +            if (q->count < KEY_QUEUE_SIZE) {
 +                struct key_event* ev = &q->events[q->head];
@@ -216,14 +254,16 @@ index 6bbee4a9c9..82a54b8f05 100644
 +                q->count++;
 +            } else {
 +                bbx_log(BBX_LOG_LEVEL_WARNING, "Key queue overflow, dropping event");
-+            }
+             }
  
+-            data->state = pressed ? LV_INDEV_STATE_PRESSED : LV_INDEV_STATE_RELEASED;
+-
              lv_indev_read(ext->keypad);
 +            had_keyboard_event = true;
              break;
          }
  #endif
-@@ -593,6 +672,25 @@
+@@ -601,6 +695,25 @@
  
          libinput_event_destroy(event);
      }
@@ -250,7 +290,7 @@ index 6bbee4a9c9..82a54b8f05 100644
  
  
 diff --git a/unl0kr/lv_conf.h b/unl0kr/lv_conf.h
-index 0efd1b9b4d..2db0d28f62 100644
+index 81fe5adb8e..c7f2476d2c 100644
 --- a/unl0kr/lv_conf.h
 +++ b/unl0kr/lv_conf.h
 @@ -87,7 +87,7 @@
