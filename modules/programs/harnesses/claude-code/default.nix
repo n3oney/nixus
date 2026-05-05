@@ -76,16 +76,7 @@ in {
         enable = true;
         # Patch the /buddy salt so the companion rolls as a legendary cat.
         # See https://gist.github.com/rinnathecat/0c554c10193b3b8dfac0be338c3d51ee
-        package = (inputs.nix-ai-tools.packages.${pkgs.stdenv.hostPlatform.system}.claude-code).overrideAttrs (old: {
-          postFixup =
-            (old.postFixup or "")
-            + ''
-              for f in $(grep -rlF 'friend-2026-401' $out 2>/dev/null); do
-                chmod +w "$f"
-                ${pkgs.perl}/bin/perl -i -pe 'BEGIN{undef $/} s/friend-2026-401/stm4u4c_fmh77_t/g' "$f"
-              done
-            '';
-        });
+        package = inputs.nix-ai-tools.packages.${pkgs.stdenv.hostPlatform.system}.claude-code;
 
         inherit skills;
 
