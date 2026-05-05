@@ -29,5 +29,7 @@ in {
 
   "norish.age".publicKeys = miko ++ prism ++ endurance;
 
+  "mssql.age".publicKeys = miko ++ yen;
+
   "binary-cache-miko.age".publicKeys = miko;
 }
