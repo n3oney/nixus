@@ -7,8 +7,6 @@
 }: {
   config = lib.mkIf config.display.enable {
     os = let
-      hyprlandCfg = hmConfig.wayland.windowManager.hyprland.settings;
-
       nwg-hello = pkgs.nwg-hello.overrideAttrs (oldAttrs: {
         postPatch =
           (oldAttrs.postPatch or "")
@@ -21,30 +19,6 @@
               --replace "/usr/share/nwg-hello/nwg.jpg" "$out/share/nwg-hello/nwg.jpg"
           '';
       });
-
-      greetdHyprlandConfig = pkgs.writeText "greetd-hyprland-config" (
-        hmConfig.lib.generators.toHyprconf {
-          importantPrefixes = ["$" "bezier" "name" "output"];
-          attrs = {
-            inherit (hyprlandCfg) input general monitor decoration animations dwindle misc;
-
-            # Use GTK theme from ./gtk.nix
-            env =
-              (hyprlandCfg.env or [])
-              ++ [
-                "GTK_THEME,${hmConfig.gtk.theme.name}"
-              ];
-
-            debug.disable_logs = false;
-
-            exec-once = [
-              "hyprctl setcursor ${hmConfig.home.pointerCursor.name} ${toString hmConfig.home.pointerCursor.size}"
-              # No --layer-shell, because Hyprland doesn't focus it by default.
-              "${nwg-hello}/bin/nwg-hello; hyprctl dispatch exit"
-            ];
-          };
-        }
-      );
     in {
       # Make session files available in /run/current-system/sw/share/
       environment.pathsToLink = [
@@ -71,8 +45,17 @@
       services.greetd = {
         enable = true;
         settings = {
-          default_session = {
-            command = "${config.display.package}/bin/start-hyprland -- --config ${greetdHyprlandConfig}";
+          default_session = let
+            nwgWrapper = pkgs.writeShellScript "nwg-hello-wrapper" ''
+              export XDG_DATA_DIRS=/run/current-system/sw/share
+              export GTK_THEME=${hmConfig.gtk.theme.name}
+              export XCURSOR_THEME=${hmConfig.home.pointerCursor.name}
+              export XCURSOR_SIZE=${toString hmConfig.home.pointerCursor.size}
+              ${nwg-hello}/bin/nwg-hello
+              ${pkgs.procps}/bin/pkill -TERM -x labwc
+            '';
+          in {
+            command = "${pkgs.labwc}/bin/labwc -s ${nwgWrapper}";
           };
         };
       };
