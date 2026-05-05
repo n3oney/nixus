@@ -34,11 +34,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
       url = "github:viperML/nh";
     };
-    nix-ai-tools.url = "github:numtide/nix-ai-tools";
     llama-cpp = {
       url = "github:ggml-org/llama.cpp";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nix-ai-tools.url = "github:numtide/nix-ai-tools/92ee3558f5da4e6af64e9486269c62a1f0552d55";
     nix-colors.url = "github:Misterio77/nix-colors";
     nix-index-database.url = "github:nix-community/nix-index-database";
     nix-index-database.inputs.nixpkgs.follows = "nixpkgs";
